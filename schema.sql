@@ -18,6 +18,7 @@ sname VARCHAR(30),
 CREATE TABLE SESSION_REACTION (
 sessionID VARCHAR(6) FOREIGN KEY REFERENCES SESH(id),
 reaction VARCHAR(10), -- values 'sad', 'happy', 'bored' etc. 
+context VARCHAR(100) -- context to feedback from the requirements
 stamp TIME, -- time of reaction received (required for reaction-time diagram)
 )
 
