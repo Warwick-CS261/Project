@@ -13,6 +13,7 @@ salt VARCHAR(60),
 CREATE TABLE SESH (
 id VARCHAR(6) PRIMARY KEY,--function needs to generate
 sname VARCHAR(30),
+features INTEGER,
 );
 
 CREATE TABLE SESSION_REACTION (
