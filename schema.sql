@@ -15,6 +15,12 @@ id VARCHAR(6) PRIMARY KEY,--function needs to generate
 sname VARCHAR(30),
 );
 
+CREATE TABLE SESSION_REACTION (
+sessionID VARCHAR(6) FOREIGN KEY REFERENCES SESH(id),
+reaction VARCHAR(10), -- values 'sad', 'happy', 'bored' etc. 
+stamp TIME, -- time of reaction received (required for reaction-time diagram)
+)
+
 CREATE TABLE HOST_SESSION (
 userID INTEGER FOREIGN KEY REFERENCES USER(id),
 sessionID VARCHAR(6) FOREIGN KEY REFERENCES SESH(id),
@@ -30,13 +36,9 @@ id INTEGER PRIMARY KEY,
 sessionID VARCHAR (6) FOREIGN KEY REFERENCES SESH(id),
 );
 
-CREATE TABLE FORM_QUESTION (
-fID INTEGER FOREIGN KEY REFERENCES FORM(id),
-qID INTEGER FOREIGN KEY REFERENCES QUESTION(id),
-);
-
 Create TABLE QUESTION (
 id INTEGER PRIMARY KEY,
+fid INTEGER FOREIGN KEY REFERENCES FORM(id),
 question VARCHAR(100),
 qtype INT CHECK (type >- 5 AND type < 10),
 );
