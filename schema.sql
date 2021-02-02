@@ -13,8 +13,9 @@ salt VARCHAR(60),
 CREATE TABLE SESH (
 id VARCHAR(6) PRIMARY KEY,--function needs to generate
 sname VARCHAR(30),
-secure INTEGER CHECK (secure == 1 AND secure == 0), -- security boolean 
+secure VARCHAR(60), -- security password or NULL
 features INTEGER,
+mood FLOAT,
 );
 
 CREATE TABLE SESSION_REACTION (
@@ -51,6 +52,7 @@ CREATE TABLE QUESTION_ANSWER (
 qID INTEGER FOREIGN KEY REFERENCES QUESTION(id),
 answer VARCHAR (1000),
 userID INTEGER  FOREIGN KEY REFERENCES USER(id),
+stamp DATE,
 );
 
 CREATE TABLE QUESTION_CHOICE (
