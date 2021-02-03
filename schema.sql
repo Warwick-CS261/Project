@@ -18,12 +18,18 @@ features INTEGER,
 mood FLOAT,
 );
 
+CREATE TABLE MOOD_DATE (
+sessionID VARCHAR(6) FOREIGN KEY REFERENCES SESH(id),
+mood FLOAT,
+stamp DATETIME,
+);
+
 CREATE TABLE SESSION_REACTION (
 sessionID VARCHAR(6) FOREIGN KEY REFERENCES SESH(id),
 userID INTEGER FOREIGN KEY REFERENCES USER(id),
 reaction VARCHAR(10), -- values 'sad', 'happy', 'bored' etc. 
 context VARCHAR(100) -- context to feedback from the requirements
-stamp TIME, -- time of reaction received (required for reaction-time diagram)
+stamp DATETIME, -- time of reaction received (required for reaction-time diagram)
 )
 
 CREATE TABLE HOST_SESSION (
@@ -65,5 +71,5 @@ CREATE TABLE CHAT (
 sessionID VARCHAR(6) FOREIGN KEY REFERENCES SESH(id),
 msg VARCHAR(1000),
 userID INTEGER FOREIGN KEY REFERENCES USER(id),
-stamp DATE,
+stamp DATETIME,
 )
