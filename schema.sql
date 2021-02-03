@@ -53,6 +53,7 @@ id INTEGER PRIMARY KEY,
 fid INTEGER FOREIGN KEY REFERENCES FORM(id),
 question VARCHAR(100),
 qtype INT CHECK (type >- 5 AND type < 10),
+mood INTEGER, -- Boolean whether mood should be calculated for the answers
 );
 
 CREATE TABLE QUESTION_ANSWER (
