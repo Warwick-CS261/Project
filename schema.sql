@@ -7,6 +7,11 @@ CREATE TABLE USER (
   salt VARCHAR(60),
 );
 
+CREATE TABLE USER_TOKEN (
+  userID INTEGER FOREIGN KEY REFERENCES USER(id),
+  token VARCHAR(64),
+);
+
 CREATE TABLE SERIES (
   id INTEGER PRIMARY KEY,
   seriesName VARCHAR(30),
@@ -20,7 +25,7 @@ CREATE TABLE SESH (
   seriesID INTEGER FOREIGN KEY REFERENCES SERIES(id),
   sname VARCHAR(30),
   mood FLOAT,
-  secure BIT, -- security password or NULL
+  secure VARCHAR(6), -- security password or NULL
   ended BIT,
 );
 
