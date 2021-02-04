@@ -1,0 +1,25 @@
+$primary: #43e2b2;
+$dark: #342e37;
+$light: #fafffd;
+$happy: #41e147;
+$neutral: #e0e041;
+$sad: #e05841;
+
+@import '../bootstrap-5.0.0-beta1/scss/bootstrap.scss';
+
+:root{
+  color: $dark;
+  background: $light;
+}
+
+h1,h2,h3,h4,h5,h6{
+  color: $dark;
+}
+
+div.landing{
+  min-height: 100vh;
+}
+
+.heading{
+  padding: 10%;
+}
