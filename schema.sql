@@ -7,11 +7,17 @@ CREATE TABLE USER (
   salt VARCHAR(60),
 );
 
+CREATE TABLE SERIES (
+  id INTEGER PRIMARY KEY,
+  seriesName VARCHAR(30),
+);
+
 --CREATE SEQUENCE uID_seq;
 --id INTEGER NOT NULL DEFAULT nextval('uID_sq')
 
 CREATE TABLE SESH (
   id VARCHAR(6) PRIMARY KEY,--function needs to generate
+  seriesID INTEGER FOREIGN KEY REFERENCES SERIES(id),
   sname VARCHAR(30),
   mood FLOAT,
   secure VARCHAR(60), -- security password or NULL
