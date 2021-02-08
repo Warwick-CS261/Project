@@ -25,6 +25,11 @@ dependencies {
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:29.0-jre'
+
+    implementation group: 'com.sparkjava', name: 'spark-core', version:'2.9.2'
+    implementation group: 'com.sparkjava', name: 'spark-template-velocity', version:'2.7.1'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'org.slf4j:slf4j-simple:1.7.21'
 }
 
 application {
