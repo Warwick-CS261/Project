@@ -26,6 +26,7 @@ CREATE TABLE SESH (
   sname VARCHAR(30),
   mood FLOAT,
   secure VARCHAR(6), -- security password or NULL
+  userID INTEGER FOREIGN KEY REFERENCES USER(id),
   ended BIT,
 );
 
@@ -35,16 +36,16 @@ CREATE TABLE MOOD_DATE (
   mood FLOAT,
 );
 
-CREATE TABLE FORM_REACTION (
-  formID INTEGER FOREIGN KEY REFERENCES FORM(id),
+CREATE TABLE RESPONSE (
+  qID INTEGER FOREIGN KEY REFERENCES QUESTION(id),
   userID INTEGER FOREIGN KEY REFERENCES USER(id),
   reaction VARCHAR(10), -- values 'sad', 'happy', 'bored' etc. 
-  context VARCHAR(100) -- context to feedback from the requirements
   stamp DATETIME, -- time of reaction received (required for reaction-time diagram)
   anon BIT,
+  context VARCHAR(256) -- context to feedback from the requirements
 )
 
-CREATE TABLE HOST_SESSION (
+CREATE TABLE MODERATOR_SESSION (
   userID INTEGER FOREIGN KEY REFERENCES USER(id),
   sessionID VARCHAR(6) FOREIGN KEY REFERENCES SESH(id),
 );
@@ -54,13 +55,14 @@ CREATE TABLE ATTENDEE_SESSION (
   sessionID VARCHAR(6) FOREIGN KEY REFERENCES SESH(id),
 );
 
-Create TABLE FORM (
+CREATE TABLE QUESTION (
   id INTEGER PRIMARY KEY,
   sessionID VARCHAR (6) FOREIGN KEY REFERENCES SESH(id),
-  question Varchar(100),
+  question VARCHAR(100),
+  pushed BIT,
 );
 
-CREATE TABLE CHAT (
+CREATE TABLE MESSAGES (
   sessionID VARCHAR(6) FOREIGN KEY REFERENCES SESH(id),
   msg VARCHAR(1000),
   userID INTEGER FOREIGN KEY REFERENCES USER(id),
