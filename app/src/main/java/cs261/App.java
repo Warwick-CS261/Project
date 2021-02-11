@@ -14,7 +14,7 @@ import java.net.*;
 
 public class App {
     public String getGreeting() {
-        return null;//"Hello World!";
+        return "Hello World!";
     }
 
     public static App app;
