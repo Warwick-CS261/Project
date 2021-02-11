@@ -1,6 +1,6 @@
 package cs261;
 
-public class Responsetq {
+public class Answer {
     public String getGreeting() {
         return "Hello World!";
     }
