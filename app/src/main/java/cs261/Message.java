@@ -1,11 +1,39 @@
 package cs261;
 
+import java.time.*;
+
 public class Message {
-    public String getGreeting() {
-        return "Hello World!";
+    User user;
+    String msg;
+    LocalDateTime stamp;
+
+    public Message(User user, String msg, LocalDateTime stamp){
+        this.user = user;
+        this.msg = msg;
+        this.stamp = stamp;
     }
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+    public String getMsg() {
+        return msg;
+    }
+
+    public LocalDateTime getStamp() {
+        return stamp;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public void setStamp(LocalDateTime stamp) {
+        this.stamp = stamp;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -13,21 +13,30 @@ import java.nio.file.Files;
 import java.net.*;
 
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
+    private DBConnection dbConn;
     public static App app;
 
-    public static void main(String[] args) {
+
+    public DBConnection getDbConn(){
+        return dbConn;
+    }
+
+    public static App getApp(){
+        return app;
+    }
+
+    public static void main(String[] args) throws Exception{
         app = new App();
+        
         app.run();
     }
 
-    private void run(){
+    private void run() throws Exception{
         staticFiles.location("/static");
         port(6969);
-
+        Class.forName("org.sqlite.JDBC");
+        dbConn = new DBConnection("jdbc:sqlite:database/database.db");
         get("/", (request, reponse) -> "Landing Page");
 
         path("/auth", () -> {
@@ -73,7 +82,15 @@ public class App {
     };
 
     public static Route createSession = (Request request, Response response) -> {
-        Map<String, Object> model = new HashMap<>();
+        String name = request.queryParams("name");
+        String token = request.queryParams("token");
+        String secure = request.queryParams("secure");
+        int seriesID =  Integer.parseInt(request.queryParams("series")); 
+        User user =  new User(1, "f", "l", "m@m");
+
+          getApp().getDbConn().createSession(new HostSesh(Sesh.generateID(), seriesID, name,
+            user, secure));
+
         return "Session created";
     };
 
