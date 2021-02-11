@@ -1,0 +1,19 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+    <h1 style="width: 500px; margin: 0 auto; padding-bottom: 10px;">$msg</h1>
+
+    <div id="login-button">
+        <!--<from action="https://$address/login">
+            <div><input id="submitlogin" type="submit" value="login" /></div>
+        </form>-->
+        <a href="https://$address/login">login</a>
+    </div>
+
+    <div id="word-form">
+        <form method = GET action="https://$address/search">
+            <div><input type="text" name="search" id="word" placeholder="Search Bar" onkeypress="return /[a-z]/i.test(event.key)" /></div>
+            <div><input id="submit" type="submit" value="Search" /></div>
+        </form>
+    </div>
+
+#end
