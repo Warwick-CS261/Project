@@ -1,0 +1,100 @@
+$primary: #43e2b2;
+$dark: #342e37;
+$light: #fff;
+
+@import '../bootstrap-5.0.0-beta2/scss/bootstrap.scss';
+
+body{
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  color: $dark;
+}
+
+section.body{
+  display: grid;
+  grid-template-areas: 'menu content';
+
+  .btn-round{
+    border-radius: 50px;
+    padding: 1em 2em 1em 2em;
+  }
+
+  .menu{
+    background-color: $dark;
+    min-height: 100vh;
+    position: fixed;
+    width: 300px;
+    grid-area: menu;
+  
+    .logo{
+      color: $primary;
+      text-align: center;
+    }
+    li{
+      color:$primary;
+    }
+    .nav-logout{
+      position: absolute;
+      bottom: 5%;
+      font-weight: bold;
+    }
+  }
+
+  .main{
+    background-image: url('../img/background.png');
+    background-size: cover;
+    min-height: 100vh;
+    padding: 10px;
+    grid-area: content;
+    margin-left: 300px;
+    width: calc(100vw - 300px);
+
+    .heading{
+      text-align: center;
+    }
+    
+    .content{
+      display:flex;
+      flex-direction: column;
+      align-items: flex-start;
+      
+      .home-action{
+        margin-top: 10%;
+        margin-bottom: 10%;
+        margin-left: 3%;
+        margin-right: 3%;
+        font-weight: bold;
+      }
+
+      .create-session,.create-series{
+        flex-direction: flex-start;
+      }
+    
+      .join-session{
+        align-self: flex-end;
+      }
+    }
+  }
+
+}
+
+.nav-home::before{
+  content: url(../img/nav_home.png);
+  display: inline-block;
+  background-size: 1em;
+}
+
+.nav-user::before{
+
+}
+
+.nav-session{
+
+}
+.nav-series{
+
+}
+.nav-logout{
+
+}
