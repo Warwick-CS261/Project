@@ -13,6 +13,13 @@ public class User {
         this.email = email;
     }
 
+    public User(String fname, String lname, String email){
+        this.id = -1;
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
+    }
+
     public String getEmail() {
         return email;
     }

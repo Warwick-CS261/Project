@@ -9,15 +9,26 @@ import cs261.*;
 public class SessionController{
 
     public static Route createSession = (Request request, Response response) -> {
+        DBConnection dbConn = App.getApp().getDbConn();
+
         String name = request.queryParams("name");
         String token = request.queryParams("token");
         String secure = request.queryParams("secure");
         int seriesID =  Integer.parseInt(request.queryParams("series")); 
-        User user =  new User(1, "f", "l", "m@m");
-
-        App.getApp().getDbConn().createSession(new HostSesh(Sesh.generateID(), seriesID, name,
-        user, secure));
-
+        User user = dbConn.getUserByToken(token);
+        //token is valid
+        if(Objects.isNull(user)){
+            return "Invalid Token";
+        }
+        String sessionID;
+        //generate new unique session ID
+        do{
+            sessionID = Sesh.generateID();
+        }while(dbConn.sessionExists(sessionID));
+        HostSesh session = new HostSesh(sessionID, seriesID, name, user, secure);
+        //add session to db
+        dbConn.createSession(session);
+        dbConn.addModerator(user.getId(), sessionID);
         return "Session created";
     };
 

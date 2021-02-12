@@ -6,14 +6,29 @@ import spark.*;
 
 import cs261.*;
 
+import com.google.gson.Gson;
+
 public class QuestionController{
 
+    private static Gson gson = new Gson();
+
     public static Route createQuestion = (Request request, Response response) -> {
+        DBConnection dbConn = App.getApp().getDbConn();
+
         String sessionID = request.params(":id");
         String token = request.queryParams("token");
         String question = request.queryParams("question");
-        App.getApp().getDbConn().createQuestion(new Question(question), sessionID);
-        return "Question created in session "+sessionID;
+        User user = dbConn.getUserByToken(token);
+        if(Objects.isNull(user)){
+            return "Invalid Token";
+        }
+        //need to check user is moderator or owner
+        if(dbConn.userIsModerator(user.getId(), sessionID)){
+            Question q = new Question(question);
+            dbConn.createQuestion(q, sessionID);
+            return gson.toJson(question) + sessionID;
+        }
+        return "not authorised for session "+sessionID;
     };
 
     public static Route submitResponse = (Request request, Response response) -> {
