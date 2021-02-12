@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create User</title>
+<style id="applicationStylesheet" type="text/css">
+	.mediaViewInfo {
+		--web-view-name: Create User;
+		--web-view-id: Create_User;
+		--web-scale-on-resize: true;
+		--web-enable-deep-linking: true;
+	}
+	:root {
+		--web-view-ids: Create_User;
+	}
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		border: none;
+	}
+	#Create_User {
+		position: absolute;
+		width: 1920px;
+		height: 1080px;
+		background-color: rgba(52,46,55,1);
+		overflow: hidden;
+		--web-view-name: Create User;
+		--web-view-id: Create_User;
+		--web-scale-on-resize: true;
+		--web-enable-deep-linking: true;
+	}
+	@keyframes fadein {
+	
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	
+	}
+	#Group_16 {
+		position: absolute;
+		width: 1919.803px;
+		height: 1583.063px;
+		left: 0.197px;
+		top: -96.531px;
+		overflow: visible;
+	}
+	#Mask_Group_3 {
+		position: absolute;
+		width: 1880px;
+		height: 874.168px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Mask_Group_4 {
+		position: absolute;
+		width: 1919.803px;
+		height: 969.748px;
+		left: 0px;
+		top: 613.315px;
+		overflow: visible;
+	}
+	#Rectangle_56_s {
+		fill: url(#Rectangle_56_s);
+	}
+	.Rectangle_56_s {
+		position: absolute;
+		overflow: visible;
+		width: 896px;
+		height: 638px;
+		left: 64px;
+		top: 242px;
+	}
+	#Rectangle_65 {
+		fill: rgba(255,255,255,0.365);
+	}
+	.Rectangle_65 {
+		position: absolute;
+		overflow: visible;
+		width: 896px;
+		height: 638px;
+		left: 64px;
+		top: 242px;
+	}
+	#Create_User_u {
+		left: 823.949px;
+		top: 42px;
+		position: absolute;
+		overflow: visible;
+		width: 347px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 64px;
+		color: rgba(52,46,55,1);
+	}
+	#First_Name {
+		left: 142px;
+		top: 299px;
+		position: absolute;
+		overflow: visible;
+		width: 164px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Rectangle_3 {
+		fill: rgba(250,255,253,1);
+		stroke: rgba(52,46,55,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectangle_3 {
+		position: absolute;
+		overflow: visible;
+		width: 371px;
+		height: 46px;
+		left: 343px;
+		top: 303px;
+	}
+	#John {
+		opacity: 0.245;
+		left: 355px;
+		top: 302px;
+		position: absolute;
+		overflow: visible;
+		width: 67px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 32px;
+		color: rgba(0,0,0,0.722);
+	}
+	#Last_Name {
+		left: 142px;
+		top: 412px;
+		position: absolute;
+		overflow: visible;
+		width: 159px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Rectangle_14 {
+		fill: rgba(250,255,253,1);
+		stroke: rgba(52,46,55,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectangle_14 {
+		position: absolute;
+		overflow: visible;
+		width: 371px;
+		height: 46px;
+		left: 343px;
+		top: 416px;
+	}
+	#Doe {
+		opacity: 0.245;
+		left: 355px;
+		top: 415px;
+		position: absolute;
+		overflow: visible;
+		width: 59px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 32px;
+		color: rgba(0,0,0,0.722);
+	}
+	#Email {
+		left: 142px;
+		top: 525px;
+		position: absolute;
+		overflow: visible;
+		width: 83px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Rectangle_15 {
+		fill: rgba(250,255,253,1);
+		stroke: rgba(52,46,55,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectangle_15 {
+		position: absolute;
+		overflow: visible;
+		width: 371px;
+		height: 46px;
+		left: 343px;
+		top: 529px;
+	}
+	#johndoeemailcom {
+		opacity: 0.245;
+		left: 352px;
+		top: 528px;
+		position: absolute;
+		overflow: visible;
+		width: 303px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 32px;
+		color: rgba(0,0,0,0.722);
+	}
+	#Group_42 {
+		position: absolute;
+		width: 41px;
+		height: 46px;
+		left: 741.5px;
+		top: 529.5px;
+		overflow: visible;
+	}
+	#Line_10 {
+		fill: transparent;
+		stroke: rgba(224,88,65,1);
+		stroke-width: 3px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_10 {
+		overflow: visible;
+		position: absolute;
+		width: 45.236px;
+		height: 50.236px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Line_11 {
+		fill: transparent;
+		stroke: rgba(224,88,65,1);
+		stroke-width: 3px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_11 {
+		overflow: visible;
+		position: absolute;
+		width: 45.236px;
+		height: 50.236px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Group_43 {
+		position: absolute;
+		width: 73px;
+		height: 41px;
+		left: 808.5px;
+		top: 534.5px;
+		overflow: visible;
+	}
+	#Line_12 {
+		fill: transparent;
+		stroke: rgba(65,225,71,1);
+		stroke-width: 3px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_12 {
+		overflow: visible;
+		position: absolute;
+		width: 22.211px;
+		height: 27.211px;
+		left: 0px;
+		top: 18px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Line_13 {
+		fill: transparent;
+		stroke: rgba(65,225,71,1);
+		stroke-width: 3px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_13 {
+		overflow: visible;
+		position: absolute;
+		width: 59.198px;
+		height: 45.198px;
+		left: 18px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Password {
+		left: 143px;
+		top: 638px;
+		position: absolute;
+		overflow: visible;
+		width: 143px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Rectangle_16 {
+		fill: rgba(250,255,253,1);
+		stroke: rgba(52,46,55,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectangle_16 {
+		position: absolute;
+		overflow: visible;
+		width: 371px;
+		height: 46px;
+		left: 344px;
+		top: 642px;
+	}
+	# {
+		opacity: 0.245;
+		left: 356px;
+		top: 641px;
+		position: absolute;
+		overflow: visible;
+		width: 108px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 32px;
+		color: rgba(0,0,0,0.722);
+	}
+	#Group_44 {
+		position: absolute;
+		width: 41px;
+		height: 46px;
+		left: 741.5px;
+		top: 642px;
+		overflow: visible;
+	}
+	#Line_14 {
+		fill: transparent;
+		stroke: rgba(224,88,65,1);
+		stroke-width: 3px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_14 {
+		overflow: visible;
+		position: absolute;
+		width: 45.236px;
+		height: 50.236px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Line_15 {
+		fill: transparent;
+		stroke: rgba(224,88,65,1);
+		stroke-width: 3px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_15 {
+		overflow: visible;
+		position: absolute;
+		width: 45.236px;
+		height: 50.236px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Group_45 {
+		position: absolute;
+		width: 73px;
+		height: 41px;
+		left: 808.5px;
+		top: 647px;
+		overflow: visible;
+	}
+	#Line_16 {
+		fill: transparent;
+		stroke: rgba(65,225,71,1);
+		stroke-width: 3px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_16 {
+		overflow: visible;
+		position: absolute;
+		width: 22.211px;
+		height: 27.211px;
+		left: 0px;
+		top: 18px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Line_17 {
+		fill: transparent;
+		stroke: rgba(65,225,71,1);
+		stroke-width: 3px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_17 {
+		overflow: visible;
+		position: absolute;
+		width: 59.198px;
+		height: 45.198px;
+		left: 18px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Verify_Pwd {
+		left: 143px;
+		top: 750.5px;
+		position: absolute;
+		overflow: visible;
+		width: 163px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Rectangle_17 {
+		fill: rgba(250,255,253,1);
+		stroke: rgba(52,46,55,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectangle_17 {
+		position: absolute;
+		overflow: visible;
+		width: 371px;
+		height: 46px;
+		left: 344px;
+		top: 754.5px;
+	}
+	#_bl {
+		opacity: 0.245;
+		left: 356px;
+		top: 753.5px;
+		position: absolute;
+		overflow: visible;
+		width: 108px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 32px;
+		color: rgba(0,0,0,0.722);
+	}
+	#Group_46 {
+		position: absolute;
+		width: 41px;
+		height: 46px;
+		left: 741.5px;
+		top: 754.5px;
+		overflow: visible;
+	}
+	#Line_18 {
+		fill: transparent;
+		stroke: rgba(224,88,65,1);
+		stroke-width: 3px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_18 {
+		overflow: visible;
+		position: absolute;
+		width: 45.236px;
+		height: 50.236px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Line_19 {
+		fill: transparent;
+		stroke: rgba(224,88,65,1);
+		stroke-width: 3px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_19 {
+		overflow: visible;
+		position: absolute;
+		width: 45.236px;
+		height: 50.236px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Group_47 {
+		position: absolute;
+		width: 73px;
+		height: 41px;
+		left: 808.5px;
+		top: 759.5px;
+		overflow: visible;
+	}
+	#Line_20 {
+		fill: transparent;
+		stroke: rgba(65,225,71,1);
+		stroke-width: 3px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_20 {
+		overflow: visible;
+		position: absolute;
+		width: 22.211px;
+		height: 27.211px;
+		left: 0px;
+		top: 18px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Line_21 {
+		fill: transparent;
+		stroke: rgba(65,225,71,1);
+		stroke-width: 3px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_21 {
+		overflow: visible;
+		position: absolute;
+		width: 59.198px;
+		height: 45.198px;
+		left: 18px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Icon_awesome-user-circle {
+		fill: rgba(67,226,178,1);
+	}
+	.Icon_awesome-user-circle {
+		filter: drop-shadow(0px 0px 30px rgba(67, 226, 178, 0.161));
+		overflow: visible;
+		position: absolute;
+		width: 330px;
+		height: 330px;
+		left: 1313px;
+		top: 242px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Incorrect_email {
+		left: 356px;
+		top: 574px;
+		position: absolute;
+		overflow: visible;
+		width: 158px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 24px;
+		color: rgba(224,88,65,1);
+	}
+	#Incorrect_password {
+		left: 356px;
+		top: 687px;
+		position: absolute;
+		overflow: visible;
+		width: 202px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 24px;
+		color: rgba(224,88,65,1);
+	}
+	#Passwords_do_not_match {
+		left: 355px;
+		top: 800px;
+		position: absolute;
+		overflow: visible;
+		width: 260px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 24px;
+		color: rgba(224,88,65,1);
+	}
+	#Rectangle_57 {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_57 {
+		position: absolute;
+		overflow: visible;
+		width: 463px;
+		height: 127px;
+		left: 1101px;
+		top: 745px;
+	}
+	#Register {
+		left: 1204px;
+		top: 773px;
+		position: absolute;
+		overflow: visible;
+		width: 258px;
+		white-space: nowrap;
+		--web-animation: fadein 0.3s ease-out;
+		--web-action-type: page;
+		--web-action-target: Logged_in_Home_page.html;
+		cursor: pointer;
+		text-align: left;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 64px;
+		color: rgba(52,46,55,1);
+	}
+	#Rectangle_58 {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_58 {
+		position: absolute;
+		overflow: visible;
+		width: 664px;
+		height: 56px;
+		left: 1101px;
+		top: 592px;
+	}
+	#I_accept_the_Terms_and_Conditi {
+		left: 1212px;
+		top: 594px;
+		position: absolute;
+		overflow: visible;
+		width: 510px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Rectangle_59 {
+		fill: rgba(255,255,255,1);
+		stroke: rgba(52,46,55,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectangle_59 {
+		position: absolute;
+		overflow: visible;
+		width: 63px;
+		height: 56px;
+		left: 1101px;
+		top: 592px;
+	}
+	#Group_48 {
+		position: absolute;
+		width: 42.732px;
+		height: 24px;
+		left: 1111.134px;
+		top: 611px;
+		overflow: visible;
+	}
+	#Line_30 {
+		fill: transparent;
+		stroke: rgba(65,225,71,1);
+		stroke-width: 3px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_30 {
+		overflow: visible;
+		position: absolute;
+		width: 14.748px;
+		height: 17.675px;
+		left: 0px;
+		top: 10.537px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Line_31 {
+		fill: transparent;
+		stroke: rgba(65,225,71,1);
+		stroke-width: 3px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_31 {
+		overflow: visible;
+		position: absolute;
+		width: 36.393px;
+		height: 28.198px;
+		left: 10.537px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Icon_awesome-user-alt {
+		fill: rgba(52,46,55,1);
+	}
+	.Icon_awesome-user-alt {
+		overflow: visible;
+		position: absolute;
+		width: 64px;
+		height: 64px;
+		left: 753.051px;
+		top: 52.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+</style>
+</head>
+<body>
+<div id="Create_User">
+	<div id="Group_16">
+		<img id="Mask_Group_3" src="Mask_Group_3.png" srcset="Mask_Group_3.png 1x, Mask_Group_3@2x.png 2x">
+			
+		</svg>
+		<img id="Mask_Group_4" src="Mask_Group_4.png" srcset="Mask_Group_4.png 1x, Mask_Group_4@2x.png 2x">
+			
+		</svg>
+	</div>
+	<svg class="Rectangle_56_s">
+		<linearGradient id="Rectangle_56_s" spreadMethod="pad" x1="0" x2="1" y1="-0.069" y2="1">
+			<stop offset="0" stop-color="#43e2b2" stop-opacity="1"></stop>
+			<stop offset="1" stop-color="#24afaf" stop-opacity="1"></stop>
+		</linearGradient>
+		<rect id="Rectangle_56_s" rx="50" ry="50" x="0" y="0" width="896" height="638">
+		</rect>
+	</svg>
+	<svg class="Rectangle_65">
+		<rect id="Rectangle_65" rx="50" ry="50" x="0" y="0" width="896" height="638">
+		</rect>
+	</svg>
+	<div id="Create_User_u">
+		<span>Create User</span>
+	</div>
+	<div id="First_Name">
+		<span>First Name</span>
+	</div>
+	<svg class="Rectangle_3">
+		<rect id="Rectangle_3" rx="20" ry="20" x="0" y="0" width="371" height="46">
+		</rect>
+	</svg>
+	<div id="John">
+		<span>John</span>
+	</div>
+	<div id="Last_Name">
+		<span>Last Name</span>
+	</div>
+	<svg class="Rectangle_14">
+		<rect id="Rectangle_14" rx="20" ry="20" x="0" y="0" width="371" height="46">
+		</rect>
+	</svg>
+	<div id="Doe">
+		<span>Doe</span>
+	</div>
+	<div id="Email">
+		<span>Email</span>
+	</div>
+	<svg class="Rectangle_15">
+		<rect id="Rectangle_15" rx="20" ry="20" x="0" y="0" width="371" height="46">
+		</rect>
+	</svg>
+	<div id="johndoeemailcom">
+		<span>john.doe@email.com</span>
+	</div>
+	<div id="Group_42">
+		<svg class="Line_10" viewBox="0 0 41 46">
+			<path id="Line_10" d="M 0 46 L 41 0">
+			</path>
+		</svg>
+		<svg class="Line_11" viewBox="0 0 41 46">
+			<path id="Line_11" d="M 0 0 L 41 46">
+			</path>
+		</svg>
+	</div>
+	<div id="Group_43">
+		<svg class="Line_12" viewBox="0 0 18 23">
+			<path id="Line_12" d="M 0 0 L 18 23">
+			</path>
+		</svg>
+		<svg class="Line_13" viewBox="0 0 55 41">
+			<path id="Line_13" d="M 55 0 L 0 41">
+			</path>
+		</svg>
+	</div>
+	<div id="Password">
+		<span>Password</span>
+	</div>
+	<svg class="Rectangle_16">
+		<rect id="Rectangle_16" rx="20" ry="20" x="0" y="0" width="371" height="46">
+		</rect>
+	</svg>
+	<div id="">
+		<span>********</span>
+	</div>
+	<div id="Group_44">
+		<svg class="Line_14" viewBox="0 0 41 46">
+			<path id="Line_14" d="M 0 46 L 41 0">
+			</path>
+		</svg>
+		<svg class="Line_15" viewBox="0 0 41 46">
+			<path id="Line_15" d="M 0 0 L 41 46">
+			</path>
+		</svg>
+	</div>
+	<div id="Group_45">
+		<svg class="Line_16" viewBox="0 0 18 23">
+			<path id="Line_16" d="M 0 0 L 18 23">
+			</path>
+		</svg>
+		<svg class="Line_17" viewBox="0 0 55 41">
+			<path id="Line_17" d="M 55 0 L 0 41">
+			</path>
+		</svg>
+	</div>
+	<div id="Verify_Pwd">
+		<span>Verify Pwd</span>
+	</div>
+	<svg class="Rectangle_17">
+		<rect id="Rectangle_17" rx="20" ry="20" x="0" y="0" width="371" height="46">
+		</rect>
+	</svg>
+	<div id="_bl">
+		<span>********</span>
+	</div>
+	<div id="Group_46">
+		<svg class="Line_18" viewBox="0 0 41 46">
+			<path id="Line_18" d="M 0 46 L 41 0">
+			</path>
+		</svg>
+		<svg class="Line_19" viewBox="0 0 41 46">
+			<path id="Line_19" d="M 0 0 L 41 46">
+			</path>
+		</svg>
+	</div>
+	<div id="Group_47">
+		<svg class="Line_20" viewBox="0 0 18 23">
+			<path id="Line_20" d="M 0 0 L 18 23">
+			</path>
+		</svg>
+		<svg class="Line_21" viewBox="0 0 55 41">
+			<path id="Line_21" d="M 55 0 L 0 41">
+			</path>
+		</svg>
+	</div>
+	<svg class="Icon_awesome-user-circle" viewBox="0 0.563 240 240">
+		<path id="Icon_awesome-user-circle" d="M 119.9999923706055 0.5625 C 53.70967483520508 0.5625 0 54.27217483520508 0 120.5625076293945 C 0 186.8528289794922 53.70967483520508 240.5625 119.9999923706055 240.5625 C 186.2903137207031 240.5625 239.9999847412109 186.8528289794922 239.9999847412109 120.5625076293945 C 239.9999847412109 54.27217483520508 186.2903137207031 0.5625 119.9999923706055 0.5625 Z M 119.9999923706055 47.01411056518555 C 143.5160980224609 47.01411056518555 162.5806121826172 66.07862091064453 162.5806121826172 89.59475708007813 C 162.5806121826172 113.1108703613281 143.5160980224609 132.1753845214844 119.9999923706055 132.1753845214844 C 96.48387145996094 132.1753845214844 77.41934967041016 113.1108703613281 77.41934967041016 89.59475708007813 C 77.41934967041016 66.07863616943359 96.48386383056641 47.01411056518555 119.9999923706055 47.01411056518555 Z M 119.9999923706055 213.4657287597656 C 91.59676361083984 213.4657287597656 66.14515686035156 200.5947723388672 49.11289596557617 180.4657440185547 C 58.20966720581055 163.3367004394531 76.01612854003906 151.5302429199219 96.77419281005859 151.5302429199219 C 97.93547058105469 151.5302429199219 99.09676361083984 151.7237854003906 100.2096710205078 152.0625152587891 C 106.4999923706055 154.0947723388672 113.0806350708008 155.4011993408203 119.9999923706055 155.4011993408203 C 126.9193420410156 155.4011993408203 133.5483856201172 154.0947723388672 139.7903137207031 152.0625152587891 C 140.9032287597656 151.7237701416016 142.0645141601563 151.5302429199219 143.2257995605469 151.5302429199219 C 163.9838714599609 151.5302429199219 181.7902984619141 163.3367004394531 190.8870849609375 180.4657440185547 C 173.8548126220703 200.5947723388672 148.4032135009766 213.4657287597656 119.9999923706055 213.4657287597656 Z">
+		</path>
+	</svg>
+	<div id="Incorrect_email">
+		<span>Incorrect email</span>
+	</div>
+	<div id="Incorrect_password">
+		<span>Incorrect password</span>
+	</div>
+	<div id="Passwords_do_not_match">
+		<span>Passwords do not match</span>
+	</div>
+	<svg class="Rectangle_57">
+		<rect id="Rectangle_57" rx="43" ry="43" x="0" y="0" width="463" height="127">
+		</rect>
+	</svg>
+	<div onclick="application.goToTargetView(event)" id="Register">
+		<span>Register</span>
+	</div>
+	<svg class="Rectangle_58">
+		<rect id="Rectangle_58" rx="28" ry="28" x="0" y="0" width="664" height="56">
+		</rect>
+	</svg>
+	<div id="I_accept_the_Terms_and_Conditi">
+		<span>I accept the Terms and Conditions</span>
+	</div>
+	<svg class="Rectangle_59">
+		<rect id="Rectangle_59" rx="20" ry="20" x="0" y="0" width="63" height="56">
+		</rect>
+	</svg>
+	<div id="Group_48">
+		<svg class="Line_30" viewBox="0 0 10.537 13.463">
+			<path id="Line_30" d="M 0 0 L 10.53658580780029 13.46341419219971">
+			</path>
+		</svg>
+		<svg class="Line_31" viewBox="0 0 32.195 24">
+			<path id="Line_31" d="M 32.19512176513672 0 L 0 24">
+			</path>
+		</svg>
+	</div>
+	<svg class="Icon_awesome-user-alt" viewBox="0 0 64 64">
+		<path id="Icon_awesome-user-alt" d="M 31.99999809265137 36 C 41.9375 36 50 27.9375 50 18 C 50 8.0625 41.9375 0 31.99999809265137 0 C 22.0625 0 14 8.0625 14 18 C 14 27.9375 22.0625 36 31.99999809265137 36 Z M 48 40 L 41.11249923706055 40 C 38.33749771118164 41.27499389648438 35.25 42 31.99999809265137 42 C 28.75 42 25.67500114440918 41.27499389648438 22.88750076293945 40 L 15.99999904632568 40 C 7.16249942779541 40 0 47.16250228881836 0 56 L 0 57.99999618530273 C 0 61.3125 2.687499761581421 63.99999618530273 6 63.99999618530273 L 57.99999618530273 63.99999618530273 C 61.3125 63.99999618530273 63.99999618530273 61.3125 63.99999618530273 57.99999618530273 L 63.99999618530273 56 C 63.99999618530273 47.16250228881836 56.83750534057617 40 48 40 Z">
+		</path>
+	</svg>
+</div>
+</body>
+</html>
