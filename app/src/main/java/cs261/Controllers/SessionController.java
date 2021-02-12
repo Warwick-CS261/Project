@@ -6,7 +6,11 @@ import spark.*;
 
 import cs261.*;
 
+import com.google.gson.Gson;
+
 public class SessionController{
+
+    private static Gson gson = new Gson();
 
     public static Route createSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
@@ -14,7 +18,9 @@ public class SessionController{
         String name = request.queryParams("name");
         String token = request.queryParams("token");
         String secure = request.queryParams("secure");
-        int seriesID =  Integer.parseInt(request.queryParams("series")); 
+        int seriesID =  Integer.parseInt(request.queryParams("series"));
+
+
         User user = dbConn.getUserByToken(token);
         //token is valid
         if(Objects.isNull(user)){
@@ -25,12 +31,13 @@ public class SessionController{
         do{
             sessionID = Sesh.generateID();
         }while(dbConn.sessionExists(sessionID));
+
         HostSesh session = new HostSesh(sessionID, seriesID, name, user, secure);
         //add session to db
         dbConn.createSession(session);
         dbConn.addModerator(user.getId(), sessionID);
         
-        return "token:"+dbConn.newToken(user.getId());
+        return gson.toJson(session)+"{\"token\":\""+dbConn.newToken(user.getId())+"\"}";
     };
 
     public static Route userSessions = (Request request, Response response) -> {

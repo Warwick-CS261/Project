@@ -104,7 +104,7 @@ public class DBConnection {
         String query = "INSERT INTO MODERATOR_SESSION VALUES(?, ?)";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setInt(1, userID);
-        stmt.setString(1, sessionID);
+        stmt.setString(2, sessionID);
         stmt.executeUpdate();
         return true;
     }
@@ -198,7 +198,7 @@ public class DBConnection {
     
         Random r = new Random();
     
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890?<>{}[]()&%!/^;:+=-_";
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890?&%!/^;:+=-_";
         String token ="";
         for (int i = 0; i < 32; i++) {
             token = token +alphabet.charAt(r.nextInt(alphabet.length()));
