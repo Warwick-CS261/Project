@@ -28,6 +28,7 @@ dependencies {
     implementation group: 'org.xerial', name: 'sqlite-jdbc', version:'3.7.2'
     implementation group: 'com.sparkjava', name: 'spark-core', version:'2.9.2'
     implementation group: 'com.sparkjava', name: 'spark-template-velocity', version:'2.7.1'
+    implementation group: 'com.github.sharispe', name: 'slib-sml', version:'0.9.1'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'org.slf4j:slf4j-simple:1.7.21'
 }
