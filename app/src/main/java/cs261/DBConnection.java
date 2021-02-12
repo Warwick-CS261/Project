@@ -32,7 +32,7 @@ public class DBConnection {
         stmt.setString(2, pword);
         ResultSet rs = stmt.executeQuery();
         if(rs.next()){
-            return new User(rs.getInt("userID"), rs.getString("fname"), rs.getString("lname"), rs.getString("email"));
+            return new User(rs.getInt("id"), rs.getString("fname"), rs.getString("lname"), rs.getString("email"));
         }
         return null;
     } 
@@ -83,7 +83,7 @@ public class DBConnection {
             stmt2.setInt(2, userID);
             stmt2.executeUpdate();
         }else{
-            query = "INSET INTO USER_TOKEN token = ? userID = ?";
+            query = "INSERT INTO USER_TOKEN (token, userID) VALUES (?, ?)";
             PreparedStatement stmt2 = connection.prepareStatement(query);
             stmt2.setString(1, newToken);
             stmt2.setInt(2, userID);
@@ -101,7 +101,7 @@ public class DBConnection {
     }
 
     public Boolean addModerator(int userID, String sessionID) throws SQLException{
-        String query = "INSERT INTO USER_TOKEN VALUES(?, ?)";
+        String query = "INSERT INTO MODERATOR_SESSION VALUES(?, ?)";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setInt(1, userID);
         stmt.setString(1, sessionID);
@@ -115,27 +115,25 @@ public class DBConnection {
         stmt.setString(1, token);
         ResultSet rs = stmt.executeQuery();
         if(rs.next()){
-            query = "SELECT * FROM USER WHERE userID = ?";
+            query = "SELECT * FROM USER WHERE id = ?";
             PreparedStatement stmt2 = connection.prepareStatement(query);
-            stmt.setInt(1, rs.getInt("userID"));
+            stmt2.setInt(1, rs.getInt("userID"));
             ResultSet rs2 = stmt2.executeQuery();
             if(rs2.next()){
-                return new User(rs2.getInt("userID"), rs2.getString("fname"), rs2.getString("lname"), rs2.getString("email"));
+                return new User(rs2.getInt("id"), rs2.getString("fname"), rs2.getString("lname"), rs2.getString("email"));
             }
         }
-        //return null;
-        return new User(1, "Place", "Holder", "place@holder.com");
-
-        //MUST CHANGE ONCE AUTHENTICATION IN PLACE
+        return null;
+        //return new User(1, "Place", "Holder", "place@holder.com");
     }
 
     public User getUserByEmail(String email) throws SQLException{
-        String query = "SELECT * FROM USER_TOKEN WHERE email = ?";
+        String query = "SELECT * FROM USER WHERE email = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setString(1, email);
         ResultSet rs = stmt.executeQuery();
         if(rs.next()){
-            return new User(rs.getInt("userID"), rs.getString("fname"), rs.getString("lname"), rs.getString("email"));
+            return new User(rs.getInt("id"), rs.getString("fname"), rs.getString("lname"), rs.getString("email"));
         }
         return null;
     }

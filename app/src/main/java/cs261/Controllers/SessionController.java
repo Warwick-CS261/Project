@@ -29,7 +29,8 @@ public class SessionController{
         //add session to db
         dbConn.createSession(session);
         dbConn.addModerator(user.getId(), sessionID);
-        return "Session created";
+        
+        return "token:"+dbConn.newToken(user.getId());
     };
 
     public static Route userSessions = (Request request, Response response) -> {
