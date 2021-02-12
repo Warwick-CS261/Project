@@ -11,6 +11,11 @@ public class Question {
         this.answers = answers;
     }
 
+    public Question(String question){
+        this.question = question;
+        this.answers = new ArrayList<Answer>();
+    }
+
     public Boolean addAnswer(Answer a){
         answers.add(a);
         return true;
