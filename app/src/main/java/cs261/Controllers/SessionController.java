@@ -32,6 +32,14 @@ public class SessionController{
             sessionID = Sesh.generateID();
         }while(dbConn.sessionExists(sessionID));
 
+        if(secure.equals("true")){
+            secure = Sesh.generateID();
+        }else if(secure.equals("false")){
+            secure = null;
+        }else{
+            return "fuck off(invalid secure)";
+        }
+
         HostSesh session = new HostSesh(sessionID, seriesID, name, user, secure);
         //add session to db
         dbConn.createSession(session);
@@ -56,7 +64,17 @@ public class SessionController{
     };
 
     public static Route joinSession = (Request request, Response response) -> {
-        Map<String, Object> model = new HashMap<>();
+        DBConnection dbConn = App.getApp().getDbConn();
+
+        String token = request.queryParams("token");
+        String password = request.queryParams("password");
+        String sessionID = request.queryParams(":id");
+
+        Sesh session = dbConn.getSessionByID(sessionID);
+        if(Objects.isNull(session)){
+            return "invalid session";
+        }
+
         return "Session "+request.params(":id") +" joined";
     };
 

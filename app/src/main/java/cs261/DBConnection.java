@@ -1,6 +1,6 @@
 package cs261;
 import java.sql.*;
-import java.util.Random;
+import java.util.*;
 
 
 public class DBConnection {
@@ -138,6 +138,19 @@ public class DBConnection {
         return null;
     }
 
+    public User getUserByID(int id) throws SQLException{
+        String query = "SELECT * FROM USER WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, id);
+        ResultSet rs = stmt.executeQuery();
+        if(rs.next()){
+            return new User(rs.getInt("id"), rs.getString("fname"), rs.getString("lname"), rs.getString("email"));
+        }
+        return null;
+    }
+
+
+
     public Boolean setModerator(int userID, String sessionID) throws SQLException{
         String query = "INSERT INTO MODERATOR_SESSION VALUES(?,?)";
         PreparedStatement stmt = connection.prepareStatement(query);
@@ -183,6 +196,19 @@ public class DBConnection {
         return false;
     }
 
+    public Sesh getSessionByID(String sessionID) throws SQLException{
+        String query = "SELECT * FROM SESH WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        ResultSet rs = stmt.executeQuery();
+        if(rs.next()){
+            return new Sesh(sessionID, rs.getInt("seriesID"), rs.getString("sname"),
+            getUserByID(rs.getInt("id")), rs.getBoolean("ended"), new Chat(), new ArrayList<Question>());
+        //NEED TO ACTUALL LOAD CHAT AND PUSHED QUESTIONS
+        }
+        return null;
+    }
+
     public Boolean emailExists(String email) throws SQLException{
         String query = "SELECT * FROM USER WHERE email = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
@@ -198,7 +224,7 @@ public class DBConnection {
     
         Random r = new Random();
     
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890?&%!/^;:+=-_";
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890?<>&%!/^;:+=-_";
         String token ="";
         for (int i = 0; i < 32; i++) {
             token = token +alphabet.charAt(r.nextInt(alphabet.length()));
