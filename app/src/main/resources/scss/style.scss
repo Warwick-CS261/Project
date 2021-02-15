@@ -4,6 +4,7 @@ $light: #fff;
 $sidebar-width: 300px;
 
 @import '../bootstrap-5.0.0-beta2/scss/bootstrap.scss';
+@import '../bootstrap-icons-1.3.0/bootstrap-icons.css';
 
 body{
   width: 100vw;
@@ -44,11 +45,10 @@ section.body{
   }
 
   .main{
-    background-image: url('../img/background.png');
+    background-image: url('../img/background.svg');
     background-size: cover;
     min-height: 100vh;
     grid-area: content;
-    margin-left: -$sidebar-width;
     width: calc(100vw - $sidebar-width);
 
     .heading{
