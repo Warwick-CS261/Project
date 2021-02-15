@@ -54,7 +54,7 @@ section.body{
     background-size: cover;
     min-height: 100vh;
     grid-area: content;
-    width: calc(100vw - $sidebar-width);
+    width: calc(100vw - #{$sidebar-width});
 
     .heading{
       text-align: center;
