@@ -6,9 +6,16 @@
  * User Manual available at https://docs.gradle.org/6.7.1/userguide/building_java_projects.html
  */
 
+buildscript {
+    dependencies {
+        classpath 'com.github.node-gradle:gradle-node-plugin:3.0.1'
+    }
+}
+
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+    id 'com.github.node-gradle.node' version '3.0.1'
 }
 
 repositories {
