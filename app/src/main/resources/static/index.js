@@ -1,3 +1,5 @@
+import SignUp from './Components/SignUp';
+
 const React = window.React;
 const ReactDOM = window.ReactDOM;
 const Cookies = window.Cookies;
@@ -15,7 +17,9 @@ class App extends React.Component {
 
   handleLogin(){
     this.setState({
-      showLogin: true
+      showLogin: true,
+      showSignUp: false,
+      token: null,
     });
   }
 
@@ -28,14 +32,14 @@ class App extends React.Component {
   render (){
     let tokenCookie = Cookies.get('token');
 
-
-    if (this.props.showLogin) {
+    if (this.state.showLogin) {
+      console.log("render login");
       return (
         <Login />
       );
     }
 
-    if (this.props.showSignUp) {
+    if (this.state.showSignUp) {
       return (
         <SignUp />
       );
@@ -45,8 +49,18 @@ class App extends React.Component {
       return (
         <div>
           <h1>Project CS261{"\n"}Group 45</h1>
-          <button onClick={this.handleLogin}>Log in</button>
-          <button onClick={this.handleSignUp}>Sign up</button>
+          <button 
+            className="btn btn-primary" 
+            onClick={()=>this.handleLogin()}
+          >
+            Log in
+          </button>
+          <button 
+            className="btn btn-primary" 
+            onClick={()=>this.handleSignUp()}
+          >
+            Sign up
+          </button>
         </div>
       );
     } else {
@@ -78,26 +92,6 @@ class Login extends React.Component {
     );
   }
 }
-
-class SignUp extends React.Component {
-  render(){
-    return(
-      <div>
-        <h1>Register</h1>
-        <form method="POST">
-          <input type="text" name="fname" />
-          <input type="text" name="lname" />
-          <input type="email" name="email" />
-          <input type="password" name="password" />
-          <input type="password" name="rpassword" />
-          <input type="checkbox" name="terms" />
-          <button type="submit" >Register</button>
-        </form>
-      </div>
-    );
-  }
-}
-
 
 
 class Nav extends React.Component {
