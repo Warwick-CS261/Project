@@ -22,9 +22,11 @@ class App extends React.Component {
 
   render (){
     return (
-      <h1>{this.state.name}</h1>
-      <AnotherComponent myprop="something" />
-      <button onClick={this.foo}>Click here</button>
+        <div>
+        <h1>{this.state.name}</h1>
+        <AnotherComponent myprop="something" />
+        <button onClick={this.foo}>Click here</button>
+        </div>
     );
   }
 
