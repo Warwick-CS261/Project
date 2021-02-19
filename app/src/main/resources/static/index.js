@@ -33,6 +33,7 @@ class App extends React.Component {
   }
 
   handleSignUp(){
+    history.pushState({route:'/auth'},'','/auth/register');
     this.setState({
       showSignUp: true
     });
@@ -402,54 +403,56 @@ class Nav extends React.Component {
       Cookies.remove('token');
       this.props.onLogout();
     }
-
+    // TODO active class handling
   }
 
-  render (){
-    <nav className="nav">
-      <ul>
-        <li 
-          className="nav-link nav-home" 
-          id="nav-home" 
-          onClick={this.handleClick}
-        >
-          <i className="bi bi-house-fill"></i> 
-          <span>Home</span>
-        </li>
-        <li 
-          className="nav-link nav-user" 
-          id="nav-user"
-          onClick={this.handleClick}
-        >
-          <i className="bi bi-person-circle"></i> 
-          <span>User</span>
-        </li>
-        <li 
-          className="nav-link nav-sessions" 
-          id="nav-sessions"
-          onClick={this.handleClick}
-        >
-          <i className="bi bi-calendar-event-fill"></i>
-          <span>Session</span>
-        </li>
-        <li 
-          className="nav-link nav-series" 
-          id="nav-series"
-          onClick={this.handleClick}
-        >
-          <i className="bi bi-calendar-range-fill"></i> 
-          <span>Series</span>
-        </li>
-        <li 
-          className="nav-link nav-logout" 
-          id="nav-logout"
-          onClick={this.handleClick}
-        >
-          <i className="bi bi-box-arrow-left"></i> 
-          <span>Logout</span>
-        </li>
-			</ul>
-    </nav>
+  render(){
+    return(
+      <nav className="nav">
+        <ul>
+          <li 
+            className="nav-link nav-home" 
+            id="nav-home" 
+            onClick={this.handleClick}
+          >
+            <i className="bi bi-house-fill"></i> 
+            <span>Home</span>
+          </li>
+          <li 
+            className="nav-link nav-user" 
+            id="nav-user"
+            onClick={this.handleClick}
+          >
+            <i className="bi bi-person-circle"></i> 
+            <span>User</span>
+          </li>
+          <li 
+            className="nav-link nav-sessions" 
+            id="nav-sessions"
+            onClick={this.handleClick}
+          >
+            <i className="bi bi-calendar-event-fill"></i>
+            <span>Session</span>
+          </li>
+          <li 
+            className="nav-link nav-series" 
+            id="nav-series"
+            onClick={this.handleClick}
+          >
+            <i className="bi bi-calendar-range-fill"></i> 
+            <span>Series</span>
+          </li>
+          <li 
+            className="nav-link nav-logout" 
+            id="nav-logout"
+            onClick={this.handleClick}
+          >
+            <i className="bi bi-box-arrow-left"></i> 
+            <span>Logout</span>
+          </li>
+        </ul>
+      </nav>
+    );
   }
 }
 
