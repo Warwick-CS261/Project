@@ -6,9 +6,10 @@
  * User Manual available at https://docs.gradle.org/6.7.1/userguide/building_java_projects.html
  */
 
+
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
-    id 'application'
+    id "application"
 }
 
 repositories {
