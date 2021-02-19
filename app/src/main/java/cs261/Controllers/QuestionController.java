@@ -30,7 +30,7 @@ public class QuestionController{
         }
         Question q = new Question(question);
         dbConn.createQuestion(q, sessionID);
-        response.cookie("token", dbConn.newToken(user.getId()), 3600, true, true);
+        response.cookie("token", dbConn.newToken(user.getId()), 3600, false, true);
         return gson.toJson(question) + sessionID;
     };
 
@@ -70,7 +70,7 @@ public class QuestionController{
         
 
         
-        response.cookie("token", dbConn.newToken(user.getId()), 3600, true, true);
+        response.cookie("token", dbConn.newToken(user.getId()), 3600, false, true);
         return "response submitted to question in session "+request.params(":id");
     };
 

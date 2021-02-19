@@ -44,7 +44,7 @@ public class SessionController{
         //add session to db
         dbConn.createSession(session);
         dbConn.addModerator(user.getId(), sessionID);
-        response.cookie("token", dbConn.newToken(user.getId()), 3600, true, true);
+        response.cookie("token", dbConn.newToken(user.getId()), 3600, false, true);
         return gson.toJson(session);
     };
 
@@ -87,7 +87,7 @@ public class SessionController{
         }
         //all checks past and success
         dbConn.addModerator(newMod.getId(),sessionID);
-        response.cookie("token", dbConn.newToken(user.getId()), 3600, true, true);
+        response.cookie("token", dbConn.newToken(user.getId()), 3600, false, true);
         return "success";
     };
 
@@ -119,7 +119,7 @@ public class SessionController{
         if(!dbConn.userIsAttendee(sessionID, user.getId())){
             dbConn.addUserToSession(sessionID, user.getId());
         }
-        response.cookie("token", dbConn.newToken(user.getId()), 3600, true, true);
+        response.cookie("token", dbConn.newToken(user.getId()), 3600, false, true);
         return gson.toJson(session);
     };
 
@@ -145,7 +145,7 @@ public class SessionController{
             return "Already ended";
         }
         dbConn.endSession(sessionID);
-        response.cookie("token", dbConn.newToken(user.getId()), 3600, true, true);
+        response.cookie("token", dbConn.newToken(user.getId()), 3600, false, true);
         return "Session Ended";
     };
 
@@ -168,7 +168,7 @@ public class SessionController{
         if(!dbConn.userIsSessionHost(user.getId(), sessionID)){
             return "No permission";
         }
-        response.cookie("token", dbConn.newToken(user.getId()), 3600, true, true);
+        response.cookie("token", dbConn.newToken(user.getId()), 3600, false, true);
         return "Session "+sessionID +" Deleted";
     };
 
