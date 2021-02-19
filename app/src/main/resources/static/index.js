@@ -77,14 +77,68 @@ class App extends React.Component {
 }
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      stay: false,
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event){
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  }
+
+  handleCheck(event){
+    this.setState({
+      [event.target.name]: event.target.checked,
+    })
+  }
+
+  handleSubmit(event){
+
+    event.preventDefault();
+  }
+  
+
   render(){
     return(
       <div>
         <h1>Login</h1>
-        <form method="POST" >
-          <input type="email" name="email" />
-          <input type="password" name="password" />
-          <button type="submit" >Log in</button>
+        <form method="POST" onSubmit={this.handleSubmit} >
+          <input 
+            type="email" 
+            name="email" 
+            value={this.state.email}
+            onChange={this.handleChange}
+            className="form-control"
+          />
+          <input 
+            type="password" 
+            name="password" 
+            value={this.state.password}
+            onChange={this.handleChange}
+            className="form-control"
+          />
+          <input 
+            type="checkbox" 
+            name="stay"
+            onChange={this.handleCheck}
+            className="form-check-input"
+          />
+          <button 
+            type="submit" 
+            className="btn btn-primary"
+          >
+            Log in
+          </button>
         </form>
       </div>
     );
@@ -180,9 +234,50 @@ class SignUp extends React.Component {
 
 
 class Nav extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      home: false,
+      user: false,
+      sessions: false,
+      series: false
+    };
+  }
+
   render (){
     <nav className="nav">
-      
+      <ul>
+        <li className="nav-link nav-home" id="nav-home">
+          <a href="#">
+            <i className="bi bi-house-fill"></i> 
+            <span>Home</span>
+          </a>
+        </li>
+        <li className="nav-link nav-user" id="nav-user">
+          <a href="#">
+            <i className="bi bi-person-circle"></i> 
+            <span>User</span>
+          </a>
+        </li>
+        <li className="nav-link nav-session" id="nav-session">
+          <a href="#">
+            <i className="bi bi-calendar-event-fill"></i>
+            <span>Session</span>
+          </a>
+        </li>
+        <li className="nav-link nav-series" id="nav-series">
+          <a href="#">
+            <i className="bi bi-calendar-range-fill"></i> 
+            <span>Series</span>
+          </a>
+        </li>
+        <li className="nav-link nav-logout" id="nav-logout">
+          <a href="#">
+            <i className="bi bi-box-arrow-left"></i> 
+            <span>Logout</span>
+          </a>
+        </li>
+			</ul>
     </nav>
   }
 }
