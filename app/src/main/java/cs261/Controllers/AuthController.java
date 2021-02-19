@@ -16,7 +16,8 @@ public class AuthController{
         if(Objects.isNull(user)){
             return "Incorrect email or password";
         }else{
-            return "token:"+dbConn.newToken(user.getId());
+            response.cookie("token", dbConn.newToken(user.getId()), 3600, true, true);
+            return "success";
         }
     };
 
@@ -36,7 +37,8 @@ public class AuthController{
             User user = new User(fname, lname, email);
             dbConn.createUser(user, password, "salt");
             user  = dbConn.getUserByEmail(email);
-            return "token:"+dbConn.newToken(user.getId());
+            response.cookie("token", dbConn.newToken(user.getId()), 3600, true, true);
+            return "success";
         }
     };
 
@@ -44,6 +46,7 @@ public class AuthController{
         DBConnection dbConn = App.getApp().getDbConn();
         String token = request.queryParams("token");
         dbConn.expireToken(token);
+        response.removeCookie("token");
         return "Token expired";
     };
 
