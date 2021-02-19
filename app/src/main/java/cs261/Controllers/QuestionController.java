@@ -1,5 +1,6 @@
 package cs261.Controllers;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 import spark.*;
@@ -23,16 +24,52 @@ public class QuestionController{
             return "Invalid Token";
         }
         //need to check user is moderator or owner
-        if(dbConn.userIsModerator(user.getId(), sessionID)){
-            Question q = new Question(question);
-            dbConn.createQuestion(q, sessionID);
-            return gson.toJson(question) + sessionID;
+        if(!dbConn.userIsModerator(user.getId(), sessionID)){
+            response.status(6969);
+            return "not authorised for session "+sessionID;
         }
-        return "not authorised for session "+sessionID;
+        Question q = new Question(question);
+        dbConn.createQuestion(q, sessionID);
+        return gson.toJson(question) + sessionID;
     };
 
     public static Route submitResponse = (Request request, Response response) -> {
-        Map<String, Object> model = new HashMap<>();
+        DBConnection dbConn = App.getApp().getDbConn();
+
+        String token = request.queryParams("token");
+        String sessionID = request.queryParams(":id");
+        String context = request.queryParams("asnwer");
+        String anon = request.queryParams("anon");
+        int smiley = Integer.parseInt(request.queryParams("smiley"));
+        int qID =  Integer.parseInt(request.queryParams("qID"));
+        Boolean anonymous;
+
+        User user = dbConn.getUserByToken(token);
+        if(Objects.isNull(user)){
+            return "Invalid Token";
+        }
+        LocalDateTime stamp = LocalDateTime.now();
+        if(anon.equals("true")){
+            anonymous = true;
+        }else if(anon.equals("false")){
+            anonymous = false;
+        }else{
+            response.status(6969);
+            return "fuck off(anon mad eno sense)";
+        }
+
+        if(!dbConn.sessionExists(sessionID)){
+            response.status(696);
+            return "Session doesn't exist"; 
+        }
+        //check session exists
+        //check question exists
+        Answer answer = new Answer(user, smiley, context, stamp, anonymous);
+
+        
+
+        
+
         return "response submitted to question in session "+request.params(":id");
     };
 

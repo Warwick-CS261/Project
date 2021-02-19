@@ -1,6 +1,6 @@
 package cs261;
 import java.sql.*;
-import java.util.Random;
+import java.util.*;
 
 
 public class DBConnection {
@@ -57,6 +57,20 @@ public class DBConnection {
         stmt.setInt(1, qs);
         stmt.setString(2, sessionID);
         stmt.setString(3, q.getQuestion());
+        stmt.executeUpdate();
+        return true;
+    }
+
+    public Boolean createAnswer(Answer answer, String sessiondID, int qID) throws SQLException{
+        String query = "INSERT INTO ANSWER VALUES(?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, qID);
+        stmt.setString(2, sessiondID);
+        stmt.setInt(3, answer.getUser().getId());
+        stmt.setInt(4, answer.getSmiley());
+        stmt.setTimestamp(5, Timestamp.valueOf(answer.getStamp()));
+        stmt.setBoolean(6, answer.getAnon());
+        stmt.setString(7, answer.getContext());
         stmt.executeUpdate();
         return true;
     }
@@ -138,6 +152,17 @@ public class DBConnection {
         return null;
     }
 
+    public User getUserByID(int id) throws SQLException{
+        String query = "SELECT * FROM USER WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, id);
+        ResultSet rs = stmt.executeQuery();
+        if(rs.next()){
+            return new User(rs.getInt("id"), rs.getString("fname"), rs.getString("lname"), rs.getString("email"));
+        }
+        return null;
+    }
+
     public Boolean setModerator(int userID, String sessionID) throws SQLException{
         String query = "INSERT INTO MODERATOR_SESSION VALUES(?,?)";
         PreparedStatement stmt = connection.prepareStatement(query);
@@ -183,6 +208,39 @@ public class DBConnection {
         return false;
     }
 
+    public Boolean endSession(String sessionID) throws SQLException{
+        String query = "UPDATE SESH SET ended = ? WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setBoolean(1, true);
+        stmt.setString(2, sessionID);
+        stmt.executeUpdate();
+        return true;
+    }
+
+    public Boolean sessionEnded(String sessionID) throws SQLException{
+        String query = "SELECT ended FROM SESH WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        ResultSet rs = stmt.executeQuery();
+        if(rs.next()){
+            return rs.getBoolean("ended");
+        }
+        return true;
+    }
+
+    public Sesh getSessionByID(String sessionID) throws SQLException{
+        String query = "SELECT * FROM SESH WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        ResultSet rs = stmt.executeQuery();
+        if(rs.next()){
+            return new Sesh(sessionID, rs.getInt("seriesID"), rs.getString("sname"),
+            getUserByID(rs.getInt("id")), rs.getBoolean("ended"), new Chat(), new ArrayList<Question>());
+        //NEED TO ACTUALL LOAD CHAT AND PUSHED QUESTIONS
+        }
+        return null;
+    }
+
     public Boolean emailExists(String email) throws SQLException{
         String query = "SELECT * FROM USER WHERE email = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
@@ -194,11 +252,62 @@ public class DBConnection {
         return false;
     }
 
+    public Boolean addUserToSession(String sessionID, int userID) throws SQLException{
+        String query = "INSERT INTO ATTENDEE_SESSION VALUES(?,?)";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, userID);
+        stmt.setString(2, sessionID);
+        stmt.executeUpdate();
+        return true;
+    }
+
+    public Boolean userIsAttendee(String sessionID, int userID) throws SQLException{
+        String query = "SELECT * FROM ATTENDEE_SESSION WHERE userID = ? AND sessionID = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, userID);
+        stmt.setString(2, sessionID);
+        ResultSet rs = stmt.executeQuery();
+        if(rs.next()){
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean questionExists(String sessionID, int questionID) throws SQLException{
+        String query = "SELECT * FROM QUESTION WHERE id =  ? AND sessionID = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, questionID);
+        stmt.setString(2, sessionID);
+        ResultSet rs = stmt.executeQuery();
+        if(rs.next()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public String getSessionPassword(String sessionID) throws SQLException{
+        String query = "SELECT secure FROM SESH WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        ResultSet rs = stmt.executeQuery();
+        rs.next();
+        return rs.getString("secure");
+    }
+
+    public Boolean deleteSession(String sessionID) throws SQLException{
+        String query = "DELETE FROM SESSION WHERE sessionID = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        stmt.executeUpdate();
+        return true;
+    }
+
     private String generateToken(){
     
         Random r = new Random();
     
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890?&%!/^;:+=-_";
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890?<>&%!/^;:+=-_";
         String token ="";
         for (int i = 0; i < 32; i++) {
             token = token +alphabet.charAt(r.nextInt(alphabet.length()));
