@@ -16,7 +16,7 @@ public class SessionController{
         DBConnection dbConn = App.getApp().getDbConn();
 
         String name = request.queryParams("name");
-        String token = request.queryParams("token");
+        String token = request.cookie("token");
         String secure = request.queryParams("secure");
         int seriesID =  Integer.parseInt(request.queryParams("series"));
 
@@ -44,8 +44,8 @@ public class SessionController{
         //add session to db
         dbConn.createSession(session);
         dbConn.addModerator(user.getId(), sessionID);
-        
-        return gson.toJson(session)+"{\"token\":\""+dbConn.newToken(user.getId())+"\"}";
+        response.cookie("token", dbConn.newToken(user.getId()), 3600, true, true);
+        return gson.toJson(session);
     };
 
     
@@ -67,7 +67,7 @@ public class SessionController{
     public static Route addHost = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
 
-        String token = request.queryParams("token");
+        String token = request.cookie("token");
         String sessionID = request.queryParams(":id");
         String email = request.queryParams("email");
 
@@ -87,6 +87,7 @@ public class SessionController{
         }
         //all checks past and success
         dbConn.addModerator(newMod.getId(),sessionID);
+        response.cookie("token", dbConn.newToken(user.getId()), 3600, true, true);
         return "success";
     };
 
@@ -95,7 +96,7 @@ public class SessionController{
     public static Route joinSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
 
-        String token = request.queryParams("token");
+        String token = request.cookie("token");
         String password = request.queryParams("password");
         String sessionID = request.queryParams(":id");
 
@@ -118,7 +119,8 @@ public class SessionController{
         if(!dbConn.userIsAttendee(sessionID, user.getId())){
             dbConn.addUserToSession(sessionID, user.getId());
         }
-        return gson.toJson(session)+"{\"token\":\""+dbConn.newToken(user.getId())+"\"}";
+        response.cookie("token", dbConn.newToken(user.getId()), 3600, true, true);
+        return gson.toJson(session);
     };
 
 
@@ -126,7 +128,7 @@ public class SessionController{
     public static Route endSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
         
-        String token = request.queryParams("token");
+        String token = request.cookie("token");
         String sessionID = request.queryParams(":id");
 
         User user = dbConn.getUserByToken(token);
@@ -143,13 +145,14 @@ public class SessionController{
             return "Already ended";
         }
         dbConn.endSession(sessionID);
+        response.cookie("token", dbConn.newToken(user.getId()), 3600, true, true);
         return "Session Ended";
     };
 
     public static Route deleteSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
 
-        String token = request.queryParams("token");
+        String token = request.cookie("token");
         String sessionID = request.queryParams(":id");
 
         if(!dbConn.sessionExists(sessionID)){
@@ -165,7 +168,7 @@ public class SessionController{
         if(!dbConn.userIsSessionHost(user.getId(), sessionID)){
             return "No permission";
         }
-
+        response.cookie("token", dbConn.newToken(user.getId()), 3600, true, true);
         return "Session "+sessionID +" Deleted";
     };
 
