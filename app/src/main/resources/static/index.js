@@ -268,14 +268,18 @@ class SignUp extends React.Component {
   }
 
   handleSubmit(event) {
+    let params = new URLSearchParams(this.state).toString();
+    console.log(params);
+    Cookies.set("this", "that");
+    console.log(Cookies.get("this"));
     $.ajax({
       url: '/auth/register',
       type: 'POST',
-      data: JSON.stringify(this.state),
+      data: params,
       success: (res) => {
         // handle success
         console.log('Token');
-        console.log(Cookies.get('token'));
+        console.log(Cookies.get("token"));
       },
       error: (res) => {
         // handle error
