@@ -1,16 +1,13 @@
 package cs261;
 
 public class Analyse {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
     public static void main(String[] args) {
-        
+        // For Testing
     }
 
     public float parseText(String data) {
-        String dataloc = "../dict/";
+        // Call Python Script
 
         return 0.5f;
     }
