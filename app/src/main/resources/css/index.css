@@ -10239,4 +10239,8 @@ section.body .main .content .join-session {
   padding: 24px;
   border-radius: 20px;
 }
+
+.invalid {
+  border: solid 2px #f5ccc5;
+}
 /*# sourceMappingURL=index.css.map */
