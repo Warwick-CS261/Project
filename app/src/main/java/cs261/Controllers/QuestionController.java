@@ -17,7 +17,7 @@ public class QuestionController{
         DBConnection dbConn = App.getApp().getDbConn();
 
         String sessionID = request.params(":id");
-        String token = request.queryParams("token");
+        String token = request.cookie("token");
         String question = request.queryParams("question");
         User user = dbConn.getUserByToken(token);
         if(Objects.isNull(user)){
@@ -30,13 +30,14 @@ public class QuestionController{
         }
         Question q = new Question(question);
         dbConn.createQuestion(q, sessionID);
+        response.cookie("token", dbConn.newToken(user.getId()), 3600, true, true);
         return gson.toJson(question) + sessionID;
     };
 
     public static Route submitResponse = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
 
-        String token = request.queryParams("token");
+        String token = request.cookie("token");
         String sessionID = request.queryParams(":id");
         String context = request.queryParams("asnwer");
         String anon = request.queryParams("anon");
@@ -69,7 +70,7 @@ public class QuestionController{
         
 
         
-
+        response.cookie("token", dbConn.newToken(user.getId()), 3600, true, true);
         return "response submitted to question in session "+request.params(":id");
     };
 
