@@ -40,15 +40,18 @@ CREATE TABLE MOOD_DATE (
   FOREIGN KEY(sessionID) REFERENCES SESH(id)
 );
 
-CREATE TABLE RESPONSE (
+CREATE TABLE ANSWER (
   qID INTEGER,
+  sessionID VARCHAR(6),
   userID INTEGER,
-  reaction VARCHAR(10), -- values 'sad', 'happy', 'bored' etc. 
+  reaction INTEGER,--1,2 or 3 -- values 'sad', 'happy', 'bored' etc. 
   stamp DATETIME, -- time of reaction received (required for reaction-time diagram)
   anon BIT,
   context VARCHAR(256), -- context to feedback from the requirements
   FOREIGN KEY(qID) REFERENCES QUESTION(id),
-  FOREIGN KEY(userID) REFERENCES USER(id)
+  FOREIGN KEY(userID) REFERENCES USER(id),
+  FOREIGN KEY(sessionID) REFERENCES SESH(id),
+  PRIMARY KEY (qid, sessionID)
 );
 
 CREATE TABLE MODERATOR_SESSION (

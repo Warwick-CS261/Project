@@ -61,6 +61,20 @@ public class DBConnection {
         return true;
     }
 
+    public Boolean createAnswer(Answer answer, String sessiondID, int qID) throws SQLException{
+        String query = "INSERT INTO ANSWER VALUES(?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, qID);
+        stmt.setString(2, sessiondID);
+        stmt.setInt(3, answer.getUser().getId());
+        stmt.setInt(4, answer.getSmiley());
+        stmt.setTimestamp(5, Timestamp.valueOf(answer.getStamp()));
+        stmt.setBoolean(6, answer.getAnon());
+        stmt.setString(7, answer.getContext());
+        stmt.executeUpdate();
+        return true;
+    }
+
     private int numOfSessQuest(String sessionID)throws SQLException{
         String query = "SELECT COUNT(id) FROM QUESTION WHERE sessionID = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
@@ -149,8 +163,6 @@ public class DBConnection {
         return null;
     }
 
-
-
     public Boolean setModerator(int userID, String sessionID) throws SQLException{
         String query = "INSERT INTO MODERATOR_SESSION VALUES(?,?)";
         PreparedStatement stmt = connection.prepareStatement(query);
@@ -196,6 +208,26 @@ public class DBConnection {
         return false;
     }
 
+    public Boolean endSession(String sessionID) throws SQLException{
+        String query = "UPDATE SESH SET ended = ? WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setBoolean(1, true);
+        stmt.setString(2, sessionID);
+        stmt.executeUpdate();
+        return true;
+    }
+
+    public Boolean sessionEnded(String sessionID) throws SQLException{
+        String query = "SELECT ended FROM SESH WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        ResultSet rs = stmt.executeQuery();
+        if(rs.next()){
+            return rs.getBoolean("ended");
+        }
+        return true;
+    }
+
     public Sesh getSessionByID(String sessionID) throws SQLException{
         String query = "SELECT * FROM SESH WHERE id = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
@@ -218,6 +250,57 @@ public class DBConnection {
             return true;
         }
         return false;
+    }
+
+    public Boolean addUserToSession(String sessionID, int userID) throws SQLException{
+        String query = "INSERT INTO ATTENDEE_SESSION VALUES(?,?)";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, userID);
+        stmt.setString(2, sessionID);
+        stmt.executeUpdate();
+        return true;
+    }
+
+    public Boolean userIsAttendee(String sessionID, int userID) throws SQLException{
+        String query = "SELECT * FROM ATTENDEE_SESSION WHERE userID = ? AND sessionID = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, userID);
+        stmt.setString(2, sessionID);
+        ResultSet rs = stmt.executeQuery();
+        if(rs.next()){
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean questionExists(String sessionID, int questionID) throws SQLException{
+        String query = "SELECT * FROM QUESTION WHERE id =  ? AND sessionID = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, questionID);
+        stmt.setString(2, sessionID);
+        ResultSet rs = stmt.executeQuery();
+        if(rs.next()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public String getSessionPassword(String sessionID) throws SQLException{
+        String query = "SELECT secure FROM SESH WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        ResultSet rs = stmt.executeQuery();
+        rs.next();
+        return rs.getString("secure");
+    }
+
+    public Boolean deleteSession(String sessionID) throws SQLException{
+        String query = "DELETE FROM SESSION WHERE sessionID = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        stmt.executeUpdate();
+        return true;
     }
 
     private String generateToken(){
