@@ -277,13 +277,20 @@ class SignUp extends React.Component {
       url: '/auth/register',
       type: 'POST',
       data: params,
-      success: (res) => {
-        // handle success
+      success: (data, status, jqXHR) => {
+        let token = handleToken(data);
+        if (token === null){
+          this.setState({
+            error: 'Something went wrong please try again',
+          });
+        }
         console.log('Token');
         console.log(Cookies.get("token"));
       },
-      error: (res) => {
-        // handle error
+      error: (jqXHR, status, error) => {
+        this.setState({
+          error: 'Something went wrong',
+        });
       }
     });
     event.preventDefault();
@@ -385,6 +392,7 @@ class SignUp extends React.Component {
 class Nav extends React.Component {
   constructor(props){
     super(props);
+    // TODO lift up the nav states to the app so that the content can make us of the pages
     this.state = {
       navs: {
         home: false,
@@ -459,3 +467,27 @@ class Nav extends React.Component {
 const app = $('#app')[0];
 
 ReactDOM.render(<App />,app);
+
+
+/**
+ * Set's the token as a cookie received from the server
+ * @param {String} res response from the server 
+ */
+function handleToken(res){
+  tokenLength = 32;
+  index = res.toString().indexOf("token=");
+  if (index === -1){
+    return null;
+  }
+  token = res.substring(index+6,index+6+tokenLength);
+  Cookies.set('token', token);
+  return token;
+}
+
+function handleError(res){
+  index = res.toString().indexOf("error=");
+  if (index === -1){
+    return null;
+  }
+  error = res.substring(index+6)
+}
