@@ -27,3 +27,6 @@ modules/
 
 # Ignore Gradle build output directory
 build
+
+# node modules
+node_modules/
