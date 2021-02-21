@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './static/js/App.js',
+  entry: './js/App.js',
   mode: 'development',
   module: {
     rules: [
@@ -21,10 +21,10 @@ module.exports = {
     extensions: ['*', '.js', '.jsx'],
   },
   output: {
-    path: path.resolve(__dirname, './static/js/dist'),
-    filename: 'main.js',
+    path: path.resolve(__dirname, './js/dist'),
+    filename: 'index.js',
   },
   devServer: {
-    contentBase: path.resolve(__dirname, './static/js/dist'),
+    contentBase: path.resolve(__dirname, './js/dist'),
   },
 };
