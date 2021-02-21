@@ -4,11 +4,12 @@
  * 
  */
 // Imports
-const React = window.React;
-const ReactDOM = window.ReactDOM;
-const Cookies = window.Cookies;
-const $ = window.jQuery;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import $ from 'jquery';
+import Cookies from 'js-cookie';
 
+// Components
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Sidebar from './components/Sidebar';
@@ -19,6 +20,7 @@ $(document).ready(()=>{
   var inFifteenMinutes = new Date(new Date().getTime() + 5 * 60 * 1000);
   // TODO test cookie remove before production
   Cookies.set('token', 'test-cookie-remove-before-production', { expires: 365});
+  Cookies.remove('token', { expires: 365 } );
 });
 
 /**
