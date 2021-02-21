@@ -1,7 +1,8 @@
 const path = require('path');
 
 module.exports = {
-  entry: './static/js/index.js',
+  entry: './static/js/App.js',
+  mode: 'development',
   module: {
     rules: [
       {
