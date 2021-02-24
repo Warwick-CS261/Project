@@ -43,3 +43,18 @@ tasks.named('test') {
     // Use junit platform for unit tests.
     useJUnitPlatform()
 }
+
+def npmInstall = task npmInstall(type: Exec) {
+    commandLine 'sh', './npmInstall.sh'
+}
+
+def npmBuild = task npmBuild(type: Exec) {
+    commandLine 'sh', './npmBuild.sh'
+}
+
+def finilize = task finalize {
+    dependsOn npmInstall
+    dependsOn npmBuild
+}
+
+build.configure { finalizedBy finalize }
