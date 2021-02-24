@@ -11,8 +11,7 @@ export default class Sidebar extends React.Component {
         <Nav 
           pages={this.props.pages}
           onLogout={this.props.onLogout} 
-          navHandler={this.props.navHandler}
-          nav={this.props.nav}
+          handleNav={this.props.handleNav}
         />
       </div>
     );
