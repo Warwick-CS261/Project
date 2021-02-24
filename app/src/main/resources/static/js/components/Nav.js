@@ -3,73 +3,57 @@ import React from 'react';
 * Navigation component
 */
 export default class Nav extends React.Component {
-  constructor(props){
-    super(props);
-   // TODO lift up the nav states to the app so that the content can make us of the pages
-    this.state = {
-      navs: {
-        home: false,
-        user: false,
-        sessions: false,
-        series: false,
-        logout: false,
-      },
-    };
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(event){
-    id = event.target.id.substring(4);
-    if (id == logout){
-      Cookies.remove('token');
-      this.props.onLogout();
-    }
-    // TODO active class handling
-  }
-
   render(){
+    const nav = this.props.nav;
+    const pages = this.props.pages;
+
     return(
       <nav className="nav">
         <ul>
           <li 
-            className="nav-link nav-home" 
+            className={`nav-link ${pages.home ? 'active' : ''}`}
             id="nav-home" 
-            onClick={this.handleClick}
           >
-            <i className="bi bi-house-fill"></i> 
-            <span>Home</span>
+            <a onClick={() => this.props.navHandler(nav.home.id)}>
+              {nav.home.icon}
+              <span>{nav.home.text}</span>
+            </a>
           </li>
           <li 
-            className="nav-link nav-user" 
+            className={`nav-link ${pages.user ? 'active' : ''}`}
             id="nav-user"
-            onClick={this.handleClick}
           >
-            <i className="bi bi-person-circle"></i> 
-            <span>User</span>
+            <a onClick={() => this.props.navHandler(nav.user.id)}>
+              {nav.user.icon}
+              <span>{nav.user.text}</span>
+            </a>
           </li>
           <li 
-            className="nav-link nav-sessions" 
+            className={`nav-link ${pages.sessions ? 'active' : ''}`} 
             id="nav-sessions"
-            onClick={this.handleClick}
           >
-            <i className="bi bi-calendar-event-fill"></i>
-            <span>Session</span>
+            <a onClick={()=> this.props.navHandler(nav.sessions.id)}>
+              {nav.sessions.icon}
+              <span>{nav.sessions.text}</span>
+            </a>
           </li>
           <li 
-            className="nav-link nav-series" 
+            className={`nav-link ${pages.series ? 'active' : ''}`}
             id="nav-series"
-            onClick={this.handleClick}
           >
-            <i className="bi bi-calendar-range-fill"></i> 
-            <span>Series</span>
+            <a onClick={()=> this.props.navHandler(nav.series.id)}>
+              {nav.series.icon}
+              <span>{nav.series.text}</span>
+            </a>
           </li>
           <li 
-            className="nav-link nav-logout" 
+            className={`nav-link ${pages.logout ? 'active' : ''}`}
             id="nav-logout"
-            onClick={this.handleClick}
           >
-            <i className="bi bi-box-arrow-left"></i> 
-            <span>Logout</span>
+            <a onClick={()=> this.props.navHandler(nav.logout.id)}>
+              {nav.logout.icon}
+              <span>{nav.logout.text}</span>
+            </a>
           </li>
         </ul>
       </nav>
