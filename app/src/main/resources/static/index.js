@@ -33,6 +33,7 @@ class App extends React.Component {
   }
 
   handleSignUp(){
+    history.pushState({route:'/auth'},'','/auth/register');
     this.setState({
       showSignUp: true
     });
@@ -268,17 +269,28 @@ class SignUp extends React.Component {
   }
 
   handleSubmit(event) {
+    let params = new URLSearchParams(this.state).toString();
+    console.log(params);
+    Cookies.set("this", "that");
+    console.log(Cookies.get("this"));
     $.ajax({
       url: '/auth/register',
       type: 'POST',
-      data: JSON.stringify(this.state),
-      success: (res) => {
-        // handle success
+      data: params,
+      success: (data, status, jqXHR) => {
+        let token = handleToken(data);
+        if (token === null){
+          this.setState({
+            error: 'Something went wrong please try again',
+          });
+        }
         console.log('Token');
-        console.log(Cookies.get('token'));
+        console.log(Cookies.get("token"));
       },
-      error: (res) => {
-        // handle error
+      error: (jqXHR, status, error) => {
+        this.setState({
+          error: 'Something went wrong',
+        });
       }
     });
     event.preventDefault();
@@ -380,6 +392,7 @@ class SignUp extends React.Component {
 class Nav extends React.Component {
   constructor(props){
     super(props);
+    // TODO lift up the nav states to the app so that the content can make us of the pages
     this.state = {
       navs: {
         home: false,
@@ -398,57 +411,83 @@ class Nav extends React.Component {
       Cookies.remove('token');
       this.props.onLogout();
     }
-
+    // TODO active class handling
   }
 
-  render (){
-    <nav className="nav">
-      <ul>
-        <li 
-          className="nav-link nav-home" 
-          id="nav-home" 
-          onClick={this.handleClick}
-        >
-          <i className="bi bi-house-fill"></i> 
-          <span>Home</span>
-        </li>
-        <li 
-          className="nav-link nav-user" 
-          id="nav-user"
-          onClick={this.handleClick}
-        >
-          <i className="bi bi-person-circle"></i> 
-          <span>User</span>
-        </li>
-        <li 
-          className="nav-link nav-sessions" 
-          id="nav-sessions"
-          onClick={this.handleClick}
-        >
-          <i className="bi bi-calendar-event-fill"></i>
-          <span>Session</span>
-        </li>
-        <li 
-          className="nav-link nav-series" 
-          id="nav-series"
-          onClick={this.handleClick}
-        >
-          <i className="bi bi-calendar-range-fill"></i> 
-          <span>Series</span>
-        </li>
-        <li 
-          className="nav-link nav-logout" 
-          id="nav-logout"
-          onClick={this.handleClick}
-        >
-          <i className="bi bi-box-arrow-left"></i> 
-          <span>Logout</span>
-        </li>
-			</ul>
-    </nav>
+  render(){
+    return(
+      <nav className="nav">
+        <ul>
+          <li 
+            className="nav-link nav-home" 
+            id="nav-home" 
+            onClick={this.handleClick}
+          >
+            <i className="bi bi-house-fill"></i> 
+            <span>Home</span>
+          </li>
+          <li 
+            className="nav-link nav-user" 
+            id="nav-user"
+            onClick={this.handleClick}
+          >
+            <i className="bi bi-person-circle"></i> 
+            <span>User</span>
+          </li>
+          <li 
+            className="nav-link nav-sessions" 
+            id="nav-sessions"
+            onClick={this.handleClick}
+          >
+            <i className="bi bi-calendar-event-fill"></i>
+            <span>Session</span>
+          </li>
+          <li 
+            className="nav-link nav-series" 
+            id="nav-series"
+            onClick={this.handleClick}
+          >
+            <i className="bi bi-calendar-range-fill"></i> 
+            <span>Series</span>
+          </li>
+          <li 
+            className="nav-link nav-logout" 
+            id="nav-logout"
+            onClick={this.handleClick}
+          >
+            <i className="bi bi-box-arrow-left"></i> 
+            <span>Logout</span>
+          </li>
+        </ul>
+      </nav>
+    );
   }
 }
 
 const app = $('#app')[0];
 
 ReactDOM.render(<App />,app);
+
+
+/**
+ * Set's the token as a cookie received from the server
+ * @param {String} res response from the server 
+ */
+function handleToken(res){
+  tokenLength = 32;
+  index = res.toString().indexOf("token=");
+  if (index === -1){
+    return null;
+  }
+  token = res.substring(index+6,index+6+tokenLength);
+  Cookies.set('token', token);
+  return token;
+}
+
+function handleError(res){
+  index = res.toString().indexOf("error=");
+  if (index === -1){
+    return null;
+  }
+  error = res.substring(index+6)
+}

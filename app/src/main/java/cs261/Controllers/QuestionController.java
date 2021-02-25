@@ -30,7 +30,7 @@ public class QuestionController{
         }
         Question q = new Question(question);
         dbConn.createQuestion(q, sessionID);
-        response.cookie("token", dbConn.newToken(user.getId()), 3600, true, true);
+        response.cookie("token", dbConn.newToken(user.getId()), 3600, false, true);
         return gson.toJson(question) + sessionID;
     };
 
@@ -67,7 +67,11 @@ public class QuestionController{
         //check question exists
         Answer answer = new Answer(user, smiley, context, stamp, anonymous);
 
-        return "token="+dbConn.newToken(user.getId());
+        
+
+        
+        response.cookie("token", dbConn.newToken(user.getId()), 3600, false, true);
+        return "response submitted to question in session "+request.params(":id");
     };
 
     public static Route deleteQuestion = (Request request, Response response) -> {
