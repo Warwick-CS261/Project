@@ -3,6 +3,17 @@ import React from 'react';
 * Navigation component
 */
 export default class Nav extends React.Component {
+
+  componentDidMount(){
+    this.props.navHandler('home');
+    history.pushState({route:'/home'},'','/home');
+  }
+  
+  componentWillUnmount(){
+    console.log("Return to index route");
+    history.pushState({route:'/'},'','/');
+  }
+  
   render(){
     const nav = this.props.nav;
     const pages = this.props.pages;
@@ -47,10 +58,10 @@ export default class Nav extends React.Component {
             </a>
           </li>
           <li 
-            className={`nav-link ${pages.logout ? 'active' : ''}`}
+            className="nav-link"
             id="nav-logout"
           >
-            <a onClick={()=> this.props.navHandler(nav.logout.id)}>
+            <a onClick={this.props.onLogout}>
               {nav.logout.icon}
               <span>{nav.logout.text}</span>
             </a>

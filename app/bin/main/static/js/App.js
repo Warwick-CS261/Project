@@ -19,7 +19,7 @@ $(document).ready(()=>{
   // date to set expiry for a cookie
   var inFifteenMinutes = new Date(new Date().getTime() + 5 * 60 * 1000);
   // TODO test cookie remove before production
-  Cookies.set('token', 'test-cookie-remove-before-production');
+  //Cookies.set('token', 'test-cookie-remove-before-production');
 });
 
 /**
@@ -34,7 +34,7 @@ class App extends React.Component {
         signUp: false,
       },
       navs: {
-        home: true,
+        home: false,
         user: false,
         sessions: false,
         series: false,
@@ -47,10 +47,10 @@ class App extends React.Component {
 
     this.handleLogout = this.handleLogout.bind(this);
     this.handleNav = this.handleNav.bind(this);
+    this.updateToken = this.updateToken.bind(this);
   }
 
   handleLogin(){
-    history.pushState({route:'/auth'},'','/auth/login');
     this.setState({
       auth: {
         login: true,
@@ -60,7 +60,6 @@ class App extends React.Component {
   }
 
   handleSignUp(){
-    history.pushState({route:'/auth'},'','/auth/register');
     this.setState({
       auth: {
         login: false,
@@ -80,6 +79,16 @@ class App extends React.Component {
     });
   }
 
+  updateToken(token){
+    this.setState({
+      auth: {
+        login: false,
+        signUp: false,
+      },
+      token: token,
+    });
+  }
+
   handleNav(id){
     this.setState({
       navs: {
@@ -95,7 +104,7 @@ class App extends React.Component {
 
   componentDidMount(){
     let tokenCookie = Cookies.get('token');
-    if (tokenCookie === undefined) {
+    if (tokenCookie === undefined || tokenCookie === '') {
       this.setState({
         token: null,
       });
@@ -103,6 +112,18 @@ class App extends React.Component {
       this.setState({
         token: tokenCookie
       });
+    }
+  }
+
+  componentDidUpdate(){
+    let active;
+    Object.keys(this.state.navs).forEach(key =>{
+      if (this.state.navs[key] === true){
+        active = key;
+      }
+    });
+    if (active !== undefined) {
+      history.pushState({route:`/${active}`},'',`/${active}`);
     }
   }
 
@@ -135,16 +156,15 @@ class App extends React.Component {
       }
     };
 
-    if (this.state.auth.login.show) {
-      console.log("render login");
+    if (this.state.auth.login) {
       return (
-        <Login />
+        <Login updateToken={this.updateToken} />
       );
     }
 
-    if (this.state.auth.signUp.show) {
+    if (this.state.auth.signUp) {
       return (
-        <SignUp />
+        <SignUp updateToken={this.updateToken} />
       );
     }
 
@@ -187,27 +207,3 @@ class App extends React.Component {
 
 
 ReactDOM.render(<App />,$('#app')[0]);
-
-
-/**
- * Set's the token as a cookie received from the server
- * @param {String} res response from the server 
- */
-function handleToken(res){
-  tokenLength = 32;
-  index = res.toString().indexOf("token=");
-  if (index === -1){
-    return null;
-  }
-  token = res.substring(index+6,index+6+tokenLength);
-  Cookies.set('token', token);
-  return token;
-}
-
-function handleError(res){
-  index = res.toString().indexOf("error=");
-  if (index === -1){
-    return null;
-  }
-  error = res.substring(index+6)
-}
