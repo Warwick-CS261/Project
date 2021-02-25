@@ -19,7 +19,7 @@
   <script src="./modules/react.production.min.js"></script>
   <script src="./modules/react-dom.production.min.js"></script>
   <!-- Babel for compiling text/babel, JSX files -->
-  <!-- TODO remove before production -->
+  <!-- TODO compile and remove before production -->
   <script src="./modules/babel.min.js"></script>
   <!-- Bootstrap js -->
   <script src="./modules/bootstrap-5.0.0-beta2/dist/js/bootstrap.min.js"></script>
