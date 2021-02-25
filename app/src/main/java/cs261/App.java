@@ -37,11 +37,14 @@ public class App {
         port(6969);
         Class.forName("org.sqlite.JDBC");
         dbConn = new DBConnection("jdbc:sqlite:database/database.db");
+        
 
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             return Util.render(model, "velocity/index.vm");
         });
+
+
 
 
         path("/auth", () -> {
