@@ -44,12 +44,7 @@ public class SessionController{
         //add session to db
         dbConn.createSession(session);
         dbConn.addModerator(user.getId(), sessionID);
-<<<<<<< HEAD
         return "token="+dbConn.newToken(user.getId())+","+gson.toJson(session);
-=======
-        response.cookie("token", dbConn.newToken(user.getId()), 3600, false, true);
-        return gson.toJson(session);
->>>>>>> main
     };
 
     
@@ -91,12 +86,7 @@ public class SessionController{
         }
         //all checks past and success
         dbConn.addModerator(newMod.getId(),sessionID);
-<<<<<<< HEAD
         return "token="+dbConn.newToken(user.getId());
-=======
-        response.cookie("token", dbConn.newToken(user.getId()), 3600, false, true);
-        return "success";
->>>>>>> main
     };
 
 
@@ -127,12 +117,7 @@ public class SessionController{
         if(!dbConn.userIsAttendee(sessionID, user.getId())){
             dbConn.addUserToSession(sessionID, user.getId());
         }
-<<<<<<< HEAD
         return  "token="+dbConn.newToken(user.getId())+","+gson.toJson(session);
-=======
-        response.cookie("token", dbConn.newToken(user.getId()), 3600, false, true);
-        return gson.toJson(session);
->>>>>>> main
     };
 
 
@@ -180,12 +165,7 @@ public class SessionController{
         if(!dbConn.userIsSessionHost(user.getId(), sessionID)){
             return "No permission";
         }
-<<<<<<< HEAD
         return "token="+dbConn.newToken(user.getId());
-=======
-        response.cookie("token", dbConn.newToken(user.getId()), 3600, false, true);
-        return "Session "+sessionID +" Deleted";
->>>>>>> main
     };
 
     public static Route refreshSession = (Request request, Response response) -> {

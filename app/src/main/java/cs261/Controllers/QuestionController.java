@@ -67,11 +67,7 @@ public class QuestionController{
         //check question exists
         Answer answer = new Answer(user, smiley, context, stamp, anonymous);
 
-        
-
-        
-        response.cookie("token", dbConn.newToken(user.getId()), 3600, false, true);
-        return "response submitted to question in session "+request.params(":id");
+        return "token="+dbConn.newToken(user.getId());
     };
 
     public static Route deleteQuestion = (Request request, Response response) -> {
