@@ -19,7 +19,7 @@ $(document).ready(()=>{
   // date to set expiry for a cookie
   var inFifteenMinutes = new Date(new Date().getTime() + 5 * 60 * 1000);
   // TODO test cookie remove before production
-  Cookies.set('token', 'test-cookie-remove-before-production');
+  //Cookies.set('token', 'test-cookie-remove-before-production');
 });
 
 /**
@@ -30,83 +30,81 @@ class App extends React.Component {
     super(props);
     this.state = {
       auth: {
-        login: {show: false, text: "Login"},
-        signUp: {show: false, text: "SignUp"},
+        login: false,
+        signUp: false,
       },
       navs: {
-        home: {
-          active: true, 
-          text: "Home", 
-          icon: <i className="bi bi-house-fill"></i>
-        },
-        user: {
-          active: false, 
-          text: "Profile", 
-          icon: <i className="bi bi-person-circle"></i>
-        },
-        sessions: {
-          active: false, 
-          text: "Sessions",
-          icon: <i className="bi bi-calendar-event-fill"></i>
-        },
-        series: {
-          active: false, 
-          text: "Series",
-          icon: <i className="bi bi-calendar-range-fill"></i> 
-        },
-        logout: {
-          active: false, 
-          text: "Logout",
-          icon: <i className="bi bi-box-arrow-left"></i> 
-        },
+        home: false,
+        user: false,
+        sessions: false,
+        series: false,
+        logout: false
       },
       token: null,
-      firstName: "",
-      lastName: ""
+      firstName: '',
+      lastName: ''
     };
 
     this.handleLogout = this.handleLogout.bind(this);
     this.handleNav = this.handleNav.bind(this);
+    this.updateToken = this.updateToken.bind(this);
   }
 
   handleLogin(){
-    history.pushState({route:'/auth'},'','/auth/login');
     this.setState({
       auth: {
-        login: {show: true},
-        signUp: {show: false},
+        login: true,
+        signUp: false,
       }
     });
   }
 
   handleSignUp(){
-    history.pushState({route:'/auth'},'','/auth/register');
     this.setState({
       auth: {
-        login: {show: false},
-        signUp: {show: true},
+        login: false,
+        signUp: true,
       }
     });
   }
 
   handleLogout(){
+    Cookies.remove('token');
     this.setState({
       auth: {
-        login: {show: false},
-        signUp: {show: false},
+        login: false,
+        signUp: false,
       },
       token: null
     });
   }
 
-  handleNav(event){
-    let item = event.target
-    
+  updateToken(token){
+    this.setState({
+      auth: {
+        login: false,
+        signUp: false,
+      },
+      token: token,
+    });
+  }
+
+  handleNav(id){
+    this.setState({
+      navs: {
+        home: false,
+        user: false,
+        sessions: false,
+        series: false,
+        logout: false,
+        [id]: true,
+      }
+    });
   }
 
   componentDidMount(){
     let tokenCookie = Cookies.get('token');
-    if (tokenCookie === undefined) {
+    if (tokenCookie === undefined || tokenCookie === '') {
       this.setState({
         token: null,
       });
@@ -117,18 +115,56 @@ class App extends React.Component {
     }
   }
 
-  render (){
+  componentDidUpdate(){
+    let active;
+    Object.keys(this.state.navs).forEach(key =>{
+      if (this.state.navs[key] === true){
+        active = key;
+      }
+    });
+    if (active !== undefined) {
+      history.pushState({route:`/${active}`},'',`/${active}`);
+    }
+  }
 
-    if (this.state.auth.login.show) {
-      console.log("render login");
+  render (){
+    let nav = {
+      home: {
+        id: 'home',
+        text: "Home",
+        icon: <i className="bi bi-house-fill"></i>
+      },
+      user: {
+        id: 'user',
+        text: "Profile", 
+        icon: <i className="bi bi-person-circle"></i>
+      },
+      sessions: {
+        id: 'sessions',
+        text: "Sessions",
+        icon: <i className="bi bi-calendar-event-fill"></i>
+      },
+      series: {
+        id: 'series',
+        text: "Series",
+        icon: <i className="bi bi-calendar-range-fill"></i> 
+      },
+      logout: {
+        id: 'logout',
+        text: "Logout",
+        icon: <i className="bi bi-box-arrow-left"></i> 
+      }
+    };
+
+    if (this.state.auth.login) {
       return (
-        <Login />
+        <Login updateToken={this.updateToken} />
       );
     }
 
-    if (this.state.auth.signUp.show) {
+    if (this.state.auth.signUp) {
       return (
-        <SignUp />
+        <SignUp updateToken={this.updateToken} />
       );
     }
 
@@ -140,13 +176,13 @@ class App extends React.Component {
             className="btn btn-primary" 
             onClick={()=>this.handleLogin()}
           >
-            {this.state.auth.login.text}
+            Login!
           </button>
           <button 
             className="btn btn-primary" 
             onClick={()=>this.handleSignUp()}
           >
-            {this.state.auth.signUp.text}
+            Sign Up!
           </button>
         </div>
       );
@@ -158,9 +194,11 @@ class App extends React.Component {
           pages={this.state.navs}
           onLogout={this.handleLogout}
           navHandler={this.handleNav}
+          nav={nav}
         />
         <Main
           pages={this.state.navs}
+          nav={nav}
         />
       </div>
     );
@@ -169,27 +207,3 @@ class App extends React.Component {
 
 
 ReactDOM.render(<App />,$('#app')[0]);
-
-
-/**
- * Set's the token as a cookie received from the server
- * @param {String} res response from the server 
- */
-function handleToken(res){
-  tokenLength = 32;
-  index = res.toString().indexOf("token=");
-  if (index === -1){
-    return null;
-  }
-  token = res.substring(index+6,index+6+tokenLength);
-  Cookies.set('token', token);
-  return token;
-}
-
-function handleError(res){
-  index = res.toString().indexOf("error=");
-  if (index === -1){
-    return null;
-  }
-  error = res.substring(index+6)
-}

@@ -1,4 +1,7 @@
 import React from 'react';
+import Cookies from 'js-cookie';
+import $ from 'jquery';
+import {handleToken, handleError} from '../util';
 
 /**
  * SignUp component 
@@ -38,20 +41,19 @@ export default class SignUp extends React.Component {
 
   handleSubmit(event) {
     let params = new URLSearchParams(this.state).toString();
-    console.log(params);
-    Cookies.set("this", "that");
-    console.log(Cookies.get("this"));
     $.ajax({
       url: '/auth/register',
       type: 'POST',
       data: params,
       success: (data, status, jqXHR) => {
         let token = handleToken(data);
-        if (token === null){
+        if (token === null || token === undefined){
           this.setState({
             error: 'Something went wrong please try again',
           });
         }
+        Cookies.set('token', token);
+        this.props.updateToken(token);
         console.log('Token');
         console.log(Cookies.get("token"));
       },
@@ -64,12 +66,16 @@ export default class SignUp extends React.Component {
     event.preventDefault();
   }
 
+  componentDidMount() {
+    history.pushState({route:'/auth'},'','/auth/register');
+  }
+
   render(){
     return(
       <div>
         <h1>Register</h1>
         {this.state.error !== false && 
-          <div class="alert alert-danger" role="alert">
+          <div className="alert alert-danger" role="alert">
             {this.state.error}
           </div>
         }
@@ -83,7 +89,7 @@ export default class SignUp extends React.Component {
               onInvalid={this.handleInvalid}
               className="form-control"
               autoFocus
-              autoComplete
+              autoComplete="given-name"
               required
             />
           </div>
@@ -95,7 +101,7 @@ export default class SignUp extends React.Component {
               onChange={this.handleChange}
               onInvalid={this.handleInvalid}
               className="form-control"
-              autoComplete
+              autoComplete="family-name"
               required
             />
           </div>
@@ -107,7 +113,7 @@ export default class SignUp extends React.Component {
               onChange={this.handleChange}
               onInvalid={this.handleInvalid}
               className="form-control"
-              autoComplete
+              autoComplete="email"
               required
             />
           </div>
@@ -119,7 +125,7 @@ export default class SignUp extends React.Component {
               onChange={this.handleChange}
               onInvalid={this.handleInvalid}
               className="form-control"
-              autoComplete
+              autoComplete="new-password"
               required
             />
           </div>
@@ -131,7 +137,7 @@ export default class SignUp extends React.Component {
               onChange={this.handleChange}
               onInvalid={this.handleInvalid}
               className="form-control"
-              autoComplete
+              autoComplete="new-password"
               required
             />
           </div>
