@@ -37,12 +37,7 @@ public class AuthController{
             User user = new User(fname, lname, email);
             dbConn.createUser(user, password, "salt");
             user  = dbConn.getUserByEmail(email);
-<<<<<<< HEAD
             return "token="+dbConn.newToken(user.getId());
-=======
-            response.cookie("token", dbConn.newToken(user.getId()), 3600, false, false);
-            return "success";
->>>>>>> main
         }
     };
 
