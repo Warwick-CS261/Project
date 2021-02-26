@@ -1,7 +1,10 @@
 import React from 'react';
+<<<<<<< HEAD
+=======
 import Cookies from 'js-cookie';
 import $ from 'jquery';
 import {handleToken, handleError} from '../util';
+>>>>>>> main
 
 /**
  * Login component
