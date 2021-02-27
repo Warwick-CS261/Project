@@ -1,10 +1,7 @@
 import React from 'react';
-<<<<<<< HEAD
-=======
 import Cookies from 'js-cookie';
 import $ from 'jquery';
 import {handleToken, handleError} from '../util';
->>>>>>> main
 
 /**
  * Login component
@@ -66,10 +63,7 @@ export default class Login extends React.Component {
     });
     event.preventDefault();
   }
-  
-  componentDidMount() {
-    history.pushState({route:'/auth'},'','/auth/login');
-  }
+
 
   render(){
     return(

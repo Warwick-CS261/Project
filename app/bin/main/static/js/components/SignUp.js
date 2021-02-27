@@ -66,10 +66,6 @@ export default class SignUp extends React.Component {
     event.preventDefault();
   }
 
-  componentDidMount() {
-    history.pushState({route:'/auth'},'','/auth/register');
-  }
-
   render(){
     return(
       <div>
