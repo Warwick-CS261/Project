@@ -1,32 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create User</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="../static/css/index.css" />
+    <link rel="stylesheet" href="../bootstrap-icons-1.3.0/bootstrap-icons.css">
+    <script src="../bootstrap-5.0.0-beta2/dist/js/bootstrap.js"></script>
 </head>
 <body>
-    <div>
-        Create User
-    </div>
-    <div>
-        <div>
-            <form action="">
-                <div>
-                    First Name<input type="text">
-                    Last Name<input type="text">
-                    Email<input type="email">
-                    Password<input type="password">
-                    Verify Password<input type="password">
+    <p class="h1 text-center"><i class="bi bi-person-fill"></i> Create User</p>
+    <div class="container">  
+        <form action="">
+            <div class="row">
+                <div class="col-6 register-left-side">
+                    <div class="row form-row">
+                        <div class="col-2">
+                            <label for="fn" class="form-label">First Name</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control" id = "fn" placeholder="John">
+                        </div>
+                    </div>
+                    <div class="row form-row">
+                        <div class="col-2">
+                            <label for="ln" class="form-label">Last Name</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control" id = "ln" placeholder="Doe">
+                        </div>
+                    </div>
+                    <div class="row form-row">
+                        <div class="col-2">
+                            <label for="email" class="form-label">Email</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="email" class="form-control" id = "email" placeholder="john.doe@email.com">
+                        </div>
+                    </div>
+                    <div class="row form-row">
+                        <div class="col-2">
+                            <label for="pwd" class="form-label">Password</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="password" class="form-control" id = "pwd" placeholder="********">
+                        </div>
+                    </div>
+                    <div class="row form-row">
+                        <div class="col-2">
+                            <label for="repwd" class="form-label">Verify Password</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="password" class="form-control" id = "repwd" placeholder="********">
+                        </div>
+                    </div>
+        
                 </div>
-                <div>
-                    <input type="checkbox"> I accept the terms and conditions
-                    <button class="btn btn-primary btn-lg btn-round" type="submit">Register</button>
+                <div class="col-5 register-right-side">
+                    <div class = "registerIcon">
+                        <i class="bi bi-person-circle" style="font-size:2.4cm"></i>
+                    </div>
+                    <div class="terms">
+                        <input type="checkbox" id="terms">
+                        <label for="terms" class="form-label">I accept the terms and conditions</label> 
+                    </div>
+                    <button class="col-4 btn btn-primary btn-lg btn-round" type="submit">Register</button>
                 </div>
-                
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </body>
 </html>
