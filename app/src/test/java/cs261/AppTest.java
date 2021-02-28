@@ -14,6 +14,7 @@ class AppTest {
     private Connection connection;
     private DBConnection db;
 
+    @Test
     public Boolean TestcreateUser() throws SQLException {
         User u = new User("jiayi","Xu","996616811@qq.com");
         db.createUser(u, "210", "012");
