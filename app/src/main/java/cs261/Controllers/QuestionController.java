@@ -21,11 +21,12 @@ public class QuestionController{
         String question = request.queryParams("question");
         User user = dbConn.getUserByToken(token);
         if(Objects.isNull(user)){
+            response.status(450);
             return "Invalid Token";
         }
         //need to check user is moderator or owner
         if(!dbConn.userIsModerator(user.getId(), sessionID)){
-            response.status(6969);
+            response.status(401);
             return "not authorised for session "+sessionID;
         }
         Question q = new Question(question);
@@ -47,6 +48,7 @@ public class QuestionController{
 
         User user = dbConn.getUserByToken(token);
         if(Objects.isNull(user)){
+            response.status(450);
             return "Invalid Token";
         }
         LocalDateTime stamp = LocalDateTime.now();
@@ -55,12 +57,12 @@ public class QuestionController{
         }else if(anon.equals("false")){
             anonymous = false;
         }else{
-            response.status(6969);
-            return "fuck off(anon mad eno sense)";
+            response.status(457);
+            return "fuck off(anon made no sense)";
         }
 
         if(!dbConn.sessionExists(sessionID)){
-            response.status(696);
+            response.status(454);
             return "Session doesn't exist"; 
         }
         //check session exists
