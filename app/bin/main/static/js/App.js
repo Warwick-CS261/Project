@@ -19,7 +19,6 @@ import {
 // Components
 import SignUp from './components/SignUp';
 import Login from './components/Login';
-import Sidebar from './components/Sidebar';
 import Main from './components/Main';
 
 $(document).ready(()=>{
@@ -36,17 +35,6 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      auth: {
-        login: false,
-        signUp: false,
-      },
-      navs: {
-        home: false,
-        user: false,
-        sessions: false,
-        series: false,
-        logout: false
-      },
       token: null,
       firstName: '',
       lastName: ''
@@ -84,18 +72,6 @@ class App extends React.Component {
       this.setState({
         token: tokenCookie
       });
-    }
-  }
-
-  componentDidUpdate(){
-    let active;
-    Object.keys(this.state.navs).forEach(key =>{
-      if (this.state.navs[key] === true){
-        active = key;
-      }
-    });
-    if (active !== undefined) {
-      history.pushState({route:`/${active}`},'',`/${active}`);
     }
   }
 

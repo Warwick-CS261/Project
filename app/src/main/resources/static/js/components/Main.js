@@ -9,7 +9,9 @@ import {
 
 import Home from './Home';
 import Logo from './Logo';
-import Nav from './Nav';
+import User from './User';
+import Series from './Series';
+import Sessions from './Sessions';
 
 export default class Main extends React.Component {
 
@@ -56,7 +58,7 @@ export default class Main extends React.Component {
 
     const routes = [
       {
-        path: '/home',
+        path: '/',
         key: 'home',
         exact: true,
         text: 'Home',
@@ -120,13 +122,13 @@ export default class Main extends React.Component {
               <Home />
             </Route>
             <Route path={routes[1].path}>
-              This
+              <User />
             </Route>
             <Route path={routes[2].path}>
-              That
+              <Sessions />
             </Route>
             <Route path={routes[3].path}>
-              foo
+              <Series />
             </Route>
           </Switch>
         </Router>

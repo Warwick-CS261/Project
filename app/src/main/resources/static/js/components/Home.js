@@ -16,7 +16,7 @@ export default class Home extends React.Component {
       <div>
         <Router>
           <Switch>
-            <Route exact path="/home">
+            <Route exact path="/">
               <NavLink 
                 to="/session/join" 
                 activeClassName="active"
