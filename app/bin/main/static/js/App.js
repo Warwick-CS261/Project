@@ -30,39 +30,19 @@ class App extends React.Component {
     super(props);
     this.state = {
       auth: {
-        login: {show: false, text: "Login"},
-        signUp: {show: false, text: "SignUp"},
+        login: false,
+        signUp: false,
       },
       navs: {
-        home: {
-          active: true, 
-          text: "Home", 
-          icon: <i className="bi bi-house-fill"></i>
-        },
-        user: {
-          active: false, 
-          text: "Profile", 
-          icon: <i className="bi bi-person-circle"></i>
-        },
-        sessions: {
-          active: false, 
-          text: "Sessions",
-          icon: <i className="bi bi-calendar-event-fill"></i>
-        },
-        series: {
-          active: false, 
-          text: "Series",
-          icon: <i className="bi bi-calendar-range-fill"></i> 
-        },
-        logout: {
-          active: false, 
-          text: "Logout",
-          icon: <i className="bi bi-box-arrow-left"></i> 
-        },
+        home: true,
+        user: false,
+        sessions: false,
+        series: false,
+        logout: false
       },
       token: null,
-      firstName: "",
-      lastName: ""
+      firstName: '',
+      lastName: ''
     };
 
     this.handleLogout = this.handleLogout.bind(this);
@@ -73,8 +53,8 @@ class App extends React.Component {
     history.pushState({route:'/auth'},'','/auth/login');
     this.setState({
       auth: {
-        login: {show: true},
-        signUp: {show: false},
+        login: true,
+        signUp: false,
       }
     });
   }
@@ -83,25 +63,34 @@ class App extends React.Component {
     history.pushState({route:'/auth'},'','/auth/register');
     this.setState({
       auth: {
-        login: {show: false},
-        signUp: {show: true},
+        login: false,
+        signUp: true,
       }
     });
   }
 
   handleLogout(){
+    Cookies.remove('token');
     this.setState({
       auth: {
-        login: {show: false},
-        signUp: {show: false},
+        login: false,
+        signUp: false,
       },
       token: null
     });
   }
 
-  handleNav(event){
-    let item = event.target
-    
+  handleNav(id){
+    this.setState({
+      navs: {
+        home: false,
+        user: false,
+        sessions: false,
+        series: false,
+        logout: false,
+        [id]: true,
+      }
+    });
   }
 
   componentDidMount(){
@@ -118,6 +107,33 @@ class App extends React.Component {
   }
 
   render (){
+    let nav = {
+      home: {
+        id: 'home',
+        text: "Home",
+        icon: <i className="bi bi-house-fill"></i>
+      },
+      user: {
+        id: 'user',
+        text: "Profile", 
+        icon: <i className="bi bi-person-circle"></i>
+      },
+      sessions: {
+        id: 'sessions',
+        text: "Sessions",
+        icon: <i className="bi bi-calendar-event-fill"></i>
+      },
+      series: {
+        id: 'series',
+        text: "Series",
+        icon: <i className="bi bi-calendar-range-fill"></i> 
+      },
+      logout: {
+        id: 'logout',
+        text: "Logout",
+        icon: <i className="bi bi-box-arrow-left"></i> 
+      }
+    };
 
     if (this.state.auth.login.show) {
       console.log("render login");
@@ -140,13 +156,13 @@ class App extends React.Component {
             className="btn btn-primary" 
             onClick={()=>this.handleLogin()}
           >
-            {this.state.auth.login.text}
+            Login!
           </button>
           <button 
             className="btn btn-primary" 
             onClick={()=>this.handleSignUp()}
           >
-            {this.state.auth.signUp.text}
+            Sign Up!
           </button>
         </div>
       );
@@ -158,9 +174,11 @@ class App extends React.Component {
           pages={this.state.navs}
           onLogout={this.handleLogout}
           navHandler={this.handleNav}
+          nav={nav}
         />
         <Main
           pages={this.state.navs}
+          nav={nav}
         />
       </div>
     );
