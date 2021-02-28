@@ -1,4 +1,10 @@
 import React from 'react';
+<<<<<<< HEAD
+=======
+import Cookies from 'js-cookie';
+import $ from 'jquery';
+import {handleToken, handleError} from '../util';
+>>>>>>> main
 
 /**
  * Login component
@@ -36,29 +42,41 @@ export default class Login extends React.Component {
   }
 
   handleSubmit(event){
+    let params = new URLSearchParams(this.state).toString();
     $.ajax({
       url: '/auth/login',
       type: 'POST',
-      data: JSON.stringify(this.state),
-      success: (res) => {
-        // handle success
-        console.log('Token');
-        console.log(Cookies.get('token'));
+      data: params,
+      success: (data, status, jqXHR) => {
+        let token = handleToken(data);
+        if (token === null || token === undefined){
+          this.setState({
+            error: data,
+          });
+          return;
+        }
+        Cookies.set('token', token);
+        this.props.updateToken(token);
       },
-      error: (res) => {
-        // handle error
+      error: (jqXHR, status, error) => {
+        this.setState({
+          error: 'Something went wrong',
+        });
       }
     });
     event.preventDefault();
   }
   
+  componentDidMount() {
+    history.pushState({route:'/auth'},'','/auth/login');
+  }
 
   render(){
     return(
       <div>
         <h1>Login</h1>
         {this.state.error !== false && 
-          <div class="alert alert-danger" role="alert">
+          <div className="alert alert-danger" role="alert">
             {this.state.error}
           </div>
         }
@@ -72,7 +90,7 @@ export default class Login extends React.Component {
               onInvalid={this.handleInvalid}
               className="form-control"
               autoFocus
-              autoComplete
+              autoComplete="email"
               required
             />
           </div>
@@ -84,7 +102,7 @@ export default class Login extends React.Component {
               onChange={this.handleChange}
               onInvalid={this.handleInvalid}
               className="form-control"
-              autoComplete
+              autoComplete="current-password"
               required
             />
           </div>
@@ -94,7 +112,6 @@ export default class Login extends React.Component {
               name="stay"
               onChange={this.handleCheck}
               className="form-check-input"
-              required
             />
           </div>
           <div className="mb-3">

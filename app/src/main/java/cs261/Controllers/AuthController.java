@@ -16,8 +16,8 @@ public class AuthController{
         if(Objects.isNull(user)){
             return "Incorrect email or password";
         }else{
-            response.cookie("token", dbConn.newToken(user.getId()), 3600, false, true);
-            return "success";
+            user  = dbConn.getUserByEmail(email);
+            return "token="+dbConn.newToken(user.getId());
         }
     };
 
