@@ -1,4 +1,4 @@
-# Project
+# Project CS261 | Group 45
 
 Our cs261 project!
 
