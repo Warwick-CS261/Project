@@ -36,9 +36,15 @@ export default class Home extends React.Component {
                 Create Series
               </NavLink>
             </Route>
-            <Route path="/session/create" component={CreateSession}/>
-            <Route path="/session/join" component={JoinSession}/>
-            <Route path="/session/createSeries" component={CreateSeries}/>
+            <Route path="/session/create">
+              <CreateSession updateToken={this.props.updateToken} />
+            </Route>
+            <Route path="/session/join" >
+              <JoinSession updateToken={this.props.updateToken} />
+            </Route>
+            <Route path="/session/createSeries">
+              <CreateSeries updateToken={this.props.updateToken} />
+            </Route>
           </Switch>
         </Router>
       </div>

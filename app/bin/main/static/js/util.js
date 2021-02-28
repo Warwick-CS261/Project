@@ -36,10 +36,10 @@ module.exports = {
     }
     try {
       let json = JSON.parse(data.slice(start, end+1));
+      return json;
     } catch (error) {
       console.log(error);
       return null;
     }
-    return json;
   }
 }

@@ -119,7 +119,7 @@ export default class Main extends React.Component {
           </nav>
           <Switch>
             <Route exact path={routes[0].path}>
-              <Home />
+              <Home updateToken={this.props.updateToken} />
             </Route>
             <Route path={routes[1].path}>
               <User />

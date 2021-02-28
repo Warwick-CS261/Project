@@ -45,9 +45,14 @@ class App extends React.Component {
   }
 
   handleLogout(){
-    Cookies.remove('token');
-    this.setState({
-      token: null
+    $.ajax({
+      url: '/auth/logout',
+      type: 'POST',
+    }).done(()=>{
+      Cookies.remove('token');
+      this.setState({
+        token: null
+      });
     });
   }
 
@@ -97,7 +102,7 @@ class App extends React.Component {
             </Router>
           </>
           :
-          <Main onLogout={this.handleLogout} />
+          <Main onLogout={this.handleLogout} updateToken={this.updateToken} />
         }
       </>
     );

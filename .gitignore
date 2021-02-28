@@ -31,5 +31,7 @@ app/database/database.db
 # Ignore Gradle build output directory
 build
 
+database.db
+
 # node modules
 node_modules/
