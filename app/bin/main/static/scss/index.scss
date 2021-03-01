@@ -121,6 +121,10 @@ section.body{
 .registerIcon{
   display: flex;
   justify-content: center;
+  i{
+    font-size:2.4cm;
+    color: white;
+  }
 }
 
 .register-right-side{
@@ -134,7 +138,8 @@ section.body{
   margin-top: 32px;
 }
 
-.register-left-side{
+.register-box{
+  width: 100%;
   background-image: linear-gradient(#43E2B2,#24AFAF);
   padding: 32px;
   border-radius: 50px;
@@ -148,4 +153,32 @@ section.body{
   margin-bottom:32px;
   justify-self: left;
   border-radius: 10px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  display: inline;
 }
+
+.registerBackground{
+  background-image: url('../img/background.svg');
+  background-size: cover;
+  height: 100vh;
+  grid-area: content;
+  .title-text{
+    padding-top: 100px;
+    margin-bottom: 64px;
+  }
+}
+
+.form-container{
+  width:100%;
+  display: flex;
+  justify-content: center;
+}
+
+.register-bottom-right{
+  width: 100%;
+  height: 100%;
+}
+

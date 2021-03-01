@@ -12,66 +12,71 @@
     <link rel="stylesheet" href="../bootstrap-icons-1.3.0/bootstrap-icons.css">
     <script src="../bootstrap-5.0.0-beta2/dist/js/bootstrap.js"></script>
 </head>
-<body>
-    <p class="h1 text-center"><i class="bi bi-person-fill"></i> Create User</p>
-    <div class="container">  
-        <form action="">
-            <div class="row">
-                <div class="col-6 register-left-side">
-                    <div class="row form-row">
-                        <div class="col-2">
-                            <label for="fn" class="form-label">First Name</label>
+<body style="background-color: #342E37;">
+    <div class="registerBackground">
+        <p class="h1 text-center title-text"><i class="bi bi-person-fill"></i> Create User</p>
+        <div class="container form-container">  
+            <form action="" style="width: 80%;">
+                <div class="row register-box">
+                    <div class="col-6">
+                        <div class="row form-row">
+                            <div class="col-5">
+                                <label for="fn" class="form-label">First Name</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" class="form-control" id = "fn" placeholder="John">
+                            </div>
                         </div>
-                        <div class="col-6">
-                            <input type="text" class="form-control" id = "fn" placeholder="John">
+                        <div class="row form-row">
+                            <div class="col-5">
+                                <label for="ln" class="form-label">Last Name</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" class="form-control" id = "ln" placeholder="Doe">
+                            </div>
                         </div>
+                        <div class="row form-row">
+                            <div class="col-5">
+                                <label for="email" class="form-label">Email</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="email" class="form-control" id = "email" placeholder="john.doe@email.com">
+                            </div>
+                        </div>
+                        <div class="row form-row">
+                            <div class="col-5">
+                                <label for="pwd" class="form-label">Password</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="password" class="form-control" id = "pwd" placeholder="********">
+                            </div>
+                        </div>
+                        <div class="row form-row">
+                            <div class="col-5">
+                                <label for="repwd" class="form-label">Verify Password</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="password" class="form-control" id = "repwd" placeholder="********">
+                            </div>
+                        </div>
+            
                     </div>
-                    <div class="row form-row">
-                        <div class="col-2">
-                            <label for="ln" class="form-label">Last Name</label>
+                    <div class="col-6 register-right-side">
+                        <div class = "registerIcon">
+                            <i class="bi bi-person-circle"></i>
                         </div>
-                        <div class="col-6">
-                            <input type="text" class="form-control" id = "ln" placeholder="Doe">
-                        </div>
+                        <div register-bottom-right>
+                            <div class="terms">
+                                <input type="checkbox" id="terms">
+                                <label for="terms" class="form-label"><b>I accept the terms and conditions</b></label> <br>
+                            </div>
+                            <button class="col-4 btn btn-primary btn-lg btn-round" type="submit">Register</button>
+                        </div>   
                     </div>
-                    <div class="row form-row">
-                        <div class="col-2">
-                            <label for="email" class="form-label">Email</label>
-                        </div>
-                        <div class="col-6">
-                            <input type="email" class="form-control" id = "email" placeholder="john.doe@email.com">
-                        </div>
-                    </div>
-                    <div class="row form-row">
-                        <div class="col-2">
-                            <label for="pwd" class="form-label">Password</label>
-                        </div>
-                        <div class="col-6">
-                            <input type="password" class="form-control" id = "pwd" placeholder="********">
-                        </div>
-                    </div>
-                    <div class="row form-row">
-                        <div class="col-2">
-                            <label for="repwd" class="form-label">Verify Password</label>
-                        </div>
-                        <div class="col-6">
-                            <input type="password" class="form-control" id = "repwd" placeholder="********">
-                        </div>
-                    </div>
-        
                 </div>
-                <div class="col-5 register-right-side">
-                    <div class = "registerIcon">
-                        <i class="bi bi-person-circle" style="font-size:2.4cm"></i>
-                    </div>
-                    <div class="terms">
-                        <input type="checkbox" id="terms">
-                        <label for="terms" class="form-label">I accept the terms and conditions</label> 
-                    </div>
-                    <button class="col-4 btn btn-primary btn-lg btn-round" type="submit">Register</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
+    
 </body>
 </html>
