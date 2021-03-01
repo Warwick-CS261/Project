@@ -29,8 +29,10 @@ export default class JoinSession extends React.Component {
 
   handleSubmit(event){
     let params = new URLSearchParams(this.state).toString();
+    let route = "/session/"
+    let url = route.concat(this.state.sessionID);
     $.ajax({
-      url: `/session/${this.state.sessionID}`,
+      url: url,
       type: 'POST',
       data: params,
       success: (data, status, jqXHR) => {
@@ -85,7 +87,7 @@ export default class JoinSession extends React.Component {
             <div className="mb-3">
               <input 
                 type="text"
-                name="code"
+                name="sessionID"
                 className="form-control"
                 value={this.state.code}
                 onChange={this.handleChange}

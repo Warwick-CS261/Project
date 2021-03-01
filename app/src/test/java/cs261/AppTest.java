@@ -45,7 +45,7 @@ class AppTest {
     public Boolean TestcreateSession() throws SQLException{
         User u = new User("jiayi","Xu","996616811@qq.com");
         db.createUser(u, "210", "012");
-        HostSesh s = new HostSesh("ABCDEF", 1, "test", u, "ABCDEF");
+        HostSesh s = new HostSesh("ABCDEF", "ABC123", "test", u, "ABCDEF");
         db.createSession(s);
         String query = "SELECT userID FROM SESH WHERE id = 'ABCDEF'"+
                         " AND seriesID = 1 AND sname = 'test' AND secure = 'ABCDEF'";

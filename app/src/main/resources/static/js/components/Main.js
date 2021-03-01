@@ -16,7 +16,7 @@ import Sessions from './Sessions';
 export default class Main extends React.Component {
 
   componentDidMount() {
-    history.pushState({route:'/'}, '', '/home');
+    history.pushState({route:'/'}, '', '/');
   }
 
   render(){
