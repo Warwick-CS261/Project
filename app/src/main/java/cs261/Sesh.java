@@ -5,17 +5,18 @@ import java.util.ArrayList;
 
 public class Sesh {
     String id;
-    int seriesID;
+    String seriesID;
     String sessionName;
     User owner;
+    ArrayList<User> moderators;
     Boolean finished;
     ArrayList<Question> pushedQuestions;
     Chat chat;
 
 
     //constructor
-    public Sesh(String id, int seriesID, String sessionName,
-                User owner, Boolean finished, Chat chat, ArrayList<Question> pushedQuestions){
+    public Sesh(String id, String seriesID, String sessionName,
+                User owner, Boolean finished, Chat chat, ArrayList<Question> pushedQuestions, ArrayList<User> moderators){
         this.id = id;
         this.seriesID = seriesID;
         this.sessionName = sessionName;
@@ -23,9 +24,10 @@ public class Sesh {
         this.finished = finished;
         this.pushedQuestions = pushedQuestions;
         this.chat = chat;
+        this.moderators = moderators;
     }
 
-    public Sesh(String id, int seriesID, String sessionName,
+    public Sesh(String id, String seriesID, String sessionName,
             User owner){
         this.id = id;
         this.seriesID = seriesID;
@@ -73,7 +75,7 @@ public class Sesh {
         return owner;
     }
 
-    public int getSeriesID() {
+    public String getSeriesID() {
         return seriesID;
     }
 
@@ -105,7 +107,7 @@ public class Sesh {
         this.owner = owner;
     }
 
-    public void setSeriesID(int seriesID) {
+    public void setSeriesID(String seriesID) {
         this.seriesID = seriesID;
     }
 

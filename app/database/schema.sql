@@ -14,8 +14,9 @@ CREATE TABLE USER_TOKEN (
 );
 
 CREATE TABLE SERIES (
-  id INTEGER PRIMARY KEY,
-  seriesName VARCHAR(30)
+  id VARCHAR(6) PRIMARY KEY,
+  seriesName VARCHAR(30),
+  secure VARCHAR(6)
 );
 
 --CREATE SEQUENCE uID_seq;
@@ -23,7 +24,7 @@ CREATE TABLE SERIES (
 
 CREATE TABLE SESH (
   id VARCHAR(6) PRIMARY KEY,--function needs to generate
-  seriesID INTEGER ,
+  seriesID VARCHAR(6) ,
   sname VARCHAR(30),
   mood FLOAT,
   secure VARCHAR(6), -- security password or NULL

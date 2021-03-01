@@ -6,11 +6,6 @@ import java.util.*;
 
 import cs261.Controllers.*;
 
-import java.io.File;
-import java.io.OutputStream;
-import java.nio.file.Files;
-
-import java.net.*;
 
 public class App {
 
@@ -51,19 +46,27 @@ public class App {
             post("/login", AuthController.login);
             post("/register", AuthController.register);
             post("/logout", AuthController.logout);
+            get("/login", returnPage);
+            get("/register", returnPage);
         });
 
         path("/session", () -> {
             post("/create", SessionController.createSession);
             post("/user", SessionController.userSessions);
 
+            get("/create", returnPage);
+            get("/user", returnPage);
+            get("/join", returnPage);
+
+            get("/:id", SessionController.joinSession);
+
             path("/:id", () -> {
                 post("/chat", SessionController.submitMessage);
                 post("/addHost", SessionController.addHost);
-                post("/join", SessionController.joinSession);
+                //post("/join", SessionController.joinSession);
                 post("/end", SessionController.endSession);
                 post("/delete", SessionController.deleteSession);
-                post("/refresh", SessionController.refreshSession);
+                //get("/join", returnPage);
 
                 path("/question", () -> {
                     post("/create", QuestionController.createQuestion);
@@ -75,7 +78,10 @@ public class App {
             });
         });
     }
-
+    public static Route returnPage = (Request request, Response response) -> {
+        Map<String, Object> model = new HashMap<>();
+        return Util.render(model, "velocity/index.vm");
+    };
 
 
 
