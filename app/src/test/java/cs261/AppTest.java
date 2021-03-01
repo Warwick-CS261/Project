@@ -60,6 +60,9 @@ class AppTest {
         PreparedStatement stmt = connection.prepareStatement(query);
         ResultSet rs = stmt.executeQuery();
         assertNotNull(rs, "DBConnection.createUser fail");
+        assertNotNull(db.verifyPassword("996616811@qq.com", "111"),"1");
+        assertNotNull(db.verifyPassword("000000000@qq.com", "000"),"1");
+        assertNotNull(db.verifyPassword("996616811@qq.com", "000"),"1");
     }
 
     @Test void appHasAGreeting() {
