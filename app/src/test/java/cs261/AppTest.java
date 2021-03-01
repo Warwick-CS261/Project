@@ -14,18 +14,6 @@ class AppTest {
     private Connection connection;
     private DBConnection db;
 
-    public Boolean TestcreateUser() throws SQLException {
-        User u = new User("jiayi","Xu","996616811@qq.com");
-        db.createUser(u, "210", "012");
-        String query = "SELECT * FROM USER WHERE email = '996616811@qq.com'"+
-                        " AND phash = '210' AND fname = 'jiayi' AND lname = 'Xu' AND salt = '012'";
-        PreparedStatement stmt = connection.prepareStatement(query);
-        ResultSet rs = stmt.executeQuery();
-        if(rs.next()){
-            return true;
-        }
-        return false;
-    }
     
     public Boolean TestverifyPassword() throws SQLException{
         User u = new User("jiayi","Xu","996616811@qq.com");
@@ -63,8 +51,19 @@ class AppTest {
         return false;
     }
 
+    @Test void testDB() throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:database/database.db");
+        DBConnection db = new DBConnection("jdbc:sqlite:database/database.db");
+        db.createUser(new User("jiayi","Xu","996616811@qq.com"), "000", "111");
+        String query = "SELECT * FROM USER WHERE email = '996616811@qq.com'"+
+                        " AND phash = '000' AND fname = 'jiayi' AND lname = 'Xu' AND salt = '111'";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery();
+        assertNotNull(rs, "DBConnection.createUser fail");
+    }
+
     @Test void appHasAGreeting() {
-        //App classUnderTest = new App();
+        App classUnderTest = new App();
         //assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
     }
 }
