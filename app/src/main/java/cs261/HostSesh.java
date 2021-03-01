@@ -11,22 +11,26 @@ public class HostSesh extends Sesh {
     float mood;
 
 
-    public HostSesh(String id, int seriesID, String sessionName, float mood,
+    public HostSesh(String id, String seriesID, String sessionName, float mood,
     User owner, Boolean finished, ArrayList<Question> pushedquestions, Chat chat, String secure, 
-    ArrayList<Question> hiddenQuestions, ArrayList<MoodDate> moodHistory){
-        super(id, seriesID, sessionName, owner, finished, chat, pushedquestions);
+    ArrayList<Question> hiddenQuestions, ArrayList<MoodDate> moodHistory, ArrayList<User> moderators){
+        super(id, seriesID, sessionName, owner, finished, chat, pushedquestions, moderators);
         this.secure = secure;
         this.hiddenQuestions = hiddenQuestions;
         this.moodHistory = moodHistory;
         this.mood = mood;
     }
 
-    public HostSesh(String id, int seriesID, String sessionName, User owner, String secure){
+    public HostSesh(String id, String seriesID, String sessionName, User owner, String secure){
         super(id, seriesID, sessionName, owner);
         this.secure = secure;
         this.mood = 0;
         this.hiddenQuestions = new ArrayList<Question>();
         this.moodHistory = new ArrayList<MoodDate>();
+    }
+
+    public Sesh convertToSesh(){
+        return this;
     }
 
 

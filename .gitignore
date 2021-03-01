@@ -22,7 +22,9 @@ hs_err_pid*
 
 modules/
 *bootstrap*
-
+app/bin
+app/src/main/resources/static/js/dist/index.js
+app/database/database.db
 # Ignore Gradle project-specific cache directory
 .gradle
 
