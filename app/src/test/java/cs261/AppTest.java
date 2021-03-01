@@ -24,7 +24,7 @@ class AppTest {
         assertNull(db.verifyPassword("996616811@qq.com", "111"),"DBConnection.verifyPassword fail");
         assertNull(db.verifyPassword("000000000@qq.com", "000"),"DBConnection.verifyPassword fail");
         assertNotNull(db.verifyPassword("996616811@qq.com", "000"),"DBConnectiondb.verifyPassword fail");
-        HostSesh s = new HostSesh("ABCDEF", 1, "test", u, "ABCDEF");
+        HostSesh s = new HostSesh("ABCDEF", "1", "test", u, "ABCDEF");
         db.createSession(s);
         query = "SELECT userID FROM SESH WHERE id = 'ABCDEF'"+
                         " AND seriesID = 1 AND sname = 'test' AND secure = 'ABCDEF'";
