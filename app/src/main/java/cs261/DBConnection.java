@@ -41,7 +41,7 @@ public class DBConnection {
         String query = "INSERT INTO SESH VALUES(?,?,?,?,?,?,0)";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setString(1, s.getId());
-        stmt.setInt(2, s.getSeriesID());
+        stmt.setString(2, s.getSeriesID());
         stmt.setString(3, s.getSessionName());
         stmt.setFloat(4, s.getMood());
         stmt.setString(5, s.getSecure());
@@ -185,6 +185,18 @@ public class DBConnection {
         
     }
 
+    public ArrayList<User> getSessionModerators (String sessionID) throws SQLException{
+        String query = "SELECT * FROM MODERATOR_SESSION WHERE sessionID = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        ResultSet rs = stmt.executeQuery();
+        ArrayList<User> moderators = new ArrayList<User>();
+        while(rs.next()){
+            moderators.add(getUserByID(rs.getInt("userID")));
+        }
+        return moderators;
+    }
+
     public Boolean userIsSessionHost(int userID, String sessionID) throws SQLException{
         String query = "SELECT * FROM SESH WHERE id = ? AND userID = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
@@ -234,8 +246,21 @@ public class DBConnection {
         stmt.setString(1, sessionID);
         ResultSet rs = stmt.executeQuery();
         if(rs.next()){
-            return new Sesh(sessionID, rs.getInt("seriesID"), rs.getString("sname"),
-            getUserByID(rs.getInt("id")), rs.getBoolean("ended"), new Chat(), new ArrayList<Question>());
+            return new Sesh(sessionID, rs.getString("seriesID"), rs.getString("sname"),
+            getUserByID(rs.getInt("id")), rs.getBoolean("ended"), new Chat(), new ArrayList<Question>(), getSessionModerators(sessionID));
+        //NEED TO ACTUALL LOAD CHAT AND PUSHED QUESTIONS
+        }
+        return null;
+    }
+
+    public HostSesh getHostSessionByID(String sessionID) throws SQLException{
+        String query = "SELECT * FROM SESH WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        ResultSet rs = stmt.executeQuery();
+        if(rs.next()){
+            return new HostSesh(sessionID, rs.getString("seriesID"), rs.getString("sname"), rs.getFloat("mood"),
+            getUserByID(rs.getInt("userID")), rs.getBoolean("ended"),  new ArrayList<Question>(), new Chat(), rs.getString("secure"),new ArrayList<Question>(), new ArrayList<MoodDate>(), getSessionModerators(sessionID));
         //NEED TO ACTUALL LOAD CHAT AND PUSHED QUESTIONS
         }
         return null;

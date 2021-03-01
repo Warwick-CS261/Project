@@ -18,12 +18,13 @@ public class SessionController{
         String name = request.queryParams("name");
         String token = request.cookie("token");
         String secure = request.queryParams("secure");
-        int seriesID =  Integer.parseInt(request.queryParams("series"));
+        String seriesID =  request.queryParams("series");
 
 
         User user = dbConn.getUserByToken(token);
         //token is valid
         if(Objects.isNull(user)){
+            response.status(450);
             return "Invalid Token";
         }
         String sessionID;
@@ -37,21 +38,32 @@ public class SessionController{
         }else if(secure.equals("false")){
             secure = null;
         }else{
+            response.status(457);
             return "fuck off(invalid secure)";
         }
 
-        HostSesh session = new HostSesh(sessionID, seriesID, name, user, secure);
+        HostSesh hostSession = new HostSesh(sessionID, seriesID, name, user, secure);
         //add session to db
-        dbConn.createSession(session);
+        dbConn.createSession(hostSession);
         dbConn.addModerator(user.getId(), sessionID);
-        return "token="+dbConn.newToken(user.getId())+","+gson.toJson(session);
+        return "token="+dbConn.newToken(user.getId())+","+gson.toJson(hostSession);
     };
 
     
 
     public static Route userSessions = (Request request, Response response) -> {
-        Map<String, Object> model = new HashMap<>();
-        return "The User's session";
+        DBConnection dbConn = App.getApp().getDbConn();
+
+        String token = request.cookie("token");
+
+        User user = dbConn.getUserByToken(token);
+        //token is valid
+        if(Objects.isNull(user)){
+            response.status(450);
+            return "Invalid Token";
+        }
+        return "x";
+
     };
 
 
@@ -73,15 +85,18 @@ public class SessionController{
         User user = dbConn.getUserByToken(token);
         //token is valid
         if(Objects.isNull(user)){
+            response.status(450);
             return "Invalid Token";
         }
         //Checks if user requesting is host
         if(!dbConn.userIsSessionHost(user.getId(), sessionID)){
+            response.status(401);
             return "No Permission";
         }
         //Gets new mod and checks exists
         User newMod = dbConn.getUserByEmail(email);
         if(Objects.isNull(newMod)){
+            response.status(454);
             return "No user with that email exists";
         }
         //all checks past and success
@@ -101,23 +116,35 @@ public class SessionController{
         User user = dbConn.getUserByToken(token);
         //token is valid
         if(Objects.isNull(user)){
+            response.status(450);
             return "Invalid Token";
         }
         //token exists
-        Sesh session = dbConn.getSessionByID(sessionID);
+        HostSesh session = dbConn.getHostSessionByID(sessionID);
         if(Objects.isNull(session)){
+            response.status(454);
             return "Invalid session";
         }
+
+        if(dbConn.userIsModerator(user.getId(), sessionID)){
+            return "token="+dbConn.newToken(user.getId())+","+gson.toJson(session);
+        }
+
         if(dbConn.sessionEnded(sessionID)){
+            response.status(457);
             return "Session has ended";
         }
-        if(!dbConn.getSessionPassword(sessionID).equals(password)){
-            return "Wrong password";
+
+        if(dbConn.userIsAttendee(sessionID, user.getId())){
+            return  "token="+dbConn.newToken(user.getId())+","+gson.toJson(session.convertToSesh());
         }
-        if(!dbConn.userIsAttendee(sessionID, user.getId())){
-            dbConn.addUserToSession(sessionID, user.getId());
+
+        if(session.getSecure().equals(password)||session.getSecure().equals("")){
+            return "token="+dbConn.newToken(user.getId())+","+gson.toJson(session.convertToSesh());
         }
-        return  "token="+dbConn.newToken(user.getId())+","+gson.toJson(session);
+
+        response.status(456);
+        return "Wrong password";
     };
 
 
@@ -131,14 +158,17 @@ public class SessionController{
         User user = dbConn.getUserByToken(token);
         //token is valid
         if(Objects.isNull(user)){
+            response.status(450);
             return "Invalid Token";
         }
 
         if(!dbConn.userIsSessionHost(user.getId(), sessionID)){
+            response.status(401);
             return "No permission";
         }
 
         if(dbConn.sessionEnded(sessionID)){
+            response.status(457);
             return "Already ended";
         }
         dbConn.endSession(sessionID);
@@ -153,24 +183,21 @@ public class SessionController{
         String sessionID = request.queryParams(":id");
 
         if(!dbConn.sessionExists(sessionID)){
+            response.status(454);
             return "Session doesn't exist";
         }
 
         User user = dbConn.getUserByToken(token);
         //token is valid
         if(Objects.isNull(user)){
+            response.status(450);
             return "Invalid Token";
         }
 
         if(!dbConn.userIsSessionHost(user.getId(), sessionID)){
+            response.status(401);
             return "No permission";
         }
         return "token="+dbConn.newToken(user.getId());
     };
-
-    public static Route refreshSession = (Request request, Response response) -> {
-        Map<String, Object> model = new HashMap<>();
-        return "Session "+request.params(":id") +" refreshed";
-    };
-
 }
