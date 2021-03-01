@@ -11,58 +11,34 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
 
-    private Connection connection;
-    private DBConnection db;
-
-    
-    public Boolean TestverifyPassword() throws SQLException{
-        User u = new User("jiayi","Xu","996616811@qq.com");
-        db.createUser(u, "210", "012");
-        User t1 = db.verifyPassword("996616811@qq.com", "210");
-        User t2 = db.verifyPassword("996616811@qq.com", "110");
-        User t3 = db.verifyPassword("000000000@qq.com", "210");
-        if((t1.getLname()==u.getLname())&&(t1.getFname()==u.getFname())){
-            if ((t2==null)&&(t3==null)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public Boolean TestcreateSession() throws SQLException{
-        User u = new User("jiayi","Xu","996616811@qq.com");
-        db.createUser(u, "210", "012");
-        HostSesh s = new HostSesh("ABCDEF", 1, "test", u, "ABCDEF");
-        db.createSession(s);
-        String query = "SELECT userID FROM SESH WHERE id = 'ABCDEF'"+
-                        " AND seriesID = 1 AND sname = 'test' AND secure = 'ABCDEF'";
-        PreparedStatement stmt = connection.prepareStatement(query);
-        ResultSet rs = stmt.executeQuery();
-        if(rs.next()){
-            String query2 = "SELECT * FROM USER WHERE id = ?"+
-                            " AND fname = 'jiayi' AND lname = 'Xu'";
-            PreparedStatement stmt2 = connection.prepareStatement(query2);
-            stmt2.setInt(1, rs.getInt(1));
-            ResultSet rs2 = stmt.executeQuery();
-            if (rs2.next()){
-                return true;
-            }
-        }
-        return false;
-    }
-
     @Test void testDB() throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:sqlite:database/database.db");
         DBConnection db = new DBConnection("jdbc:sqlite:database/database.db");
+        User u = new User("jiayi","Xu","996616811@qq.com");
         db.createUser(new User("jiayi","Xu","996616811@qq.com"), "000", "111");
         String query = "SELECT * FROM USER WHERE email = '996616811@qq.com'"+
                         " AND phash = '000' AND fname = 'jiayi' AND lname = 'Xu' AND salt = '111'";
         PreparedStatement stmt = connection.prepareStatement(query);
         ResultSet rs = stmt.executeQuery();
         assertNotNull(rs, "DBConnection.createUser fail");
-        assertNotNull(db.verifyPassword("996616811@qq.com", "111"),"1");
-        assertNotNull(db.verifyPassword("000000000@qq.com", "000"),"1");
-        assertNotNull(db.verifyPassword("996616811@qq.com", "000"),"1");
+        assertNull(db.verifyPassword("996616811@qq.com", "111"),"DBConnection.verifyPassword fail");
+        assertNull(db.verifyPassword("000000000@qq.com", "000"),"DBConnection.verifyPassword fail");
+        assertNotNull(db.verifyPassword("996616811@qq.com", "000"),"DBConnectiondb.verifyPassword fail");
+        HostSesh s = new HostSesh("ABCDEF", 1, "test", u, "ABCDEF");
+        db.createSession(s);
+        query = "SELECT userID FROM SESH WHERE id = 'ABCDEF'"+
+                        " AND seriesID = 1 AND sname = 'test' AND secure = 'ABCDEF'";
+        stmt = connection.prepareStatement(query);
+        rs = stmt.executeQuery();
+        assertNotNull(rs, "DBConnection.createUser fail");
+        if(rs.next()){
+            String query2 = "SELECT * FROM USER WHERE id = ?"+
+                            " AND fname = 'jiayi' AND lname = 'Xu'";
+            PreparedStatement stmt2 = connection.prepareStatement(query2);
+            stmt2.setInt(1, rs.getInt(1));
+            ResultSet rs2 = stmt2.executeQuery();
+            assertNotNull(rs2, "DBConnection.createUser fail");
+        }
     }
 
     @Test void appHasAGreeting() {
