@@ -40,3 +40,6 @@ database.db
 
 # node modules
 node_modules/
+
+# log files
+*.log*
