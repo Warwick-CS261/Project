@@ -1,8 +1,8 @@
 #!/bin/bash
 
 echo 'Bulding docker image: '
-sudo docker build -t cs261g45/project:1.0 .
+docker build -t cs261g45/project:1.0 .
 echo 'Build finished'
 
 echo 'Running docker image: '
-sudo docker run -p 6969:6969 cs261g45/project:1.0
+docker run -p 6969:6969 cs261g45/project:1.0
