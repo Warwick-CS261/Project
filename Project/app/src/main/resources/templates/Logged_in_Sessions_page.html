@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logged in Sessions page</title>
+<style id="applicationStylesheet" type="text/css">
+	.mediaViewInfo {
+		--web-view-name: Logged in Sessions page;
+		--web-view-id: Logged_in_Sessions_page;
+		--web-scale-on-resize: true;
+		--web-enable-deep-linking: true;
+	}
+	:root {
+		--web-view-ids: Logged_in_Sessions_page;
+	}
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		border: none;
+	}
+	#Logged_in_Sessions_page {
+		position: absolute;
+		width: 1920px;
+		height: 1076px;
+		background-color: rgba(52,46,55,1);
+		overflow: hidden;
+		--web-view-name: Logged in Sessions page;
+		--web-view-id: Logged_in_Sessions_page;
+		--web-scale-on-resize: true;
+		--web-enable-deep-linking: true;
+	}
+	@keyframes fadein {
+	
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	
+	}
+	#Background_p {
+		fill: url(#Background_p);
+	}
+	.Background_p {
+		overflow: visible;
+		position: absolute;
+		width: 1620px;
+		height: 1076px;
+		left: 300px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Rectangle_37 {
+		fill: rgba(255,255,255,1);
+	}
+	.Rectangle_37 {
+		position: absolute;
+		overflow: visible;
+		width: 1540px;
+		height: 956px;
+		left: 340px;
+		top: 120px;
+	}
+	#Group_8 {
+		position: absolute;
+		width: 1540px;
+		height: 956px;
+		left: 340px;
+		top: 120px;
+		overflow: visible;
+	}
+	#Bubble {
+		position: absolute;
+		width: 1540px;
+		height: 956px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Bubbles {
+		position: absolute;
+		width: 1540px;
+		height: 956px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Bubbles_u {
+		position: absolute;
+		width: 1540px;
+		height: 956px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Mask_Group_2 {
+		position: absolute;
+		width: 1540px;
+		height: 956px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Project_CS261 {
+		left: 31px;
+		top: 27px;
+		position: absolute;
+		overflow: visible;
+		width: 229px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 40px;
+		color: rgba(67,226,178,1);
+	}
+	#Component_12__1 {
+		position: absolute;
+		width: 133px;
+		height: 34px;
+		left: 31px;
+		top: 189px;
+		overflow: visible;
+	}
+	#Icon_awesome-home {
+		fill: rgba(67,226,178,1);
+	}
+	.Icon_awesome-home {
+		overflow: visible;
+		position: absolute;
+		width: 41.151px;
+		height: 32px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Home {
+		left: 55px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 79px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(67,226,178,1);
+	}
+	#Component_13__1 {
+		position: absolute;
+		width: 136px;
+		height: 34px;
+		left: 36px;
+		top: 249px;
+		overflow: visible;
+	}
+	#Icon_awesome-user-circle {
+		fill: rgba(67,226,178,1);
+	}
+	.Icon_awesome-user-circle {
+		overflow: visible;
+		position: absolute;
+		width: 32px;
+		height: 32px;
+		left: 0px;
+		top: 1px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Profile {
+		left: 50px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 87px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(67,226,178,1);
+	}
+	#Component_14__1 {
+		position: absolute;
+		width: 162px;
+		height: 34px;
+		left: 38px;
+		top: 310px;
+		overflow: visible;
+	}
+	#Icon_awesome-calendar-day {
+		fill: rgba(250,255,253,1);
+	}
+	.Icon_awesome-calendar-day {
+		overflow: visible;
+		position: absolute;
+		width: 28px;
+		height: 32px;
+		left: 0px;
+		top: 1px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Sessions {
+		left: 48px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 115px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(250,255,253,1);
+	}
+	#Component_15__1 {
+		position: absolute;
+		width: 233px;
+		height: 34px;
+		left: 38px;
+		top: 371px;
+		overflow: visible;
+	}
+	#Icon_awesome-calendar-alt {
+		fill: rgba(67,226,178,1);
+	}
+	.Icon_awesome-calendar-alt {
+		overflow: visible;
+		position: absolute;
+		width: 28px;
+		height: 32px;
+		left: 0px;
+		top: 1px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Session_series {
+		left: 48px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 186px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(67,226,178,1);
+	}
+	#Component_20__1 {
+		position: absolute;
+		width: 141px;
+		height: 34px;
+		left: 35px;
+		top: 1002px;
+		overflow: visible;
+	}
+	#Icon_open-account-logout {
+		fill: rgba(67,226,178,1);
+	}
+	.Icon_open-account-logout {
+		overflow: visible;
+		position: absolute;
+		width: 36.572px;
+		height: 32px;
+		left: 0px;
+		top: 2px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Logout {
+		left: 51px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 91px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(67,226,178,1);
+	}
+	#Group_6 {
+		position: absolute;
+		width: 302px;
+		height: 75px;
+		left: 959px;
+		top: 40px;
+		overflow: visible;
+	}
+	#Heading {
+		position: absolute;
+		width: 228px;
+		height: 70px;
+		left: 74px;
+		top: 5px;
+		overflow: visible;
+	}
+	#Sessions_be {
+		left: 0px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 229px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 64px;
+		color: rgba(52,46,55,1);
+	}
+	#Icon_awesome-calendar-day_bf {
+		fill: rgba(52,46,55,1);
+	}
+	.Icon_awesome-calendar-day_bf {
+		overflow: visible;
+		position: absolute;
+		width: 56px;
+		height: 64px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Sessions_bg {
+		mix-blend-mode: normal;
+		position: absolute;
+		width: 1433.479px;
+		height: 955.214px;
+		left: 400px;
+		top: 120.786px;
+		overflow: hidden;
+	}
+	#Session_Grid {
+		position: absolute;
+		width: 1433.479px;
+		height: 1291px;
+		left: 0px;
+		top: 59.214px;
+		overflow: hidden;
+	}
+	#Group_9 {
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Path_15_bk {
+		fill: url(#Path_15_bk);
+		stroke: rgba(52,46,55,0.502);
+		stroke-width: 2px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_15_bk {
+		overflow: visible;
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+		--web-animation: fadein 0.3s ease-out;
+		--web-action-type: page;
+		--web-action-target: Logged_in_Live_Session_page.html;
+		cursor: pointer;
+	}
+	#Sunday_Meeting {
+		left: 35.479px;
+		top: 25.286px;
+		position: absolute;
+		overflow: visible;
+		width: 243px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 36px;
+		color: rgba(52,46,55,1);
+	}
+	#abc123 {
+		opacity: 0.7;
+		left: 35.479px;
+		top: 75.286px;
+		position: absolute;
+		overflow: visible;
+		width: 120px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Host_John_Doe {
+		left: 35.479px;
+		top: 120.5px;
+		position: absolute;
+		overflow: visible;
+		width: 188px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Series_Days_of_our_lives {
+		left: 35px;
+		top: 166px;
+		position: absolute;
+		overflow: visible;
+		width: 267px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 28px;
+		color: rgba(52,46,55,1);
+	}
+	#Group_9_bp {
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 487px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Path_15_br {
+		fill: url(#Path_15_br);
+		stroke: rgba(52,46,55,0.502);
+		stroke-width: 2px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_15_br {
+		overflow: visible;
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Monday_Meeting {
+		left: 35.479px;
+		top: 25.286px;
+		position: absolute;
+		overflow: visible;
+		width: 254px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 36px;
+		color: rgba(52,46,55,1);
+	}
+	#kds867 {
+		opacity: 0.7;
+		left: 35.479px;
+		top: 75.286px;
+		position: absolute;
+		overflow: visible;
+		width: 119px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Host_Amy {
+		left: 35.479px;
+		top: 120.5px;
+		position: absolute;
+		overflow: visible;
+		width: 128px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Series_Days_of_our_lives_bv {
+		left: 35px;
+		top: 166px;
+		position: absolute;
+		overflow: visible;
+		width: 267px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 28px;
+		color: rgba(52,46,55,1);
+	}
+	#Group_9_bw {
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 974px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Path_15_by {
+		fill: url(#Path_15_by);
+		stroke: rgba(52,46,55,0.502);
+		stroke-width: 2px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_15_by {
+		overflow: visible;
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Sunday_Meeting_bz {
+		left: 35.479px;
+		top: 25.286px;
+		position: absolute;
+		overflow: visible;
+		width: 243px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 36px;
+		color: rgba(52,46,55,1);
+	}
+	#abc123_b {
+		opacity: 0.7;
+		left: 35.479px;
+		top: 75.286px;
+		position: absolute;
+		overflow: visible;
+		width: 120px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Host_Joshua {
+		left: 35.479px;
+		top: 120.5px;
+		position: absolute;
+		overflow: visible;
+		width: 156px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Series_Days_of_our_lives_b {
+		left: 35px;
+		top: 166px;
+		position: absolute;
+		overflow: visible;
+		width: 267px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 28px;
+		color: rgba(52,46,55,1);
+	}
+	#Group_9_b {
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 0px;
+		top: 335px;
+		overflow: visible;
+	}
+	#Path_15_ca {
+		fill: url(#Path_15_ca);
+		stroke: rgba(52,46,55,0.502);
+		stroke-width: 2px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_15_ca {
+		overflow: visible;
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Sunday_Meeting_b {
+		left: 35.479px;
+		top: 25.286px;
+		position: absolute;
+		overflow: visible;
+		width: 243px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 36px;
+		color: rgba(52,46,55,1);
+	}
+	#abc123_ca {
+		opacity: 0.7;
+		left: 35.479px;
+		top: 75.286px;
+		position: absolute;
+		overflow: visible;
+		width: 120px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Host_John_Doe_b {
+		left: 35.479px;
+		top: 120.5px;
+		position: absolute;
+		overflow: visible;
+		width: 188px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Series_Days_of_our_lives_ca {
+		left: 35px;
+		top: 166px;
+		position: absolute;
+		overflow: visible;
+		width: 267px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 28px;
+		color: rgba(52,46,55,1);
+	}
+	#Group_9_ca {
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 487px;
+		top: 335px;
+		overflow: visible;
+	}
+	#Path_15_cc {
+		fill: url(#Path_15_cc);
+		stroke: rgba(52,46,55,0.502);
+		stroke-width: 2px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_15_cc {
+		overflow: visible;
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Sunday_Meeting_cd {
+		left: 35.479px;
+		top: 25.286px;
+		position: absolute;
+		overflow: visible;
+		width: 243px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 36px;
+		color: rgba(52,46,55,1);
+	}
+	#abc123_ce {
+		opacity: 0.7;
+		left: 35.479px;
+		top: 75.286px;
+		position: absolute;
+		overflow: visible;
+		width: 120px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Host_John_Doe_cf {
+		left: 35.479px;
+		top: 120.5px;
+		position: absolute;
+		overflow: visible;
+		width: 188px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Series_Days_of_our_lives_cg {
+		left: 35px;
+		top: 166px;
+		position: absolute;
+		overflow: visible;
+		width: 267px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 28px;
+		color: rgba(52,46,55,1);
+	}
+	#Group_9_ch {
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 974px;
+		top: 335px;
+		overflow: visible;
+	}
+	#Path_15_cj {
+		fill: url(#Path_15_cj);
+		stroke: rgba(52,46,55,0.502);
+		stroke-width: 2px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_15_cj {
+		overflow: visible;
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Sunday_Meeting_ck {
+		left: 35.479px;
+		top: 25.286px;
+		position: absolute;
+		overflow: visible;
+		width: 243px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 36px;
+		color: rgba(52,46,55,1);
+	}
+	#abc123_cl {
+		opacity: 0.7;
+		left: 35.479px;
+		top: 75.286px;
+		position: absolute;
+		overflow: visible;
+		width: 120px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Host_John_Doe_cm {
+		left: 35.479px;
+		top: 120.5px;
+		position: absolute;
+		overflow: visible;
+		width: 188px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Series_Days_of_our_lives_cn {
+		left: 35px;
+		top: 166px;
+		position: absolute;
+		overflow: visible;
+		width: 267px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 28px;
+		color: rgba(52,46,55,1);
+	}
+	#Group_9_co {
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 0px;
+		top: 670px;
+		overflow: visible;
+	}
+	#Path_15_cq {
+		fill: url(#Path_15_cq);
+		stroke: rgba(52,46,55,0.502);
+		stroke-width: 2px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_15_cq {
+		overflow: visible;
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Sunday_Meeting_cr {
+		left: 35.479px;
+		top: 25.286px;
+		position: absolute;
+		overflow: visible;
+		width: 243px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 36px;
+		color: rgba(52,46,55,1);
+	}
+	#abc123_cs {
+		opacity: 0.7;
+		left: 35.479px;
+		top: 75.286px;
+		position: absolute;
+		overflow: visible;
+		width: 120px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Host_John_Doe_ct {
+		left: 35.479px;
+		top: 120.5px;
+		position: absolute;
+		overflow: visible;
+		width: 188px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Series_Days_of_our_lives_cu {
+		left: 35px;
+		top: 166px;
+		position: absolute;
+		overflow: visible;
+		width: 267px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 28px;
+		color: rgba(52,46,55,1);
+	}
+	#Group_9_cv {
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 487px;
+		top: 670px;
+		overflow: visible;
+	}
+	#Path_15_cx {
+		fill: url(#Path_15_cx);
+		stroke: rgba(52,46,55,0.502);
+		stroke-width: 2px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_15_cx {
+		overflow: visible;
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Sunday_Meeting_cy {
+		left: 35.479px;
+		top: 25.286px;
+		position: absolute;
+		overflow: visible;
+		width: 243px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 36px;
+		color: rgba(52,46,55,1);
+	}
+	#abc123_cz {
+		opacity: 0.7;
+		left: 35.479px;
+		top: 75.286px;
+		position: absolute;
+		overflow: visible;
+		width: 120px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Host_John_Doe_c {
+		left: 35.479px;
+		top: 120.5px;
+		position: absolute;
+		overflow: visible;
+		width: 188px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Series_Days_of_our_lives_c {
+		left: 35px;
+		top: 166px;
+		position: absolute;
+		overflow: visible;
+		width: 267px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 28px;
+		color: rgba(52,46,55,1);
+	}
+	#Group_9_c {
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 974px;
+		top: 670px;
+		overflow: visible;
+	}
+	#Path_15_da {
+		fill: url(#Path_15_da);
+		stroke: rgba(52,46,55,0.502);
+		stroke-width: 2px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_15_da {
+		overflow: visible;
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Sunday_Meeting_c {
+		left: 35.479px;
+		top: 25.286px;
+		position: absolute;
+		overflow: visible;
+		width: 243px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 36px;
+		color: rgba(52,46,55,1);
+	}
+	#abc123_c {
+		opacity: 0.7;
+		left: 35.479px;
+		top: 75.286px;
+		position: absolute;
+		overflow: visible;
+		width: 120px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Host_John_Doe_da {
+		left: 35.479px;
+		top: 120.5px;
+		position: absolute;
+		overflow: visible;
+		width: 188px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Series_Days_of_our_lives_da {
+		left: 35px;
+		top: 166px;
+		position: absolute;
+		overflow: visible;
+		width: 267px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 28px;
+		color: rgba(52,46,55,1);
+	}
+	#Group_9_da {
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 0px;
+		top: 1005px;
+		overflow: visible;
+	}
+	#Path_15_dc {
+		fill: url(#Path_15_dc);
+		stroke: rgba(52,46,55,0.502);
+		stroke-width: 2px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_15_dc {
+		overflow: visible;
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Sunday_Meeting_dc {
+		left: 35.479px;
+		top: 25.286px;
+		position: absolute;
+		overflow: visible;
+		width: 243px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 36px;
+		color: rgba(52,46,55,1);
+	}
+	#abc123_dd {
+		opacity: 0.7;
+		left: 35.479px;
+		top: 75.286px;
+		position: absolute;
+		overflow: visible;
+		width: 120px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Host_John_Doe_de {
+		left: 35.479px;
+		top: 120.5px;
+		position: absolute;
+		overflow: visible;
+		width: 188px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Series_Days_of_our_lives_df {
+		left: 35px;
+		top: 166px;
+		position: absolute;
+		overflow: visible;
+		width: 267px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 28px;
+		color: rgba(52,46,55,1);
+	}
+	#Group_9_dg {
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 487px;
+		top: 1005px;
+		overflow: visible;
+	}
+	#Path_15_di {
+		fill: url(#Path_15_di);
+		stroke: rgba(52,46,55,0.502);
+		stroke-width: 2px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_15_di {
+		overflow: visible;
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Sunday_Meeting_dj {
+		left: 35.479px;
+		top: 25.286px;
+		position: absolute;
+		overflow: visible;
+		width: 243px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 36px;
+		color: rgba(52,46,55,1);
+	}
+	#abc123_dk {
+		opacity: 0.7;
+		left: 35.479px;
+		top: 75.286px;
+		position: absolute;
+		overflow: visible;
+		width: 120px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Host_John_Doe_dl {
+		left: 35.479px;
+		top: 120.5px;
+		position: absolute;
+		overflow: visible;
+		width: 188px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Series_Days_of_our_lives_dm {
+		left: 35px;
+		top: 166px;
+		position: absolute;
+		overflow: visible;
+		width: 267px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 28px;
+		color: rgba(52,46,55,1);
+	}
+	#Group_9_dn {
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 974px;
+		top: 1005px;
+		overflow: visible;
+	}
+	#Path_15_dp {
+		fill: url(#Path_15_dp);
+		stroke: rgba(52,46,55,0.502);
+		stroke-width: 2px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_15_dp {
+		overflow: visible;
+		position: absolute;
+		width: 444.959px;
+		height: 275px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Sunday_Meeting_dq {
+		left: 35.479px;
+		top: 25.286px;
+		position: absolute;
+		overflow: visible;
+		width: 243px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 36px;
+		color: rgba(52,46,55,1);
+	}
+	#abc123_dr {
+		opacity: 0.7;
+		left: 35.479px;
+		top: 75.286px;
+		position: absolute;
+		overflow: visible;
+		width: 120px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Host_John_Doe_ds {
+		left: 35.479px;
+		top: 120.5px;
+		position: absolute;
+		overflow: visible;
+		width: 188px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Series_Days_of_our_lives_dt {
+		left: 35px;
+		top: 166px;
+		position: absolute;
+		overflow: visible;
+		width: 267px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 28px;
+		color: rgba(52,46,55,1);
+	}
+</style>
+</head>
+<body>
+<div id="Logged_in_Sessions_page">
+	<svg class="Background_p" viewBox="0 0 1620 1076">
+		<linearGradient id="Background_p" spreadMethod="pad" x1="0.5" x2="0.5" y1="0" y2="1">
+			<stop offset="0" stop-color="#43e2b2" stop-opacity="1"></stop>
+			<stop offset="1" stop-color="#24afaf" stop-opacity="1"></stop>
+		</linearGradient>
+		<path id="Background_p" d="M 0 0 L 1620 0 L 1620 1076 L 0 1076 L 0 0 Z">
+		</path>
+	</svg>
+	<svg class="Rectangle_37">
+		<rect id="Rectangle_37" rx="40" ry="40" x="0" y="0" width="1540" height="956">
+		</rect>
+	</svg>
+	<div id="Group_8">
+		<img id="Bubble" src="Bubble.png" srcset="Bubble.png 1x, Bubble@2x.png 2x">
+			
+		</svg>
+		<img id="Bubbles" src="Bubbles.png" srcset="Bubbles.png 1x, Bubbles@2x.png 2x">
+			
+		</svg>
+		<img id="Bubbles_u" src="Bubbles_u.png" srcset="Bubbles_u.png 1x, Bubbles_u@2x.png 2x">
+			
+		</svg>
+		<img id="Mask_Group_2" src="Mask_Group_2.png" srcset="Mask_Group_2.png 1x, Mask_Group_2@2x.png 2x">
+			
+		</svg>
+	</div>
+	<div id="Project_CS261">
+		<span>Project CS261Group 45</span>
+	</div>
+	<div id="Component_12__1" class="Component_12___1">
+		<svg class="Icon_awesome-home" viewBox="-0.001 2.254 41.151 32">
+			<path id="Icon_awesome-home" d="M 20.02868461608887 10.55515575408936 L 6.857924938201904 21.40279388427734 L 6.857924938201904 33.11052703857422 C 6.857924938201904 33.74178314208984 7.369657516479492 34.25351715087891 8.000910758972168 34.25351715087891 L 16.0060920715332 34.23280334472656 C 16.63511085510254 34.22966003417969 17.14336776733398 33.71884155273438 17.14336204528809 33.08980941772461 L 17.14336204528809 26.25262451171875 C 17.14336204528809 25.62137222290039 17.65509414672852 25.10963821411133 18.28634452819824 25.10963821411133 L 22.8582878112793 25.10963821411133 C 23.48954010009766 25.10963821411133 24.00127220153809 25.62137222290039 24.00127220153809 26.25262451171875 L 24.00127220153809 33.08481597900391 C 24.00032043457031 33.38856887817383 24.12032127380371 33.68021011352539 24.33477592468262 33.89533233642578 C 24.54923248291016 34.1104621887207 24.84049797058105 34.23137283325195 25.14425659179688 34.23137283325195 L 33.14657592773438 34.25351715087891 C 33.77782440185547 34.25351715087891 34.28955841064453 33.74178314208984 34.28955841064453 33.11052703857422 L 34.28955841064453 21.39493560791016 L 21.12166404724121 10.55515575408936 C 20.80269622802734 10.29805278778076 20.3476505279541 10.29805278778076 20.02868461608887 10.55515575408936 Z M 40.83314895629883 17.92812347412109 L 34.86105346679688 13.00543117523193 L 34.86105346679688 3.110754489898682 C 34.86105346679688 2.637314319610596 34.47725677490234 2.253515720367432 34.00381469726563 2.253515720367432 L 30.00337028503418 2.253515720367432 C 29.52993202209473 2.253515720367432 29.14612770080566 2.637314319610596 29.14612770080566 3.110754728317261 L 29.14612770080566 8.297761917114258 L 22.75041580200195 3.035746097564697 C 21.48461723327637 1.994118213653564 19.65859413146973 1.994118213653564 18.39278793334961 3.035746097564697 L 0.3100518882274628 17.92812347412109 C -0.05502590537071228 18.22986602783203 -0.1062097176909447 18.77050399780273 0.195753738284111 19.13539886474609 L 2.017385721206665 21.34993362426758 C 2.161995887756348 21.52577209472656 2.370614528656006 21.63686752319336 2.597229957580566 21.65871047973633 C 2.823846101760864 21.6805534362793 3.049843072891235 21.61135482788086 3.225378274917603 21.46637725830078 L 20.02868461608887 7.62625789642334 C 20.3476505279541 7.369155883789063 20.80269622802734 7.369155883789063 21.12166404724121 7.626258850097656 L 37.92567825317383 21.46637725830078 C 38.29058456420898 21.76833724975586 38.83121490478516 21.71715545654297 39.13295745849609 21.35207366943359 L 40.95459365844727 19.13754653930664 C 41.09944534301758 18.96129608154297 41.16807174682617 18.73458099365234 41.14527893066406 18.50758743286133 C 41.12248611450195 18.28059387207031 41.01015853881836 18.07204818725586 40.83315277099609 17.92812347412109 Z">
+			</path>
+		</svg>
+		<div id="Home">
+			<span>Home</span>
+		</div>
+	</div>
+	<div id="Component_13__1" class="Component_13___1">
+		<svg class="Icon_awesome-user-circle" viewBox="0 0.563 32 32">
+			<path id="Icon_awesome-user-circle" d="M 16.00000190734863 0.5625002384185791 C 7.161291599273682 0.5625002384185791 -8.47648919943822e-08 7.723789691925049 -8.47648919943822e-08 16.56249809265137 C -8.47648919943822e-08 25.40120315551758 7.161291599273682 32.5625 16.00000190734863 32.5625 C 23.15051651000977 32.5625 29.20319557189941 27.87556648254395 31.34556198120117 21.10783767700195 C 31.7387523651123 19.87768936157227 32.00000381469727 18.25069046020508 32.00000381469727 16.56249809265137 C 32.00000381469727 7.723789691925049 24.83870887756348 0.5625002384185791 16.00000190734863 0.5625002384185791 Z M 16.00000190734863 6.756048679351807 C 19.13548469543457 6.756048679351807 21.67741966247559 9.29798412322998 21.67741966247559 12.4334659576416 C 21.67741966247559 15.56894874572754 19.13548469543457 18.11088371276855 16.00000190734863 18.11088371276855 C 12.86451721191406 18.11088371276855 10.32258129119873 15.56894874572754 10.32258129119873 12.4334659576416 C 10.32258129119873 9.29798412322998 12.86451530456543 6.756048679351807 16.00000190734863 6.756048679351807 Z M 16.00000190734863 28.9495964050293 C 12.21290397644043 28.9495964050293 8.819355964660645 27.23346710205078 6.54838752746582 24.54959487915039 C 7.761290550231934 22.26572227478027 10.13548278808594 20.6915283203125 12.90322589874268 20.6915283203125 C 13.05806541442871 20.6915283203125 13.21290397644043 20.71733856201172 13.36129188537598 20.76249504089355 C 14.19999885559082 21.0334644317627 15.07742023468018 21.20765686035156 16.00000190734863 21.20765686035156 C 16.92257881164551 21.20765686035156 17.80645179748535 21.0334644317627 18.63871192932129 20.76249504089355 C 18.78709983825684 20.71733856201172 18.94193840026855 20.6915283203125 19.09677696228027 20.6915283203125 C 21.8645191192627 20.6915283203125 24.23871231079102 22.26572418212891 25.45161628723145 24.54959487915039 C 23.18064498901367 27.23346710205078 19.7870979309082 28.9495964050293 16.00000190734863 28.9495964050293 Z">
+			</path>
+		</svg>
+		<div id="Profile">
+			<span>Profile</span>
+		</div>
+	</div>
+	<div id="Component_14__1" class="Component_14___1">
+		<svg class="Icon_awesome-calendar-day" viewBox="0 0 28 32">
+			<path id="Icon_awesome-calendar-day" d="M 0 28.99999809265137 C 0 30.65625 1.34375 31.99999809265137 2.999999761581421 31.99999809265137 L 25.00000190734863 31.99999809265137 C 26.65624809265137 31.99999809265137 27.99999618530273 30.65625 27.99999618530273 28.99999809265137 L 27.99999618530273 11.99999809265137 L 0 11.99999809265137 L 0 28.99999809265137 Z M 3.999999761581421 17 C 3.999999761581421 16.45000076293945 4.449999809265137 15.99999904632568 5 15.99999904632568 L 11 15.99999904632568 C 11.54999923706055 15.99999904632568 11.99999904632568 16.45000076293945 11.99999904632568 17 L 11.99999904632568 23 C 11.99999904632568 23.55000114440918 11.54999923706055 23.99999618530273 11 23.99999618530273 L 5 23.99999618530273 C 4.449999809265137 23.99999618530273 3.999999761581421 23.55000114440918 3.999999761581421 23 L 3.999999761581421 17 Z M 25.00000190734863 3.999999761581421 L 22 3.999999761581421 L 22 0.9999999403953552 C 22 0.4500000476837158 21.55000114440918 0 21.00000190734863 0 L 19.00000190734863 0 C 18.45000076293945 0 18 0.4500000476837158 18 0.9999999403953552 L 18 3.999999761581421 L 10 3.999999761581421 L 10 0.9999999403953552 C 10 0.4500000476837158 9.550000190734863 0 9 0 L 6.999999046325684 0 C 6.450000286102295 0 5.999999523162842 0.4500000476837158 5.999999523162842 0.9999999403953552 L 5.999999523162842 3.999999761581421 L 2.999999761581421 3.999999761581421 C 1.34375 3.999999761581421 0 5.343749523162842 0 7 L 0 10 L 27.99999618530273 10 L 27.99999618530273 7 C 27.99999618530273 5.343749523162842 26.65624809265137 3.999999761581421 25.00000190734863 3.999999761581421 Z">
+			</path>
+		</svg>
+		<div id="Sessions">
+			<span>Sessions</span>
+		</div>
+	</div>
+	<div id="Component_15__1" class="Component_15___1">
+		<svg class="Icon_awesome-calendar-alt" viewBox="0 0 28 32">
+			<path id="Icon_awesome-calendar-alt" d="M 0 28.99999809265137 C 0 30.65625 1.34375011920929 31.99999809265137 2.999999523162842 31.99999809265137 L 25.00000381469727 31.99999809265137 C 26.65625190734863 31.99999809265137 28.00000381469727 30.65625 28.00000381469727 28.99999809265137 L 28.00000381469727 11.99999713897705 L 0 11.99999713897705 L 0 28.99999809265137 Z M 20 16.75 C 20 16.33749961853027 20.33750152587891 15.99999904632568 20.75 15.99999904632568 L 23.25000381469727 15.99999904632568 C 23.66250038146973 15.99999904632568 23.99999618530273 16.33749961853027 23.99999618530273 16.75 L 23.99999618530273 19.25 C 23.99999618530273 19.66249847412109 23.66250038146973 19.99999809265137 23.25000381469727 19.99999809265137 L 20.75 19.99999809265137 C 20.33750152587891 19.99999809265137 20 19.66249847412109 20 19.25 L 20 16.75 Z M 20 24.75 C 20 24.33750152587891 20.33750152587891 23.9999942779541 20.75 23.9999942779541 L 23.25000381469727 23.9999942779541 C 23.66250038146973 23.9999942779541 23.99999618530273 24.33750152587891 23.99999618530273 24.75 L 23.99999618530273 27.24999809265137 C 23.99999618530273 27.66250038146973 23.66250038146973 28.00000190734863 23.25000381469727 28.00000190734863 L 20.75 28.00000190734863 C 20.33750152587891 28.00000190734863 20 27.66250038146973 20 27.24999809265137 L 20 24.75 Z M 11.99999809265137 16.75 C 11.99999809265137 16.33749961853027 12.33750057220459 15.99999904632568 12.74999904632568 15.99999904632568 L 15.25000190734863 15.99999904632568 C 15.66249942779541 15.99999904632568 16 16.33749961853027 16 16.75 L 16 19.25 C 16 19.66249847412109 15.66249942779541 19.99999809265137 15.25000190734863 19.99999809265137 L 12.74999904632568 19.99999809265137 C 12.33750057220459 19.99999809265137 11.99999809265137 19.66249847412109 11.99999809265137 19.25 L 11.99999809265137 16.75 Z M 11.99999809265137 24.75 C 11.99999809265137 24.33750152587891 12.33750057220459 23.9999942779541 12.74999904632568 23.9999942779541 L 15.25000190734863 23.9999942779541 C 15.66249942779541 23.9999942779541 16 24.33750152587891 16 24.75 L 16 27.24999809265137 C 16 27.66250038146973 15.66249942779541 28.00000190734863 15.25000190734863 28.00000190734863 L 12.74999904632568 28.00000190734863 C 12.33750057220459 28.00000190734863 11.99999809265137 27.66250038146973 11.99999809265137 27.24999809265137 L 11.99999809265137 24.75 Z M 4 16.75 C 4 16.33749961853027 4.337500095367432 15.99999904632568 4.75 15.99999904632568 L 7.249999523162842 15.99999904632568 C 7.662500381469727 15.99999904632568 8 16.33749961853027 8 16.75 L 8 19.25 C 8 19.66249847412109 7.662500381469727 19.99999809265137 7.249999523162842 19.99999809265137 L 4.75 19.99999809265137 C 4.337500095367432 19.99999809265137 4 19.66249847412109 4 19.25 L 4 16.75 Z M 4 24.75 C 4 24.33750152587891 4.337500095367432 23.9999942779541 4.75 23.9999942779541 L 7.249999523162842 23.9999942779541 C 7.662500381469727 23.9999942779541 8 24.33750152587891 8 24.75 L 8 27.24999809265137 C 8 27.66250038146973 7.662500381469727 28.00000190734863 7.249999523162842 28.00000190734863 L 4.75 28.00000190734863 C 4.337500095367432 28.00000190734863 4 27.66250038146973 4 27.24999809265137 L 4 24.75 Z M 25.00000381469727 3.999999761581421 L 22 3.999999761581421 L 22 0.9999999403953552 C 22 0.449999988079071 21.55000305175781 0 21.00000190734863 0 L 19 0 C 18.45000076293945 0 18 0.449999988079071 18 0.9999999403953552 L 18 3.999999761581421 L 10 3.999999761581421 L 10 0.9999999403953552 C 10 0.449999988079071 9.55000114440918 0 9 0 L 7.000000953674316 0 C 6.449999809265137 0 5.999999046325684 0.449999988079071 5.999999046325684 0.9999999403953552 L 5.999999046325684 3.999999761581421 L 2.999999523162842 3.999999761581421 C 1.34375011920929 3.999999761581421 0 5.34375 0 7.000000476837158 L 0 9.999999046325684 L 28.00000381469727 9.999999046325684 L 28.00000381469727 7.000000476837158 C 28.00000381469727 5.34375 26.65625190734863 3.999999761581421 25.00000381469727 3.999999761581421 Z">
+			</path>
+		</svg>
+		<div id="Session_series">
+			<span>Session series</span>
+		</div>
+	</div>
+	<div id="Component_20__1" class="Component_20___1">
+		<svg class="Icon_open-account-logout" viewBox="0 0 36.571 32">
+			<path id="Icon_open-account-logout" d="M 13.71428680419922 0 L 13.71428680419922 4.571428775787354 L 32 4.571428775787354 L 32 27.42857360839844 L 13.71428680419922 27.42857360839844 L 13.71428680419922 32 L 36.57143020629883 32 L 36.57143020629883 0 L 13.71428680419922 0 Z M 9.142857551574707 9.142857551574707 L 0 16 L 9.142857551574707 22.85714340209961 L 9.142857551574707 18.28571510314941 L 27.42857360839844 18.28571510314941 L 27.42857360839844 13.71428680419922 L 9.142857551574707 13.71428680419922 L 9.142857551574707 9.142857551574707 Z">
+			</path>
+		</svg>
+		<div id="Logout">
+			<span>Logout</span>
+		</div>
+	</div>
+	<div id="Group_6">
+		<div id="Heading">
+			<div id="Sessions_be">
+				<span>Sessions</span>
+			</div>
+		</div>
+		<svg class="Icon_awesome-calendar-day_bf" viewBox="0 0 56 64">
+			<path id="Icon_awesome-calendar-day_bf" d="M 0 58 C 0 61.31250762939453 2.6875 64 5.999999523162842 64 L 50.00000762939453 64 C 53.31249618530273 64 55.99999618530273 61.31250762939453 55.99999618530273 58 L 55.99999618530273 23.99999809265137 L 0 23.99999809265137 L 0 58 Z M 7.999999523162842 34.00000381469727 C 7.999999523162842 32.90000534057617 8.899999618530273 32 10 32 L 22 32 C 23.10000038146973 32 23.99999809265137 32.90000534057617 23.99999809265137 34.00000381469727 L 23.99999809265137 46.00000381469727 C 23.99999809265137 47.10000991821289 23.10000038146973 47.99999618530273 22 47.99999618530273 L 10 47.99999618530273 C 8.899999618530273 47.99999618530273 7.999999523162842 47.10000991821289 7.999999523162842 46.00000381469727 L 7.999999523162842 34.00000381469727 Z M 50.00000762939453 8 L 44 8 L 44 2 C 44 0.9000002145767212 43.10000610351563 0 42.00000762939453 0 L 38.00000381469727 0 C 36.90000152587891 0 36 0.9000002145767212 36 2 L 36 8 L 20 8 L 20 2 C 20 0.9000002145767212 19.10000228881836 0 18 0 L 13.99999904632568 0 C 12.90000152587891 0 11.99999904632568 0.9000002145767212 11.99999904632568 2 L 11.99999904632568 8 L 5.999999523162842 8 C 2.6875 8 0 10.6875 0 14.00000190734863 L 0 20.00000190734863 L 55.99999618530273 20.00000190734863 L 55.99999618530273 14.00000190734863 C 55.99999618530273 10.6875 53.31249618530273 8 50.00000762939453 8 Z">
+			</path>
+		</svg>
+	</div>
+	<div id="Sessions_bg">
+		<div id="Session_Grid">
+			<div id="Group_9" class="Group_9">
+				<svg class="Path_15_bk" viewBox="0 0 444.959 275">
+					<linearGradient id="Path_15_bk" spreadMethod="pad" x1="0.447" x2="0.958" y1="0.179" y2="0.929">
+						<stop offset="0" stop-color="#43e2b2" stop-opacity="1"></stop>
+						<stop offset="1" stop-color="#24afaf" stop-opacity="1"></stop>
+					</linearGradient>
+					<path onclick="application.goToTargetView(event)" id="Path_15_bk" d="M 38.93391418457031 0 L 406.0251159667969 0 C 427.5277099609375 0 444.9590148925781 17.43128967285156 444.9590148925781 38.93387603759766 L 444.9590148925781 236.0661163330078 C 444.9590148925781 257.5686950683594 427.5277099609375 275 406.0251159667969 275 L 38.93391418457031 275 C 17.43130493164063 275 0 257.5686950683594 0 236.0661163330078 L 0 38.93387603759766 C 0 17.43128967285156 17.43130493164063 0 38.93391418457031 0 Z">
+					</path>
+				</svg>
+				<div id="Sunday_Meeting">
+					<span>Sunday Meeting</span>
+				</div>
+				<div id="abc123">
+					<span>#abc123</span>
+				</div>
+				<div id="Host_John_Doe">
+					<span>Host: John Doe</span>
+				</div>
+				<div id="Series_Days_of_our_lives">
+					<span>Series: Days of our lives</span>
+				</div>
+			</div>
+			<div id="Group_9_bp" class="Group_9">
+				<svg class="Path_15_br" viewBox="0 0 444.959 275">
+					<linearGradient id="Path_15_br" spreadMethod="pad" x1="0.447" x2="0.958" y1="0.179" y2="0.929">
+						<stop offset="0" stop-color="#43e2b2" stop-opacity="1"></stop>
+						<stop offset="1" stop-color="#24afaf" stop-opacity="1"></stop>
+					</linearGradient>
+					<path id="Path_15_br" d="M 38.93391418457031 0 L 406.0251159667969 0 C 427.5277099609375 0 444.9590148925781 17.43128967285156 444.9590148925781 38.93387603759766 L 444.9590148925781 236.0661163330078 C 444.9590148925781 257.5686950683594 427.5277099609375 275 406.0251159667969 275 L 38.93391418457031 275 C 17.43130493164063 275 0 257.5686950683594 0 236.0661163330078 L 0 38.93387603759766 C 0 17.43128967285156 17.43130493164063 0 38.93391418457031 0 Z">
+					</path>
+				</svg>
+				<div id="Monday_Meeting">
+					<span>Monday Meeting</span>
+				</div>
+				<div id="kds867">
+					<span>#kds867</span>
+				</div>
+				<div id="Host_Amy">
+					<span>Host: Amy</span>
+				</div>
+				<div id="Series_Days_of_our_lives_bv">
+					<span>Series: Days of our lives</span>
+				</div>
+			</div>
+			<div id="Group_9_bw" class="Group_9">
+				<svg class="Path_15_by" viewBox="0 0 444.959 275">
+					<linearGradient id="Path_15_by" spreadMethod="pad" x1="0.447" x2="0.958" y1="0.179" y2="0.929">
+						<stop offset="0" stop-color="#43e2b2" stop-opacity="1"></stop>
+						<stop offset="1" stop-color="#24afaf" stop-opacity="1"></stop>
+					</linearGradient>
+					<path id="Path_15_by" d="M 38.93391418457031 0 L 406.0251159667969 0 C 427.5277099609375 0 444.9590148925781 17.43128967285156 444.9590148925781 38.93387603759766 L 444.9590148925781 236.0661163330078 C 444.9590148925781 257.5686950683594 427.5277099609375 275 406.0251159667969 275 L 38.93391418457031 275 C 17.43130493164063 275 0 257.5686950683594 0 236.0661163330078 L 0 38.93387603759766 C 0 17.43128967285156 17.43130493164063 0 38.93391418457031 0 Z">
+					</path>
+				</svg>
+				<div id="Sunday_Meeting_bz">
+					<span>Sunday Meeting</span>
+				</div>
+				<div id="abc123_b">
+					<span>#abc123</span>
+				</div>
+				<div id="Host_Joshua">
+					<span>Host: Joshua</span>
+				</div>
+				<div id="Series_Days_of_our_lives_b">
+					<span>Series: Days of our lives</span>
+				</div>
+			</div>
+			<div id="Group_9_b" class="Group_9">
+				<svg class="Path_15_ca" viewBox="0 0 444.959 275">
+					<linearGradient id="Path_15_ca" spreadMethod="pad" x1="0.447" x2="0.958" y1="0.179" y2="0.929">
+						<stop offset="0" stop-color="#43e2b2" stop-opacity="1"></stop>
+						<stop offset="1" stop-color="#24afaf" stop-opacity="1"></stop>
+					</linearGradient>
+					<path id="Path_15_ca" d="M 38.93391418457031 0 L 406.0251159667969 0 C 427.5277099609375 0 444.9590148925781 17.43128967285156 444.9590148925781 38.93387603759766 L 444.9590148925781 236.0661163330078 C 444.9590148925781 257.5686950683594 427.5277099609375 275 406.0251159667969 275 L 38.93391418457031 275 C 17.43130493164063 275 0 257.5686950683594 0 236.0661163330078 L 0 38.93387603759766 C 0 17.43128967285156 17.43130493164063 0 38.93391418457031 0 Z">
+					</path>
+				</svg>
+				<div id="Sunday_Meeting_b">
+					<span>Sunday Meeting</span>
+				</div>
+				<div id="abc123_ca">
+					<span>#abc123</span>
+				</div>
+				<div id="Host_John_Doe_b">
+					<span>Host: John Doe</span>
+				</div>
+				<div id="Series_Days_of_our_lives_ca">
+					<span>Series: Days of our lives</span>
+				</div>
+			</div>
+			<div id="Group_9_ca" class="Group_9">
+				<svg class="Path_15_cc" viewBox="0 0 444.959 275">
+					<linearGradient id="Path_15_cc" spreadMethod="pad" x1="0.447" x2="0.958" y1="0.179" y2="0.929">
+						<stop offset="0" stop-color="#43e2b2" stop-opacity="1"></stop>
+						<stop offset="1" stop-color="#24afaf" stop-opacity="1"></stop>
+					</linearGradient>
+					<path id="Path_15_cc" d="M 38.93391418457031 0 L 406.0251159667969 0 C 427.5277099609375 0 444.9590148925781 17.43128967285156 444.9590148925781 38.93387603759766 L 444.9590148925781 236.0661163330078 C 444.9590148925781 257.5686950683594 427.5277099609375 275 406.0251159667969 275 L 38.93391418457031 275 C 17.43130493164063 275 0 257.5686950683594 0 236.0661163330078 L 0 38.93387603759766 C 0 17.43128967285156 17.43130493164063 0 38.93391418457031 0 Z">
+					</path>
+				</svg>
+				<div id="Sunday_Meeting_cd">
+					<span>Sunday Meeting</span>
+				</div>
+				<div id="abc123_ce">
+					<span>#abc123</span>
+				</div>
+				<div id="Host_John_Doe_cf">
+					<span>Host: John Doe</span>
+				</div>
+				<div id="Series_Days_of_our_lives_cg">
+					<span>Series: Days of our lives</span>
+				</div>
+			</div>
+			<div id="Group_9_ch" class="Group_9">
+				<svg class="Path_15_cj" viewBox="0 0 444.959 275">
+					<linearGradient id="Path_15_cj" spreadMethod="pad" x1="0.447" x2="0.958" y1="0.179" y2="0.929">
+						<stop offset="0" stop-color="#43e2b2" stop-opacity="1"></stop>
+						<stop offset="1" stop-color="#24afaf" stop-opacity="1"></stop>
+					</linearGradient>
+					<path id="Path_15_cj" d="M 38.93391418457031 0 L 406.0251159667969 0 C 427.5277099609375 0 444.9590148925781 17.43128967285156 444.9590148925781 38.93387603759766 L 444.9590148925781 236.0661163330078 C 444.9590148925781 257.5686950683594 427.5277099609375 275 406.0251159667969 275 L 38.93391418457031 275 C 17.43130493164063 275 0 257.5686950683594 0 236.0661163330078 L 0 38.93387603759766 C 0 17.43128967285156 17.43130493164063 0 38.93391418457031 0 Z">
+					</path>
+				</svg>
+				<div id="Sunday_Meeting_ck">
+					<span>Sunday Meeting</span>
+				</div>
+				<div id="abc123_cl">
+					<span>#abc123</span>
+				</div>
+				<div id="Host_John_Doe_cm">
+					<span>Host: John Doe</span>
+				</div>
+				<div id="Series_Days_of_our_lives_cn">
+					<span>Series: Days of our lives</span>
+				</div>
+			</div>
+			<div id="Group_9_co" class="Group_9">
+				<svg class="Path_15_cq" viewBox="0 0 444.959 275">
+					<linearGradient id="Path_15_cq" spreadMethod="pad" x1="0.447" x2="0.958" y1="0.179" y2="0.929">
+						<stop offset="0" stop-color="#43e2b2" stop-opacity="1"></stop>
+						<stop offset="1" stop-color="#24afaf" stop-opacity="1"></stop>
+					</linearGradient>
+					<path id="Path_15_cq" d="M 38.93391418457031 0 L 406.0251159667969 0 C 427.5277099609375 0 444.9590148925781 17.43128967285156 444.9590148925781 38.93387603759766 L 444.9590148925781 236.0661163330078 C 444.9590148925781 257.5686950683594 427.5277099609375 275 406.0251159667969 275 L 38.93391418457031 275 C 17.43130493164063 275 0 257.5686950683594 0 236.0661163330078 L 0 38.93387603759766 C 0 17.43128967285156 17.43130493164063 0 38.93391418457031 0 Z">
+					</path>
+				</svg>
+				<div id="Sunday_Meeting_cr">
+					<span>Sunday Meeting</span>
+				</div>
+				<div id="abc123_cs">
+					<span>#abc123</span>
+				</div>
+				<div id="Host_John_Doe_ct">
+					<span>Host: John Doe</span>
+				</div>
+				<div id="Series_Days_of_our_lives_cu">
+					<span>Series: Days of our lives</span>
+				</div>
+			</div>
+			<div id="Group_9_cv" class="Group_9">
+				<svg class="Path_15_cx" viewBox="0 0 444.959 275">
+					<linearGradient id="Path_15_cx" spreadMethod="pad" x1="0.447" x2="0.958" y1="0.179" y2="0.929">
+						<stop offset="0" stop-color="#43e2b2" stop-opacity="1"></stop>
+						<stop offset="1" stop-color="#24afaf" stop-opacity="1"></stop>
+					</linearGradient>
+					<path id="Path_15_cx" d="M 38.93391418457031 0 L 406.0251159667969 0 C 427.5277099609375 0 444.9590148925781 17.43128967285156 444.9590148925781 38.93387603759766 L 444.9590148925781 236.0661163330078 C 444.9590148925781 257.5686950683594 427.5277099609375 275 406.0251159667969 275 L 38.93391418457031 275 C 17.43130493164063 275 0 257.5686950683594 0 236.0661163330078 L 0 38.93387603759766 C 0 17.43128967285156 17.43130493164063 0 38.93391418457031 0 Z">
+					</path>
+				</svg>
+				<div id="Sunday_Meeting_cy">
+					<span>Sunday Meeting</span>
+				</div>
+				<div id="abc123_cz">
+					<span>#abc123</span>
+				</div>
+				<div id="Host_John_Doe_c">
+					<span>Host: John Doe</span>
+				</div>
+				<div id="Series_Days_of_our_lives_c">
+					<span>Series: Days of our lives</span>
+				</div>
+			</div>
+			<div id="Group_9_c" class="Group_9">
+				<svg class="Path_15_da" viewBox="0 0 444.959 275">
+					<linearGradient id="Path_15_da" spreadMethod="pad" x1="0.447" x2="0.958" y1="0.179" y2="0.929">
+						<stop offset="0" stop-color="#43e2b2" stop-opacity="1"></stop>
+						<stop offset="1" stop-color="#24afaf" stop-opacity="1"></stop>
+					</linearGradient>
+					<path id="Path_15_da" d="M 38.93391418457031 0 L 406.0251159667969 0 C 427.5277099609375 0 444.9590148925781 17.43128967285156 444.9590148925781 38.93387603759766 L 444.9590148925781 236.0661163330078 C 444.9590148925781 257.5686950683594 427.5277099609375 275 406.0251159667969 275 L 38.93391418457031 275 C 17.43130493164063 275 0 257.5686950683594 0 236.0661163330078 L 0 38.93387603759766 C 0 17.43128967285156 17.43130493164063 0 38.93391418457031 0 Z">
+					</path>
+				</svg>
+				<div id="Sunday_Meeting_c">
+					<span>Sunday Meeting</span>
+				</div>
+				<div id="abc123_c">
+					<span>#abc123</span>
+				</div>
+				<div id="Host_John_Doe_da">
+					<span>Host: John Doe</span>
+				</div>
+				<div id="Series_Days_of_our_lives_da">
+					<span>Series: Days of our lives</span>
+				</div>
+			</div>
+			<div id="Group_9_da" class="Group_9">
+				<svg class="Path_15_dc" viewBox="0 0 444.959 275">
+					<linearGradient id="Path_15_dc" spreadMethod="pad" x1="0.447" x2="0.958" y1="0.179" y2="0.929">
+						<stop offset="0" stop-color="#43e2b2" stop-opacity="1"></stop>
+						<stop offset="1" stop-color="#24afaf" stop-opacity="1"></stop>
+					</linearGradient>
+					<path id="Path_15_dc" d="M 38.93391418457031 0 L 406.0251159667969 0 C 427.5277099609375 0 444.9590148925781 17.43128967285156 444.9590148925781 38.93387603759766 L 444.9590148925781 236.0661163330078 C 444.9590148925781 257.5686950683594 427.5277099609375 275 406.0251159667969 275 L 38.93391418457031 275 C 17.43130493164063 275 0 257.5686950683594 0 236.0661163330078 L 0 38.93387603759766 C 0 17.43128967285156 17.43130493164063 0 38.93391418457031 0 Z">
+					</path>
+				</svg>
+				<div id="Sunday_Meeting_dc">
+					<span>Sunday Meeting</span>
+				</div>
+				<div id="abc123_dd">
+					<span>#abc123</span>
+				</div>
+				<div id="Host_John_Doe_de">
+					<span>Host: John Doe</span>
+				</div>
+				<div id="Series_Days_of_our_lives_df">
+					<span>Series: Days of our lives</span>
+				</div>
+			</div>
+			<div id="Group_9_dg" class="Group_9">
+				<svg class="Path_15_di" viewBox="0 0 444.959 275">
+					<linearGradient id="Path_15_di" spreadMethod="pad" x1="0.447" x2="0.958" y1="0.179" y2="0.929">
+						<stop offset="0" stop-color="#43e2b2" stop-opacity="1"></stop>
+						<stop offset="1" stop-color="#24afaf" stop-opacity="1"></stop>
+					</linearGradient>
+					<path id="Path_15_di" d="M 38.93391418457031 0 L 406.0251159667969 0 C 427.5277099609375 0 444.9590148925781 17.43128967285156 444.9590148925781 38.93387603759766 L 444.9590148925781 236.0661163330078 C 444.9590148925781 257.5686950683594 427.5277099609375 275 406.0251159667969 275 L 38.93391418457031 275 C 17.43130493164063 275 0 257.5686950683594 0 236.0661163330078 L 0 38.93387603759766 C 0 17.43128967285156 17.43130493164063 0 38.93391418457031 0 Z">
+					</path>
+				</svg>
+				<div id="Sunday_Meeting_dj">
+					<span>Sunday Meeting</span>
+				</div>
+				<div id="abc123_dk">
+					<span>#abc123</span>
+				</div>
+				<div id="Host_John_Doe_dl">
+					<span>Host: John Doe</span>
+				</div>
+				<div id="Series_Days_of_our_lives_dm">
+					<span>Series: Days of our lives</span>
+				</div>
+			</div>
+			<div id="Group_9_dn" class="Group_9">
+				<svg class="Path_15_dp" viewBox="0 0 444.959 275">
+					<linearGradient id="Path_15_dp" spreadMethod="pad" x1="0.447" x2="0.958" y1="0.179" y2="0.929">
+						<stop offset="0" stop-color="#43e2b2" stop-opacity="1"></stop>
+						<stop offset="1" stop-color="#24afaf" stop-opacity="1"></stop>
+					</linearGradient>
+					<path id="Path_15_dp" d="M 38.93391418457031 0 L 406.0251159667969 0 C 427.5277099609375 0 444.9590148925781 17.43128967285156 444.9590148925781 38.93387603759766 L 444.9590148925781 236.0661163330078 C 444.9590148925781 257.5686950683594 427.5277099609375 275 406.0251159667969 275 L 38.93391418457031 275 C 17.43130493164063 275 0 257.5686950683594 0 236.0661163330078 L 0 38.93387603759766 C 0 17.43128967285156 17.43130493164063 0 38.93391418457031 0 Z">
+					</path>
+				</svg>
+				<div id="Sunday_Meeting_dq">
+					<span>Sunday Meeting</span>
+				</div>
+				<div id="abc123_dr">
+					<span>#abc123</span>
+				</div>
+				<div id="Host_John_Doe_ds">
+					<span>Host: John Doe</span>
+				</div>
+				<div id="Series_Days_of_our_lives_dt">
+					<span>Series: Days of our lives</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

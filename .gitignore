@@ -36,7 +36,6 @@ app/bin
 app/src/main/resources/static/js/dist/index.js
 app/database/database.db
 
-database.db
 
 # node modules
 node_modules/
