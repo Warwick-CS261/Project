@@ -1,6 +1,7 @@
 package cs261;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class HostSesh extends Sesh {
@@ -15,7 +16,11 @@ public class HostSesh extends Sesh {
     User owner, Boolean finished, ArrayList<Question> pushedquestions, Chat chat, String secure, 
     ArrayList<Question> hiddenQuestions, ArrayList<MoodDate> moodHistory, ArrayList<User> moderators){
         super(id, seriesID, sessionName, owner, finished, chat, pushedquestions, moderators);
-        this.secure = secure;
+        if (Objects.isNull(secure)){
+            this.secure = "";
+        } else{
+            this.secure = secure;
+        }
         this.hiddenQuestions = hiddenQuestions;
         this.moodHistory = moodHistory;
         this.mood = mood;
@@ -23,7 +28,11 @@ public class HostSesh extends Sesh {
 
     public HostSesh(String id, String seriesID, String sessionName, User owner, String secure){
         super(id, seriesID, sessionName, owner);
-        this.secure = secure;
+        if (Objects.isNull(secure)){
+            this.secure = "";
+        } else{
+            this.secure = secure;
+        }
         this.mood = 0;
         this.hiddenQuestions = new ArrayList<Question>();
         this.moodHistory = new ArrayList<MoodDate>();

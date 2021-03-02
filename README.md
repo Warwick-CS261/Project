@@ -1,18 +1,10 @@
-# Project
+# Project CS261 | Group 45
+
 Our cs261 project!
 
+Gradle Commands:
 
-
-form(form id, session id) -- form_questions(from id, question id) -- questions(question id, question, type) -- questions_answer (question,asnwer,userID(POSSIBLY))
-
-
-
-
-question_choice(quesiton id, choice)
-1       brown
-1       red
-2       car       
-2       bus
-2       train
-
-
+- `gradle run`: starts the server
+- `gradle build`: compiles java and js file
+- `gradle npmInstall`: downloads all the dependencies packages
+- `gradle npmBuild`: bundles all the javascript files

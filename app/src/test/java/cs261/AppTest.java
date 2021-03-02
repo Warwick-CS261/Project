@@ -20,6 +20,7 @@ class AppTest {
                         " AND phash = '000' AND fname = 'jiayi' AND lname = 'Xu' AND salt = '111'";
         PreparedStatement stmt = connection.prepareStatement(query);
         ResultSet rs = stmt.executeQuery();
+
         assertNotNull(rs, "DBConnection.createUser fail");
         assertNull(db.verifyPassword("996616811@qq.com", "111"),"DBConnection.verifyPassword fail");
         assertNull(db.verifyPassword("000000000@qq.com", "000"),"DBConnection.verifyPassword fail");

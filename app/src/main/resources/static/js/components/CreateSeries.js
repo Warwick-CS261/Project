@@ -9,9 +9,11 @@ export default class CreateSeries extends React.Component {
   }
   render() {
     return(
-      <div>
-        Series
-      </div>
+      <>
+        <div className="alert alert-info" role="alert">
+          Featue of the future!
+        </div>
+      </>
     )
   }
 }

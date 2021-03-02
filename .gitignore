@@ -22,11 +22,13 @@ hs_err_pid*
 
 modules/
 *bootstrap*
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
 app/bin
 app/src/main/resources/static/js/dist/index.js
 app/database/database.db
-# Ignore Gradle project-specific cache directory
-.gradle
 .vscode
 # Ignore Gradle build output directory
 build
@@ -34,5 +36,10 @@ app/bin
 app/src/main/resources/static/js/dist/index.js
 app/database/database.db
 
+database.db
+
 # node modules
 node_modules/
+
+# log files
+*.log*
