@@ -7,14 +7,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
-<<<<<<< Updated upstream
     /*cs261.Analyse an = new cs261.Analyse();
     @Test
     void pythonScript() throws Exception {
         String x = an.scriptRun();
         assertTrue(x.equals("Hello World!"));
     }*/
-=======
 
     /*@Test void testDB() throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:sqlite:database/database.db");
@@ -50,5 +48,4 @@ class AppTest {
         App classUnderTest = new App();
         //assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
     }
->>>>>>> Stashed changes
 }
