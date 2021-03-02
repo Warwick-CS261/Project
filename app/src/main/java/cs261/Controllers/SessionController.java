@@ -111,8 +111,7 @@ public class SessionController{
 
         String token = request.cookie("token");
         String password = request.queryParams("password");
-        String sessionID = request.queryParams(":id");
-
+        String sessionID = request.params(":id");
         User user = dbConn.getUserByToken(token);
         //token is valid
         if(Objects.isNull(user)){
@@ -138,8 +137,13 @@ public class SessionController{
         if(dbConn.userIsAttendee(sessionID, user.getId())){
             return  "token="+dbConn.newToken(user.getId())+","+gson.toJson(session.convertToSesh());
         }
-
-        if(session.getSecure().equals(password)||session.getSecure().equals("")){
+        if (Objects.isNull(password)){
+            password = "";
+        }
+        if (Objects.isNull(session.getSecure())){
+            ;
+        }
+        if(session.getSecure().equals("")||session.getSecure().equals(password)){
             return "token="+dbConn.newToken(user.getId())+","+gson.toJson(session.convertToSesh());
         }
 

@@ -11,7 +11,7 @@ export default class CreateSession extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sessionName: "",
+      name: "",
       secure: false,
       error: false,
       series: 1,
@@ -83,9 +83,9 @@ export default class CreateSession extends React.Component {
           <div className="mb-3">
             <input 
               type="text"
-              name="sessionName"
+              name="name"
               className="form-control"
-              value={this.state.sessionName}
+              value={this.state.name}
               onChange={this.handleChange}
               autoFocus
               required

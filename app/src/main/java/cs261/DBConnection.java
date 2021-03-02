@@ -332,7 +332,7 @@ public class DBConnection {
     
         Random r = new Random();
     
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890?<>&%!/^:+=-_";
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
         String token ="";
         for (int i = 0; i < 32; i++) {
             token = token +alphabet.charAt(r.nextInt(alphabet.length()));

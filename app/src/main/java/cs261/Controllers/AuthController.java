@@ -17,7 +17,8 @@ public class AuthController{
             response.status(455);
             return "Incorrect email or password";
         }else{
-            return "token="+dbConn.newToken(user.getId());
+            String token = dbConn.newToken(user.getId());
+            return "token=" + token;
         }
     };
 

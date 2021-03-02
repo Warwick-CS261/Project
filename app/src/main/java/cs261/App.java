@@ -58,7 +58,9 @@ public class App {
             get("/user", returnPage);
             get("/join", returnPage);
 
-            get("/:id", SessionController.joinSession);
+            post("/:id", SessionController.joinSession);
+            get("/:id", returnPage);
+            
 
             path("/:id", () -> {
                 post("/chat", SessionController.submitMessage);

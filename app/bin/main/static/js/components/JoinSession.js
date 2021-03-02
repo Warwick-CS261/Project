@@ -1,4 +1,5 @@
 import React from 'react';
+import Cookies from 'js-cookie';
 import $ from 'jquery';
 import {
   handleError,
@@ -56,6 +57,7 @@ export default class JoinSession extends React.Component {
             error: 'Server response was invalid'
           });
         }
+        console.log(session);
         // TODO redirect to session
         Cookies.set('token', token);
         this.props.updateToken(token);
