@@ -321,7 +321,7 @@ public class DBConnection {
     }
 
     public Boolean deleteSession(String sessionID) throws SQLException{
-        String query = "DELETE FROM SESSION WHERE sessionID = ?";
+        String query = "DELETE FROM SESH WHERE ID = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setString(1, sessionID);
         stmt.executeUpdate();
@@ -339,6 +339,48 @@ public class DBConnection {
         }
 
         return token;
+    }
+
+    public void EmptyDB() throws SQLException {
+        String query = "DELETE FROM ATTENDEE_SESSION";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.executeUpdate();
+        query = "DELETE FROM MESSAGES";
+        stmt = connection.prepareStatement(query);
+        stmt.executeUpdate();
+        query = "DELETE FROM MODERATOR_SESSION";
+        stmt = connection.prepareStatement(query);
+        stmt.executeUpdate();
+        query = "DELETE FROM MOOD_DATE";
+        stmt = connection.prepareStatement(query);
+        stmt.executeUpdate();
+        query = "DELETE FROM QUESTION";
+        stmt = connection.prepareStatement(query);
+        stmt.executeUpdate();
+        query = "DELETE FROM RESPONSE";
+        stmt = connection.prepareStatement(query);
+        stmt.executeUpdate();
+        query = "DELETE FROM SERIES";
+        stmt = connection.prepareStatement(query);
+        stmt.executeUpdate();
+        query = "DELETE FROM SESH";
+        stmt = connection.prepareStatement(query);
+        stmt.executeUpdate();
+        query = "DELETE FROM SESSION_WORD";
+        stmt = connection.prepareStatement(query);
+        stmt.executeUpdate();
+        query = "DELETE FROM USER";
+        stmt = connection.prepareStatement(query);
+        stmt.executeUpdate();
+        query = "DELETE FROM USER_TOKEN";
+        stmt = connection.prepareStatement(query);
+        stmt.executeUpdate();
+        query = "DELETE FROM sqlite_sequence";
+        stmt = connection.prepareStatement(query);
+        stmt.executeUpdate();
+        query = "DELETE FROM ANSWER";
+        stmt = connection.prepareStatement(query);
+        stmt.executeUpdate();
     }
 
 }
