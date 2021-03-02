@@ -27,6 +27,7 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception{
+        System.out.println(Analyse.scriptRun());
         app = new App();
         
         app.run();
