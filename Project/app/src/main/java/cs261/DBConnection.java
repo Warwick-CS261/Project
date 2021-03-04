@@ -93,8 +93,25 @@ public class DBConnection {
         return true;    
     }
     //needs to filter out duplicates
-    public Series getUserSessions(int userID){
-        String query = "SELEC";
+    public Series getUserSessions(int userID) throws SQLException{
+        String query = "SELECT id FROM  SESH WHERE owner =?";
+        Series userSeries = new Series(-1, "userssesiions");
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, userID);
+        ResultSet rs = stmt.executeQuery();
+        while(rs.next()){
+            userSeries.addSession(getHostSessionByID(rs.getString("id")));
+        }
+//now attendee
+        query = "SELECT  sessionID FROM ATTENDEE_SESSION WHERE userID = ";
+        PreparedStatement stmt2 = connection.prepareStatement(query);
+        stmt.setInt(1, userID);
+        ResultSet rs2 = stmt2.executeQuery();
+        while(rs.next()){
+            userSeries.addSession(getSessionByID(rs2.getString("sessionID")));
+        }
+
+        return userSeries;
     }
 
     public String getQuestionMesasge(String sessionID, int questionID) throws SQLException{

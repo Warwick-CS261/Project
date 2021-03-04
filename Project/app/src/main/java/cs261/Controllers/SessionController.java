@@ -62,7 +62,7 @@ public class SessionController{
             response.status(450);
             return "Invalid Token";
         }
-        return "x";
+        return gson.toJson(dbConn.getUserSessions(user.getId()));
 
     };
 
@@ -236,7 +236,7 @@ public class SessionController{
         return "token="+dbConn.newToken(user.getId());
     };
 
-    public static Route watchSession= (Request request, Response response) -> {
+    public static Route watchSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
 
         String token = request.cookie("token");
