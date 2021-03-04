@@ -75,6 +75,18 @@ public class DBConnection {
         return true;
     }
 
+    public Boolean createMessage(Message message, String sessionID) throws SQLException{
+        String query = "INSERT INTO MESSAGES VALUES(?,?,?,?,?)";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        stmt.setString(2, message.getMsg());
+        stmt.setInt(3, message.getUser().getId());
+        stmt.setDate(4, new java.sql.Date(message.getStamp().getTime()));
+        stmt.setBoolean(5, message.getAnon());
+        stmt.executeUpdate();
+        return true;
+    }
+
     private int numOfSessQuest(String sessionID)throws SQLException{
         String query = "SELECT COUNT(id) FROM QUESTION WHERE sessionID = ?";
         PreparedStatement stmt = connection.prepareStatement(query);

@@ -69,8 +69,39 @@ public class SessionController{
 
 
     public static Route submitMessage = (Request request, Response response) -> {
-        Map<String, Object> model = new HashMap<>();
-        return "Message Submitted to session "+request.params(":id");
+        DBConnection dbConn = App.getApp().getDbConn();
+
+        String sessionID = request.params(":id");
+        String token = request.cookie("token");
+        String msg = request.queryParams("message");
+        String anonStr =  request.queryParams("anon");
+        Date date = new Date();
+        Boolean anon;        
+
+        if(msg.equals("")){
+            response.status(547);
+            return "empty message";
+        }
+
+        if(anonStr.equals("true")){
+            anon = true;
+        }else if(anonStr.equals("false")){
+            anon = false;
+        } else {
+            response.status(457);
+            return "invalid anon";
+        }
+        User user = dbConn.getUserByToken(token);
+        if(Objects.isNull(user)){
+            response.status(450);
+            return "Invalid Token";
+        }
+        if(dbConn.userIsAttendee(sessionID, user.getId())){
+            Message message = new Message(user, msg, date, anon);
+            dbConn.createMessage(message, sessionID);
+            App.getApp().getObservable().notifyWatchers( 1, sessionID, gson.toJson(message));
+        }
+        return "token="+dbConn.newToken(user.getId());
     };
 
 
@@ -157,7 +188,7 @@ public class SessionController{
         DBConnection dbConn = App.getApp().getDbConn();
         
         String token = request.cookie("token");
-        String sessionID = request.queryParams(":id");
+        String sessionID = request.params(":id");
 
         User user = dbConn.getUserByToken(token);
         //token is valid
@@ -184,12 +215,7 @@ public class SessionController{
         DBConnection dbConn = App.getApp().getDbConn();
 
         String token = request.cookie("token");
-        String sessionID = request.queryParams(":id");
-
-        if(!dbConn.sessionExists(sessionID)){
-            response.status(454);
-            return "Session doesn't exist";
-        }
+        String sessionID = request.params(":id");
 
         User user = dbConn.getUserByToken(token);
         //token is valid
@@ -198,10 +224,44 @@ public class SessionController{
             return "Invalid Token";
         }
 
+        if(!dbConn.sessionExists(sessionID)){
+            response.status(454);
+            return "Session doesn't exist";
+        }
+
         if(!dbConn.userIsSessionHost(user.getId(), sessionID)){
             response.status(401);
             return "No permission";
         }
         return "token="+dbConn.newToken(user.getId());
+    };
+
+    public static Route watchSession= (Request request, Response response) -> {
+        DBConnection dbConn = App.getApp().getDbConn();
+
+        String token = request.cookie("token");
+        String sessionID = request.queryParams(":id");
+        
+        User user = dbConn.getUserByToken(token);
+        //token is valid
+        if(Objects.isNull(user)){
+            response.status(450);
+            return "Invalid Token";
+        }
+
+        if(!dbConn.sessionExists(sessionID)){
+            response.status(1);
+            return "Session doesn't exist";
+        }
+
+        if(!dbConn.userIsAttendee(sessionID, user.getId() )){
+            response.status(2);
+            return "not authorised";
+        }
+        Watcher w = new Watcher();
+        String json = w.watch(sessionID); 
+
+        //return json string
+        return json;
     };
 }
