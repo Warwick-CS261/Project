@@ -55,7 +55,7 @@ public class SessionController{
         DBConnection dbConn = App.getApp().getDbConn();
 
         String token = request.cookie("token");
-
+        
         User user = dbConn.getUserByToken(token);
         //token is valid
         if(Objects.isNull(user)){

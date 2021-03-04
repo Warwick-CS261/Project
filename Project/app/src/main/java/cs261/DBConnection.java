@@ -92,6 +92,10 @@ public class DBConnection {
         stmt.executeUpdate();
         return true;    
     }
+    //needs to filter out duplicates
+    public Series getUserSessions(int userID){
+        String query = "SELEC";
+    }
 
     public String getQuestionMesasge(String sessionID, int questionID) throws SQLException{
         String query = "SELECT * FROM QUESTION id = ? & sessionID = ?";
