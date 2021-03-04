@@ -1,19 +1,58 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
   Switch,
   NavLink,
   Route,
-  Redirect
+  Redirect,
+  useHistory
 } from 'react-router-dom';
 
 import Home from './Home';
 import Logo from './Logo';
 import User from './User';
-import Series from './Series';
 import Sessions from './Sessions';
+import MySessions from './MySessions';
+import AttendeeSession from './AttendeeSession';
+import HostSession from './HostSession';
+import JoinSession from './JoinSession';
+import CreateSession from './CreateSession';
+import CreateSeries from './CreateSeries';
 
 export default class Main extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      session: null,
+      isHost: false,
+    }
+
+    this.handleSession = this.handleSession.bind(this);
+  }
+
+  componentDidUpdate(){
+
+  }
+
+  handleSession(session){
+    let host = false;
+    if (session === null){
+      this.setState({
+        session: session,
+      });
+      return;
+    }
+    if (session.secure === undefined || session.secure === null) {
+      host = false;
+    } else {
+      host = true;
+    }
+    this.setState({
+      session: session,
+      isHost: host,
+    }, ()=> {
+      console.log("this should be 1st");
+    });
+  }
 
   componentDidMount() {
     history.pushState({route:'/'}, '', '/');
@@ -71,15 +110,15 @@ export default class Main extends React.Component {
         icon: <i className="bi bi-person-circle"></i>
       },
       {
-        path: '/session',
-        key: 'session',
-        text: 'Session',
+        path: '/session/user',
+        key: 'session/user',
+        text: 'My Sessions',
         icon: <i className="bi bi-calendar-event-fill"></i>,
       },
       {
-        path: '/series',
-        key: 'series',
-        text: 'Series',
+        path: '/sessions',
+        key: 'sessions',
+        text: 'Sessions',
         icon: <i className="bi bi-calendar-range-fill"></i>,
       },
       {
@@ -92,46 +131,76 @@ export default class Main extends React.Component {
 
     return(
       <>
-        <Router>
-          <Logo />
-          <nav className="nav">
-            <ul>
-              {routes.map((route, index) => {
-                if (index < routes.length -1){
-                  return(
-                    <li className="nav-link" key={route.key}>
-                      <NavLink 
-                        to={route.path}
-                        exact={route.exact}
-                        children={<>{route.icon}<span>{route.text}</span></>}
-                      />
-                    </li>
-                  );
-                }
-              })}
-              <li className="nav-link" key="logout">
-                <a 
-                  href="/"
-                  onClick={this.props.onLogout}
-                ><i className="bi bi-box-arrow-left"></i>Logout</a>
-              </li>
-            </ul>
-          </nav>
-          <Switch>
-            <Route exact path={routes[0].path}>
-              <Home updateToken={this.props.updateToken} />
-            </Route>
-            <Route path={routes[1].path}>
-              <User />
-            </Route>
-            <Route path={routes[2].path}>
-              <Sessions />
-            </Route>
-            <Route path={routes[3].path}>
-              <Series />
-            </Route>
-          </Switch>
-        </Router>
+        <Logo />
+        <nav className="nav">
+          <ul>
+            {routes.map((route, index) => {
+              if (index < routes.length -1){
+                return(
+                  <li className="nav-link" key={route.key}>
+                    <NavLink 
+                      to={route.path}
+                      exact={route.exact}
+                      children={<>{route.icon}<span>{route.text}</span></>}
+                    />
+                  </li>
+                );
+              }
+            })}
+            <li className="nav-link" key="logout">
+              <a 
+                href="/"
+                onClick={this.props.onLogout}
+              ><i className="bi bi-box-arrow-left"></i>Logout</a>
+            </li>
+          </ul>
+        </nav>
+        <Switch>
+          {/* Home route */}
+          <Route exact path={routes[0].path}>
+            <Home />
+          </Route>
+          <Route path="/session/create">
+            <CreateSession
+              updateToken={this.props.updateToken}
+              handleSession={this.handleSession}
+            />
+          </Route>
+          <Route path="/session/join" >
+            <JoinSession
+              updateToken={this.props.updateToken}
+              handleSession={this.handleSession}
+            />
+          </Route>
+          <Route path="/session/createSeries">
+            <CreateSeries
+              updateToken={this.props.updateToken}
+              handleSession={this.handleSession}
+            />
+          </Route>
+          <Route path={routes[1].path}>
+            <User />
+          </Route>
+          <Route path={routes[2].path}>
+            <MySessions />
+          </Route>
+          <Route path={routes[3].path}>
+            <Sessions />
+          </Route>
+          <Route path="/session/:id">
+            {this.state.isHost ?
+              <HostSession
+                session={this.state.session}
+                handleSession={this.handleSession}
+              />
+              :
+              <AttendeeSession
+                session={this.state.session}
+                handleSession={this.handleSession}
+              />
+            }
+          </Route>
+        </Switch>
       </>
     );
   }

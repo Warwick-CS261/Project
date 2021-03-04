@@ -6,6 +6,7 @@ import {
   handleToken,
   handleJSON
 } from '../util';
+import { Redirect } from 'react-router-dom';
 
 export default class CreateSession extends React.Component {
   constructor(props) {
@@ -14,7 +15,9 @@ export default class CreateSession extends React.Component {
       name: "",
       secure: false,
       error: false,
-      series: 1,
+      series: null,
+      submitted: false,
+      sessionID: null,
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -57,9 +60,15 @@ export default class CreateSession extends React.Component {
           return;
         }
         console.log(session);
-        // TODO redirect to session page
+        // set new tokens
         Cookies.set('token', token);
         this.props.updateToken(token);
+        // update main component
+        this.props.handleSession(session);
+        this.setState({
+          submitted: true,
+          sessionID: session.id,
+        });
       },
       error: (jqXHR, status, error)=>{
         this.setState({
@@ -72,44 +81,50 @@ export default class CreateSession extends React.Component {
 
   render() {
     return(
-      <div>
-        <h2>Create Session</h2>
-        {this.state.error !== false && 
-          <div className="alert alert-danger" role="alert">
-            {this.state.error}
-          </div>
+      <>
+        {this.state.submitted ?
+          <Redirect to={`/session/${this.state.sessionID}`} />
+          :
+          <>
+            <h2>Create Session</h2>
+            {this.state.error !== false && 
+              <div className="alert alert-danger" role="alert">
+                {this.state.error}
+              </div>
+            }
+            <form onSubmit={this.handleSubmit}>
+              <div className="mb-3">
+                <input 
+                  type="text"
+                  name="name"
+                  className="form-control"
+                  value={this.state.name}
+                  onChange={this.handleChange}
+                  autoFocus
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="checkbox"
+                  name="secure"
+                  className="form-check-input"
+                  value={this.state.private}
+                  onChange={this.handleCheck}
+                />
+              </div>
+              <div className="mb-3">
+                <button 
+                  type="submit"
+                  className="btn btn-primary"
+                >
+                  Create Session
+                </button>
+              </div>
+            </form>
+            </>
         }
-        <form onSubmit={this.handleSubmit}>
-          <div className="mb-3">
-            <input 
-              type="text"
-              name="name"
-              className="form-control"
-              value={this.state.name}
-              onChange={this.handleChange}
-              autoFocus
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <input
-              type="checkbox"
-              name="secure"
-              className="form-check-input"
-              value={this.state.private}
-              onChange={this.handleCheck}
-            />
-          </div>
-          <div className="mb-3">
-            <button 
-              type="submit"
-              className="btn btn-primary"
-            >
-              Create Session
-            </button>
-          </div>
-        </form>
-      </div>
+      </>
     )
   }
 }

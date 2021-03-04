@@ -43,17 +43,18 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+def npxBuild = task npxBuild(type: Exec) {
+    commandLine 'sh', './npmBuild.sh'
+}
+
 def npmInstall = task npmInstall(type: Exec) {
     commandLine 'sh', './npmInstall.sh'
 }
 
-def npmBuild = task npmBuild(type: Exec) {
-    commandLine 'sh', './npmBuild.sh'
-}
 
 def finilize = task finalize {
     dependsOn npmInstall
-    dependsOn npmBuild
+    dependsOn npxBuild
 }
 
 build.configure { finalizedBy finalize }
