@@ -75,6 +75,45 @@ public class DBConnection {
         return true;
     }
 
+    public Boolean pushQuestion(String sessionId, int questionID) throws SQLException{
+        String query = "UPDATE QUESTION SET pushed = TRUE WHERE id = ? & sessionID = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, questionID);
+        stmt.setString(2, sessionId);
+        stmt.executeUpdate();
+        return true;    
+    }
+
+    public Boolean endQuestion(String sessionId, int questionID) throws SQLException{
+        String query = "UPDATE QUESTION SET pushed = FALSE WHERE id = ? & sessionID = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, questionID);
+        stmt.setString(2, sessionId);
+        stmt.executeUpdate();
+        return true;    
+    }
+
+    public String getQuestionMesasge(String sessionID, int questionID) throws SQLException{
+        String query = "SELECT * FROM QUESTION id = ? & sessionID = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, questionID);
+        stmt.setString(2, sessionID);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()){
+            return rs.getString("question");
+        }
+        return null;    
+    }
+
+    public Boolean deleteQuestion(String sessionID, int questionID) throws SQLException{
+        String query = "DELETE FROM QUESTIONS WHERE id = ? & sessionID = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, questionID);
+        stmt.setString(2, sessionID);
+        stmt.executeUpdate();
+        return true;
+    }
+
     public Boolean createMessage(Message message, String sessionID) throws SQLException{
         String query = "INSERT INTO MESSAGES VALUES(?,?,?,?,?)";
         PreparedStatement stmt = connection.prepareStatement(query);

@@ -258,6 +258,8 @@ public class SessionController{
             response.status(2);
             return "not authorised";
         }
+
+        
         Watcher w = new Watcher();
         String json = w.watch(sessionID); 
 

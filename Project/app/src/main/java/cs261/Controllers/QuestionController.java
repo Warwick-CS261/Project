@@ -39,7 +39,7 @@ public class QuestionController{
         DBConnection dbConn = App.getApp().getDbConn();
 
         String token = request.cookie("token");
-        String sessionID = request.queryParams(":id");
+        String sessionID = request.params(":id");
         String context = request.queryParams("asnwer");
         String anon = request.queryParams("anon");
         int smiley = Integer.parseInt(request.queryParams("smiley"));
@@ -68,23 +68,118 @@ public class QuestionController{
         //check session exists
         //check question exists
         Answer answer = new Answer(user, smiley, context, stamp, anonymous);
+        dbConn.createAnswer(answer, sessionID, qID);
 
+        App.getApp().getObservable().notifyHosts(3, sessionID, gson.toJson(answer));
         return "token="+dbConn.newToken(user.getId());
     };
 
     public static Route deleteQuestion = (Request request, Response response) -> {
-        Map<String, Object> model = new HashMap<>();
-        return "Question deleted in session "+request.params(":id");
+        DBConnection dbConn = App.getApp().getDbConn();
+
+        String token = request.cookie("token");
+        String sessionID = request.params(":id");
+        int qID =  Integer.parseInt(request.queryParams("qID"));
+
+        User user = dbConn.getUserByToken(token);
+        //token is valid
+        if(Objects.isNull(user)){
+            response.status(450);
+            return "Invalid Token";
+        }
+
+        if(!dbConn.sessionExists(sessionID)){
+            response.status(1);
+            return "session doesn't exist";
+        }
+
+        //session exits? maybe
+
+        if(!dbConn.userIsModerator(user.getId(), sessionID)){
+            response.status(1);
+            return "not authorised";
+        }
+
+        dbConn.deleteQuestion(sessionID, qID);
+
+        return "token="+dbConn.newToken(user.getId());
     };
 
     public static Route endQuestion = (Request request, Response response) -> {
-        Map<String, Object> model = new HashMap<>();
-        return "question ended in session "+request.params(":id");
+        DBConnection dbConn = App.getApp().getDbConn();
+
+        String token = request.cookie("token");
+        String sessionID = request.params(":id");
+        int qID =  Integer.parseInt(request.queryParams("qID"));
+
+        User user = dbConn.getUserByToken(token);
+        //token is valid
+        if(Objects.isNull(user)){
+            response.status(450);
+            return "Invalid Token";
+        }
+
+        if(!dbConn.sessionExists(sessionID)){
+            response.status(1);
+            return "session doesn't exist";
+        }
+
+        //session exits? maybe
+
+        if(!dbConn.userIsModerator(user.getId(), sessionID)){
+            response.status(1);
+            return "not authorised";
+        }
+
+        String qText = dbConn.getQuestionMesasge(sessionID, qID);
+        if(Objects.isNull(qText)){
+            response.status(1);
+            return "no such question";
+        }  
+
+        dbConn.endQuestion(sessionID, qID);
+        //App.getApp().getObservable().notifyWatchers(3, sessionID, gson.toJson(q));
+
+        return "token="+dbConn.newToken(user.getId());
     };
 
     public static Route pushQuestion = (Request request, Response response) -> {
-        Map<String, Object> model = new HashMap<>();
-        return "question pushed in session "+request.params(":id");
+        DBConnection dbConn = App.getApp().getDbConn();
+
+        String token = request.cookie("token");
+        String sessionID = request.params(":id");
+        int qID =  Integer.parseInt(request.queryParams("qID"));
+
+        User user = dbConn.getUserByToken(token);
+        //token is valid
+        if(Objects.isNull(user)){
+            response.status(450);
+            return "Invalid Token";
+        }
+
+        if(!dbConn.sessionExists(sessionID)){
+            response.status(1);
+            return "session doesn't exist";
+        }
+
+        //session exits? maybe
+
+        if(!dbConn.userIsModerator(user.getId(), sessionID)){
+            response.status(1);
+            return "not authorised";
+        }
+
+        String qText = dbConn.getQuestionMesasge(sessionID, qID);
+        if(Objects.isNull(qText)){
+            response.status(1);
+            return "no such question";
+        }
+        Question q = new Question(qText);
+
+        dbConn.pushQuestion(sessionID, qID);
+        App.getApp().getObservable().notifyWatchers(3, sessionID, gson.toJson(q));
+
+        return "token="+dbConn.newToken(user.getId());
     };
 
 }
