@@ -17,7 +17,6 @@ export default class JoinSession extends React.Component {
       protected: false,
       error: false,
       submitted: false,
-      sessionID: null,
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -40,17 +39,10 @@ export default class JoinSession extends React.Component {
       type: 'POST',
       data: params,
       success: (data, status, jqXHR) => {
-        // In case session is protected rerender component with
-        if (data == "Wrong password"){
-          this.setState({
-            protected: true,
-          });
-          return;
-        }
         let token = handleToken(data);
         if (token === null || token === undefined){
           this.setState({
-            error: data,
+            error: 'Timed out, please log in again',
           });
           return;
         }
@@ -70,11 +62,34 @@ export default class JoinSession extends React.Component {
           submitted: true,
           sessionID: session.id,
         });
+        
       },
-      error: (jqXHR, status, error)=>{
-        this.setState({
-          error: 'Something went wrong',
-        });
+      statusCode: {
+        // Invalid token
+        450: ()=>{
+          console.log('Token invalid');
+        },
+        // Invalid session
+        454: ()=>{
+          console.log('Invalid session');
+        },
+        // Password missing
+        456: ()=>{
+          console.log('Session password is missing');
+          this.setState({
+            protected: true,
+          });
+        },
+        // Session ended
+        457: ()=>{
+          console.log('Session has ended, only hosts can access it');
+        },
+        458: ()=>{
+          console.log('Session password is invalid');
+          this.setState({
+            error: 'Password is invalid',
+          });
+        }
       }
     });
     event.preventDefault();
@@ -97,6 +112,7 @@ export default class JoinSession extends React.Component {
                     className="form-control"
                     value={this.state.password}
                     onChange={this.handleChange}
+                    placeholder="Password"
                   />
                 </div> : 
                 <div className="mb-3">
@@ -104,10 +120,11 @@ export default class JoinSession extends React.Component {
                     type="text"
                     name="sessionID"
                     className="form-control"
-                    value={this.state.code}
+                    value={this.state.sessionID}
                     onChange={this.handleChange}
                     autoFocus
                     required
+                    placeholder="Session ID"
                   />
                 </div>
               }

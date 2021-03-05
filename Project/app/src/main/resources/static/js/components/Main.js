@@ -49,13 +49,7 @@ export default class Main extends React.Component {
     this.setState({
       session: session,
       isHost: host,
-    }, ()=> {
-      console.log("this should be 1st");
     });
-  }
-
-  componentDidMount() {
-    history.pushState({route:'/'}, '', '/');
   }
 
   render(){
@@ -192,11 +186,13 @@ export default class Main extends React.Component {
               <HostSession
                 session={this.state.session}
                 handleSession={this.handleSession}
+                updateToken={this.props.updateToken}
               />
               :
               <AttendeeSession
                 session={this.state.session}
                 handleSession={this.handleSession}
+                updateToken={this.props.updateToken}
               />
             }
           />

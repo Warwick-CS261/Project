@@ -66,6 +66,11 @@ export default class SignUp extends React.Component {
     event.preventDefault();
   }
 
+  componentWillUnmount(){
+    // TODO change to redirect
+    history.pushState({route: '/'}, '', '/');
+  }
+
   render(){
     return(
       <div>
