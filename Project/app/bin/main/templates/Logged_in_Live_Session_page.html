@@ -1,0 +1,3159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logged in Live Session page</title>
+<style id="applicationStylesheet" type="text/css">
+	.mediaViewInfo {
+		--web-view-name: Logged in Live Session page;
+		--web-view-id: Logged_in_Live_Session_page;
+		--web-scale-on-resize: true;
+		--web-enable-deep-linking: true;
+	}
+	:root {
+		--web-view-ids: Logged_in_Live_Session_page;
+	}
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		border: none;
+	}
+	#Logged_in_Live_Session_page {
+		position: absolute;
+		width: 1920px;
+		height: 1076px;
+		background-color: rgba(52,46,55,1);
+		overflow: hidden;
+		--web-view-name: Logged in Live Session page;
+		--web-view-id: Logged_in_Live_Session_page;
+		--web-scale-on-resize: true;
+		--web-enable-deep-linking: true;
+	}
+	@keyframes fadein {
+	
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	
+	}
+	#Background_p {
+		fill: url(#Background_p);
+	}
+	.Background_p {
+		overflow: visible;
+		position: absolute;
+		width: 1620px;
+		height: 1076px;
+		left: 300px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Background_q {
+		position: absolute;
+		width: 1540px;
+		height: 956px;
+		left: 340px;
+		top: 120px;
+		display: none;
+		overflow: visible;
+	}
+	#Rectangle_37 {
+		fill: rgba(255,255,255,1);
+	}
+	.Rectangle_37 {
+		position: absolute;
+		overflow: visible;
+		width: 1540px;
+		height: 956px;
+		left: 0px;
+		top: 0px;
+	}
+	#Group_8 {
+		position: absolute;
+		width: 1540px;
+		height: 956px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Bubble {
+		position: absolute;
+		width: 1540px;
+		height: 956px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Bubbles {
+		position: absolute;
+		width: 1540px;
+		height: 956px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Bubbles_v {
+		position: absolute;
+		width: 1540px;
+		height: 956px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Mask_Group_2 {
+		position: absolute;
+		width: 1540px;
+		height: 956px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Project_CS261 {
+		left: 31px;
+		top: 27px;
+		position: absolute;
+		overflow: visible;
+		width: 229px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 40px;
+		color: rgba(67,226,178,1);
+	}
+	#Group_6 {
+		position: absolute;
+		width: 504px;
+		height: 75px;
+		left: 859px;
+		top: 45px;
+		overflow: visible;
+	}
+	#Heading {
+		position: absolute;
+		width: 430px;
+		height: 70px;
+		left: 74px;
+		top: 5px;
+		overflow: visible;
+	}
+	#Sunday_Meeting {
+		left: 0px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 431px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 64px;
+		color: rgba(52,46,55,1);
+	}
+	#Icon_awesome-calendar-day {
+		fill: rgba(52,46,55,1);
+	}
+	.Icon_awesome-calendar-day {
+		overflow: visible;
+		position: absolute;
+		width: 56px;
+		height: 64px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Path_16 {
+		fill: rgba(250,255,253,1);
+	}
+	.Path_16 {
+		overflow: visible;
+		position: absolute;
+		width: 369px;
+		height: 369px;
+		left: 340px;
+		top: 120px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Path_22 {
+		fill: rgba(65,225,71,1);
+	}
+	.Path_22 {
+		filter: drop-shadow(0px 0px 30px #41e147);
+		overflow: visible;
+		position: absolute;
+		width: 272.226px;
+		height: 272.226px;
+		left: 433.387px;
+		top: 162.388px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Path_18 {
+		fill: rgba(250,255,253,1);
+	}
+	.Path_18 {
+		overflow: visible;
+		position: absolute;
+		width: 501px;
+		height: 309px;
+		left: 799px;
+		top: 180px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Rectangle_74 {
+		fill: rgba(52,46,55,1);
+	}
+	.Rectangle_74 {
+		position: absolute;
+		overflow: visible;
+		width: 553px;
+		height: 896px;
+		left: 1367px;
+		top: 180px;
+	}
+	#Group_12 {
+		position: absolute;
+		width: 429px;
+		height: 237px;
+		left: 835px;
+		top: 216px;
+		overflow: visible;
+	}
+	#Rectangle_26 {
+		fill: #e0e041;
+	}
+	.Rectangle_26 {
+		position: absolute;
+		overflow: visible;
+		width: 19px;
+		height: 141px;
+		left: 35.5px;
+		top: 96px;
+	}
+	#Rectangle_27 {
+		fill: #e05841;
+	}
+	.Rectangle_27 {
+		position: absolute;
+		overflow: visible;
+		width: 20px;
+		height: 71px;
+		left: 73.605px;
+		top: 166px;
+	}
+	#Rectangle_28 {
+		fill: rgba(65,225,71,1);
+	}
+	.Rectangle_28 {
+		position: absolute;
+		overflow: visible;
+		width: 19px;
+		height: 210.662px;
+		left: 122.274px;
+		top: 26.338px;
+	}
+	#Rectangle_29 {
+		fill: rgba(65,225,71,1);
+	}
+	.Rectangle_29 {
+		position: absolute;
+		overflow: visible;
+		width: 21px;
+		height: 209.5px;
+		left: 169.939px;
+		top: 27.5px;
+	}
+	#Rectangle_30 {
+		fill: rgba(224,224,65,1);
+	}
+	.Rectangle_30 {
+		position: absolute;
+		overflow: visible;
+		width: 19px;
+		height: 168px;
+		left: 218.787px;
+		top: 69px;
+	}
+	#Rectangle_31 {
+		fill: rgba(224,88,65,1);
+	}
+	.Rectangle_31 {
+		position: absolute;
+		overflow: visible;
+		width: 18px;
+		height: 53px;
+		left: 266.86px;
+		top: 184px;
+	}
+	#Rectangle_32 {
+		fill: rgba(65,225,71,1);
+	}
+	.Rectangle_32 {
+		position: absolute;
+		overflow: visible;
+		width: 23px;
+		height: 204.5px;
+		left: 313.004px;
+		top: 32.5px;
+	}
+	#Line_22 {
+		fill: transparent;
+		stroke: rgba(52,46,55,1);
+		stroke-width: 4px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_22 {
+		overflow: visible;
+		position: absolute;
+		width: 433px;
+		height: 4px;
+		left: 0px;
+		top: 237px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Line_23 {
+		fill: transparent;
+		stroke: rgba(52,46,55,1);
+		stroke-width: 4px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_23 {
+		overflow: visible;
+		position: absolute;
+		width: 4px;
+		height: 241px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Scroll_Group_3 {
+		mix-blend-mode: normal;
+		position: absolute;
+		width: 553px;
+		height: 816px;
+		left: 1367px;
+		top: 180px;
+		overflow: hidden;
+	}
+	#Rectangle_41 {
+		opacity: 0;
+		fill: rgba(52,46,55,1);
+	}
+	.Rectangle_41 {
+		position: absolute;
+		overflow: visible;
+		width: 553px;
+		height: 896px;
+		left: 0px;
+		top: 0px;
+	}
+	#Repeat_Grid_4 {
+		position: absolute;
+		width: 473px;
+		height: 855px;
+		left: 54px;
+		top: -42px;
+		overflow: hidden;
+	}
+	#Repeat_Grid_4_0 {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Component_6__2 {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Rectangle_24 {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_24 {
+		position: absolute;
+		overflow: visible;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+	}
+	#Anonymus {
+		left: 17px;
+		top: 4px;
+		position: absolute;
+		overflow: visible;
+		width: 81px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#When_is_the_deadline {
+		left: 17px;
+		top: 30px;
+		position: absolute;
+		overflow: visible;
+		width: 153px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#Tue_132 {
+		left: 417px;
+		top: 6px;
+		position: absolute;
+		overflow: visible;
+		width: 43px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: lighter;
+		font-size: 12px;
+		color: rgba(52,46,55,1);
+	}
+	#Repeat_Grid_4_1 {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 79px;
+		overflow: visible;
+	}
+	#Component_6__2_bq {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Rectangle_24_br {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_24_br {
+		position: absolute;
+		overflow: visible;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+	}
+	#Anonymus_bs {
+		left: 17px;
+		top: 4px;
+		position: absolute;
+		overflow: visible;
+		width: 81px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#When_is_the_deadline_bt {
+		left: 17px;
+		top: 30px;
+		position: absolute;
+		overflow: visible;
+		width: 153px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#Tue_132_bu {
+		left: 417px;
+		top: 6px;
+		position: absolute;
+		overflow: visible;
+		width: 43px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: lighter;
+		font-size: 12px;
+		color: rgba(52,46,55,1);
+	}
+	#Repeat_Grid_4_2 {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 158px;
+		overflow: visible;
+	}
+	#Component_6__2_bw {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Rectangle_24_bx {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_24_bx {
+		position: absolute;
+		overflow: visible;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+	}
+	#Anonymus_by {
+		left: 17px;
+		top: 4px;
+		position: absolute;
+		overflow: visible;
+		width: 81px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#When_is_the_deadline_bz {
+		left: 17px;
+		top: 30px;
+		position: absolute;
+		overflow: visible;
+		width: 153px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#Tue_132_b {
+		left: 417px;
+		top: 6px;
+		position: absolute;
+		overflow: visible;
+		width: 43px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: lighter;
+		font-size: 12px;
+		color: rgba(52,46,55,1);
+	}
+	#Repeat_Grid_4_3 {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 237px;
+		overflow: visible;
+	}
+	#Component_6__2_b {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Rectangle_24_b {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_24_b {
+		position: absolute;
+		overflow: visible;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+	}
+	#Anonymus_b {
+		left: 17px;
+		top: 4px;
+		position: absolute;
+		overflow: visible;
+		width: 81px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#When_is_the_deadline_b {
+		left: 17px;
+		top: 30px;
+		position: absolute;
+		overflow: visible;
+		width: 153px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#Tue_132_ca {
+		left: 417px;
+		top: 6px;
+		position: absolute;
+		overflow: visible;
+		width: 43px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: lighter;
+		font-size: 12px;
+		color: rgba(52,46,55,1);
+	}
+	#Repeat_Grid_4_4 {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 316px;
+		overflow: visible;
+	}
+	#Component_6__2_ca {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Rectangle_24_ca {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_24_ca {
+		position: absolute;
+		overflow: visible;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+	}
+	#Anonymus_ca {
+		left: 17px;
+		top: 4px;
+		position: absolute;
+		overflow: visible;
+		width: 81px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#When_is_the_deadline_cb {
+		left: 17px;
+		top: 30px;
+		position: absolute;
+		overflow: visible;
+		width: 153px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#Tue_132_cc {
+		left: 417px;
+		top: 6px;
+		position: absolute;
+		overflow: visible;
+		width: 43px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: lighter;
+		font-size: 12px;
+		color: rgba(52,46,55,1);
+	}
+	#Repeat_Grid_4_5 {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 395px;
+		overflow: visible;
+	}
+	#Component_6__2_ce {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Rectangle_24_cf {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_24_cf {
+		position: absolute;
+		overflow: visible;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+	}
+	#Anonymus_cg {
+		left: 17px;
+		top: 4px;
+		position: absolute;
+		overflow: visible;
+		width: 81px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#When_is_the_deadline_ch {
+		left: 17px;
+		top: 30px;
+		position: absolute;
+		overflow: visible;
+		width: 153px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#Tue_132_ci {
+		left: 417px;
+		top: 6px;
+		position: absolute;
+		overflow: visible;
+		width: 43px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: lighter;
+		font-size: 12px;
+		color: rgba(52,46,55,1);
+	}
+	#Repeat_Grid_4_6 {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 474px;
+		overflow: visible;
+	}
+	#Component_6__2_ck {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Rectangle_24_cl {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_24_cl {
+		position: absolute;
+		overflow: visible;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+	}
+	#Anonymus_cm {
+		left: 17px;
+		top: 4px;
+		position: absolute;
+		overflow: visible;
+		width: 81px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#When_is_the_deadline_cn {
+		left: 17px;
+		top: 30px;
+		position: absolute;
+		overflow: visible;
+		width: 153px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#Tue_132_co {
+		left: 417px;
+		top: 6px;
+		position: absolute;
+		overflow: visible;
+		width: 43px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: lighter;
+		font-size: 12px;
+		color: rgba(52,46,55,1);
+	}
+	#Repeat_Grid_4_7 {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 553px;
+		overflow: visible;
+	}
+	#Component_6__2_cq {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Rectangle_24_cr {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_24_cr {
+		position: absolute;
+		overflow: visible;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+	}
+	#Anonymus_cs {
+		left: 17px;
+		top: 4px;
+		position: absolute;
+		overflow: visible;
+		width: 81px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#When_is_the_deadline_ct {
+		left: 17px;
+		top: 30px;
+		position: absolute;
+		overflow: visible;
+		width: 153px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#Tue_132_cu {
+		left: 417px;
+		top: 6px;
+		position: absolute;
+		overflow: visible;
+		width: 43px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: lighter;
+		font-size: 12px;
+		color: rgba(52,46,55,1);
+	}
+	#Repeat_Grid_4_8 {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 632px;
+		overflow: visible;
+	}
+	#Component_6__2_cw {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Rectangle_24_cx {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_24_cx {
+		position: absolute;
+		overflow: visible;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+	}
+	#Anonymus_cy {
+		left: 17px;
+		top: 4px;
+		position: absolute;
+		overflow: visible;
+		width: 81px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#When_is_the_deadline_cz {
+		left: 17px;
+		top: 30px;
+		position: absolute;
+		overflow: visible;
+		width: 153px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#Tue_132_c {
+		left: 417px;
+		top: 6px;
+		position: absolute;
+		overflow: visible;
+		width: 43px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: lighter;
+		font-size: 12px;
+		color: rgba(52,46,55,1);
+	}
+	#Repeat_Grid_4_9 {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 711px;
+		overflow: visible;
+	}
+	#Component_6__2_c {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Rectangle_24_c {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_24_c {
+		position: absolute;
+		overflow: visible;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+	}
+	#Anonymus_c {
+		left: 17px;
+		top: 4px;
+		position: absolute;
+		overflow: visible;
+		width: 81px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#When_is_the_deadline_c {
+		left: 17px;
+		top: 30px;
+		position: absolute;
+		overflow: visible;
+		width: 153px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#Tue_132_da {
+		left: 417px;
+		top: 6px;
+		position: absolute;
+		overflow: visible;
+		width: 43px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: lighter;
+		font-size: 12px;
+		color: rgba(52,46,55,1);
+	}
+	#Repeat_Grid_4_10 {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 790px;
+		overflow: visible;
+	}
+	#Component_6__2_da {
+		position: absolute;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Rectangle_24_da {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_24_da {
+		position: absolute;
+		overflow: visible;
+		width: 473px;
+		height: 59px;
+		left: 0px;
+		top: 0px;
+	}
+	#Anonymus_da {
+		left: 17px;
+		top: 4px;
+		position: absolute;
+		overflow: visible;
+		width: 81px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#When_is_the_deadline_db {
+		left: 17px;
+		top: 30px;
+		position: absolute;
+		overflow: visible;
+		width: 153px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#Tue_132_dc {
+		left: 417px;
+		top: 6px;
+		position: absolute;
+		overflow: visible;
+		width: 43px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: lighter;
+		font-size: 12px;
+		color: rgba(52,46,55,1);
+	}
+	#Component_12__3 {
+		position: absolute;
+		width: 133px;
+		height: 34px;
+		left: 31px;
+		top: 189px;
+		overflow: visible;
+		--web-animation: fadein 0.3s ease-out;
+		--web-action-type: page;
+		--web-action-target: Logged_in_Home_page.html;
+		cursor: pointer;
+	}
+	#Icon_awesome-home {
+		fill: rgba(67,226,178,1);
+	}
+	.Icon_awesome-home {
+		overflow: visible;
+		position: absolute;
+		width: 41.15px;
+		height: 32px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Home {
+		left: 55px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 79px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(67,226,178,1);
+	}
+	#Component_13__3 {
+		position: absolute;
+		width: 136px;
+		height: 34px;
+		left: 36px;
+		top: 249px;
+		overflow: visible;
+	}
+	#Icon_awesome-user-circle {
+		fill: rgba(67,226,178,1);
+	}
+	.Icon_awesome-user-circle {
+		overflow: visible;
+		position: absolute;
+		width: 32px;
+		height: 32px;
+		left: 0px;
+		top: 1px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Profile {
+		left: 50px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 87px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(67,226,178,1);
+	}
+	#Component_14__3 {
+		position: absolute;
+		width: 162px;
+		height: 34px;
+		left: 38px;
+		top: 310px;
+		overflow: visible;
+		--web-animation: fadein 0.3s ease-out;
+		--web-action-type: page;
+		--web-action-target: Logged_in_Sessions_page.html;
+		cursor: pointer;
+	}
+	#Icon_awesome-calendar-day_dk {
+		fill: rgba(250,255,253,1);
+	}
+	.Icon_awesome-calendar-day_dk {
+		overflow: visible;
+		position: absolute;
+		width: 28px;
+		height: 32px;
+		left: 0px;
+		top: 1px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Sessions {
+		left: 48px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 115px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(250,255,253,1);
+	}
+	#Component_15__3 {
+		position: absolute;
+		width: 233px;
+		height: 34px;
+		left: 38px;
+		top: 371px;
+		overflow: visible;
+	}
+	#Icon_awesome-calendar-alt {
+		fill: rgba(67,226,178,1);
+	}
+	.Icon_awesome-calendar-alt {
+		overflow: visible;
+		position: absolute;
+		width: 28px;
+		height: 32px;
+		left: 0px;
+		top: 1px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Session_series {
+		left: 48px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 186px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(67,226,178,1);
+	}
+	#Component_20__3 {
+		position: absolute;
+		width: 141px;
+		height: 34px;
+		left: 35px;
+		top: 1002px;
+		overflow: visible;
+	}
+	#Icon_open-account-logout {
+		fill: rgba(67,226,178,1);
+	}
+	.Icon_open-account-logout {
+		overflow: visible;
+		position: absolute;
+		width: 36.571px;
+		height: 32px;
+		left: 0px;
+		top: 2px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Logout {
+		left: 51px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 91px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(67,226,178,1);
+	}
+	#Icon_material-settings {
+		fill: rgba(52,46,55,1);
+	}
+	.Icon_material-settings {
+		overflow: visible;
+		position: absolute;
+		width: 62.254px;
+		height: 64px;
+		left: 1807.293px;
+		top: 56px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Group_28 {
+		position: absolute;
+		width: 830px;
+		height: 512px;
+		left: 340px;
+		top: 524px;
+		overflow: visible;
+	}
+	#Rectangle_49 {
+		fill: rgba(255,255,255,1);
+	}
+	.Rectangle_49 {
+		position: absolute;
+		overflow: visible;
+		width: 513px;
+		height: 512px;
+		left: 317px;
+		top: 0px;
+	}
+	#Rectangle_50 {
+		fill: rgba(52,46,55,1);
+	}
+	.Rectangle_50 {
+		position: absolute;
+		overflow: visible;
+		width: 317px;
+		height: 512px;
+		left: 0px;
+		top: 0px;
+	}
+	#Group_33 {
+		position: absolute;
+		width: 261px;
+		height: 55.5px;
+		left: 374px;
+		top: 538px;
+		overflow: visible;
+	}
+	#Line_24 {
+		fill: transparent;
+		stroke: rgba(67,226,178,1);
+		stroke-width: 5px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_24 {
+		overflow: visible;
+		position: absolute;
+		width: 266px;
+		height: 5px;
+		left: 0px;
+		top: 55.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#General {
+		left: 5.5px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 139px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 42px;
+		color: rgba(67,226,178,1);
+	}
+	#Group_32 {
+		position: absolute;
+		width: 469px;
+		height: 57.5px;
+		left: 678.5px;
+		top: 543px;
+		overflow: visible;
+	}
+	#Do_you_like_the_slides {
+		left: 37.5px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 397px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 42px;
+		color: rgba(52,46,55,1);
+	}
+	#Line_25 {
+		fill: transparent;
+		stroke: rgba(67,226,178,1);
+		stroke-width: 5px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_25 {
+		overflow: visible;
+		position: absolute;
+		width: 474px;
+		height: 5px;
+		left: 0px;
+		top: 57.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Repeat_Grid_3 {
+		position: absolute;
+		width: 255px;
+		height: 421.5px;
+		left: 377px;
+		top: 614.5px;
+		overflow: hidden;
+	}
+	#Repeat_Grid_3_0 {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Group_18 {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Question_about_life {
+		left: 8px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 240px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 30px;
+		color: rgba(250,255,253,1);
+	}
+	#Rectangle_51 {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_51 {
+		position: absolute;
+		overflow: visible;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+	}
+	#Do_you_like_the_slides_d {
+		left: 11px;
+		top: 7px;
+		position: absolute;
+		overflow: visible;
+		width: 171px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(52,46,55,1);
+	}
+	#Repeat_Grid_3_1 {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 45px;
+		overflow: visible;
+	}
+	#Group_18_d {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Question_about_life_ea {
+		left: 8px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 240px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 30px;
+		color: rgba(250,255,253,1);
+	}
+	#Rectangle_51_eb {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_51_eb {
+		position: absolute;
+		overflow: visible;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+	}
+	#Do_you_like_the_slides_ec {
+		left: 11px;
+		top: 7px;
+		position: absolute;
+		overflow: visible;
+		width: 171px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(52,46,55,1);
+	}
+	#Repeat_Grid_3_2 {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 90px;
+		overflow: visible;
+	}
+	#Group_18_ee {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Question_about_life_ef {
+		left: 8px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 240px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 30px;
+		color: rgba(250,255,253,1);
+	}
+	#Rectangle_51_eg {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_51_eg {
+		position: absolute;
+		overflow: visible;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+	}
+	#Do_you_like_the_slides_eh {
+		left: 11px;
+		top: 7px;
+		position: absolute;
+		overflow: visible;
+		width: 171px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(52,46,55,1);
+	}
+	#Repeat_Grid_3_3 {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 135px;
+		overflow: visible;
+	}
+	#Group_18_ej {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Question_about_life_ek {
+		left: 8px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 240px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 30px;
+		color: rgba(250,255,253,1);
+	}
+	#Rectangle_51_el {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_51_el {
+		position: absolute;
+		overflow: visible;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+	}
+	#Do_you_like_the_slides_em {
+		left: 11px;
+		top: 7px;
+		position: absolute;
+		overflow: visible;
+		width: 171px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(52,46,55,1);
+	}
+	#Repeat_Grid_3_4 {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 180px;
+		overflow: visible;
+	}
+	#Group_18_eo {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Question_about_life_ep {
+		left: 8px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 240px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 30px;
+		color: rgba(250,255,253,1);
+	}
+	#Rectangle_51_eq {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_51_eq {
+		position: absolute;
+		overflow: visible;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+	}
+	#Do_you_like_the_slides_er {
+		left: 11px;
+		top: 7px;
+		position: absolute;
+		overflow: visible;
+		width: 171px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(52,46,55,1);
+	}
+	#Repeat_Grid_3_5 {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 225px;
+		overflow: visible;
+	}
+	#Group_18_et {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Question_about_life_eu {
+		left: 8px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 240px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 30px;
+		color: rgba(250,255,253,1);
+	}
+	#Rectangle_51_ev {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_51_ev {
+		position: absolute;
+		overflow: visible;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+	}
+	#Do_you_like_the_slides_ew {
+		left: 11px;
+		top: 7px;
+		position: absolute;
+		overflow: visible;
+		width: 171px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(52,46,55,1);
+	}
+	#Repeat_Grid_3_6 {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 270px;
+		overflow: visible;
+	}
+	#Group_18_ey {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Question_about_life_ez {
+		left: 8px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 240px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 30px;
+		color: rgba(250,255,253,1);
+	}
+	#Rectangle_51_e {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_51_e {
+		position: absolute;
+		overflow: visible;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+	}
+	#Do_you_like_the_slides_e {
+		left: 11px;
+		top: 7px;
+		position: absolute;
+		overflow: visible;
+		width: 171px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(52,46,55,1);
+	}
+	#Repeat_Grid_3_7 {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 315px;
+		overflow: visible;
+	}
+	#Group_18_e {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Question_about_life_e {
+		left: 8px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 240px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 30px;
+		color: rgba(250,255,253,1);
+	}
+	#Rectangle_51_fa {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_51_fa {
+		position: absolute;
+		overflow: visible;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+	}
+	#Do_you_like_the_slides_fa {
+		left: 11px;
+		top: 7px;
+		position: absolute;
+		overflow: visible;
+		width: 171px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(52,46,55,1);
+	}
+	#Repeat_Grid_3_8 {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 360px;
+		overflow: visible;
+	}
+	#Group_18_fa {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Question_about_life_fa {
+		left: 8px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 240px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 30px;
+		color: rgba(250,255,253,1);
+	}
+	#Rectangle_51_fb {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_51_fb {
+		position: absolute;
+		overflow: visible;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+	}
+	#Do_you_like_the_slides_fb {
+		left: 11px;
+		top: 7px;
+		position: absolute;
+		overflow: visible;
+		width: 171px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(52,46,55,1);
+	}
+	#Repeat_Grid_3_9 {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 405px;
+		overflow: visible;
+	}
+	#Group_18_fd {
+		position: absolute;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Question_about_life_fe {
+		left: 8px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 240px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 30px;
+		color: rgba(250,255,253,1);
+	}
+	#Rectangle_51_ff {
+		fill: rgba(67,226,178,1);
+	}
+	.Rectangle_51_ff {
+		position: absolute;
+		overflow: visible;
+		width: 255px;
+		height: 33px;
+		left: 0px;
+		top: 0px;
+	}
+	#Do_you_like_the_slides_fg {
+		left: 11px;
+		top: 7px;
+		position: absolute;
+		overflow: visible;
+		width: 171px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(52,46,55,1);
+	}
+	#Group_31 {
+		position: absolute;
+		width: 469px;
+		height: 73px;
+		left: 679px;
+		top: 636px;
+		overflow: visible;
+	}
+	#Rectangle_52 {
+		fill: rgba(65,225,71,1);
+	}
+	.Rectangle_52 {
+		position: absolute;
+		overflow: visible;
+		width: 469px;
+		height: 73px;
+		left: 0px;
+		top: 0px;
+	}
+	#Anonymous {
+		left: 12px;
+		top: 7px;
+		position: absolute;
+		overflow: visible;
+		width: 82px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#I_love_them_great_presentation {
+		left: 12px;
+		top: 37px;
+		position: absolute;
+		overflow: visible;
+		width: 444px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 18px;
+		color: rgba(52,46,55,1);
+	}
+	#Mon_1442 {
+		opacity: 0.75;
+		left: 371px;
+		top: 8px;
+		position: absolute;
+		overflow: visible;
+		width: 77px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#Group_30 {
+		position: absolute;
+		width: 469px;
+		height: 39px;
+		left: 678px;
+		top: 720px;
+		overflow: visible;
+	}
+	#Rectangle_53 {
+		fill: rgba(224,224,65,1);
+	}
+	.Rectangle_53 {
+		position: absolute;
+		overflow: visible;
+		width: 469px;
+		height: 39px;
+		left: 0px;
+		top: 0px;
+	}
+	#Josh {
+		left: 12px;
+		top: 10px;
+		position: absolute;
+		overflow: visible;
+		width: 32px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#Mon_1444 {
+		opacity: 0.75;
+		left: 371px;
+		top: 11px;
+		position: absolute;
+		overflow: visible;
+		width: 77px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#Group_29 {
+		position: absolute;
+		width: 469px;
+		height: 73px;
+		left: 678px;
+		top: 773px;
+		overflow: visible;
+	}
+	#Path_23 {
+		fill: rgba(224,88,65,1);
+	}
+	.Path_23 {
+		overflow: visible;
+		position: absolute;
+		width: 469px;
+		height: 73px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Anonymous_fs {
+		left: 12px;
+		top: 7px;
+		position: absolute;
+		overflow: visible;
+		width: 82px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#They_are_awful_I_cant_even_rea {
+		left: 12px;
+		top: 37px;
+		position: absolute;
+		overflow: visible;
+		width: 444px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 18px;
+		color: rgba(52,46,55,1);
+	}
+	#Mon_1446 {
+		opacity: 0.75;
+		left: 371px;
+		top: 8px;
+		position: absolute;
+		overflow: visible;
+		width: 77px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(52,46,55,1);
+	}
+	#abc123 {
+		left: 859px;
+		top: 120px;
+		position: absolute;
+		overflow: visible;
+		width: 300px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		color: rgba(52,46,55,1);
+	}
+	#Group_14 {
+		position: absolute;
+		width: 140px;
+		height: 54px;
+		left: 665px;
+		top: 968px;
+		overflow: visible;
+	}
+	#Rectangle_44 {
+		fill: rgba(52,46,55,1);
+	}
+	.Rectangle_44 {
+		position: absolute;
+		overflow: visible;
+		width: 140px;
+		height: 54px;
+		left: 0px;
+		top: 0px;
+	}
+	#Questions {
+		left: 19px;
+		top: 12px;
+		position: absolute;
+		overflow: visible;
+		width: 104px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 22px;
+		color: rgba(67,226,178,1);
+	}
+	#Group_34 {
+		position: absolute;
+		width: 140px;
+		height: 54px;
+		left: 1011px;
+		top: 968px;
+		overflow: visible;
+	}
+	#Rectangle_44_f {
+		fill: rgba(52,46,55,1);
+	}
+	.Rectangle_44_f {
+		position: absolute;
+		overflow: visible;
+		width: 140px;
+		height: 54px;
+		left: 0px;
+		top: 0px;
+	}
+	#Words {
+		left: 35px;
+		top: 12px;
+		position: absolute;
+		overflow: visible;
+		width: 68px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 22px;
+		color: rgba(67,226,178,1);
+	}
+	#Group_35 {
+		position: absolute;
+		width: 180px;
+		height: 54px;
+		left: 818px;
+		top: 968px;
+		overflow: visible;
+	}
+	#Rectangle_44_ga {
+		fill: rgba(52,46,55,1);
+	}
+	.Rectangle_44_ga {
+		position: absolute;
+		overflow: visible;
+		width: 180px;
+		height: 54px;
+		left: 0px;
+		top: 0px;
+	}
+	#New_question {
+		left: 19px;
+		top: 12px;
+		position: absolute;
+		overflow: visible;
+		width: 144px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 22px;
+		color: rgba(67,226,178,1);
+	}
+	#Group_58 {
+		position: absolute;
+		width: 473px;
+		height: 62px;
+		left: 1420px;
+		top: 1002px;
+		overflow: visible;
+	}
+	#Rectangle_70 {
+		fill: rgba(255,255,255,1);
+	}
+	.Rectangle_70 {
+		position: absolute;
+		overflow: visible;
+		width: 473px;
+		height: 62px;
+		left: 0px;
+		top: 0px;
+	}
+	#Send_message {
+		opacity: 0.8;
+		left: 32px;
+		top: 19px;
+		position: absolute;
+		overflow: visible;
+		width: 120px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Tw Cen MT;
+		font-style: italic;
+		font-weight: normal;
+		font-size: 22px;
+		color: rgba(52,46,55,1);
+	}
+	#Icon_ionic-ios-send {
+		fill: rgba(67,226,178,1);
+	}
+	.Icon_ionic-ios-send {
+		overflow: visible;
+		position: absolute;
+		width: 32.004px;
+		height: 32px;
+		left: 421.6px;
+		top: 15px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Smiley {
+		position: absolute;
+		width: 236.676px;
+		height: 59.882px;
+		left: 406.162px;
+		top: 375.059px;
+		overflow: visible;
+	}
+	#Icon_ionic-md-happy {
+		fill: rgba(65,225,71,1);
+		stroke: rgba(65,225,71,1);
+		stroke-width: 3px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Icon_ionic-md-happy {
+		overflow: visible;
+		position: absolute;
+		width: 62.882px;
+		height: 62.882px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Icon_ionic-md-sad {
+		position: absolute;
+		width: 59.882px;
+		height: 59.882px;
+		left: 176.794px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Path_4 {
+		fill: rgba(224,88,65,1);
+		stroke: rgba(224,88,65,1);
+		stroke-width: 3px;
+		stroke-linejoin: round;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_4 {
+		overflow: visible;
+		position: absolute;
+		width: 32.424px;
+		height: 12.213px;
+		left: 15.229px;
+		top: 34.547px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Path_5 {
+		fill: rgba(224,88,65,1);
+		stroke: rgba(224,88,65,1);
+		stroke-width: 3px;
+		stroke-linejoin: round;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_5 {
+		overflow: visible;
+		position: absolute;
+		width: 62.882px;
+		height: 62.882px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Path_6 {
+		fill: rgba(224,88,65,1);
+		stroke: rgba(224,88,65,1);
+		stroke-width: 3px;
+		stroke-linejoin: round;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_6 {
+		overflow: visible;
+		position: absolute;
+		width: 11.982px;
+		height: 11.982px;
+		left: 35.929px;
+		top: 17.964px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Path_7 {
+		fill: rgba(224,88,65,1);
+		stroke: rgba(224,88,65,1);
+		stroke-width: 3px;
+		stroke-linejoin: round;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_7 {
+		overflow: visible;
+		position: absolute;
+		width: 11.982px;
+		height: 11.982px;
+		left: 14.97px;
+		top: 17.964px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Icon_material-sentiment-neutra {
+		position: absolute;
+		width: 59.882px;
+		height: 59.882px;
+		left: 88.397px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Group_11 {
+		position: absolute;
+		width: 59.882px;
+		height: 59.882px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Path_8 {
+		fill: rgba(224,224,65,1);
+		stroke: rgba(224,224,65,1);
+		stroke-width: 3px;
+		stroke-linejoin: round;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_8 {
+		overflow: visible;
+		position: absolute;
+		width: 20.964px;
+		height: 7.491px;
+		left: 20.959px;
+		top: 35.929px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Path_9 {
+		fill: rgba(224,224,65,1);
+		stroke: rgba(224,224,65,1);
+		stroke-width: 3px;
+		stroke-linejoin: round;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_9 {
+		overflow: visible;
+		position: absolute;
+		width: 11.982px;
+		height: 11.982px;
+		left: 35.93px;
+		top: 17.964px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Path_10 {
+		fill: rgba(224,224,65,1);
+		stroke: rgba(224,224,65,1);
+		stroke-width: 3px;
+		stroke-linejoin: round;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_10 {
+		overflow: visible;
+		position: absolute;
+		width: 11.982px;
+		height: 11.982px;
+		left: 14.971px;
+		top: 17.964px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Path_11 {
+		fill: rgba(224,224,65,1);
+		stroke: rgba(224,224,65,1);
+		stroke-width: 3px;
+		stroke-linejoin: round;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Path_11 {
+		overflow: visible;
+		position: absolute;
+		width: 62.882px;
+		height: 62.882px;
+		left: 0px;
+		top: 0px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+</style>
+</head>
+<body>
+<div id="Logged_in_Live_Session_page">
+	<svg class="Background_p" viewBox="0 0 1620 1076">
+		<linearGradient id="Background_p" spreadMethod="pad" x1="0.5" x2="0.5" y1="0" y2="1">
+			<stop offset="0" stop-color="#43e2b2" stop-opacity="1"></stop>
+			<stop offset="1" stop-color="#24afaf" stop-opacity="1"></stop>
+		</linearGradient>
+		<path id="Background_p" d="M 0 0 L 1620 0 L 1620 1076 L 0 1076 L 0 0 Z">
+		</path>
+	</svg>
+	<div id="Background_q">
+		<svg class="Rectangle_37">
+			<rect id="Rectangle_37" rx="40" ry="40" x="0" y="0" width="1540" height="956">
+			</rect>
+		</svg>
+		<div id="Group_8">
+			<img id="Bubble" src="Bubble.png" srcset="Bubble.png 1x, Bubble@2x.png 2x">
+				
+			</svg>
+			<img id="Bubbles" src="Bubbles.png" srcset="Bubbles.png 1x, Bubbles@2x.png 2x">
+				
+			</svg>
+			<img id="Bubbles_v" src="Bubbles_v.png" srcset="Bubbles_v.png 1x, Bubbles_v@2x.png 2x">
+				
+			</svg>
+			<img id="Mask_Group_2" src="Mask_Group_2.png" srcset="Mask_Group_2.png 1x, Mask_Group_2@2x.png 2x">
+				
+			</svg>
+		</div>
+	</div>
+	<div id="Project_CS261">
+		<span>Project CS261Group 45</span>
+	</div>
+	<div id="Group_6">
+		<div id="Heading">
+			<div id="Sunday_Meeting">
+				<span>Sunday Meeting</span>
+			</div>
+		</div>
+		<svg class="Icon_awesome-calendar-day" viewBox="0 0 56 64">
+			<path id="Icon_awesome-calendar-day" d="M 0 58 C 0 61.31250762939453 2.6875 64 5.999999523162842 64 L 50.00000762939453 64 C 53.31249618530273 64 55.99999618530273 61.31250762939453 55.99999618530273 58 L 55.99999618530273 23.99999809265137 L 0 23.99999809265137 L 0 58 Z M 7.999999523162842 34.00000381469727 C 7.999999523162842 32.90000534057617 8.899999618530273 32 10 32 L 22 32 C 23.10000038146973 32 23.99999809265137 32.90000534057617 23.99999809265137 34.00000381469727 L 23.99999809265137 46.00000381469727 C 23.99999809265137 47.10000991821289 23.10000038146973 47.99999618530273 22 47.99999618530273 L 10 47.99999618530273 C 8.899999618530273 47.99999618530273 7.999999523162842 47.10000991821289 7.999999523162842 46.00000381469727 L 7.999999523162842 34.00000381469727 Z M 50.00000762939453 8 L 44 8 L 44 2 C 44 0.9000002145767212 43.10000610351563 0 42.00000762939453 0 L 38.00000381469727 0 C 36.90000152587891 0 36 0.9000002145767212 36 2 L 36 8 L 20 8 L 20 2 C 20 0.9000002145767212 19.10000228881836 0 18 0 L 13.99999904632568 0 C 12.90000152587891 0 11.99999904632568 0.9000002145767212 11.99999904632568 2 L 11.99999904632568 8 L 5.999999523162842 8 C 2.6875 8 0 10.6875 0 14.00000190734863 L 0 20.00000190734863 L 55.99999618530273 20.00000190734863 L 55.99999618530273 14.00000190734863 C 55.99999618530273 10.6875 53.31249618530273 8 50.00000762939453 8 Z">
+			</path>
+		</svg>
+	</div>
+	<svg class="Path_16" viewBox="0 0 369 369">
+		<path id="Path_16" d="M 44.27999877929688 0 L 324.7200012207031 0 C 349.1751708984375 0 369 19.8248291015625 369 44.27999877929688 L 369 324.7200012207031 C 369 349.1751708984375 349.1751708984375 369 324.7200012207031 369 L 44.27999877929688 369 C 19.8248291015625 369 0 349.1751708984375 0 324.7200012207031 L 0 44.27999877929688 C 0 19.8248291015625 19.8248291015625 0 44.27999877929688 0 Z">
+		</path>
+	</svg>
+	<svg class="Path_22" viewBox="0 0 182.226 182.226">
+		<path id="Path_22" d="M 91.11279296875 0 C 141.4329986572266 0 182.2255859375 40.7925910949707 182.2255859375 91.11279296875 C 182.2255859375 141.4329986572266 141.4329986572266 182.2255859375 91.11279296875 182.2255859375 C 40.7925910949707 182.2255859375 0 141.4329986572266 0 91.11279296875 C 0 40.7925910949707 40.7925910949707 0 91.11279296875 0 Z">
+		</path>
+	</svg>
+	<svg class="Path_18" viewBox="0 0 501 309">
+		<path id="Path_18" d="M 49 0 L 452 0 C 479.0619506835938 0 501 21.93804550170898 501 49 L 501 260 C 501 287.0619506835938 479.0619506835938 309 452 309 L 49 309 C 21.93804550170898 309 0 287.0619506835938 0 260 L 0 49 C 0 21.93804550170898 21.93804550170898 0 49 0 Z">
+		</path>
+	</svg>
+	<svg class="Rectangle_74">
+		<rect id="Rectangle_74" rx="64" ry="64" x="0" y="0" width="553" height="896">
+		</rect>
+	</svg>
+	<div id="Group_12">
+		<svg class="Rectangle_26">
+			<rect id="Rectangle_26" rx="5" ry="5" x="0" y="0" width="19" height="141">
+			</rect>
+		</svg>
+		<svg class="Rectangle_27">
+			<rect id="Rectangle_27" rx="5" ry="5" x="0" y="0" width="20" height="71">
+			</rect>
+		</svg>
+		<svg class="Rectangle_28">
+			<rect id="Rectangle_28" rx="5" ry="5" x="0" y="0" width="19" height="210.662">
+			</rect>
+		</svg>
+		<svg class="Rectangle_29">
+			<rect id="Rectangle_29" rx="5" ry="5" x="0" y="0" width="21" height="209.5">
+			</rect>
+		</svg>
+		<svg class="Rectangle_30">
+			<rect id="Rectangle_30" rx="5" ry="5" x="0" y="0" width="19" height="168">
+			</rect>
+		</svg>
+		<svg class="Rectangle_31">
+			<rect id="Rectangle_31" rx="5" ry="5" x="0" y="0" width="18" height="53">
+			</rect>
+		</svg>
+		<svg class="Rectangle_32">
+			<rect id="Rectangle_32" rx="5" ry="5" x="0" y="0" width="23" height="204.5">
+			</rect>
+		</svg>
+		<svg class="Line_22" viewBox="0 0 429 4">
+			<path id="Line_22" d="M 0 0 L 429 0">
+			</path>
+		</svg>
+		<svg class="Line_23" viewBox="0 0 4 237">
+			<path id="Line_23" d="M 0 0 L 0 237">
+			</path>
+		</svg>
+	</div>
+	<div id="Scroll_Group_3">
+		<svg class="Rectangle_41">
+			<rect id="Rectangle_41" rx="64" ry="64" x="0" y="0" width="553" height="896">
+			</rect>
+		</svg>
+		<div id="Repeat_Grid_4">
+			<div id="Repeat_Grid_4_0" class="">
+				<div id="Component_6__2" class="Component_6___2">
+					<svg class="Rectangle_24">
+						<rect id="Rectangle_24" rx="19" ry="19" x="0" y="0" width="473" height="59">
+						</rect>
+					</svg>
+					<div id="Anonymus">
+						<span>Anonymus</span>
+					</div>
+					<div id="When_is_the_deadline">
+						<span>When is the deadline?</span>
+					</div>
+					<div id="Tue_132">
+						<span>Tue, 1:32</span>
+					</div>
+				</div>
+			</div>
+			<div id="Repeat_Grid_4_1" class="">
+				<div id="Component_6__2_bq" class="Component_6___2">
+					<svg class="Rectangle_24_br">
+						<rect id="Rectangle_24_br" rx="19" ry="19" x="0" y="0" width="473" height="59">
+						</rect>
+					</svg>
+					<div id="Anonymus_bs">
+						<span>Anonymus</span>
+					</div>
+					<div id="When_is_the_deadline_bt">
+						<span>When is the deadline?</span>
+					</div>
+					<div id="Tue_132_bu">
+						<span>Tue, 1:32</span>
+					</div>
+				</div>
+			</div>
+			<div id="Repeat_Grid_4_2" class="">
+				<div id="Component_6__2_bw" class="Component_6___2">
+					<svg class="Rectangle_24_bx">
+						<rect id="Rectangle_24_bx" rx="19" ry="19" x="0" y="0" width="473" height="59">
+						</rect>
+					</svg>
+					<div id="Anonymus_by">
+						<span>Anonymus</span>
+					</div>
+					<div id="When_is_the_deadline_bz">
+						<span>When is the deadline?</span>
+					</div>
+					<div id="Tue_132_b">
+						<span>Tue, 1:32</span>
+					</div>
+				</div>
+			</div>
+			<div id="Repeat_Grid_4_3" class="">
+				<div id="Component_6__2_b" class="Component_6___2">
+					<svg class="Rectangle_24_b">
+						<rect id="Rectangle_24_b" rx="19" ry="19" x="0" y="0" width="473" height="59">
+						</rect>
+					</svg>
+					<div id="Anonymus_b">
+						<span>Anonymus</span>
+					</div>
+					<div id="When_is_the_deadline_b">
+						<span>When is the deadline?</span>
+					</div>
+					<div id="Tue_132_ca">
+						<span>Tue, 1:32</span>
+					</div>
+				</div>
+			</div>
+			<div id="Repeat_Grid_4_4" class="">
+				<div id="Component_6__2_ca" class="Component_6___2">
+					<svg class="Rectangle_24_ca">
+						<rect id="Rectangle_24_ca" rx="19" ry="19" x="0" y="0" width="473" height="59">
+						</rect>
+					</svg>
+					<div id="Anonymus_ca">
+						<span>Anonymus</span>
+					</div>
+					<div id="When_is_the_deadline_cb">
+						<span>When is the deadline?</span>
+					</div>
+					<div id="Tue_132_cc">
+						<span>Tue, 1:32</span>
+					</div>
+				</div>
+			</div>
+			<div id="Repeat_Grid_4_5" class="">
+				<div id="Component_6__2_ce" class="Component_6___2">
+					<svg class="Rectangle_24_cf">
+						<rect id="Rectangle_24_cf" rx="19" ry="19" x="0" y="0" width="473" height="59">
+						</rect>
+					</svg>
+					<div id="Anonymus_cg">
+						<span>Anonymus</span>
+					</div>
+					<div id="When_is_the_deadline_ch">
+						<span>When is the deadline?</span>
+					</div>
+					<div id="Tue_132_ci">
+						<span>Tue, 1:32</span>
+					</div>
+				</div>
+			</div>
+			<div id="Repeat_Grid_4_6" class="">
+				<div id="Component_6__2_ck" class="Component_6___2">
+					<svg class="Rectangle_24_cl">
+						<rect id="Rectangle_24_cl" rx="19" ry="19" x="0" y="0" width="473" height="59">
+						</rect>
+					</svg>
+					<div id="Anonymus_cm">
+						<span>Anonymus</span>
+					</div>
+					<div id="When_is_the_deadline_cn">
+						<span>When is the deadline?</span>
+					</div>
+					<div id="Tue_132_co">
+						<span>Tue, 1:32</span>
+					</div>
+				</div>
+			</div>
+			<div id="Repeat_Grid_4_7" class="">
+				<div id="Component_6__2_cq" class="Component_6___2">
+					<svg class="Rectangle_24_cr">
+						<rect id="Rectangle_24_cr" rx="19" ry="19" x="0" y="0" width="473" height="59">
+						</rect>
+					</svg>
+					<div id="Anonymus_cs">
+						<span>Anonymus</span>
+					</div>
+					<div id="When_is_the_deadline_ct">
+						<span>When is the deadline?</span>
+					</div>
+					<div id="Tue_132_cu">
+						<span>Tue, 1:32</span>
+					</div>
+				</div>
+			</div>
+			<div id="Repeat_Grid_4_8" class="">
+				<div id="Component_6__2_cw" class="Component_6___2">
+					<svg class="Rectangle_24_cx">
+						<rect id="Rectangle_24_cx" rx="19" ry="19" x="0" y="0" width="473" height="59">
+						</rect>
+					</svg>
+					<div id="Anonymus_cy">
+						<span>Anonymus</span>
+					</div>
+					<div id="When_is_the_deadline_cz">
+						<span>When is the deadline?</span>
+					</div>
+					<div id="Tue_132_c">
+						<span>Tue, 1:32</span>
+					</div>
+				</div>
+			</div>
+			<div id="Repeat_Grid_4_9" class="">
+				<div id="Component_6__2_c" class="Component_6___2">
+					<svg class="Rectangle_24_c">
+						<rect id="Rectangle_24_c" rx="19" ry="19" x="0" y="0" width="473" height="59">
+						</rect>
+					</svg>
+					<div id="Anonymus_c">
+						<span>Anonymus</span>
+					</div>
+					<div id="When_is_the_deadline_c">
+						<span>When is the deadline?</span>
+					</div>
+					<div id="Tue_132_da">
+						<span>Tue, 1:32</span>
+					</div>
+				</div>
+			</div>
+			<div id="Repeat_Grid_4_10" class="">
+				<div id="Component_6__2_da" class="Component_6___2">
+					<svg class="Rectangle_24_da">
+						<rect id="Rectangle_24_da" rx="19" ry="19" x="0" y="0" width="473" height="59">
+						</rect>
+					</svg>
+					<div id="Anonymus_da">
+						<span>Anonymus</span>
+					</div>
+					<div id="When_is_the_deadline_db">
+						<span>When is the deadline?</span>
+					</div>
+					<div id="Tue_132_dc">
+						<span>Tue, 1:32</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div onclick="application.goToTargetView(event)" id="Component_12__3" class="Component_12___3">
+		<svg class="Icon_awesome-home" viewBox="-0.001 2.254 41.151 32">
+			<path id="Icon_awesome-home" d="M 20.02868461608887 10.55515575408936 L 6.857924938201904 21.40279388427734 L 6.857924938201904 33.11052703857422 C 6.857924938201904 33.74178314208984 7.369657516479492 34.25351715087891 8.000910758972168 34.25351715087891 L 16.0060920715332 34.23280334472656 C 16.63511085510254 34.22966003417969 17.14336776733398 33.71884155273438 17.14336204528809 33.08980941772461 L 17.14336204528809 26.25262451171875 C 17.14336204528809 25.62137222290039 17.65509414672852 25.10963821411133 18.28634452819824 25.10963821411133 L 22.8582878112793 25.10963821411133 C 23.48954010009766 25.10963821411133 24.00127220153809 25.62137222290039 24.00127220153809 26.25262451171875 L 24.00127220153809 33.08481597900391 C 24.00032043457031 33.38856887817383 24.12032127380371 33.68021011352539 24.33477592468262 33.89533233642578 C 24.54923248291016 34.1104621887207 24.84049797058105 34.23137283325195 25.14425659179688 34.23137283325195 L 33.14657592773438 34.25351715087891 C 33.77782440185547 34.25351715087891 34.28955841064453 33.74178314208984 34.28955841064453 33.11052703857422 L 34.28955841064453 21.39493560791016 L 21.12166404724121 10.55515575408936 C 20.80269622802734 10.29805278778076 20.3476505279541 10.29805278778076 20.02868461608887 10.55515575408936 Z M 40.83314895629883 17.92812347412109 L 34.86105346679688 13.00543117523193 L 34.86105346679688 3.110754489898682 C 34.86105346679688 2.637314319610596 34.47725677490234 2.253515720367432 34.00381469726563 2.253515720367432 L 30.00337028503418 2.253515720367432 C 29.52993202209473 2.253515720367432 29.14612770080566 2.637314319610596 29.14612770080566 3.110754728317261 L 29.14612770080566 8.297761917114258 L 22.75041580200195 3.035746097564697 C 21.48461723327637 1.994118213653564 19.65859413146973 1.994118213653564 18.39278793334961 3.035746097564697 L 0.3100518882274628 17.92812347412109 C -0.05502590537071228 18.22986602783203 -0.1062097176909447 18.77050399780273 0.195753738284111 19.13539886474609 L 2.017385721206665 21.34993362426758 C 2.161995887756348 21.52577209472656 2.370614528656006 21.63686752319336 2.597229957580566 21.65871047973633 C 2.823846101760864 21.6805534362793 3.049843072891235 21.61135482788086 3.225378274917603 21.46637725830078 L 20.02868461608887 7.62625789642334 C 20.3476505279541 7.369155883789063 20.80269622802734 7.369155883789063 21.12166404724121 7.626258850097656 L 37.92567825317383 21.46637725830078 C 38.29058456420898 21.76833724975586 38.83121490478516 21.71715545654297 39.13295745849609 21.35207366943359 L 40.95459365844727 19.13754653930664 C 41.09944534301758 18.96129608154297 41.16807174682617 18.73458099365234 41.14527893066406 18.50758743286133 C 41.12248611450195 18.28059387207031 41.01015853881836 18.07204818725586 40.83315277099609 17.92812347412109 Z">
+			</path>
+		</svg>
+		<div id="Home">
+			<span>Home</span>
+		</div>
+	</div>
+	<div id="Component_13__3" class="Component_13___3">
+		<svg class="Icon_awesome-user-circle" viewBox="0 0.563 32 32">
+			<path id="Icon_awesome-user-circle" d="M 16.00000190734863 0.5625002384185791 C 7.161291599273682 0.5625002384185791 -8.47648919943822e-08 7.723789691925049 -8.47648919943822e-08 16.56249809265137 C -8.47648919943822e-08 25.40120315551758 7.161291599273682 32.5625 16.00000190734863 32.5625 C 23.15051651000977 32.5625 29.20319557189941 27.87556648254395 31.34556198120117 21.10783767700195 C 31.7387523651123 19.87768936157227 32.00000381469727 18.25069046020508 32.00000381469727 16.56249809265137 C 32.00000381469727 7.723789691925049 24.83870887756348 0.5625002384185791 16.00000190734863 0.5625002384185791 Z M 16.00000190734863 6.756048679351807 C 19.13548469543457 6.756048679351807 21.67741966247559 9.29798412322998 21.67741966247559 12.4334659576416 C 21.67741966247559 15.56894874572754 19.13548469543457 18.11088371276855 16.00000190734863 18.11088371276855 C 12.86451721191406 18.11088371276855 10.32258129119873 15.56894874572754 10.32258129119873 12.4334659576416 C 10.32258129119873 9.29798412322998 12.86451530456543 6.756048679351807 16.00000190734863 6.756048679351807 Z M 16.00000190734863 28.9495964050293 C 12.21290397644043 28.9495964050293 8.819355964660645 27.23346710205078 6.54838752746582 24.54959487915039 C 7.761290550231934 22.26572227478027 10.13548278808594 20.6915283203125 12.90322589874268 20.6915283203125 C 13.05806541442871 20.6915283203125 13.21290397644043 20.71733856201172 13.36129188537598 20.76249504089355 C 14.19999885559082 21.0334644317627 15.07742023468018 21.20765686035156 16.00000190734863 21.20765686035156 C 16.92257881164551 21.20765686035156 17.80645179748535 21.0334644317627 18.63871192932129 20.76249504089355 C 18.78709983825684 20.71733856201172 18.94193840026855 20.6915283203125 19.09677696228027 20.6915283203125 C 21.8645191192627 20.6915283203125 24.23871231079102 22.26572418212891 25.45161628723145 24.54959487915039 C 23.18064498901367 27.23346710205078 19.7870979309082 28.9495964050293 16.00000190734863 28.9495964050293 Z">
+			</path>
+		</svg>
+		<div id="Profile">
+			<span>Profile</span>
+		</div>
+	</div>
+	<div onclick="application.goToTargetView(event)" id="Component_14__3" class="Component_14___3">
+		<svg class="Icon_awesome-calendar-day_dk" viewBox="0 0 28 32">
+			<path id="Icon_awesome-calendar-day_dk" d="M 0 28.99999809265137 C 0 30.65625 1.34375 31.99999809265137 2.999999761581421 31.99999809265137 L 25.00000190734863 31.99999809265137 C 26.65624809265137 31.99999809265137 27.99999618530273 30.65625 27.99999618530273 28.99999809265137 L 27.99999618530273 11.99999809265137 L 0 11.99999809265137 L 0 28.99999809265137 Z M 3.999999761581421 17 C 3.999999761581421 16.45000076293945 4.449999809265137 15.99999904632568 5 15.99999904632568 L 11 15.99999904632568 C 11.54999923706055 15.99999904632568 11.99999904632568 16.45000076293945 11.99999904632568 17 L 11.99999904632568 23 C 11.99999904632568 23.55000114440918 11.54999923706055 23.99999618530273 11 23.99999618530273 L 5 23.99999618530273 C 4.449999809265137 23.99999618530273 3.999999761581421 23.55000114440918 3.999999761581421 23 L 3.999999761581421 17 Z M 25.00000190734863 3.999999761581421 L 22 3.999999761581421 L 22 0.9999999403953552 C 22 0.4500000476837158 21.55000114440918 0 21.00000190734863 0 L 19.00000190734863 0 C 18.45000076293945 0 18 0.4500000476837158 18 0.9999999403953552 L 18 3.999999761581421 L 10 3.999999761581421 L 10 0.9999999403953552 C 10 0.4500000476837158 9.550000190734863 0 9 0 L 6.999999046325684 0 C 6.450000286102295 0 5.999999523162842 0.4500000476837158 5.999999523162842 0.9999999403953552 L 5.999999523162842 3.999999761581421 L 2.999999761581421 3.999999761581421 C 1.34375 3.999999761581421 0 5.343749523162842 0 7 L 0 10 L 27.99999618530273 10 L 27.99999618530273 7 C 27.99999618530273 5.343749523162842 26.65624809265137 3.999999761581421 25.00000190734863 3.999999761581421 Z">
+			</path>
+		</svg>
+		<div id="Sessions">
+			<span>Sessions</span>
+		</div>
+	</div>
+	<div id="Component_15__3" class="Component_15___3">
+		<svg class="Icon_awesome-calendar-alt" viewBox="0 0 28 32">
+			<path id="Icon_awesome-calendar-alt" d="M 0 28.99999809265137 C 0 30.65625 1.34375011920929 31.99999809265137 2.999999523162842 31.99999809265137 L 25.00000381469727 31.99999809265137 C 26.65625190734863 31.99999809265137 28.00000381469727 30.65625 28.00000381469727 28.99999809265137 L 28.00000381469727 11.99999713897705 L 0 11.99999713897705 L 0 28.99999809265137 Z M 20 16.75 C 20 16.33749961853027 20.33750152587891 15.99999904632568 20.75 15.99999904632568 L 23.25000381469727 15.99999904632568 C 23.66250038146973 15.99999904632568 23.99999618530273 16.33749961853027 23.99999618530273 16.75 L 23.99999618530273 19.25 C 23.99999618530273 19.66249847412109 23.66250038146973 19.99999809265137 23.25000381469727 19.99999809265137 L 20.75 19.99999809265137 C 20.33750152587891 19.99999809265137 20 19.66249847412109 20 19.25 L 20 16.75 Z M 20 24.75 C 20 24.33750152587891 20.33750152587891 23.9999942779541 20.75 23.9999942779541 L 23.25000381469727 23.9999942779541 C 23.66250038146973 23.9999942779541 23.99999618530273 24.33750152587891 23.99999618530273 24.75 L 23.99999618530273 27.24999809265137 C 23.99999618530273 27.66250038146973 23.66250038146973 28.00000190734863 23.25000381469727 28.00000190734863 L 20.75 28.00000190734863 C 20.33750152587891 28.00000190734863 20 27.66250038146973 20 27.24999809265137 L 20 24.75 Z M 11.99999809265137 16.75 C 11.99999809265137 16.33749961853027 12.33750057220459 15.99999904632568 12.74999904632568 15.99999904632568 L 15.25000190734863 15.99999904632568 C 15.66249942779541 15.99999904632568 16 16.33749961853027 16 16.75 L 16 19.25 C 16 19.66249847412109 15.66249942779541 19.99999809265137 15.25000190734863 19.99999809265137 L 12.74999904632568 19.99999809265137 C 12.33750057220459 19.99999809265137 11.99999809265137 19.66249847412109 11.99999809265137 19.25 L 11.99999809265137 16.75 Z M 11.99999809265137 24.75 C 11.99999809265137 24.33750152587891 12.33750057220459 23.9999942779541 12.74999904632568 23.9999942779541 L 15.25000190734863 23.9999942779541 C 15.66249942779541 23.9999942779541 16 24.33750152587891 16 24.75 L 16 27.24999809265137 C 16 27.66250038146973 15.66249942779541 28.00000190734863 15.25000190734863 28.00000190734863 L 12.74999904632568 28.00000190734863 C 12.33750057220459 28.00000190734863 11.99999809265137 27.66250038146973 11.99999809265137 27.24999809265137 L 11.99999809265137 24.75 Z M 4 16.75 C 4 16.33749961853027 4.337500095367432 15.99999904632568 4.75 15.99999904632568 L 7.249999523162842 15.99999904632568 C 7.662500381469727 15.99999904632568 8 16.33749961853027 8 16.75 L 8 19.25 C 8 19.66249847412109 7.662500381469727 19.99999809265137 7.249999523162842 19.99999809265137 L 4.75 19.99999809265137 C 4.337500095367432 19.99999809265137 4 19.66249847412109 4 19.25 L 4 16.75 Z M 4 24.75 C 4 24.33750152587891 4.337500095367432 23.9999942779541 4.75 23.9999942779541 L 7.249999523162842 23.9999942779541 C 7.662500381469727 23.9999942779541 8 24.33750152587891 8 24.75 L 8 27.24999809265137 C 8 27.66250038146973 7.662500381469727 28.00000190734863 7.249999523162842 28.00000190734863 L 4.75 28.00000190734863 C 4.337500095367432 28.00000190734863 4 27.66250038146973 4 27.24999809265137 L 4 24.75 Z M 25.00000381469727 3.999999761581421 L 22 3.999999761581421 L 22 0.9999999403953552 C 22 0.449999988079071 21.55000305175781 0 21.00000190734863 0 L 19 0 C 18.45000076293945 0 18 0.449999988079071 18 0.9999999403953552 L 18 3.999999761581421 L 10 3.999999761581421 L 10 0.9999999403953552 C 10 0.449999988079071 9.55000114440918 0 9 0 L 7.000000953674316 0 C 6.449999809265137 0 5.999999046325684 0.449999988079071 5.999999046325684 0.9999999403953552 L 5.999999046325684 3.999999761581421 L 2.999999523162842 3.999999761581421 C 1.34375011920929 3.999999761581421 0 5.34375 0 7.000000476837158 L 0 9.999999046325684 L 28.00000381469727 9.999999046325684 L 28.00000381469727 7.000000476837158 C 28.00000381469727 5.34375 26.65625190734863 3.999999761581421 25.00000381469727 3.999999761581421 Z">
+			</path>
+		</svg>
+		<div id="Session_series">
+			<span>Session series</span>
+		</div>
+	</div>
+	<div id="Component_20__3" class="Component_20___3">
+		<svg class="Icon_open-account-logout" viewBox="0 0 36.571 32">
+			<path id="Icon_open-account-logout" d="M 13.71428680419922 0 L 13.71428680419922 4.571428775787354 L 32 4.571428775787354 L 32 27.42857360839844 L 13.71428680419922 27.42857360839844 L 13.71428680419922 32 L 36.57143020629883 32 L 36.57143020629883 0 L 13.71428680419922 0 Z M 9.142857551574707 9.142857551574707 L 0 16 L 9.142857551574707 22.85714340209961 L 9.142857551574707 18.28571510314941 L 27.42857360839844 18.28571510314941 L 27.42857360839844 13.71428680419922 L 9.142857551574707 13.71428680419922 L 9.142857551574707 9.142857551574707 Z">
+			</path>
+		</svg>
+		<div id="Logout">
+			<span>Logout</span>
+		</div>
+	</div>
+	<svg class="Icon_material-settings" viewBox="3.406 3 62.254 64">
+		<path id="Icon_material-settings" d="M 58.31586837768555 38.13600540161133 C 58.44387054443359 37.11200714111328 58.53987121582031 36.08800888061523 58.53987121582031 35.00000762939453 C 58.53987121582031 33.91200637817383 58.44387054443359 32.88800430297852 58.31586837768555 31.8640022277832 L 65.06787109375 26.58400344848633 C 65.67586517333984 26.10400009155273 65.83587646484375 25.2400016784668 65.45186614990234 24.53600120544434 L 59.05187225341797 13.46399974822998 C 58.66786956787109 12.76000118255615 57.80387496948242 12.50400161743164 57.09987258911133 12.76000118255615 L 49.13187026977539 15.96000289916992 C 47.46786499023438 14.68000030517578 45.67586517333984 13.62400150299072 43.72386932373047 12.82400131225586 L 42.50786972045898 4.344001770019531 C 42.41186904907227 3.576000213623047 41.73986434936523 3.000000238418579 40.93986511230469 3.000000238418579 L 28.13986206054688 3.000000238418579 C 27.33986473083496 3.000000238418579 26.66786575317383 3.576000213623047 26.57186317443848 4.343999862670898 L 25.35586547851563 12.82400035858154 C 23.40386390686035 13.62400150299072 21.61186408996582 14.71200084686279 19.9478645324707 15.96000099182129 L 11.97986602783203 12.76000022888184 C 11.24386596679688 12.471999168396 10.41186618804932 12.76000022888184 10.02786540985107 13.46399974822998 L 3.627865076065063 24.5359992980957 C 3.211864948272705 25.23999977111816 3.403865098953247 26.1039981842041 4.011865139007568 26.58399963378906 L 10.76386642456055 31.86399841308594 C 10.63586711883545 32.88800048828125 10.53986644744873 33.94400405883789 10.53986644744873 35.00000381469727 C 10.53986644744873 36.05599975585938 10.63586711883545 37.11200332641602 10.76386642456055 38.13600158691406 L 4.011865615844727 43.4160041809082 C 3.403865575790405 43.89600372314453 3.243865251541138 44.76000213623047 3.627865552902222 45.46400451660156 L 10.02786540985107 56.53600311279297 C 10.41186618804932 57.24000549316406 11.27586650848389 57.49600601196289 11.97986602783203 57.24000549316406 L 19.9478645324707 54.04000473022461 C 21.61186408996582 55.32000350952148 23.40386390686035 56.37600326538086 25.35586547851563 57.17600250244141 L 26.57186317443848 65.65599060058594 C 26.66786575317383 66.42399597167969 27.33986473083496 66.99999237060547 28.13986206054688 66.99999237060547 L 40.93986511230469 66.99999237060547 C 41.73986434936523 66.99999237060547 42.41186904907227 66.42399597167969 42.50786972045898 65.65599060058594 L 43.72386932373047 57.17599868774414 C 45.67586898803711 56.37599945068359 47.46786499023438 55.28799819946289 49.13187026977539 54.04000091552734 L 57.09987258911133 57.23999786376953 C 57.83586883544922 57.52799987792969 58.66786956787109 57.23999786376953 59.05187225341797 56.5359992980957 L 65.45186614990234 45.4640007019043 C 65.83587646484375 44.7599983215332 65.67586517333984 43.89599609375 65.06787109375 43.41600036621094 L 58.31586837768555 38.1359977722168 Z M 34.53986740112305 46.20000839233398 C 28.36386299133301 46.20000839233398 23.33986473083496 41.17601013183594 23.33986473083496 35.00000762939453 C 23.33986473083496 28.82400131225586 28.36386299133301 23.80000114440918 34.53986740112305 23.80000114440918 C 40.71586990356445 23.80000114440918 45.7398681640625 28.82400131225586 45.7398681640625 35.00000762939453 C 45.7398681640625 41.17601013183594 40.71586990356445 46.20000839233398 34.53986740112305 46.20000839233398 Z">
+		</path>
+	</svg>
+	<div id="Group_28">
+		<svg class="Rectangle_49">
+			<rect id="Rectangle_49" rx="0" ry="0" x="0" y="0" width="513" height="512">
+			</rect>
+		</svg>
+		<svg class="Rectangle_50">
+			<rect id="Rectangle_50" rx="39" ry="39" x="0" y="0" width="317" height="512">
+			</rect>
+		</svg>
+	</div>
+	<div id="Group_33">
+		<svg class="Line_24" viewBox="0 0 261 5">
+			<path id="Line_24" d="M 0 0 L 261 0">
+			</path>
+		</svg>
+		<div id="General">
+			<span>General</span>
+		</div>
+	</div>
+	<div id="Group_32">
+		<div id="Do_you_like_the_slides">
+			<span>Do you like the slides?</span>
+		</div>
+		<svg class="Line_25" viewBox="0 0 469 5">
+			<path id="Line_25" d="M 0 0 L 469 0">
+			</path>
+		</svg>
+	</div>
+	<div id="Repeat_Grid_3">
+		<div id="Repeat_Grid_3_0" class="">
+			<div id="Group_18">
+				<div id="Question_about_life">
+					<span>Question about life</span>
+				</div>
+				<svg class="Rectangle_51">
+					<rect id="Rectangle_51" rx="16.5" ry="16.5" x="0" y="0" width="255" height="33">
+					</rect>
+				</svg>
+			</div>
+			<div id="Do_you_like_the_slides_d">
+				<span>Do you like the slides?</span>
+			</div>
+		</div>
+		<div id="Repeat_Grid_3_1" class="">
+			<div id="Group_18_d">
+				<div id="Question_about_life_ea">
+					<span>Question about life</span>
+				</div>
+				<svg class="Rectangle_51_eb">
+					<rect id="Rectangle_51_eb" rx="16.5" ry="16.5" x="0" y="0" width="255" height="33">
+					</rect>
+				</svg>
+			</div>
+			<div id="Do_you_like_the_slides_ec">
+				<span>Do you like the slides?</span>
+			</div>
+		</div>
+		<div id="Repeat_Grid_3_2" class="">
+			<div id="Group_18_ee">
+				<div id="Question_about_life_ef">
+					<span>Question about life</span>
+				</div>
+				<svg class="Rectangle_51_eg">
+					<rect id="Rectangle_51_eg" rx="16.5" ry="16.5" x="0" y="0" width="255" height="33">
+					</rect>
+				</svg>
+			</div>
+			<div id="Do_you_like_the_slides_eh">
+				<span>Do you like the slides?</span>
+			</div>
+		</div>
+		<div id="Repeat_Grid_3_3" class="">
+			<div id="Group_18_ej">
+				<div id="Question_about_life_ek">
+					<span>Question about life</span>
+				</div>
+				<svg class="Rectangle_51_el">
+					<rect id="Rectangle_51_el" rx="16.5" ry="16.5" x="0" y="0" width="255" height="33">
+					</rect>
+				</svg>
+			</div>
+			<div id="Do_you_like_the_slides_em">
+				<span>Do you like the slides?</span>
+			</div>
+		</div>
+		<div id="Repeat_Grid_3_4" class="">
+			<div id="Group_18_eo">
+				<div id="Question_about_life_ep">
+					<span>Question about life</span>
+				</div>
+				<svg class="Rectangle_51_eq">
+					<rect id="Rectangle_51_eq" rx="16.5" ry="16.5" x="0" y="0" width="255" height="33">
+					</rect>
+				</svg>
+			</div>
+			<div id="Do_you_like_the_slides_er">
+				<span>Do you like the slides?</span>
+			</div>
+		</div>
+		<div id="Repeat_Grid_3_5" class="">
+			<div id="Group_18_et">
+				<div id="Question_about_life_eu">
+					<span>Question about life</span>
+				</div>
+				<svg class="Rectangle_51_ev">
+					<rect id="Rectangle_51_ev" rx="16.5" ry="16.5" x="0" y="0" width="255" height="33">
+					</rect>
+				</svg>
+			</div>
+			<div id="Do_you_like_the_slides_ew">
+				<span>Do you like the slides?</span>
+			</div>
+		</div>
+		<div id="Repeat_Grid_3_6" class="">
+			<div id="Group_18_ey">
+				<div id="Question_about_life_ez">
+					<span>Question about life</span>
+				</div>
+				<svg class="Rectangle_51_e">
+					<rect id="Rectangle_51_e" rx="16.5" ry="16.5" x="0" y="0" width="255" height="33">
+					</rect>
+				</svg>
+			</div>
+			<div id="Do_you_like_the_slides_e">
+				<span>Do you like the slides?</span>
+			</div>
+		</div>
+		<div id="Repeat_Grid_3_7" class="">
+			<div id="Group_18_e">
+				<div id="Question_about_life_e">
+					<span>Question about life</span>
+				</div>
+				<svg class="Rectangle_51_fa">
+					<rect id="Rectangle_51_fa" rx="16.5" ry="16.5" x="0" y="0" width="255" height="33">
+					</rect>
+				</svg>
+			</div>
+			<div id="Do_you_like_the_slides_fa">
+				<span>Do you like the slides?</span>
+			</div>
+		</div>
+		<div id="Repeat_Grid_3_8" class="">
+			<div id="Group_18_fa">
+				<div id="Question_about_life_fa">
+					<span>Question about life</span>
+				</div>
+				<svg class="Rectangle_51_fb">
+					<rect id="Rectangle_51_fb" rx="16.5" ry="16.5" x="0" y="0" width="255" height="33">
+					</rect>
+				</svg>
+			</div>
+			<div id="Do_you_like_the_slides_fb">
+				<span>Do you like the slides?</span>
+			</div>
+		</div>
+		<div id="Repeat_Grid_3_9" class="">
+			<div id="Group_18_fd">
+				<div id="Question_about_life_fe">
+					<span>Question about life</span>
+				</div>
+				<svg class="Rectangle_51_ff">
+					<rect id="Rectangle_51_ff" rx="16.5" ry="16.5" x="0" y="0" width="255" height="33">
+					</rect>
+				</svg>
+			</div>
+			<div id="Do_you_like_the_slides_fg">
+				<span>Do you like the slides?</span>
+			</div>
+		</div>
+	</div>
+	<div id="Group_31">
+		<svg class="Rectangle_52">
+			<rect id="Rectangle_52" rx="18" ry="18" x="0" y="0" width="469" height="73">
+			</rect>
+		</svg>
+		<div id="Anonymous">
+			<span>Anonymous</span>
+		</div>
+		<div id="I_love_them_great_presentation">
+			<span>I love them, great presentation</span>
+		</div>
+		<div id="Mon_1442">
+			<span>Mon, 14:42</span>
+		</div>
+	</div>
+	<div id="Group_30">
+		<svg class="Rectangle_53">
+			<rect id="Rectangle_53" rx="19" ry="19" x="0" y="0" width="469" height="39">
+			</rect>
+		</svg>
+		<div id="Josh">
+			<span>Josh</span>
+		</div>
+		<div id="Mon_1444">
+			<span>Mon, 14:44</span>
+		</div>
+	</div>
+	<div id="Group_29">
+		<svg class="Path_23" viewBox="0 0 469 73">
+			<path id="Path_23" d="M 18 0 L 451 0 C 460.9411315917969 0 469 8.058874130249023 469 18 L 469 55 C 469 64.94112396240234 460.9411315917969 73 451 73 L 18 73 C 8.058874130249023 73 0 64.94112396240234 0 55 L 0 18 C 0 8.058874130249023 8.058874130249023 0 18 0 Z">
+			</path>
+		</svg>
+		<div id="Anonymous_fs">
+			<span>Anonymous</span>
+		</div>
+		<div id="They_are_awful_I_cant_even_rea">
+			<span>They are awful, I can't even read it</span>
+		</div>
+		<div id="Mon_1446">
+			<span>Mon, 14:46</span>
+		</div>
+	</div>
+	<div id="abc123">
+		<span>#abc123</span>
+	</div>
+	<div id="Group_14">
+		<svg class="Rectangle_44">
+			<rect id="Rectangle_44" rx="27" ry="27" x="0" y="0" width="140" height="54">
+			</rect>
+		</svg>
+		<div id="Questions">
+			<span>Questions</span>
+		</div>
+	</div>
+	<div id="Group_34">
+		<svg class="Rectangle_44_f">
+			<rect id="Rectangle_44_f" rx="27" ry="27" x="0" y="0" width="140" height="54">
+			</rect>
+		</svg>
+		<div id="Words">
+			<span>Words</span>
+		</div>
+	</div>
+	<div id="Group_35">
+		<svg class="Rectangle_44_ga">
+			<rect id="Rectangle_44_ga" rx="27" ry="27" x="0" y="0" width="180" height="54">
+			</rect>
+		</svg>
+		<div id="New_question">
+			<span>New question</span>
+		</div>
+	</div>
+	<div id="Group_58">
+		<svg class="Rectangle_70">
+			<rect id="Rectangle_70" rx="31" ry="31" x="0" y="0" width="473" height="62">
+			</rect>
+		</svg>
+		<div id="Send_message">
+			<span>Send message</span>
+		</div>
+		<svg class="Icon_ionic-ios-send" viewBox="4.503 4.503 32.004 32">
+			<path id="Icon_ionic-ios-send" d="M 35.49742126464844 4.574491500854492 L 4.899614334106445 17.91050148010254 C 4.357839584350586 18.16888618469238 4.374509811401367 18.94404029846191 4.924619674682617 19.18575668334961 L 13.20128059387207 23.8616943359375 C 13.6930456161499 24.13674926757813 14.3015022277832 24.07840347290039 14.72658634185791 23.7116641998291 L 31.04652786254883 9.64217472076416 C 31.15488243103027 9.55048942565918 31.41326904296875 9.375453948974609 31.51328659057617 9.47547435760498 C 31.62163925170898 9.583829879760742 31.45494079589844 9.833879470825195 31.36325836181641 9.942234992980957 L 17.2437572479248 25.84542465209961 C 16.85201263427734 26.28717994689941 16.79366683959961 26.93730926513672 17.11039733886719 27.43741035461426 L 22.51981353759766 36.11415100097656 C 22.78653526306152 36.63925552368164 23.54501914978027 36.63092041015625 23.78673553466797 36.09748077392578 L 36.43927764892578 5.499677181243896 C 36.71433258056641 4.899556636810303 36.08920669555664 4.291101455688477 35.49742126464844 4.574491500854492 Z">
+			</path>
+		</svg>
+	</div>
+	<div id="Smiley">
+		<svg class="Icon_ionic-md-happy" viewBox="6 6 59.882 59.882">
+			<path id="Icon_ionic-md-happy" d="M 35.94087982177734 6.000000953674316 C 19.32412147521973 6.000000953674316 5.999999046325684 19.47340774536133 5.999999046325684 35.94090270996094 C 5.999999046325684 52.40839385986328 19.32412147521973 65.88179779052734 35.94087982177734 65.88179779052734 C 52.55763626098633 65.88179779052734 65.88175964355469 52.40839385986328 65.88175964355469 35.94090270996094 C 65.88175964355469 19.47340774536133 52.40850830078125 6.000000953674316 35.94087982177734 6.000000953674316 Z M 35.94087982177734 59.89362335205078 C 22.76718139648438 59.89362335205078 11.98759746551514 49.11446762084961 11.98759746551514 35.94090270996094 C 11.98759746551514 22.76719284057617 22.76732635498047 11.98817920684814 35.94087982177734 11.98817920684814 C 49.11443328857422 11.98817920684814 59.89416122436523 22.76719284057617 59.89416122436523 35.94090270996094 C 59.89416122436523 49.1146125793457 49.11457824707031 59.89362335205078 35.94087982177734 59.89362335205078 Z M 46.42018127441406 32.94680786132813 C 48.9655876159668 32.94680786132813 50.91144943237305 31.00094032287598 50.91144943237305 28.4556770324707 C 50.91144943237305 25.91041374206543 48.96545028686523 23.96454238891602 46.42018127441406 23.96454238891602 C 43.87492370605469 23.96454238891602 41.92905426025391 25.91041374206543 41.92905426025391 28.4556770324707 C 41.92905426025391 31.00094032287598 43.87492752075195 32.94680786132813 46.42018127441406 32.94680786132813 Z M 25.46157073974609 32.94680786132813 C 28.0068359375 32.94680786132813 29.95270919799805 31.00094032287598 29.95270919799805 28.4556770324707 C 29.95270919799805 25.91041374206543 28.00668716430664 23.96454238891602 25.46157073974609 23.96454238891602 C 22.91616439819336 23.96454238891602 20.97029495239258 25.91041374206543 20.97029495239258 28.4556770324707 C 20.97029495239258 31.00094032287598 22.91631126403809 32.94680786132813 25.46157073974609 32.94680786132813 Z M 35.94087982177734 52.40839385986328 C 42.9774169921875 52.40839385986328 48.81488037109375 48.06639099121094 51.21087265014648 41.92893600463867 L 20.6708869934082 41.92893600463867 C 23.06687545776367 48.06639099121094 28.90434646606445 52.40839385986328 35.94087982177734 52.40839385986328 Z">
+			</path>
+		</svg>
+		<div id="Icon_ionic-md-sad">
+			<svg class="Path_4" viewBox="19.224 36 29.424 9.213">
+				<path id="Path_4" d="M 33.93642425537109 36 C 27.39507102966309 36 21.8917064666748 39.75354766845703 19.2243709564209 45.21257781982422 L 48.64847946166992 45.21257781982422 C 45.98115158081055 39.75354766845703 40.47778701782227 36 33.93642425537109 36 Z">
+				</path>
+			</svg>
+			<svg class="Path_5" viewBox="6 6 59.882 59.882">
+				<path id="Path_5" d="M 35.94087982177734 6.000000953674316 C 19.32412147521973 6.000000953674316 5.999999046325684 19.4734058380127 5.999999046325684 35.94090270996094 C 5.999999046325684 52.40839385986328 19.32412147521973 65.88179779052734 35.94087982177734 65.88179779052734 C 52.55763626098633 65.88179779052734 65.88175964355469 52.40839385986328 65.88175964355469 35.94090270996094 C 65.88175964355469 19.4734058380127 52.40850830078125 6.000000953674316 35.94087982177734 6.000000953674316 Z M 35.94087982177734 59.89362335205078 C 22.76718139648438 59.89362335205078 11.98759746551514 49.11446762084961 11.98759746551514 35.94090270996094 C 11.98759746551514 22.76719284057617 22.76732635498047 11.98817920684814 35.94087982177734 11.98817920684814 C 49.11443328857422 11.98817920684814 59.89416885375977 22.76719284057617 59.89416885375977 35.94090270996094 C 59.89416885375977 49.1146125793457 49.11457824707031 59.89362335205078 35.94087982177734 59.89362335205078 Z">
+				</path>
+			</svg>
+			<svg class="Path_6" viewBox="37.2 21.6 8.982 8.982">
+				<path id="Path_6" d="M 41.69112014770508 30.58226776123047 C 44.23653030395508 30.58226776123047 46.18239593505859 28.63640022277832 46.18239593505859 26.09113502502441 C 46.18239593505859 23.54586982727051 44.23637771606445 21.59999847412109 41.69112014770508 21.59999847412109 C 39.14585876464844 21.59999847412109 37.19998168945313 23.54586982727051 37.19998168945313 26.09113502502441 C 37.19998168945313 28.63640022277832 39.14585876464844 30.58226776123047 41.69112014770508 30.58226776123047 Z">
+				</path>
+			</svg>
+			<svg class="Path_7" viewBox="19 21.6 8.982 8.982">
+				<path id="Path_7" d="M 23.49114799499512 30.58226776123047 C 26.03641128540039 30.58226776123047 27.9822826385498 28.63640022277832 27.9822826385498 26.09113502502441 C 27.9822826385498 23.54586982727051 26.0362663269043 21.59999847412109 23.49114799499512 21.59999847412109 C 20.94574546813965 21.59999847412109 18.99987411499023 23.54586982727051 18.99987411499023 26.09113502502441 C 18.99987411499023 28.63640022277832 20.94588661193848 30.58226776123047 23.49114799499512 30.58226776123047 Z">
+				</path>
+			</svg>
+		</div>
+		<div id="Icon_material-sentiment-neutra">
+			<div id="Group_11">
+				<svg class="Path_8" viewBox="24 37.333 17.965 4.491">
+					<path id="Path_8" d="M 24.00000190734863 37.33333206176758 L 41.96452713012695 37.33333206176758 L 41.96452713012695 41.8244743347168 L 24.00000190734863 41.8244743347168 L 24.00000190734863 37.33333206176758 Z">
+					</path>
+				</svg>
+				<svg class="Path_9" viewBox="37.333 21.333 8.982 8.982">
+					<path id="Path_9" d="M 46.31559753417969 25.8244743347168 C 46.31559753417969 28.30486106872559 44.30484008789063 30.31560897827148 41.82445907592773 30.31560897827148 C 39.34407043457031 30.31560897827148 37.33331680297852 28.30486106872559 37.33331680297852 25.8244743347168 C 37.33331680297852 23.34408569335938 39.34407043457031 21.33333587646484 41.82445907592773 21.33333587646484 C 44.30484008789063 21.33333587646484 46.31559753417969 23.34408569335938 46.31559753417969 25.8244743347168 Z">
+					</path>
+				</svg>
+				<svg class="Path_10" viewBox="18.667 21.333 8.982 8.982">
+					<path id="Path_10" d="M 27.6489315032959 25.8244743347168 C 27.6489315032959 28.30486106872559 25.63817977905273 30.31560897827148 23.15779876708984 30.31560897827148 C 20.67741012573242 30.31560897827148 18.66665840148926 28.30486106872559 18.66665840148926 25.8244743347168 C 18.66665840148926 23.34408569335938 20.67741012573242 21.33333587646484 23.15779876708984 21.33333587646484 C 25.63817977905273 21.33333587646484 27.6489315032959 23.34408569335938 27.6489315032959 25.8244743347168 Z">
+					</path>
+				</svg>
+				<svg class="Path_11" viewBox="5.333 5.333 59.882 59.882">
+					<path id="Path_11" d="M 35.24428939819336 5.333333969116211 C 18.7169189453125 5.333333969116211 5.333332061767578 18.74686622619629 5.333332061767578 35.27425384521484 C 5.333332061767578 51.80164337158203 18.7169189453125 65.21517181396484 35.24428939819336 65.21517181396484 C 51.80160903930664 65.21517181396484 65.21513366699219 51.80164337158203 65.21513366699219 35.27425384521484 C 65.21513366699219 18.74686241149902 51.80160903930664 5.333333969116211 35.24428939819336 5.333333969116211 Z M 35.27423095703125 59.22697448730469 C 22.04035377502441 59.22697448730469 11.32151222229004 48.50814056396484 11.32151222229004 35.27424621582031 C 11.32151222229004 22.04035949707031 22.04035377502441 11.32151412963867 35.27423095703125 11.32151412963867 C 48.50811004638672 11.32151412963867 59.2269401550293 22.04035949707031 59.2269401550293 35.27424621582031 C 59.2269401550293 48.50814056396484 48.50811004638672 59.22697448730469 35.27423095703125 59.22697448730469 Z">
+					</path>
+				</svg>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
