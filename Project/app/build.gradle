@@ -52,6 +52,10 @@ def npmInstall = task npmInstall(type: Exec) {
     commandLine 'sh', './npmInstall.sh'
 }
 
+def recreateDB = task recreateDB(type: Exec) {
+    commandLine 'sh', './recreateDatabase.sh'
+}
+
 
 def finilize = task finalize {
     dependsOn npmInstall
