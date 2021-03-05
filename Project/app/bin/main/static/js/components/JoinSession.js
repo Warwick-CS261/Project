@@ -6,6 +6,7 @@ import {
   handleToken,
   handleJSON
 } from '../util';
+import { Redirect } from 'react-router-dom';
 
 export default class JoinSession extends React.Component {
   constructor(props) {
@@ -15,6 +16,8 @@ export default class JoinSession extends React.Component {
       password: "",
       protected: false,
       error: false,
+      submitted: false,
+      sessionID: null,
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -58,9 +61,15 @@ export default class JoinSession extends React.Component {
           });
         }
         console.log(session);
-        // TODO redirect to session
+        // setting new tokens
         Cookies.set('token', token);
         this.props.updateToken(token);
+        // handle session
+        this.props.handleSession(session);
+        this.setState({
+          submitted: true,
+          sessionID: session.id,
+        });
       },
       error: (jqXHR, status, error)=>{
         this.setState({
@@ -73,41 +82,47 @@ export default class JoinSession extends React.Component {
 
   render() {
     return(
-      <div>
-        <h2>Join Session</h2>
-        <form onSubmit={this.handleSubmit}>
-          {this.state.protected ?
-            <div className="mb-3">
-              <input
-                type="text"
-                name="password"
-                className="form-control"
-                value={this.state.password}
-                onChange={this.handleChange}
-              />
-            </div> : 
-            <div className="mb-3">
-              <input 
-                type="text"
-                name="sessionID"
-                className="form-control"
-                value={this.state.code}
-                onChange={this.handleChange}
-                autoFocus
-                required
-              />
-            </div>
-          }
-          <div className="mb-3">
-            <button 
-              type="submit"
-              className="btn btn-primary"
-            >
-              Join Session
-            </button>
-          </div>
-        </form>
-      </div>
+      <>
+        {this.state.submitted ?
+          <Redirect to={`/session/${this.state.sessionID}`} />
+          :
+          <>
+            <h2>Join Session</h2>
+            <form onSubmit={this.handleSubmit}>
+              {this.state.protected ?
+                <div className="mb-3">
+                  <input
+                    type="text"
+                    name="password"
+                    className="form-control"
+                    value={this.state.password}
+                    onChange={this.handleChange}
+                  />
+                </div> : 
+                <div className="mb-3">
+                  <input 
+                    type="text"
+                    name="sessionID"
+                    className="form-control"
+                    value={this.state.code}
+                    onChange={this.handleChange}
+                    autoFocus
+                    required
+                  />
+                </div>
+              }
+              <div className="mb-3">
+                <button 
+                  type="submit"
+                  className="btn btn-primary"
+                >
+                  Join Session
+                </button>
+              </div>
+            </form>
+          </>
+        }
+      </>
     )
   }
 }
