@@ -102,7 +102,11 @@ class App extends React.Component {
             </Router>
           </>
           :
-          <Main onLogout={this.handleLogout} updateToken={this.updateToken} />
+          <Router>
+            <Main
+              onLogout={this.handleLogout}
+              updateToken={this.updateToken} />
+          </Router>
         }
       </>
     );

@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default class Sessions extends React.Component {
+export default class AttendedSession extends React.Component {
   render() {
     return (
-      <>Sessions Component</>
+      <>Attended Sessions go here</>
     )
   }
 }

@@ -30,6 +30,7 @@ dependencies {
     implementation group: 'com.sparkjava', name: 'spark-core', version:'2.9.2'
     implementation group: 'com.sparkjava', name: 'spark-template-velocity', version:'2.7.1'
     implementation group: 'com.github.sharispe', name: 'slib-sml', version:'0.9.1'
+    implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'org.slf4j:slf4j-simple:1.7.21'
 }
