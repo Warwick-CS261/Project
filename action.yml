@@ -1,6 +1,0 @@
-# action.yml
-name: 'Docker CI/CD'
-description: 'Create a docker image and run the tests on the system'
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
