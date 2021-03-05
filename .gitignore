@@ -26,15 +26,14 @@ modules/
 # Ignore Gradle project-specific cache directory
 .gradle
 
-app/bin
-app/src/main/resources/static/js/dist/index.js
-app/database/database.db
+index.js
+
 .vscode
 # Ignore Gradle build output directory
 build
-app/bin
-app/src/main/resources/static/js/dist/index.js
-Project/app/database/database.db
+bin
+ndex.js
+database.db
 
 
 # node modules

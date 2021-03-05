@@ -50,7 +50,7 @@ public class DBConnection {
         return true;
     }
 
-    public Boolean createQuestion(Question q, String sessionID) throws SQLException{
+    public Question createQuestion(Question q, String sessionID) throws SQLException{
         int qs = numOfSessQuest(sessionID);
         String query = "INSERT INTO QUESTION VALUES(?,?,?,0)";
         PreparedStatement stmt = connection.prepareStatement(query);
@@ -58,7 +58,8 @@ public class DBConnection {
         stmt.setString(2, sessionID);
         stmt.setString(3, q.getQuestion());
         stmt.executeUpdate();
-        return true;
+        q.setID(qs);
+        return q;
     }
 
     public Boolean createAnswer(Answer answer, String sessiondID, int qID) throws SQLException{

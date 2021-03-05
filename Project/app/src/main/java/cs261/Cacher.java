@@ -15,16 +15,57 @@ public class Cacher {
     }
 
 
-    public HostSesh getHostSeshByID(String sessionID) throws Exception{
+    public HostSesh getHostSessionByID(String sessionID) throws Exception{
         HostSesh hs;
-        if (Objects.isNull(hs = searchCache(sessionID))){
+        if (!Objects.isNull(hs = searchCache(sessionID))){
             return hs;
+        }else if(!Objects.isNull(hs = dbConn.getHostSessionByID(sessionID))){
+            recentSessions.add(hs);
+            return hs;
+        }
+        return null;
+    }
+
+    public Boolean sessionExists(String sessionID) throws Exception{
+        if(Objects.isNull(searchCache(sessionID))){
+            return true;
         }else{
-            return dbConn.getHostSessionByID(sessionID);
+            return dbConn.sessionExists(sessionID);
         }
     }
 
-    
+    public Boolean createMessage(Message message, String sessionID) throws Exception{
+        HostSesh hs;
+        if (!Objects.isNull(hs = searchCache(sessionID))){
+            hs.getChat().addMessage(message);
+        }
+        dbConn.createMessage(message, sessionID);
+        return true;
+    }
+
+    public Boolean createQuestion(Question q, String sessionID) throws Exception{
+        HostSesh hs;
+        Question newQ = dbConn.createQuestion(q, sessionID);
+
+        if (!Objects.isNull(hs = searchCache(sessionID))){
+            hs.addQuestion(newQ);
+        }
+        
+        return true;
+    }
+
+    public Boolean createAnswer(Answer a, String sessionID, int qID) throws Exception{
+        HostSesh hs;
+        if (!Objects.isNull(hs = searchCache(sessionID))){
+            hs.getQuestionByID(qID).addAnswer(a);
+        }
+        dbConn.createAnswer(a, sessionID, qID);
+        return true;
+    }
+
+
+
+
 
     private HostSesh searchCache (String sessionID){
         for(HostSesh hs : recentSessions){
