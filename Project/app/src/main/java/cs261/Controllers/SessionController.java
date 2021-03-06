@@ -107,7 +107,7 @@ public class SessionController{
         }
 
         Message message = new Message(user, msg, date, anon);
-        dbConn.createMessage(message, sessionID);
+        App.getApp().getCacher().createMessage(message, sessionID);
         App.getApp().getObservable().notifyWatchers( 1, sessionID, gson.toJson(message));
         return "token="+dbConn.newToken(user.getId());
     };

@@ -95,29 +95,19 @@ export default class Chat extends React.Component {
 
 
   render(){
-    let msgs;
-    if (
-        this.state.msgs === null ||
-        this.state.msgs === undefined ||
-        this.state.msgs.length == 0
-      ) {
-      msgs = null;
-    } else {
-      msgs = this.state.msgs.map((msg) => {
-        <li key={msg.id}>
-          {JSON.stringify(msg)}
-        </li>
-      });
-    }
-
+    let msgs = this.state.msgs;
     return(
       <>
         <h3>Chat</h3>
         <ul>
-        {msgs === null || msgs === undefined ?
+        {msgs === null || msgs === undefined || msgs.length == 0 ?
           <p>No messages so far</p>
           :
-          {msgs}
+          this.state.msgs.map((msg) => {
+            return (<li key={msg.id}>
+              {JSON.stringify(msg)}
+            </li>)
+          })
         }
         </ul>
         <form onSubmit={this.handleSubmit}>

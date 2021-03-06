@@ -11,6 +11,7 @@ public class App {
 
     private DBConnection dbConn;
     private Obserable observable;
+    private Cacher cacher;
     public static App app;
 
 
@@ -26,6 +27,10 @@ public class App {
         return observable;
     }
 
+    public Cacher getCacher(){
+        return cacher;
+    }
+
     public static void main(String[] args) throws Exception{
         app = new App();
         
@@ -38,6 +43,7 @@ public class App {
         Class.forName("org.sqlite.JDBC");
         dbConn = new DBConnection("jdbc:sqlite:database/database.db");
         observable = new Obserable();
+        cacher = new Cacher(dbConn);
         
 
         get("/", (req, res) -> {
