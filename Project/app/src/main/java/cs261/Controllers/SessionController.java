@@ -79,28 +79,28 @@ public class SessionController{
         Boolean anon;        
 
         if(msg.equals("")){
-            response.status(547);
+            response.status(457);
             return "empty message";
         }
 
         if(anonStr.equals("true")){
             anon = true;
-        }else if(anonStr.equals("false")){
+        }else{
             anon = false;
-        } else {
-            response.status(457);
-            return "invalid anon";
         }
         User user = dbConn.getUserByToken(token);
         if(Objects.isNull(user)){
             response.status(450);
             return "Invalid Token";
         }
-        if(dbConn.userIsAttendee(sessionID, user.getId())){
-            Message message = new Message(user, msg, date, anon);
-            dbConn.createMessage(message, sessionID);
-            App.getApp().getObservable().notifyWatchers( 1, sessionID, gson.toJson(message));
+        if(!dbConn.userIsAttendee(sessionID, user.getId())){
+            response.status(401);
+            return "not authorised for session";
         }
+
+        Message message = new Message(user, msg, date, anon);
+        dbConn.createMessage(message, sessionID);
+        App.getApp().getObservable().notifyWatchers( 1, sessionID, gson.toJson(message));
         return "token="+dbConn.newToken(user.getId());
     };
 

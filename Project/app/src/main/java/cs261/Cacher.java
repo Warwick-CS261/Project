@@ -1,6 +1,7 @@
 package cs261;
 
 import java.util.Queue;
+import java.sql.SQLException;
 import java.util.Objects;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 
@@ -14,6 +15,43 @@ public class Cacher {
         recentSessions = new CircularFifoQueue<HostSesh>(100);
     }
 
+    public Boolean createQuestion(Question q, String sessionID) throws Exception{
+        HostSesh hs;
+        Question newQ = dbConn.createQuestion(q, sessionID);
+
+        if (!Objects.isNull(hs = searchCache(sessionID))){
+            hs.addQuestion(newQ);
+        }
+        
+        return true;
+    }
+
+    public Boolean createAnswer(Answer a, String sessionID, int qID) throws Exception{
+        HostSesh hs;
+        if (!Objects.isNull(hs = searchCache(sessionID))){
+            hs.getQuestionByID(qID).addAnswer(a);
+        }
+        dbConn.createAnswer(a, sessionID, qID);
+        return true;
+    }
+
+    public Boolean pushQuestion(String sessionID, int qID) throws Exception{
+        HostSesh hs;
+        if (!Objects.isNull(hs = searchCache(sessionID))){
+            hs.pushQuestion(qID);
+        }
+        dbConn.pushQuestion(sessionID, qID);
+        return true;
+    }
+
+    public Boolean endQuestion(String sessionID, int qID) throws Exception{
+        HostSesh hs;
+        if (!Objects.isNull(hs = searchCache(sessionID))){
+            hs.getQuestionByID(qID).setEnded(false);
+        }
+        dbConn.endQuestion(sessionID, qID);
+        return true;
+    }
 
     public HostSesh getHostSessionByID(String sessionID) throws Exception{
         HostSesh hs;
@@ -42,29 +80,6 @@ public class Cacher {
         dbConn.createMessage(message, sessionID);
         return true;
     }
-
-    public Boolean createQuestion(Question q, String sessionID) throws Exception{
-        HostSesh hs;
-        Question newQ = dbConn.createQuestion(q, sessionID);
-
-        if (!Objects.isNull(hs = searchCache(sessionID))){
-            hs.addQuestion(newQ);
-        }
-        
-        return true;
-    }
-
-    public Boolean createAnswer(Answer a, String sessionID, int qID) throws Exception{
-        HostSesh hs;
-        if (!Objects.isNull(hs = searchCache(sessionID))){
-            hs.getQuestionByID(qID).addAnswer(a);
-        }
-        dbConn.createAnswer(a, sessionID, qID);
-        return true;
-    }
-
-
-
 
 
     private HostSesh searchCache (String sessionID){
