@@ -3,6 +3,8 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
+import org.openrdf.query.resultio.sparqlxml.SPARQLResultsXMLParser;
+
 
 public class DBConnection {
 
@@ -53,7 +55,7 @@ public class DBConnection {
 
     public Question createQuestion(Question q, String sessionID) throws SQLException{
         int qs = numOfSessQuest(sessionID);
-        String query = "INSERT INTO QUESTION VALUES(?,?,?,0)";
+        String query = "INSERT INTO QUESTION VALUES(?,?,?,1)";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setInt(1, qs);
         stmt.setString(2, sessionID);
@@ -149,6 +151,10 @@ public class DBConnection {
         stmt.executeUpdate();
         return true;
     }
+
+
+
+
 
     public int numOfSessMsg(String sessionID)throws SQLException{
         String query = "SELECT COUNT(id) FROM MESSAGES WHERE sessionID = ?";
@@ -369,7 +375,7 @@ public class DBConnection {
         ResultSet rs = stmt.executeQuery();
         if(rs.next()){
             return new Sesh(sessionID, rs.getString("seriesID"), rs.getString("sname"),
-            getUserByID(rs.getInt("id")), rs.getBoolean("ended"), loadChat(sessionID), new ArrayList<Question>(), getSessionModerators(sessionID));
+            getUserByID(rs.getInt("id")), rs.getBoolean("ended"), loadChat(sessionID), loadPushedQuestions(sessionID), getSessionModerators(sessionID));
         //NEED TO ACTUALL LOAD CHAT AND PUSHED QUESTIONS
         }
         return null;
@@ -382,7 +388,7 @@ public class DBConnection {
         ResultSet rs = stmt.executeQuery();
         if(rs.next()){
             return new HostSesh(sessionID, rs.getString("seriesID"), rs.getString("sname"), rs.getFloat("mood"),
-            getUserByID(rs.getInt("userID")), rs.getBoolean("ended"),  new ArrayList<Question>(), loadChat(sessionID), rs.getString("secure"),new ArrayList<Question>(), new ArrayList<MoodDate>(), getSessionModerators(sessionID));
+            getUserByID(rs.getInt("userID")), rs.getBoolean("ended"),  loadHiddenQuestions(sessionID), loadChat(sessionID), rs.getString("secure"),loadPushedQuestions(sessionID), new ArrayList<MoodDate>(), getSessionModerators(sessionID));
         //NEED TO ACTUALL LOAD CHAT AND PUSHED QUESTIONS
         }
         return null;
@@ -401,6 +407,39 @@ public class DBConnection {
         }
         return chat;
     }
+
+
+    private ArrayList<Question> loadHiddenQuestions(String sessionID) throws SQLException{
+        ArrayList<Question> questions= new ArrayList<Question>();
+        String query = "SELECT * FROM QUESTION WHERE sessionID =? AND pushed = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        stmt.setBoolean(2, false);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()){
+            Question q = new Question(rs.getString("question"), new ArrayList<Answer>(), rs.getInt("id"), rs.getBoolean("pushed"));
+            questions.add(q);
+        }
+        return questions;
+    }
+
+    private ArrayList<Question> loadPushedQuestions(String sessionID) throws SQLException{
+        ArrayList<Question> questions= new ArrayList<Question>();
+        String query = "SELECT * FROM QUESTION WHERE sessionID =? AND pushed = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        stmt.setBoolean(2, true);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()){
+            Question q = new Question(rs.getString("question"), new ArrayList<Answer>(), rs.getInt("id"), rs.getBoolean("pushed"));
+            questions.add(q);
+        }
+        return questions;
+    }
+
+    //private ArrayList<Answer> loadAnswers(String sessionID, int qID) throws SQLException{
+
+    //}
 
     public Boolean emailExists(String email) throws SQLException{
         String query = "SELECT * FROM USER WHERE email = ?";

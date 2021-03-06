@@ -38,7 +38,7 @@ public class QuestionController{
         }
         Question q = new Question(question);
         dbConn.createQuestion(q, sessionID);
-        return "token="+dbConn.newToken(user.getId())+","+gson.toJson(question);
+        return "token="+dbConn.newToken(user.getId())+","+gson.toJson(q);
     };
 
     public static Route submitResponse = (Request request, Response response) -> {
