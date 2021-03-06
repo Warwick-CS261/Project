@@ -80,7 +80,9 @@ public class Cacher {
             hs.getChat().addMessage(message);
         }else{
             message.setId(dbConn.numOfSessMsg(sessionID));
+            System.out.println(dbConn.numOfSessMsg(sessionID));
         }
+        System.out.println(message.getId());
         dbConn.createMessage(message, sessionID);
         return true;
     }

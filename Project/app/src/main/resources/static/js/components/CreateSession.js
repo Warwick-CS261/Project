@@ -109,7 +109,7 @@ export default class CreateSession extends React.Component {
                   type="checkbox"
                   name="secure"
                   className="form-check-input"
-                  value={this.state.private}
+                  value={this.state.secure}
                   onChange={this.handleCheck}
                 />
               </div>

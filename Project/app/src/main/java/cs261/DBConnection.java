@@ -381,7 +381,6 @@ public class DBConnection {
         stmt.setString(1, sessionID);
         ResultSet rs = stmt.executeQuery();
         if(rs.next()){
-            System.out.print("found session");
             return new HostSesh(sessionID, rs.getString("seriesID"), rs.getString("sname"), rs.getFloat("mood"),
             getUserByID(rs.getInt("userID")), rs.getBoolean("ended"),  new ArrayList<Question>(), loadChat(sessionID), rs.getString("secure"),new ArrayList<Question>(), new ArrayList<MoodDate>(), getSessionModerators(sessionID));
         //NEED TO ACTUALL LOAD CHAT AND PUSHED QUESTIONS
@@ -392,12 +391,12 @@ public class DBConnection {
     private Chat loadChat(String sessionID) throws SQLException{
         Chat chat = new Chat();
 
-        String query ="SELECT * FROM MESSAGES WHERE sessionID = ? ORDER BY stamp DESC";
+        String query ="SELECT * FROM MESSAGES WHERE sessionID = ? ORDER BY stamp ASC";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setString(1, sessionID);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()){
-            Message m = new Message(getUserByID(rs.getInt("userID")), rs.getString("msg"), rs.getTimestamp("stamp"), rs.getBoolean("anon"));
+            Message m = new Message(getUserByID(rs.getInt("userID")), rs.getString("msg"), rs.getTimestamp("stamp"), rs.getBoolean("anon"),rs.getInt("id"));
             chat.addMessage(m);
         }
         return chat;

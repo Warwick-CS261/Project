@@ -12,6 +12,7 @@ public class App {
     private DBConnection dbConn;
     private Obserable observable;
     private Analyse analyse;
+    private Cacher cacher;
     public static App app;
 
     public Analyse getAnalyse(){
@@ -30,6 +31,10 @@ public class App {
         return observable;
     }
 
+    public Cacher getCacher(){
+        return cacher;
+    }
+
     public static void main(String[] args) throws Exception{
         app = new App();
         
@@ -45,6 +50,7 @@ public class App {
         observable = new Obserable();
         analyse = new Analyse();
         //System.out.println(analyse.parseText("this is great!"));
+        cacher = new Cacher(dbConn);
         
 
         get("/", (req, res) -> {

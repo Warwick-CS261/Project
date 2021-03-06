@@ -40,8 +40,8 @@ class AttendeeSession extends React.Component {
   }
 
   componentDidMount(){
-    if (this.state.id === ""){
-      let id = this.props.match.params.id;
+    let id = this.props.match.params.id;
+    if (this.state.id === "" || id != this.state.id){
       $.ajax({
         url: `/session/${id}`,
         type: 'POST',
@@ -91,10 +91,6 @@ class AttendeeSession extends React.Component {
         }
       });
     }
-  }
-
-  componentWillUnmount(){
-    this.props.handleSession(null);
   }
 
   render() {

@@ -10,6 +10,7 @@ import { handleJSON, handleToken } from '../util';
 import $ from 'jquery';
 
 import Chat from './Chat';
+import CreateQuestion from './CreateQuestion';
 
 class HostSession extends React.Component {
   constructor(props) {
@@ -71,6 +72,10 @@ class HostSession extends React.Component {
           sessionID={this.state.id}
           updateToken={this.props.updateToken}
           chat={this.state.chat}
+        />
+        <CreateQuestion
+          sessionID={this.state.id}
+          updateToken={this.props.updateToken}
         />
         {JSON.stringify(this.state)}
       </>
