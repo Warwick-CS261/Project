@@ -14,6 +14,10 @@ public class Series {
 
     }
 
+    public void addSession(Sesh s){
+        sessions.add(s);
+    }
+
     public Series(int id, String name){
         this.id = id;
         this.name = name;

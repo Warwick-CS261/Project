@@ -58,6 +58,15 @@ public class Sesh {
         return true;
     }
 
+    public Question getQuestionByID(int id){
+        for(Question q : pushedQuestions){
+            if (q.getID() == id){
+                return q;
+            }
+        }
+        return null;
+    }
+
 
     public Chat getChat() {
         return chat;

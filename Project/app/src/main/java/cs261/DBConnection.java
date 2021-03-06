@@ -50,7 +50,7 @@ public class DBConnection {
         return true;
     }
 
-    public Boolean createQuestion(Question q, String sessionID) throws SQLException{
+    public Question createQuestion(Question q, String sessionID) throws SQLException{
         int qs = numOfSessQuest(sessionID);
         String query = "INSERT INTO QUESTION VALUES(?,?,?,0)";
         PreparedStatement stmt = connection.prepareStatement(query);
@@ -58,7 +58,8 @@ public class DBConnection {
         stmt.setString(2, sessionID);
         stmt.setString(3, q.getQuestion());
         stmt.executeUpdate();
-        return true;
+        q.setID(qs);
+        return q;
     }
 
     public Boolean createAnswer(Answer answer, String sessiondID, int qID) throws SQLException{
@@ -71,6 +72,78 @@ public class DBConnection {
         stmt.setTimestamp(5, Timestamp.valueOf(answer.getStamp()));
         stmt.setBoolean(6, answer.getAnon());
         stmt.setString(7, answer.getContext());
+        stmt.executeUpdate();
+        return true;
+    }
+
+    public Boolean pushQuestion(String sessionId, int questionID) throws SQLException{
+        String query = "UPDATE QUESTION SET pushed = TRUE WHERE id = ? & sessionID = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, questionID);
+        stmt.setString(2, sessionId);
+        stmt.executeUpdate();
+        return true;    
+    }
+
+    public Boolean endQuestion(String sessionId, int questionID) throws SQLException{
+        String query = "UPDATE QUESTION SET pushed = FALSE WHERE id = ? & sessionID = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, questionID);
+        stmt.setString(2, sessionId);
+        stmt.executeUpdate();
+        return true;    
+    }
+    //needs to filter out duplicates
+    public Series getUserSessions(int userID) throws SQLException{
+        String query = "SELECT id FROM  SESH WHERE owner =?";
+        Series userSeries = new Series(-1, "userssesiions");
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, userID);
+        ResultSet rs = stmt.executeQuery();
+        while(rs.next()){
+            userSeries.addSession(getHostSessionByID(rs.getString("id")));
+        }
+//now attendee
+        query = "SELECT  sessionID FROM ATTENDEE_SESSION WHERE userID = ";
+        PreparedStatement stmt2 = connection.prepareStatement(query);
+        stmt.setInt(1, userID);
+        ResultSet rs2 = stmt2.executeQuery();
+        while(rs.next()){
+            userSeries.addSession(getSessionByID(rs2.getString("sessionID")));
+        }
+
+        return userSeries;
+    }
+
+    public String getQuestionMesasge(String sessionID, int questionID) throws SQLException{
+        String query = "SELECT * FROM QUESTION id = ? & sessionID = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, questionID);
+        stmt.setString(2, sessionID);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()){
+            return rs.getString("question");
+        }
+        return null;    
+    }
+
+    public Boolean deleteQuestion(String sessionID, int questionID) throws SQLException{
+        String query = "DELETE FROM QUESTIONS WHERE id = ? & sessionID = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, questionID);
+        stmt.setString(2, sessionID);
+        stmt.executeUpdate();
+        return true;
+    }
+
+    public Boolean createMessage(Message message, String sessionID) throws SQLException{
+        String query = "INSERT INTO MESSAGES VALUES(?,?,?,?,?)";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        stmt.setString(2, message.getMsg());
+        stmt.setInt(3, message.getUser().getId());
+        stmt.setDate(4, new java.sql.Date(message.getStamp().getTime()));
+        stmt.setBoolean(5, message.getAnon());
         stmt.executeUpdate();
         return true;
     }

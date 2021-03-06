@@ -10,6 +10,7 @@ import cs261.Controllers.*;
 public class App {
 
     private DBConnection dbConn;
+    private Obserable observable;
     public static App app;
 
 
@@ -19,6 +20,10 @@ public class App {
 
     public static App getApp(){
         return app;
+    }
+
+    public  Obserable getObservable(){
+        return observable;
     }
 
     public static void main(String[] args) throws Exception{
@@ -32,6 +37,7 @@ public class App {
         port(6969);
         Class.forName("org.sqlite.JDBC");
         dbConn = new DBConnection("jdbc:sqlite:database/database.db");
+        observable = new Obserable();
         
 
         get("/", (req, res) -> {
@@ -53,6 +59,7 @@ public class App {
         path("/session", () -> {
             post("/create", SessionController.createSession);
             post("/user", SessionController.userSessions);
+            post("/watch", SessionController.watchSession);
 
             get("/create", returnPage);
             get("/user", returnPage);
