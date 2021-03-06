@@ -10,6 +10,7 @@ import { handleJSON, handleToken } from '../util';
 import $ from 'jquery';
 
 import Chat from './Chat';
+import Reaction from './Reaction';
 
 
 class AttendeeSession extends React.Component {
@@ -107,6 +108,10 @@ class AttendeeSession extends React.Component {
           sessionID={this.state.id}
           updateToken={this.props.updateToken}
           chat={this.state.chat}
+        />
+        <Reaction
+          sessionID={this.state.id}
+          updateToken={this.props.updateToken}
         />
         {JSON.stringify(this.state)}
       </>
