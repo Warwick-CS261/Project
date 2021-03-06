@@ -48,7 +48,7 @@ export default class Chat extends React.Component {
 
   handleSubmit(event){
     let params = new URLSearchParams();
-    params.append("messages", this.state.msg);
+    params.append("message", this.state.msg);
     params.append("anon", this.state.anon);
     console.log(params);
     $.ajax({
@@ -100,7 +100,9 @@ export default class Chat extends React.Component {
       msgs = null;
     } else {
       msgs = this.state.msgs.map((msg) => {
-        <li>{JSON.stringify(msg)}</li>
+        <li key={msg.id}>
+          {JSON.stringify(msg)}
+        </li>
       });
     }
 

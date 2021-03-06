@@ -43,3 +43,6 @@ node_modules/
 
 # log files
 *.log*
+
+# auto generated dot files
+.project
