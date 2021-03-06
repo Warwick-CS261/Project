@@ -1,6 +1,7 @@
 package cs261;
 import java.sql.*;
 import java.util.*;
+import java.util.Date;
 
 
 public class DBConnection {
@@ -165,6 +166,44 @@ public class DBConnection {
         ResultSet rs = stmt.executeQuery();
         rs.next();
         return rs.getInt(1);
+    }
+
+    public int numOfAnswersToQ(String sessionID, int qID)throws SQLException{
+        String query = "SELECT COUNT(id) FROM QUESTION WHERE sessionID = ? AND qID = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        stmt.setInt(2, qID);
+        ResultSet rs = stmt.executeQuery();
+        rs.next();
+        return rs.getInt(1);
+    }
+
+    public float getSessionMood(String sessionID)throws SQLException{
+        String query = "SELECT mood FROM SESH WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        ResultSet rs = stmt.executeQuery();
+        rs.next();
+        return rs.getFloat(1);
+    }
+
+    public Boolean setSessionMood(String sessionID, float mood)throws SQLException{
+        String query = "UPDATE SESH SET mood = ? WHERE id =?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setFloat(1, mood);
+        stmt.setString(2, sessionID);
+        stmt.executeUpdate();
+        return true;
+    }
+
+    public Boolean createMoodDate(String sessionID, Date date, float mood) throws SQLException{
+        String query = "INSERT INTO MOOD_DATE VALUES(?, ?, ?)";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        stmt.setDate(2, new java.sql.Date(date.getTime()));
+        stmt.setFloat(3, mood);
+        stmt.executeUpdate();
+        return true;
     }
 
     public String newToken(int userID) throws SQLException{
@@ -347,7 +386,6 @@ public class DBConnection {
             getUserByID(rs.getInt("userID")), rs.getBoolean("ended"),  new ArrayList<Question>(), loadChat(sessionID), rs.getString("secure"),new ArrayList<Question>(), new ArrayList<MoodDate>(), getSessionModerators(sessionID));
         //NEED TO ACTUALL LOAD CHAT AND PUSHED QUESTIONS
         }
-        System.out.print("session not found");
         return null;
     }
 

@@ -11,8 +11,12 @@ public class App {
 
     private DBConnection dbConn;
     private Obserable observable;
+    private Analyse analyse;
     public static App app;
 
+    public Analyse getAnalyse(){
+        return analyse;
+    }
 
     public DBConnection getDbConn(){
         return dbConn;
@@ -33,11 +37,14 @@ public class App {
     }
 
     private void run() throws Exception{
+        
         staticFiles.location("/static");
         port(6969);
         Class.forName("org.sqlite.JDBC");
         dbConn = new DBConnection("jdbc:sqlite:database/database.db");
         observable = new Obserable();
+        analyse = new Analyse();
+        //System.out.println(analyse.parseText("this is great!"));
         
 
         get("/", (req, res) -> {

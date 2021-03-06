@@ -24,6 +24,7 @@ public class QuestionController{
         String sessionID = request.params(":id");
         String token = request.cookie("token");
         String question = request.queryParams("question");
+        //add pushed variable
         User user = dbConn.getUserByToken(token);
         if(Objects.isNull(user)){
             response.status(450);
@@ -37,8 +38,7 @@ public class QuestionController{
         }
         Question q = new Question(question);
         dbConn.createQuestion(q, sessionID);
-        response.cookie("token", dbConn.newToken(user.getId()), 3600, false, true);
-        return gson.toJson(question) + sessionID;
+        return "token="+dbConn.newToken(user.getId())+","+gson.toJson(question);
     };
 
     public static Route submitResponse = (Request request, Response response) -> {
@@ -78,7 +78,9 @@ public class QuestionController{
         //check question exists
         Answer answer = new Answer(user, smiley, context, stamp, anonymous);
         dbConn.createAnswer(answer, sessionID, qID);
-
+        dbConn.setSessionMood(sessionID, App.getApp().getAnalyse().newMoodCoefficient(dbConn.getSessionMood(sessionID), App.getApp().getAnalyse().parseText(answer.getContext()), dbConn.numOfAnswersToQ(sessionID, qID)));
+        dbConn.createMoodDate(sessionID, new Date(), dbConn.getSessionMood(sessionID));
+        
         App.getApp().getObservable().notifyHosts(3, sessionID, gson.toJson(answer));
         return "token="+dbConn.newToken(user.getId());
     };

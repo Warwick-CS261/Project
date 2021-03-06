@@ -5,9 +5,10 @@ import javax.script.*;
 
 public class Analyse {
 
-    public static Invocable inv;
+    private Invocable inv;
 
-    public static void main(String[] args) {
+
+    public Analyse(){
         try {
             init();
         } catch(Exception e) {
@@ -15,7 +16,8 @@ public class Analyse {
         }
     }
 
-    public static void init() throws Exception {
+
+    private void init() throws Exception {
         // All outputs from the python file are written to this StringWriter
         StringWriter writer = new StringWriter();
         ScriptContext context = new SimpleScriptContext();
@@ -34,8 +36,9 @@ public class Analyse {
         //System.out.println(writer.toString().trim());
     }
 
-    public static String parseText(String str) throws Exception {
-        return inv.invokeFunction("func1", str).toString();
+    public float parseText(String str) throws Exception {
+        String val = inv.invokeFunction("func1", str).toString();
+        return Float.parseFloat(val);
     }
 
     public float newMoodCoefficient(float oldMean, float newValue, int numValues) {
