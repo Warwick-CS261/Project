@@ -7,11 +7,16 @@ import spark.*;
 
 import cs261.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.Gson;
 
 public class QuestionController{
 
     private static Gson gson = new Gson();
+
+    final static Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     public static Route createQuestion = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
@@ -22,6 +27,7 @@ public class QuestionController{
         User user = dbConn.getUserByToken(token);
         if(Objects.isNull(user)){
             response.status(450);
+            logger.warn("Create question in session {} attempted with invalid token: {}", sessionID,token);
             return "Invalid Token";
         }
         //need to check user is moderator or owner
@@ -48,7 +54,9 @@ public class QuestionController{
 
         User user = dbConn.getUserByToken(token);
         if(Objects.isNull(user)){
+            
             response.status(450);
+            logger.warn("Submit response to question {} in session {} attempted with invalid token: {}",qID, sessionID,token);
             return "Invalid Token";
         }
         LocalDateTime stamp = LocalDateTime.now();
@@ -63,6 +71,7 @@ public class QuestionController{
 
         if(!dbConn.sessionExists(sessionID)){
             response.status(454);
+            logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
             return "Session doesn't exist"; 
         }
         //check session exists
@@ -85,18 +94,21 @@ public class QuestionController{
         //token is valid
         if(Objects.isNull(user)){
             response.status(450);
+            logger.warn("Delete question question {} in session {} attempted with invalid token: {}",qID, sessionID,token);
             return "Invalid Token";
         }
 
         if(!dbConn.sessionExists(sessionID)){
-            response.status(1);
+            response.status(454);
+            logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
             return "session doesn't exist";
         }
 
         //session exits? maybe
 
         if(!dbConn.userIsModerator(user.getId(), sessionID)){
-            response.status(1);
+            response.status(401);
+            logger.warn("User {} attempted to access session {} but is not authorised", user.getId(), sessionID);
             return "not authorised";
         }
 
@@ -116,11 +128,13 @@ public class QuestionController{
         //token is valid
         if(Objects.isNull(user)){
             response.status(450);
+            logger.warn("End question {} in session {} attempted with invalid token: {}",qID, sessionID,token);
             return "Invalid Token";
         }
 
         if(!dbConn.sessionExists(sessionID)){
-            response.status(1);
+            response.status(454);
+            logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
             return "session doesn't exist";
         }
 
@@ -154,11 +168,13 @@ public class QuestionController{
         //token is valid
         if(Objects.isNull(user)){
             response.status(450);
+            logger.warn("Push question {} in session {} attempted with invalid token: {}",qID, sessionID,token);
             return "Invalid Token";
         }
 
         if(!dbConn.sessionExists(sessionID)){
-            response.status(1);
+            response.status(454);
+            logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
             return "session doesn't exist";
         }
 

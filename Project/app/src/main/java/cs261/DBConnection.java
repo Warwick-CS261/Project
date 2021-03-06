@@ -137,15 +137,25 @@ public class DBConnection {
     }
 
     public Boolean createMessage(Message message, String sessionID) throws SQLException{
-        String query = "INSERT INTO MESSAGES VALUES(?,?,?,?,?)";
+        String query = "INSERT INTO MESSAGES VALUES(?,?,?,?,?,?)";
         PreparedStatement stmt = connection.prepareStatement(query);
-        stmt.setString(1, sessionID);
-        stmt.setString(2, message.getMsg());
-        stmt.setInt(3, message.getUser().getId());
-        stmt.setDate(4, new java.sql.Date(message.getStamp().getTime()));
-        stmt.setBoolean(5, message.getAnon());
+        stmt.setInt(1, message.getId());
+        stmt.setString(2, sessionID);
+        stmt.setString(3, message.getMsg());
+        stmt.setInt(4, message.getUser().getId());
+        stmt.setDate(5, new java.sql.Date(message.getStamp().getTime()));
+        stmt.setBoolean(6, message.getAnon());
         stmt.executeUpdate();
         return true;
+    }
+
+    public int numOfSessMsg(String sessionID)throws SQLException{
+        String query = "SELECT COUNT(id) FROM MESSAGES WHERE sessionID = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        ResultSet rs = stmt.executeQuery();
+        rs.next();
+        return rs.getInt(1);
     }
 
     private int numOfSessQuest(String sessionID)throws SQLException{
@@ -320,7 +330,7 @@ public class DBConnection {
         ResultSet rs = stmt.executeQuery();
         if(rs.next()){
             return new Sesh(sessionID, rs.getString("seriesID"), rs.getString("sname"),
-            getUserByID(rs.getInt("id")), rs.getBoolean("ended"), new Chat(), new ArrayList<Question>(), getSessionModerators(sessionID));
+            getUserByID(rs.getInt("id")), rs.getBoolean("ended"), loadChat(sessionID), new ArrayList<Question>(), getSessionModerators(sessionID));
         //NEED TO ACTUALL LOAD CHAT AND PUSHED QUESTIONS
         }
         return null;
@@ -334,11 +344,25 @@ public class DBConnection {
         if(rs.next()){
             System.out.print("found session");
             return new HostSesh(sessionID, rs.getString("seriesID"), rs.getString("sname"), rs.getFloat("mood"),
-            getUserByID(rs.getInt("userID")), rs.getBoolean("ended"),  new ArrayList<Question>(), new Chat(), rs.getString("secure"),new ArrayList<Question>(), new ArrayList<MoodDate>(), getSessionModerators(sessionID));
+            getUserByID(rs.getInt("userID")), rs.getBoolean("ended"),  new ArrayList<Question>(), loadChat(sessionID), rs.getString("secure"),new ArrayList<Question>(), new ArrayList<MoodDate>(), getSessionModerators(sessionID));
         //NEED TO ACTUALL LOAD CHAT AND PUSHED QUESTIONS
         }
         System.out.print("session not found");
         return null;
+    }
+
+    private Chat loadChat(String sessionID) throws SQLException{
+        Chat chat = new Chat();
+
+        String query ="SELECT * FROM MESSAGES WHERE sessionID = ? ORDER BY stamp DESC";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()){
+            Message m = new Message(getUserByID(rs.getInt("userID")), rs.getString("msg"), rs.getTimestamp("stamp"), rs.getBoolean("anon"));
+            chat.addMessage(m);
+        }
+        return chat;
     }
 
     public Boolean emailExists(String email) throws SQLException{

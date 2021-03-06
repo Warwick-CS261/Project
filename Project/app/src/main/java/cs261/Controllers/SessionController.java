@@ -6,11 +6,15 @@ import spark.*;
 
 import cs261.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.Gson;
 
 public class SessionController{
 
     private static Gson gson = new Gson();
+    final static Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     public static Route createSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
@@ -25,6 +29,7 @@ public class SessionController{
         //token is valid
         if(Objects.isNull(user)){
             response.status(450);
+            logger.warn("Session creation attempted with invalid token: {}", token);
             return "Invalid Token";
         }
         String sessionID;
@@ -39,7 +44,8 @@ public class SessionController{
             secure = null;
         }else{
             response.status(457);
-            return "fuck off(invalid secure)";
+            logger.info("Couldn't recognise the secure value: {}", secure);
+            return "invalid secure";
         }
 
         HostSesh hostSession = new HostSesh(sessionID, seriesID, name, user, secure);
@@ -60,6 +66,7 @@ public class SessionController{
         //token is valid
         if(Objects.isNull(user)){
             response.status(450);
+            logger.warn("Get user sessions attempted with invalid token: {}", token);
             return "Invalid Token";
         }
         return gson.toJson(dbConn.getUserSessions(user.getId()));
@@ -91,9 +98,10 @@ public class SessionController{
         User user = dbConn.getUserByToken(token);
         if(Objects.isNull(user)){
             response.status(450);
+            logger.warn("Message submit to session {} attempted with invalid token: {}",sessionID, token);
             return "Invalid Token";
         }
-        if(!dbConn.userIsAttendee(sessionID, user.getId())){
+        if(!dbConn.userIsAttendee(sessionID, user.getId())&&!dbConn.userIsModerator(user.getId(),sessionID )){
             response.status(401);
             return "not authorised for session";
         }
@@ -117,6 +125,7 @@ public class SessionController{
         //token is valid
         if(Objects.isNull(user)){
             response.status(450);
+            logger.warn("Add Host to session {} attempted with invalid token: {}", sessionID,token);
             return "Invalid Token";
         }
         //Checks if user requesting is host
@@ -147,12 +156,14 @@ public class SessionController{
         //token is valid
         if(Objects.isNull(user)){
             response.status(450);
+            logger.warn("Join session {} attempted with invalid token: {}", sessionID,token);
             return "Invalid Token";
         }
         //token exists
         HostSesh session = dbConn.getHostSessionByID(sessionID);
         if(Objects.isNull(session)){
             response.status(454);
+            logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
             return "Invalid session";
         }
 
@@ -171,10 +182,11 @@ public class SessionController{
         if (Objects.isNull(password)){
             password = "";
         }
-        if (Objects.isNull(session.getSecure())){
-            ;
+        if (!Objects.isNull(session.getSecure())){
+            session.setSecure("");
         }
         if(session.getSecure().equals("")||session.getSecure().equals(password)){
+            dbConn.addUserToSession(sessionID, user.getId());
             return "token="+dbConn.newToken(user.getId())+","+gson.toJson(session.convertToSesh());
         }
 
@@ -194,6 +206,7 @@ public class SessionController{
         //token is valid
         if(Objects.isNull(user)){
             response.status(450);
+            logger.warn("End session {} attempted with invalid token: {}", sessionID,token);
             return "Invalid Token";
         }
 
@@ -221,11 +234,13 @@ public class SessionController{
         //token is valid
         if(Objects.isNull(user)){
             response.status(450);
+            logger.warn("Delete session {} attempted with invalid token: {}", sessionID,token);
             return "Invalid Token";
         }
 
         if(!dbConn.sessionExists(sessionID)){
             response.status(454);
+            logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
             return "Session doesn't exist";
         }
 
@@ -236,6 +251,8 @@ public class SessionController{
         return "token="+dbConn.newToken(user.getId());
     };
 
+    //Could cause problems with tokens, however it shouldn't
+    //but a token may be used twice (acceptable?)
     public static Route watchSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
 
@@ -246,11 +263,13 @@ public class SessionController{
         //token is valid
         if(Objects.isNull(user)){
             response.status(450);
+            logger.warn("Watch session {} attempted with invalid token: {}", sessionID,token);
             return "Invalid Token";
         }
 
         if(!dbConn.sessionExists(sessionID)){
-            response.status(1);
+            response.status(454);
+            logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
             return "Session doesn't exist";
         }
 

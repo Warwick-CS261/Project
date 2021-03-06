@@ -7,12 +7,30 @@ public class Message {
     String msg;
     Date stamp;
     Boolean anon;
+    int id;
 
     public Message(User user, String msg, Date stamp, Boolean anon){
         this.user = user;
         this.msg = msg;
         this.stamp = stamp;
         this.anon = anon;
+        id = -1;
+    }
+
+    public Message(User user, String msg, Date stamp, Boolean anon, int id){
+        this.user = user;
+        this.msg = msg;
+        this.stamp = stamp;
+        this.anon = anon;
+        this.id = id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Boolean getAnon() {

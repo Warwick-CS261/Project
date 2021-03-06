@@ -17,7 +17,6 @@ export default class JoinSession extends React.Component {
       protected: false,
       error: false,
       submitted: false,
-      sessionID: null,
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -40,17 +39,10 @@ export default class JoinSession extends React.Component {
       type: 'POST',
       data: params,
       success: (data, status, jqXHR) => {
-        // In case session is protected rerender component with
-        if (data == "Wrong password"){
-          this.setState({
-            protected: true,
-          });
-          return;
-        }
         let token = handleToken(data);
         if (token === null || token === undefined){
           this.setState({
-            error: data,
+            error: 'Timed out, please log in again',
           });
           return;
         }
@@ -69,59 +61,103 @@ export default class JoinSession extends React.Component {
         this.setState({
           submitted: true,
           sessionID: session.id,
+          error: false,
         });
+        
       },
-      error: (jqXHR, status, error)=>{
-        this.setState({
-          error: 'Something went wrong',
-        });
+      statusCode: {
+        // Invalid token
+        450: ()=>{
+          // TODO display the reason for redirect
+          console.log('Token invalid');
+          Cookies.remove('token');
+          this.props.updateToken(null);
+          this.setState({
+            error: <Redirect to="/auth/login" />,
+          });
+        },
+        // Invalid session
+        454: ()=>{
+          console.log('Invalid session');
+          this.setState({
+            error: `Session with id ${this.state.sessionID} not found`,
+          });
+        },
+        // Password missing
+        456: ()=>{
+          console.log('Session password is missing');
+          this.setState({
+            protected: true,
+          });
+        },
+        // Session ended
+        457: ()=>{
+          console.log('Session has ended, only hosts can access it');
+          this.setState({
+            error: 'Session has ended, only hosts can access it',
+          });
+        },
+        458: ()=>{
+          console.log('Session password is invalid');
+          this.setState({
+            error: 'Password is invalid',
+          });
+        }
       }
     });
     event.preventDefault();
   }
 
   render() {
+
+    if (this.state.submitted){
+      return (
+        <Redirect to={`/session/${this.state.sessionID}`} />
+      );
+    }
+
     return(
       <>
-        {this.state.submitted ?
-          <Redirect to={`/session/${this.state.sessionID}`} />
-          :
-          <>
-            <h2>Join Session</h2>
-            <form onSubmit={this.handleSubmit}>
-              {this.state.protected ?
-                <div className="mb-3">
-                  <input
-                    type="text"
-                    name="password"
-                    className="form-control"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                  />
-                </div> : 
-                <div className="mb-3">
-                  <input 
-                    type="text"
-                    name="sessionID"
-                    className="form-control"
-                    value={this.state.code}
-                    onChange={this.handleChange}
-                    autoFocus
-                    required
-                  />
-                </div>
-              }
-              <div className="mb-3">
-                <button 
-                  type="submit"
-                  className="btn btn-primary"
-                >
-                  Join Session
-                </button>
-              </div>
-            </form>
-          </>
-        }
+        <h2>Join Session</h2>
+        <form onSubmit={this.handleSubmit}>
+          {this.state.error !== false && 
+            <div className="alert alert-danger" role="alert">
+              {this.state.error}
+            </div>
+          }
+          {this.state.protected ?
+            <div className="mb-3">
+              <input
+                type="text"
+                name="password"
+                className="form-control"
+                value={this.state.password}
+                onChange={this.handleChange}
+                placeholder="Password"
+              />
+            </div> : 
+            <div className="mb-3">
+              <input 
+                type="text"
+                name="sessionID"
+                className="form-control"
+                value={this.state.sessionID}
+                onChange={this.handleChange}
+                autoFocus
+                required
+                placeholder="Session ID"
+              />
+            </div>
+          }
+          <div className="mb-3">
+            <button 
+              type="submit"
+              className="btn btn-primary"
+            >
+              Join Session
+            </button>
+          </div>
+        </form>
       </>
     )
   }

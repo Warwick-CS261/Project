@@ -1,7 +1,6 @@
 package cs261;
 
 import java.util.Queue;
-import java.sql.SQLException;
 import java.util.Objects;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 
@@ -22,7 +21,6 @@ public class Cacher {
         if (!Objects.isNull(hs = searchCache(sessionID))){
             hs.addQuestion(newQ);
         }
-        
         return true;
     }
 
@@ -72,10 +70,16 @@ public class Cacher {
         }
     }
 
+
+    //TODO
+    //Could do questions like this
     public Boolean createMessage(Message message, String sessionID) throws Exception{
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))){
+            message.setId(hs.getChat().getMessages().size());
             hs.getChat().addMessage(message);
+        }else{
+            message.setId(dbConn.numOfSessMsg(sessionID));
         }
         dbConn.createMessage(message, sessionID);
         return true;
