@@ -61,17 +61,27 @@ export default class JoinSession extends React.Component {
         this.setState({
           submitted: true,
           sessionID: session.id,
+          error: false,
         });
         
       },
       statusCode: {
         // Invalid token
         450: ()=>{
+          // TODO display the reason for redirect
           console.log('Token invalid');
+          Cookies.remove('token');
+          this.props.updateToken(null);
+          this.setState({
+            error: <Redirect to="/auth/login" />,
+          });
         },
         // Invalid session
         454: ()=>{
           console.log('Invalid session');
+          this.setState({
+            error: `Session with id ${this.state.sessionID} not found`,
+          });
         },
         // Password missing
         456: ()=>{
@@ -83,6 +93,9 @@ export default class JoinSession extends React.Component {
         // Session ended
         457: ()=>{
           console.log('Session has ended, only hosts can access it');
+          this.setState({
+            error: 'Session has ended, only hosts can access it',
+          });
         },
         458: ()=>{
           console.log('Session password is invalid');
@@ -96,49 +109,55 @@ export default class JoinSession extends React.Component {
   }
 
   render() {
+
+    if (this.state.submitted){
+      return (
+        <Redirect to={`/session/${this.state.sessionID}`} />
+      );
+    }
+
     return(
       <>
-        {this.state.submitted ?
-          <Redirect to={`/session/${this.state.sessionID}`} />
-          :
-          <>
-            <h2>Join Session</h2>
-            <form onSubmit={this.handleSubmit}>
-              {this.state.protected ?
-                <div className="mb-3">
-                  <input
-                    type="text"
-                    name="password"
-                    className="form-control"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                    placeholder="Password"
-                  />
-                </div> : 
-                <div className="mb-3">
-                  <input 
-                    type="text"
-                    name="sessionID"
-                    className="form-control"
-                    value={this.state.sessionID}
-                    onChange={this.handleChange}
-                    autoFocus
-                    required
-                    placeholder="Session ID"
-                  />
-                </div>
-              }
-              <div className="mb-3">
-                <button 
-                  type="submit"
-                  className="btn btn-primary"
-                >
-                  Join Session
-                </button>
-              </div>
-            </form>
-          </>
-        }
+        <h2>Join Session</h2>
+        <form onSubmit={this.handleSubmit}>
+          {this.state.error !== false && 
+            <div className="alert alert-danger" role="alert">
+              {this.state.error}
+            </div>
+          }
+          {this.state.protected ?
+            <div className="mb-3">
+              <input
+                type="text"
+                name="password"
+                className="form-control"
+                value={this.state.password}
+                onChange={this.handleChange}
+                placeholder="Password"
+              />
+            </div> : 
+            <div className="mb-3">
+              <input 
+                type="text"
+                name="sessionID"
+                className="form-control"
+                value={this.state.sessionID}
+                onChange={this.handleChange}
+                autoFocus
+                required
+                placeholder="Session ID"
+              />
+            </div>
+          }
+          <div className="mb-3">
+            <button 
+              type="submit"
+              className="btn btn-primary"
+            >
+              Join Session
+            </button>
+          </div>
+        </form>
       </>
     )
   }
