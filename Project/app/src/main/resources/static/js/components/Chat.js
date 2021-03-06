@@ -64,7 +64,11 @@ export default class Chat extends React.Component {
           return;
         }
         Cookies.set('token', token);
+        // TODO disable sending empty msgs
         this.props.updateToken(token);
+        this.setState({
+          msg: "",
+        });
       },
       statusCode: {
         450: ()=>{
