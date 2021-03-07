@@ -9,7 +9,7 @@ import cs261.Controllers.*;
 
 public class App {
 
-    static int port = 6969;
+    static int port = 4000;
     static String address = "localhost";
     private DBConnection dbConn;
     private Obserable observable;
@@ -55,7 +55,7 @@ public class App {
         dbConn = new DBConnection("jdbc:sqlite:database/database.db");
         observable = new Obserable();
         analyse = new Analyse();
-        System.out.println(analyse.parseText("this is great!"));
+        System.out.println(analyse.parseText("this app is better than facebook"));
         cacher = new Cacher(dbConn);
         
 
