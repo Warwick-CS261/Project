@@ -437,9 +437,11 @@ public class DBConnection {
         return questions;
     }
 
-    //private ArrayList<Answer> loadAnswers(String sessionID, int qID) throws SQLException{
+    private ArrayList<Answer> loadAnswers(String sessionID, int qID) throws SQLException{
+        ArrayList<Answer> answers = new ArrayList<Answer>();
+        
 
-    //}
+    }
 
     public Boolean emailExists(String email) throws SQLException{
         String query = "SELECT * FROM USER WHERE email = ?";
