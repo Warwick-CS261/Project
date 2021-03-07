@@ -41,7 +41,7 @@ export default class Login extends React.Component {
   handleSubmit(event){
     let params = new URLSearchParams();
     params.append('email', this.state.email);
-    params.append('password', this.state.email);
+    params.append('password', this.state.password);
     $.ajax({
       url: '/auth/login',
       type: 'POST',
@@ -73,8 +73,9 @@ export default class Login extends React.Component {
 
   render(){
     return(
-      <div>
-        <h1>Login</h1>
+      <div className="blackbg">
+        <div className="registerBackground">
+        <p class="h1 text-center title-text"><i class="bi bi-person-fill"></i> Login</p>
         {this.state.error !== false && 
           <div className="alert alert-danger" role="alert">
             {this.state.error}
@@ -83,7 +84,7 @@ export default class Login extends React.Component {
         <div className="container form-container">
           <form method="POST" onSubmit={this.handleSubmit} >
               <div class="row register-box">
-                <div class="col-6">
+                <div class="col-12">
                   <div className="row form-row">
                     <div className="col-5">
                       <label for="fn" class="form-label">Email</label>
@@ -96,6 +97,7 @@ export default class Login extends React.Component {
                         onChange={this.handleChange}
                         onInvalid={this.handleInvalid}
                         className="form-control"
+                        placeholder="John@Doe.com"
                         autoFocus
                         autoComplete="email"
                         required
@@ -114,35 +116,29 @@ export default class Login extends React.Component {
                         onChange={this.handleChange}
                         onInvalid={this.handleInvalid}
                         className="form-control"
+                        placeholder="******"
                         autoComplete="current-password"
                         required
                       />
                     </div>
                   </div>
-                </div>
-                <div class="col-6 register-right-side">
-                  <div class = "registerIcon">
-                      <i class="bi bi-person-circle"></i>
-                  </div>
-                  <div className="register-bottom-right">
+                  <div className="row form-row">
                     <div className="terms">
-                      <input 
-                        type="checkbox" 
-                        name="stay"
-                        onChange={this.handleCheck}
-                        className="form-check-input"
-                      />
-                      <label for="terms" class="form-label termslabel"><b>I accept the terms and conditions</b></label> 
-                      <br></br>
+                        <input 
+                          type="checkbox" 
+                          name="stay"
+                          onChange={this.handleCheck}
+                          className="form-check-input"
+                        />
+                        <label for="terms" class="form-label termslabel"><b>I am not a robot!</b></label> 
+                        <br></br>
+                      </div>         
+                      <button type="submit" className="col-4 btn btn-primary btn-lg btn-round">Log In</button>
                     </div>
-                    
-                  </div>          
-                  <button type="submit" className="col-4 btn btn-primary btn-lg btn-round">Log In</button>               
                 </div>
-              </div>
-              
-              
+              </div>    
             </form>
+          </div>
           </div>
       </div>
     );
