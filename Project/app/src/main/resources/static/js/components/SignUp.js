@@ -73,89 +73,139 @@ export default class SignUp extends React.Component {
 
   render(){
     return(
-      <div>
-        <h1>Register</h1>
-        {this.state.error !== false && 
-          <div className="alert alert-danger" role="alert">
-            {this.state.error}
+      <div className="blackbg">
+        <div className="registerBackground">
+        <p class="h1 text-center title-text"><i class="bi bi-person-fill"></i> Create User</p>
+          {this.state.error !== false && 
+            <div className="alert alert-danger" role="alert">
+              {this.state.error}
+            </div>
+          }
+          <div className="container form-container">
+            <form onSubmit={this.handleSubmit} className="formwidth">
+              <div class="row register-box">
+                <div class="col-6">
+                  <div className="row form-row">
+                    <div className="col-5">
+                      <label for="fn" class="form-label">First Name</label>
+                    </div>
+                    <div class="col-7">
+                      <input
+                        type="text" 
+                        name="fname" 
+                        value={this.state.value} 
+                        onChange={this.handleChange}
+                        onInvalid={this.handleInvalid}
+                        className="form-control"
+                        placeholder="John"
+                        autoFocus
+                        autoComplete="given-name"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="row form-row">
+                    <div className="col-5">
+                      <label for="fn" class="form-label">Last Name</label>
+                    </div>
+                    <div class="col-7">
+                      <input 
+                        type="text" 
+                        name="lname" 
+                        value={this.state.value} 
+                        onChange={this.handleChange}
+                        onInvalid={this.handleInvalid}
+                        className="form-control"
+                        placeholder="Doe"
+                        autoComplete="family-name"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="row form-row">
+                    <div className="col-5">
+                      <label for="fn" class="form-label">Email</label>
+                    </div>
+                    <div class="col-7">
+                      <input 
+                        type="email" 
+                        name="email" 
+                        value={this.state.value} 
+                        onChange={this.handleChange}
+                        onInvalid={this.handleInvalid}
+                        className="form-control"
+                        placeholder="John@Doe.com"
+                        autoComplete="email"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="row form-row">
+                    <div className="col-5">
+                      <label for="fn" class="form-label">Password</label>
+                    </div>
+                    <div class="col-7">
+                      <input 
+                        type="password" 
+                        name="password" 
+                        value={this.state.value} 
+                        onChange={this.handleChange}
+                        onInvalid={this.handleInvalid}
+                        className="form-control"
+                        placeholder="******"
+                        autoComplete="new-password"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="row form-row">
+                    <div className="col-5">
+                      <label for="fn" class="form-label">Confirm Password</label>
+                    </div>
+                    <div class="col-7">
+                      <input 
+                        type="password" 
+                        name="rpassword" 
+                        value={this.state.value} 
+                        onChange={this.handleChange}
+                        onInvalid={this.handleInvalid}
+                        className="form-control"
+                        placeholder="******"
+                        autoComplete="new-password"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6 register-right-side">
+                  <div class = "registerIcon">
+                      <i class="bi bi-person-circle"></i>
+                  </div>
+                  <div className="register-bottom-right">
+                    <div className="terms">
+                      <input 
+                        type="checkbox" 
+                        name="terms" 
+                        value={this.state.value} 
+                        onChange={this.handleCheck}
+                        className="form-check-input"
+                        required
+                      />
+                      <label for="terms" class="form-label termslabel"><b>I accept the terms and conditions</b></label> 
+                      <br></br>
+                    </div>
+                    
+                  </div>          
+                  <button type="submit" className="col-4 btn btn-primary btn-lg btn-round">Register</button>               
+                </div>
+              </div>
+              
+              
+            </form>
           </div>
-        }
-        <form onSubmit={this.handleSubmit}>
-          <div className="mb-3">
-            <input
-              type="text" 
-              name="fname" 
-              value={this.state.value} 
-              onChange={this.handleChange}
-              onInvalid={this.handleInvalid}
-              className="form-control"
-              autoFocus
-              autoComplete="given-name"
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <input 
-              type="text" 
-              name="lname" 
-              value={this.state.value} 
-              onChange={this.handleChange}
-              onInvalid={this.handleInvalid}
-              className="form-control"
-              autoComplete="family-name"
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <input 
-              type="email" 
-              name="email" 
-              value={this.state.value} 
-              onChange={this.handleChange}
-              onInvalid={this.handleInvalid}
-              className="form-control"
-              autoComplete="email"
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <input 
-              type="password" 
-              name="password" 
-              value={this.state.value} 
-              onChange={this.handleChange}
-              onInvalid={this.handleInvalid}
-              className="form-control"
-              autoComplete="new-password"
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <input 
-              type="password" 
-              name="rpassword" 
-              value={this.state.value} 
-              onChange={this.handleChange}
-              onInvalid={this.handleInvalid}
-              className="form-control"
-              autoComplete="new-password"
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <input 
-              type="checkbox" 
-              name="terms" 
-              value={this.state.value} 
-              onChange={this.handleCheck}
-              className="form-check-input"
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <button type="submit" className="btn btn-primary">Register</button>
-          </div>
-        </form>
+          
+        </div>
+        
       </div>
     );
   }

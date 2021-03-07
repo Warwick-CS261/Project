@@ -149,7 +149,7 @@ section.body{
 
 .terms{
   background-color: #43E2B2;
-  margin-top: 32px;
+  margin-top: 64px;
   margin-bottom:32px;
   justify-self: left;
   border-radius: 10px;
@@ -159,8 +159,11 @@ section.body{
   padding-bottom: 4px;
   display: inline;
 }
-
+.blackbg{
+  background-color: #342E37;
+}
 .registerBackground{
+  
   background-image: url('../img/background.svg');
   background-size: cover;
   height: 100vh;
@@ -171,6 +174,7 @@ section.body{
   }
 }
 
+
 .form-container{
   width:100%;
   display: flex;
@@ -180,5 +184,12 @@ section.body{
 .register-bottom-right{
   width: 100%;
   height: 100%;
+}
+.formwidth{
+  width: 80%;
+}
+
+.termslabel{
+  margin-left: 8px;
 }
 
