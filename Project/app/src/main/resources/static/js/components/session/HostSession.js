@@ -5,8 +5,12 @@ import {
   NavLink,
   Switch
 } from 'react-router-dom';
-import { withRouter } from 'react-router';
+import { Redirect, withRouter } from 'react-router';
+import { handleJSON, handleToken } from '../../util';
+import $ from 'jquery';
 
+import Chat from '../Chat';
+import CreateQuestion from '../question/CreateQuestion';
 
 class HostSession extends React.Component {
   constructor(props) {
@@ -24,7 +28,8 @@ class HostSession extends React.Component {
         owner: session.owner,
         finished: session.finished,
         pushedQuestions: session.pushedQuestions,
-        chat: session.chat
+        chat: session.chat,
+        error: false,
       };
     } else {
       this.state = {
@@ -38,7 +43,8 @@ class HostSession extends React.Component {
         owner: null,
         finished: null,
         pushedQuestions: [],
-        chat: null
+        chat: null,
+        error: false,
       };
     }
   }
@@ -55,6 +61,22 @@ class HostSession extends React.Component {
   render() {
     return (
       <>
+        <h2>{this.state.sessionName}</h2>
+        <h6>{this.state.id}</h6>
+        {this.state.error !== false && 
+          <div className="alert alert-danger" role="alert">
+            {this.state.error}
+          </div>
+        }
+        <Chat
+          sessionID={this.state.id}
+          updateToken={this.props.updateToken}
+          chat={this.state.chat}
+        />
+        <CreateQuestion
+          sessionID={this.state.id}
+          updateToken={this.props.updateToken}
+        />
         {JSON.stringify(this.state)}
       </>
     );

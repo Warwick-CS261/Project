@@ -17,8 +17,8 @@ import {
 } from 'react-router-dom';
 
 // Components
-import SignUp from './components/SignUp';
-import Login from './components/Login';
+import SignUp from './components/auth/SignUp';
+import Login from './components/auth/Login';
 import Main from './components/Main';
 
 $(document).ready(()=>{

@@ -5,7 +5,7 @@ import {
   handleError,
   handleToken,
   handleJSON
-} from '../util';
+} from '../../util';
 import { Redirect } from 'react-router-dom';
 
 export default class CreateSession extends React.Component {
@@ -39,11 +39,14 @@ export default class CreateSession extends React.Component {
   }
 
   handleSubmit(event){
-    let params = new URLSearchParams(this.state).toString();
+    let params = new URLSearchParams();
+    params.append('name', this.state.name);
+    params.append('secure', this.state.secure);
+    params.append('series', this.state.series);
     $.ajax({
       url: '/session/create',
       type: 'POST',
-      data: params,
+      data: params.toString(),
       success: (data, status, jqXHR) => {
         let token = handleToken(data);
         if (token === null || token === undefined ){
@@ -109,7 +112,7 @@ export default class CreateSession extends React.Component {
                   type="checkbox"
                   name="secure"
                   className="form-check-input"
-                  value={this.state.private}
+                  value={this.state.secure}
                   onChange={this.handleCheck}
                 />
               </div>

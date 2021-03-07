@@ -10,8 +10,14 @@ import cs261.Controllers.*;
 public class App {
 
     private DBConnection dbConn;
+    private Obserable observable;
+    private Analyse analyse;
+    private Cacher cacher;
     public static App app;
 
+    public Analyse getAnalyse(){
+        return analyse;
+    }
 
     public DBConnection getDbConn(){
         return dbConn;
@@ -21,6 +27,14 @@ public class App {
         return app;
     }
 
+    public  Obserable getObservable(){
+        return observable;
+    }
+
+    public Cacher getCacher(){
+        return cacher;
+    }
+
     public static void main(String[] args) throws Exception{
         app = new App();
         
@@ -28,10 +42,15 @@ public class App {
     }
 
     private void run() throws Exception{
+        
         staticFiles.location("/static");
         port(6969);
         Class.forName("org.sqlite.JDBC");
         dbConn = new DBConnection("jdbc:sqlite:database/database.db");
+        observable = new Obserable();
+        analyse = new Analyse();
+        System.out.println(analyse.parseText("this is great!"));
+        cacher = new Cacher(dbConn);
         
 
         get("/", (req, res) -> {
@@ -53,6 +72,7 @@ public class App {
         path("/session", () -> {
             post("/create", SessionController.createSession);
             post("/user", SessionController.userSessions);
+            post("/watch", SessionController.watchSession);
 
             get("/create", returnPage);
             get("/user", returnPage);

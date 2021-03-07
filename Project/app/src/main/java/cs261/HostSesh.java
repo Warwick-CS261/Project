@@ -39,7 +39,19 @@ public class HostSesh extends Sesh {
     }
 
     public Sesh convertToSesh(){
-        return this;
+        return new Sesh(id, seriesID, sessionName, owner, finished, chat, pushedQuestions, moderators);
+    }
+
+    public Boolean pushQuestion(int qID){
+        for(Question q : hiddenQuestions){
+            if(q.getID() == qID){
+                hiddenQuestions.remove(q);
+                pushedQuestions.add(q);
+                return true;
+            }
+        }
+        return false;
+
     }
 
 

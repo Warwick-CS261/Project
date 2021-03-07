@@ -5,9 +5,12 @@ import {
   NavLink,
   Switch
 } from 'react-router-dom';
-import { withRouter } from 'react-router';
-import { handleJSON, handleToken } from '../util';
+import { Redirect, withRouter } from 'react-router';
+import { handleJSON, handleToken } from '../../util';
 import $ from 'jquery';
+
+import Chat from '../Chat';
+import Reaction from '../question/Reaction';
 
 
 class AttendeeSession extends React.Component {
@@ -21,7 +24,8 @@ class AttendeeSession extends React.Component {
         sessionName: session.sessionName,
         owner: session.owner,
         pushedQuestions: session.pushedQuestions,
-        chat: session.chat
+        chat: session.chat,
+        error: false,
       };
     } else {
       this.state = {
@@ -30,14 +34,15 @@ class AttendeeSession extends React.Component {
         sessionName: "",
         owner: null,
         pushedQuestions: [],
-        chat: null
+        chat: null,
+        error: false,
       };
     }
   }
 
   componentDidMount(){
-    if (this.state.id === ""){
-      let id = this.props.match.params.id;
+    let id = this.props.match.params.id;
+    if (this.state.id === "" || id != this.state.id){
       $.ajax({
         url: `/session/${id}`,
         type: 'POST',
@@ -45,7 +50,7 @@ class AttendeeSession extends React.Component {
           let token = handleToken(data);
           if (token === null || token === undefined) {
             this.setState({
-              error: 'Timed out, please log in again'
+              error: 'Server response was invalid'
             });
             return;
           }
@@ -60,11 +65,25 @@ class AttendeeSession extends React.Component {
           this.props.updateToken(token);
           // handle session
           this.props.handleSession(session);
+          if (session.secure === null || session.secure === undefined){
+            this.setState({
+              id: session.id,
+              seriesID: session.seriesID,
+              sessionName: session.sessionName,
+              owner: session.owner,
+              pushedQuestions: session.pushedQuestions,
+              chat: session.chat,
+              error: false,
+            });
+          }
         },
         statusCode: {
           // Invalid token
           450: ()=>{
             console.log('Token invalid');
+            this.setState({
+              error: <Redirect to="/auth/login" />,
+            });
           },
           // Invalid session
           454: ()=>{
@@ -73,6 +92,9 @@ class AttendeeSession extends React.Component {
           // Password missing
           456: ()=>{
             console.log('Password required to access session');
+            this.setState({
+              error: <Redirect to="/session/join" />,
+            });
           },
           // Session ended
           457: ()=>{
@@ -86,6 +108,22 @@ class AttendeeSession extends React.Component {
   render() {
     return (
       <>
+        <h2>{this.state.sessionName}</h2>
+        <h6>{this.state.id}</h6>
+        {this.state.error !== false && 
+          <div className="alert alert-danger" role="alert">
+            {this.state.error}
+          </div>
+        }
+        <Chat
+          sessionID={this.state.id}
+          updateToken={this.props.updateToken}
+          chat={this.state.chat}
+        />
+        <Reaction
+          sessionID={this.state.id}
+          updateToken={this.props.updateToken}
+        />
         {JSON.stringify(this.state)}
       </>
     );
