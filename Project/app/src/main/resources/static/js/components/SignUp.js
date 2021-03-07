@@ -1,6 +1,6 @@
 import React from 'react';
 import Cookies from 'js-cookie';
-import $ from 'jquery';
+import $, { param } from 'jquery';
 import {handleToken, handleError} from '../util';
 
 /**
@@ -40,11 +40,17 @@ export default class SignUp extends React.Component {
   }
 
   handleSubmit(event) {
-    let params = new URLSearchParams(this.state).toString();
+    let params = new URLSearchParams();
+    params.append('fname', this.state.fname);
+    params.append('lname', this.state.lname);
+    params.append('email', this.state.email);
+    params.append('password', this.state.password);
+    params.append('rpassword', this.state.rpassword);
+    params.append('terms', this.state.terms);
     $.ajax({
       url: '/auth/register',
       type: 'POST',
-      data: params,
+      data: params.toString(),
       success: (data, status, jqXHR) => {
         let token = handleToken(data);
         if (token === null || token === undefined){

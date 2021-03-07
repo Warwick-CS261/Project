@@ -39,11 +39,14 @@ export default class CreateSession extends React.Component {
   }
 
   handleSubmit(event){
-    let params = new URLSearchParams(this.state).toString();
+    let params = new URLSearchParams();
+    params.append('name', this.state.name);
+    params.append('secure', this.state.secure);
+    params.append('series', this.state.series);
     $.ajax({
       url: '/session/create',
       type: 'POST',
-      data: params,
+      data: params.toString(),
       success: (data, status, jqXHR) => {
         let token = handleToken(data);
         if (token === null || token === undefined ){

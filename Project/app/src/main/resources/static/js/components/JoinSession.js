@@ -31,13 +31,12 @@ export default class JoinSession extends React.Component {
   }
 
   handleSubmit(event){
-    let params = new URLSearchParams(this.state).toString();
-    let route = "/session/"
-    let url = route.concat(this.state.sessionID);
+    let params = new URLSearchParams();
+    params.append('password');
     $.ajax({
-      url: url,
+      url: `/session/${this.state.sessionID}`,
       type: 'POST',
-      data: params,
+      data: params.toString(),
       success: (data, status, jqXHR) => {
         let token = handleToken(data);
         if (token === null || token === undefined){

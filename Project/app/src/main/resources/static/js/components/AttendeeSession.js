@@ -65,6 +65,17 @@ class AttendeeSession extends React.Component {
           this.props.updateToken(token);
           // handle session
           this.props.handleSession(session);
+          if (session.secure === null || session.secure === undefined){
+            this.setState({
+              id: session.id,
+              seriesID: session.seriesID,
+              sessionName: session.sessionName,
+              owner: session.owner,
+              pushedQuestions: session.pushedQuestions,
+              chat: session.chat,
+              error: false,
+            });
+          }
         },
         statusCode: {
           // Invalid token

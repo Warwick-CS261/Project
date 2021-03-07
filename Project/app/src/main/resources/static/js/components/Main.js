@@ -38,6 +38,7 @@ export default class Main extends React.Component {
     if (session === null){
       this.setState({
         session: session,
+        isHost: false,
       });
       return;
     }
@@ -53,41 +54,6 @@ export default class Main extends React.Component {
   }
 
   render(){
-    let home = {
-      session: {
-        id: 'session',
-        icon: <i class="bi bi-calendar-plus-fill"></i>,
-        text: 'Create Session'
-      },
-      join: {
-        id: 'join',
-        icon: <i class="bi bi-box-arrow-in-right"></i>,
-        text: 'Join Session'
-      },
-      series: {
-        id: 'series',
-        icon: <i class="bi bi-calendar-week-fill"></i>,
-        text: 'Create Series'
-      }
-    };
-
-    let user = {
-      id: 'user',
-      icon: <i class="bi bi-person-circle"></i>,
-      text: 'Your Profile'
-    };
-
-    let sessions = {
-      grid: {
-        id: 'grid',
-        icon: <i class="bi bi-calendar-week-fill"></i>,
-        text: 'Sessions'
-      },
-      session: {
-        id: 'session',
-        icon: <i class="bi bi-calendar-date-fill"></i>,
-      }
-    };
 
     const routes = [
       {
