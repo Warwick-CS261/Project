@@ -58,15 +58,13 @@ public class Sesh {
         return true;
     }
 
-    public Question getQuestionByID(int id){
-        for(Question q : pushedQuestions){
-            if (q.getID() == id){
-                return q;
-            }
-        }
-        return null;
+    public ArrayList<User> getModerators() {
+        return moderators;
     }
 
+    public void setModerators(ArrayList<User> moderators) {
+        this.moderators = moderators;
+    }
 
     public Chat getChat() {
         return chat;

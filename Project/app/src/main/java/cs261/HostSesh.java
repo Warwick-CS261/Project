@@ -54,6 +54,35 @@ public class HostSesh extends Sesh {
 
     }
 
+    public Question getQuestionByID(int id){
+        for(Question q : pushedQuestions){
+            if (q.getID() == id){
+                return q;
+            }
+        }
+        for(Question q : hiddenQuestions){
+            if (q.getID() == id){
+                return q;
+            }
+        }
+        return null;
+    }
+
+    public Question deleteQuestionByID(int id){
+        for(Question q : pushedQuestions){
+            if (q.getID() == id){
+                pushedQuestions.remove(q);
+                return q;
+            }
+        }
+        for(Question q : hiddenQuestions){
+            if (q.getID() == id){
+                pushedQuestions.remove(q);
+                return q;
+            }
+        }
+        return null;
+    }
 
     public String getSecure() {
         return secure;
