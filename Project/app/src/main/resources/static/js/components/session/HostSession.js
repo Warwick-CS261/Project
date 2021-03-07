@@ -11,6 +11,7 @@ import $ from 'jquery';
 
 import Chat from '../Chat';
 import CreateQuestion from '../question/CreateQuestion';
+import Questions from '../question/Questions';
 
 class HostSession extends React.Component {
   constructor(props) {
@@ -76,6 +77,13 @@ class HostSession extends React.Component {
         <CreateQuestion
           sessionID={this.state.id}
           updateToken={this.props.updateToken}
+        />
+        <Questions
+          pushedQuestions={this.state.pushedQuestions}
+          hiddenQuestions={this.state.hiddenQuestions}
+          sessionID={this.state.id}
+          updateToken={this.props.updateToken}
+          isHost={true}
         />
         {JSON.stringify(this.state)}
       </>
