@@ -1,11 +1,11 @@
 import React from 'react';
 import Cookies from 'js-cookie';
-import $ from 'jquery';
+import $, { param } from 'jquery';
 import {
   handleError,
   handleToken,
   handleJSON
-} from '../util';
+} from '../../util';
 import { Redirect } from 'react-router-dom';
 
 export default class CreateQuestion extends React.Component {
@@ -36,11 +36,13 @@ export default class CreateQuestion extends React.Component {
   }
 
   handleSubmit(event){
-    let params = new URLSearchParams(this.state).toString();
+    let params = new URLSearchParams();
+    params.append('question', this.state.question);
+    params.append('pushed', this.state.pushed);
     $.ajax({
       url: `/session/${this.props.sessionID}/question/create`,
       type: 'POST',
-      data: params,
+      data: params.toString(),
       success: (data, status, jqXHR) => {
         let token = handleToken(data);
         if (token === null || token === undefined ){

@@ -2,7 +2,7 @@ import React from 'react';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
 import { Redirect } from 'react-router-dom';
-import { handleToken } from '../util';
+import { handleToken } from '../../util';
 
 export default class Reaction extends React.Component {
   constructor(props){
@@ -42,8 +42,34 @@ export default class Reaction extends React.Component {
   handleSubmit(event){
     let params = new URLSearchParams();
     params.append('anon',this.state.anon);
-    params.append();
-
+    params.append('qID', this.state.qID);
+    $.ajax({
+      url: `/session/${id}/question/submit`,
+      type: 'POST',
+      data: params.toString(),
+      success: (data, status, jqXHR) =>{
+        let token = handleToken(token);
+        if (token === null || token === undefined){
+          this.setState({
+            error: 'Server response was invalid'
+          });
+          return;
+        }
+        Cookies.set('token', token);
+        this.props.updateToken(token);
+      },
+      statusCode: {
+        450: ()=>{
+          console.log('Invalid token');
+        },
+        454: ()=>{
+          console.log('Session not found');
+        },
+        457: ()=>{
+          console.log('Question not found');
+        }
+      }
+    });
     // TODO check that one of the smileys are selected
     event.preventDefault();
   }
@@ -64,19 +90,19 @@ export default class Reaction extends React.Component {
               onClick={this.handleClick}
               className="happy"
             >
-              <i class="bi bi-emoji-laughing-fill"></i>
+              <i className="bi bi-emoji-laughing-fill"></i>
             </button>
             <button
               onClick={this.handleClick}
               className="neutral"
             >
-              <i class="bi bi-emoji-neutral-fill"></i>
+              <i className="bi bi-emoji-neutral-fill"></i>
             </button>
             <button
               onClick={this.handleClick}
               className="sad"
             >
-              <i class="bi bi-emoji-frown-fill"></i>
+              <i className="bi bi-emoji-frown-fill"></i>
             </button>
           </div>
           <div className="mb-3" >
@@ -108,7 +134,6 @@ export default class Reaction extends React.Component {
             </button>
           </div>
         </form>
-        
       </>
     );
   }

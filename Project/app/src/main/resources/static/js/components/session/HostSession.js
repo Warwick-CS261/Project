@@ -6,11 +6,11 @@ import {
   Switch
 } from 'react-router-dom';
 import { Redirect, withRouter } from 'react-router';
-import { handleJSON, handleToken } from '../util';
+import { handleJSON, handleToken } from '../../util';
 import $ from 'jquery';
 
-import Chat from './Chat';
-import CreateQuestion from './CreateQuestion';
+import Chat from '../Chat';
+import CreateQuestion from '../question/CreateQuestion';
 
 class HostSession extends React.Component {
   constructor(props) {
