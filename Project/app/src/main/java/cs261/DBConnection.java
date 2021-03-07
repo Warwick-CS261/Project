@@ -3,9 +3,6 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
-import org.openrdf.query.resultio.sparqlxml.SPARQLResultsXMLParser;
-
-
 public class DBConnection {
 
     private Connection connection;
@@ -55,11 +52,12 @@ public class DBConnection {
 
     public Question createQuestion(Question q, String sessionID) throws SQLException{
         int qs = numOfSessQuest(sessionID);
-        String query = "INSERT INTO QUESTION VALUES(?,?,?,1)";
+        String query = "INSERT INTO QUESTION VALUES(?,?,?,?)";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setInt(1, qs);
         stmt.setString(2, sessionID);
         stmt.setString(3, q.getQuestion());
+        stmt.setBoolean(4, q.getPushed());
         stmt.executeUpdate();
         q.setID(qs);
         return q;
@@ -72,7 +70,7 @@ public class DBConnection {
         stmt.setString(2, sessiondID);
         stmt.setInt(3, answer.getUser().getId());
         stmt.setInt(4, answer.getSmiley());
-        stmt.setTimestamp(5, Timestamp.valueOf(answer.getStamp()));
+        stmt.setDate(5, new java.sql.Date(answer.getStamp().getTime()));
         stmt.setBoolean(6, answer.getAnon());
         stmt.setString(7, answer.getContext());
         stmt.executeUpdate();
@@ -118,14 +116,14 @@ public class DBConnection {
         return userSeries;
     }
 
-    public String getQuestionMesasge(String sessionID, int questionID) throws SQLException{
+    public Question getQuestionByID(String sessionID, int qID) throws SQLException{
         String query = "SELECT * FROM QUESTION id = ? & sessionID = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
-        stmt.setInt(1, questionID);
+        stmt.setInt(1, qID);
         stmt.setString(2, sessionID);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()){
-            return rs.getString("question");
+            return new Question(rs.getString("question"), loadAnswers(sessionID, qID), rs.getInt("id"), rs.getBoolean("pushed"));
         }
         return null;    
     }
@@ -376,7 +374,6 @@ public class DBConnection {
         if(rs.next()){
             return new Sesh(sessionID, rs.getString("seriesID"), rs.getString("sname"),
             getUserByID(rs.getInt("id")), rs.getBoolean("ended"), loadChat(sessionID), loadPushedQuestions(sessionID), getSessionModerators(sessionID));
-        //NEED TO ACTUALL LOAD CHAT AND PUSHED QUESTIONS
         }
         return null;
     }
@@ -388,8 +385,7 @@ public class DBConnection {
         ResultSet rs = stmt.executeQuery();
         if(rs.next()){
             return new HostSesh(sessionID, rs.getString("seriesID"), rs.getString("sname"), rs.getFloat("mood"),
-            getUserByID(rs.getInt("userID")), rs.getBoolean("ended"),  loadHiddenQuestions(sessionID), loadChat(sessionID), rs.getString("secure"),loadPushedQuestions(sessionID), new ArrayList<MoodDate>(), getSessionModerators(sessionID));
-        //NEED TO ACTUALL LOAD CHAT AND PUSHED QUESTIONS
+            getUserByID(rs.getInt("userID")), rs.getBoolean("ended"),  loadPushedQuestions(sessionID), loadChat(sessionID), rs.getString("secure"),loadHiddenQuestions(sessionID), new ArrayList<MoodDate>(), getSessionModerators(sessionID));
         }
         return null;
     }
@@ -416,8 +412,10 @@ public class DBConnection {
         stmt.setString(1, sessionID);
         stmt.setBoolean(2, false);
         ResultSet rs = stmt.executeQuery();
+        int qID;
         while (rs.next()){
-            Question q = new Question(rs.getString("question"), new ArrayList<Answer>(), rs.getInt("id"), rs.getBoolean("pushed"));
+            qID = rs.getInt("id");
+            Question q = new Question(rs.getString("question"), loadAnswers(sessionID, qID), qID, rs.getBoolean("pushed"));
             questions.add(q);
         }
         return questions;
@@ -430,8 +428,10 @@ public class DBConnection {
         stmt.setString(1, sessionID);
         stmt.setBoolean(2, true);
         ResultSet rs = stmt.executeQuery();
+        int qID;
         while (rs.next()){
-            Question q = new Question(rs.getString("question"), new ArrayList<Answer>(), rs.getInt("id"), rs.getBoolean("pushed"));
+            qID = rs.getInt("id");
+            Question q = new Question(rs.getString("question"), loadAnswers(sessionID, qID), qID, rs.getBoolean("pushed"));
             questions.add(q);
         }
         return questions;
@@ -439,8 +439,16 @@ public class DBConnection {
 
     private ArrayList<Answer> loadAnswers(String sessionID, int qID) throws SQLException{
         ArrayList<Answer> answers = new ArrayList<Answer>();
-        
-
+        String query = "SELECT * FROM ANSWER WHERE sessionID =? AND qID = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        stmt.setInt(2, qID);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()){
+            Answer a = new Answer(getUserByID(rs.getInt("userID")), rs.getInt("reaction"), rs.getString("context"), rs.getTimestamp("stamp"),rs.getBoolean("anon"));
+            answers.add(a);
+        }
+        return answers;
     }
 
     public Boolean emailExists(String email) throws SQLException{

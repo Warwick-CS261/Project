@@ -9,6 +9,8 @@ import cs261.Controllers.*;
 
 public class App {
 
+    static int port = 6969;
+    static String address = "localhost";
     private DBConnection dbConn;
     private Obserable observable;
     private Analyse analyse;
@@ -35,6 +37,10 @@ public class App {
         return cacher;
     }
 
+    public int getPort(){
+        return port;
+    }
+
     public static void main(String[] args) throws Exception{
         app = new App();
         
@@ -44,7 +50,7 @@ public class App {
     private void run() throws Exception{
         
         staticFiles.location("/static");
-        port(6969);
+        port(port);
         Class.forName("org.sqlite.JDBC");
         dbConn = new DBConnection("jdbc:sqlite:database/database.db");
         observable = new Obserable();
@@ -53,10 +59,7 @@ public class App {
         cacher = new Cacher(dbConn);
         
 
-        get("/", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            return Util.render(model, "velocity/index.vm");
-        });
+        get("/", returnPage);
 
 
 
@@ -102,16 +105,9 @@ public class App {
     }
     public static Route returnPage = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
+        model.put("address", address+":"+port);
         return Util.render(model, "velocity/index.vm");
     };
-
-
-
-
-
-
-
-
 }
 
 

@@ -6,35 +6,43 @@ public class Question {
     int id;
     String question;
     ArrayList<Answer> answers;
-    Boolean ended;
+    Boolean pushed;
 
-    public Question(String question, ArrayList<Answer> answers, int id, Boolean ended){
+    public Question(String question, ArrayList<Answer> answers, int id, Boolean pushed){
         this.question = question;
         this.answers = answers;
         this.id = id;
-        this.ended = ended;
+        this.pushed = pushed;
     }
 
-    public Question(String question){
+    public Question(String question, Boolean pushed){
         this.question = question;
         this.answers = new ArrayList<Answer>();
         this.id = -1;
-        ended = false;
+        this.pushed = pushed;
     }
+
+    public Question(int id, String question, Boolean pushed){
+        this.question = question;
+        this.answers = new ArrayList<Answer>();
+        this.id = id;
+        this.pushed = pushed;
+    }
+
 
     public Question(String question, int id){
         this.question = question;
         this.answers = new ArrayList<Answer>();
         this.id = id;
-        ended = false;
+        pushed = false;
     }
 
-    public void setEnded(Boolean ended) {
-        this.ended = ended;
+    public void setPushed(Boolean ended) {
+        this.pushed = ended;
     }
 
-    public Boolean getEnded() {
-        return ended;
+    public Boolean getPushed() {
+        return pushed;
     }
 
     public void setID(int id) {

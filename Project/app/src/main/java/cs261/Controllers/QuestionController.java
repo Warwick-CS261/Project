@@ -24,6 +24,7 @@ public class QuestionController{
         String sessionID = request.params(":id");
         String token = request.cookie("token");
         String question = request.queryParams("question");
+        Boolean pushed = Boolean.parseBoolean(request.queryParamOrDefault("pushed", "false"));
         //add pushed variable
         User user = dbConn.getUserByToken(token);
         if(Objects.isNull(user)){
@@ -36,8 +37,9 @@ public class QuestionController{
             response.status(401);
             return "not authorised for session "+sessionID;
         }
-        Question q = new Question(question);
-        dbConn.createQuestion(q, sessionID);
+
+        Question q = new Question(question, pushed);
+        App.getApp().getCacher().createQuestion(q, sessionID);
         return "token="+dbConn.newToken(user.getId())+","+gson.toJson(q);
     };
 
@@ -59,7 +61,6 @@ public class QuestionController{
             logger.warn("Submit response to question {} in session {} attempted with invalid token: {}",qID, sessionID,token);
             return "Invalid Token";
         }
-        LocalDateTime stamp = LocalDateTime.now();
         if(anon.equals("true")){
             anonymous = true;
         }else if(anon.equals("false")){
@@ -76,7 +77,7 @@ public class QuestionController{
         }
         //check session exists
         //check question exists
-        Answer answer = new Answer(user, smiley, context, stamp, anonymous);
+        Answer answer = new Answer(user, smiley, context, new Date(), anonymous);
         dbConn.createAnswer(answer, sessionID, qID);
         dbConn.setSessionMood(sessionID, App.getApp().getAnalyse().newMoodCoefficient(dbConn.getSessionMood(sessionID), App.getApp().getAnalyse().parseText(answer.getContext()), dbConn.numOfAnswersToQ(sessionID, qID)));
         dbConn.createMoodDate(sessionID, new Date(), dbConn.getSessionMood(sessionID));
@@ -147,9 +148,9 @@ public class QuestionController{
             return "not authorised";
         }
 
-        String qText = dbConn.getQuestionMesasge(sessionID, qID);
-        if(Objects.isNull(qText)){
-            response.status(1);
+        Question q = dbConn.getQuestionByID(sessionID, qID);
+        if(Objects.isNull(q)){
+            response.status(454);
             return "no such question";
         }  
 
@@ -183,16 +184,15 @@ public class QuestionController{
         //session exits? maybe
 
         if(!dbConn.userIsModerator(user.getId(), sessionID)){
-            response.status(1);
+            response.status(401);
             return "not authorised";
         }
 
-        String qText = dbConn.getQuestionMesasge(sessionID, qID);
-        if(Objects.isNull(qText)){
-            response.status(1);
+        Question q = dbConn.getQuestionByID(sessionID, qID);
+        if(Objects.isNull(q)){
+            response.status(454);
             return "no such question";
         }
-        Question q = new Question(qText);
 
         dbConn.pushQuestion(sessionID, qID);
         App.getApp().getObservable().notifyWatchers(3, sessionID, gson.toJson(q));
