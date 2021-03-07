@@ -12,11 +12,11 @@ import Logo from './Logo';
 import User from './User';
 import Sessions from './Sessions';
 import MySessions from './MySessions';
-import AttendeeSession from './AttendeeSession';
-import HostSession from './HostSession';
-import JoinSession from './JoinSession';
-import CreateSession from './CreateSession';
-import CreateSeries from './CreateSeries';
+import AttendeeSession from './session/AttendeeSession';
+import HostSession from './session/HostSession';
+import JoinSession from './session/JoinSession';
+import CreateSession from './session/CreateSession';
+import CreateSeries from './session/CreateSeries';
 
 export default class Main extends React.Component {
   constructor(props){

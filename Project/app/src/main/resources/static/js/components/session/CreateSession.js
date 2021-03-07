@@ -5,7 +5,7 @@ import {
   handleError,
   handleToken,
   handleJSON
-} from '../util';
+} from '../../util';
 import { Redirect } from 'react-router-dom';
 
 export default class CreateSession extends React.Component {

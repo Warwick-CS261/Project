@@ -2,7 +2,7 @@ import React from 'react';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
 import { Redirect } from 'react-router-dom';
-import { handleToken } from '../util';
+import { handleToken } from '../../util';
 
 export default class Reaction extends React.Component {
   constructor(props){

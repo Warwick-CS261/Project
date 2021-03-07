@@ -1,7 +1,7 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 import $, { param } from 'jquery';
-import {handleToken, handleError} from '../util';
+import {handleToken, handleError} from '../../util';
 
 /**
  * SignUp component 

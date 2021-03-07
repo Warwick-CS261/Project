@@ -6,11 +6,11 @@ import {
   Switch
 } from 'react-router-dom';
 import { Redirect, withRouter } from 'react-router';
-import { handleJSON, handleToken } from '../util';
+import { handleJSON, handleToken } from '../../util';
 import $ from 'jquery';
 
-import Chat from './Chat';
-import Reaction from './Reaction';
+import Chat from '../Chat';
+import Reaction from '../question/Reaction';
 
 
 class AttendeeSession extends React.Component {
