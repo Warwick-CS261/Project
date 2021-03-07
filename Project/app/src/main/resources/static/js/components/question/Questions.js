@@ -16,12 +16,17 @@ export default class Questions extends React.Component {
           <div className="side">
             {this.props.pushedQuestions.map(pq => {
               return(
-                <HostQuestion key={pq.id} data={pq} />
+                <HostQuestion key={pq.id} data={pq} pushed={true} />
+              );
+            })}
+            {this.props.hiddenQuestions.map(hq =>{
+              return(
+                <AttendeeQuestion key={pq.id} data={pq} pushed={false} />
               );
             })}
           </div>
           <div className="content">
-
+            Answer list goes here
           </div>
         </>
       );
