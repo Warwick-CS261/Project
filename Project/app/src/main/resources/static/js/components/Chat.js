@@ -122,6 +122,7 @@ export default class Chat extends React.Component {
               name="msg"
               className="form-control"
               onChange={this.handleChange}
+              value={this.state.msg}
               placeholder="Send a message"
             />  
           </div>
@@ -131,6 +132,7 @@ export default class Chat extends React.Component {
               name="anon"
               className="form-check-input"
               onChange={this.handleCheck}
+              value={this.state.anon}
             />
           </div>
           <div className="mb-3">

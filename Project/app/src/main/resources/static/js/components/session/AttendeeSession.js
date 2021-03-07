@@ -6,11 +6,11 @@ import {
   Switch
 } from 'react-router-dom';
 import { Redirect, withRouter } from 'react-router';
-import { handleJSON, handleToken } from '../util';
+import { handleJSON, handleToken } from '../../util';
 import $ from 'jquery';
 
-import Chat from './Chat';
-import Reaction from './Reaction';
+import Chat from '../Chat';
+import Reaction from '../question/Reaction';
 
 
 class AttendeeSession extends React.Component {
@@ -65,6 +65,17 @@ class AttendeeSession extends React.Component {
           this.props.updateToken(token);
           // handle session
           this.props.handleSession(session);
+          if (session.secure === null || session.secure === undefined){
+            this.setState({
+              id: session.id,
+              seriesID: session.seriesID,
+              sessionName: session.sessionName,
+              owner: session.owner,
+              pushedQuestions: session.pushedQuestions,
+              chat: session.chat,
+              error: false,
+            });
+          }
         },
         statusCode: {
           // Invalid token
