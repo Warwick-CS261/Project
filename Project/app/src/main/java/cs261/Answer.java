@@ -1,15 +1,15 @@
 package cs261;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Answer {
     User user;
     int smiley;
     String context;
-    LocalDateTime stamp;
+    Date stamp;
     Boolean anon;
 
-    public Answer(User user, int smiley, String context, LocalDateTime stamp, Boolean anon){
+    public Answer(User user, int smiley, String context, Date stamp, Boolean anon){
         this.user = user;
         this.smiley = smiley;
         this.context = context;
@@ -33,7 +33,7 @@ public class Answer {
         return smiley;
     }
 
-    public LocalDateTime getStamp() {
+    public Date getStamp() {
         return stamp;
     }
 
@@ -49,7 +49,7 @@ public class Answer {
         this.smiley = smiley;
     }
 
-    public void setStamp(LocalDateTime stamp) {
+    public void setStamp(Date stamp) {
         this.stamp = stamp;
     }
     

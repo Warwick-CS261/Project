@@ -1,10 +1,6 @@
 package cs261;
 import java.sql.*;
 import java.util.*;
-import java.util.Date;
-
-import org.openrdf.query.resultio.sparqlxml.SPARQLResultsXMLParser;
-
 
 public class DBConnection {
 
@@ -40,7 +36,7 @@ public class DBConnection {
         return null;
     } 
 
-    public Boolean createSession(HostSesh s) throws SQLException{
+    public HostSesh createSession(HostSesh s) throws SQLException{
         String query = "INSERT INTO SESH VALUES(?,?,?,?,?,?,0)";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setString(1, s.getId());
@@ -50,33 +46,57 @@ public class DBConnection {
         stmt.setString(5, s.getSecure());
         stmt.setInt(6, s.getOwner().getId());
         stmt.executeUpdate();
-        return true;
+        return s;
     }
 
     public Question createQuestion(Question q, String sessionID) throws SQLException{
         int qs = numOfSessQuest(sessionID);
-        String query = "INSERT INTO QUESTION VALUES(?,?,?,1)";
+        String query = "INSERT INTO QUESTION VALUES(?,?,?,?)";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setInt(1, qs);
         stmt.setString(2, sessionID);
         stmt.setString(3, q.getQuestion());
+        stmt.setBoolean(4, q.getPushed());
         stmt.executeUpdate();
         q.setID(qs);
         return q;
     }
 
-    public Boolean createAnswer(Answer answer, String sessiondID, int qID) throws SQLException{
+    public Answer createAnswer(Answer answer, String sessiondID, int qID) throws SQLException{
         String query = "INSERT INTO ANSWER VALUES(?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setInt(1, qID);
         stmt.setString(2, sessiondID);
         stmt.setInt(3, answer.getUser().getId());
         stmt.setInt(4, answer.getSmiley());
-        stmt.setTimestamp(5, Timestamp.valueOf(answer.getStamp()));
+        stmt.setDate(5, new java.sql.Date(answer.getStamp().getTime()));
         stmt.setBoolean(6, answer.getAnon());
         stmt.setString(7, answer.getContext());
         stmt.executeUpdate();
-        return true;
+        return answer;
+    }
+
+    public Message createMessage(Message message, String sessionID) throws SQLException{
+        String query = "INSERT INTO MESSAGES VALUES(?,?,?,?,?,?)";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, message.getId());
+        stmt.setString(2, sessionID);
+        stmt.setString(3, message.getMsg());
+        stmt.setInt(4, message.getUser().getId());
+        stmt.setDate(5, new java.sql.Date(message.getStamp().getTime()));
+        stmt.setBoolean(6, message.getAnon());
+        stmt.executeUpdate();
+        return message;
+    }
+
+    public MoodDate createMoodDate(String sessionID, MoodDate moodDate) throws SQLException{
+        String query = "INSERT INTO MOOD_DATE VALUES(?, ?, ?)";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        stmt.setDate(2, new java.sql.Date(moodDate.getDate().getTime()));
+        stmt.setFloat(3, moodDate.getMood());
+        stmt.executeUpdate();
+        return moodDate;
     }
 
     public Boolean pushQuestion(String sessionId, int questionID) throws SQLException{
@@ -106,7 +126,7 @@ public class DBConnection {
         while(rs.next()){
             userSeries.addSession(getHostSessionByID(rs.getString("id")));
         }
-//now attendee
+        //now attendee
         query = "SELECT  sessionID FROM ATTENDEE_SESSION WHERE userID = ";
         PreparedStatement stmt2 = connection.prepareStatement(query);
         stmt.setInt(1, userID);
@@ -118,14 +138,14 @@ public class DBConnection {
         return userSeries;
     }
 
-    public String getQuestionMesasge(String sessionID, int questionID) throws SQLException{
+    public Question getQuestionByID(String sessionID, int qID) throws SQLException{
         String query = "SELECT * FROM QUESTION id = ? & sessionID = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
-        stmt.setInt(1, questionID);
+        stmt.setInt(1, qID);
         stmt.setString(2, sessionID);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()){
-            return rs.getString("question");
+            return new Question(rs.getString("question"), loadAnswers(sessionID, qID), rs.getInt("id"), rs.getBoolean("pushed"));
         }
         return null;    
     }
@@ -138,23 +158,6 @@ public class DBConnection {
         stmt.executeUpdate();
         return true;
     }
-
-    public Boolean createMessage(Message message, String sessionID) throws SQLException{
-        String query = "INSERT INTO MESSAGES VALUES(?,?,?,?,?,?)";
-        PreparedStatement stmt = connection.prepareStatement(query);
-        stmt.setInt(1, message.getId());
-        stmt.setString(2, sessionID);
-        stmt.setString(3, message.getMsg());
-        stmt.setInt(4, message.getUser().getId());
-        stmt.setDate(5, new java.sql.Date(message.getStamp().getTime()));
-        stmt.setBoolean(6, message.getAnon());
-        stmt.executeUpdate();
-        return true;
-    }
-
-
-
-
 
     public int numOfSessMsg(String sessionID)throws SQLException{
         String query = "SELECT COUNT(id) FROM MESSAGES WHERE sessionID = ?";
@@ -202,16 +205,6 @@ public class DBConnection {
         return true;
     }
 
-    public Boolean createMoodDate(String sessionID, Date date, float mood) throws SQLException{
-        String query = "INSERT INTO MOOD_DATE VALUES(?, ?, ?)";
-        PreparedStatement stmt = connection.prepareStatement(query);
-        stmt.setString(1, sessionID);
-        stmt.setDate(2, new java.sql.Date(date.getTime()));
-        stmt.setFloat(3, mood);
-        stmt.executeUpdate();
-        return true;
-    }
-
     public String newToken(int userID) throws SQLException{
         String query = "SELECT * FROM USER_TOKEN WHERE userID = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
@@ -242,10 +235,10 @@ public class DBConnection {
         return true;
     }
 
-    public Boolean addModerator(int userID, String sessionID) throws SQLException{
+    public Boolean addModerator(User user, String sessionID) throws SQLException{
         String query = "INSERT INTO MODERATOR_SESSION VALUES(?, ?)";
         PreparedStatement stmt = connection.prepareStatement(query);
-        stmt.setInt(1, userID);
+        stmt.setInt(1, user.getId());
         stmt.setString(2, sessionID);
         stmt.executeUpdate();
         return true;
@@ -266,7 +259,6 @@ public class DBConnection {
             }
         }
         return null;
-        //return new User(1, "Place", "Holder", "place@holder.com");
     }
 
     public User getUserByEmail(String email) throws SQLException{
@@ -291,26 +283,16 @@ public class DBConnection {
         return null;
     }
 
-    public Boolean setModerator(int userID, String sessionID) throws SQLException{
-        String query = "INSERT INTO MODERATOR_SESSION VALUES(?,?)";
-        PreparedStatement stmt = connection.prepareStatement(query);
-        stmt.setInt(1, userID);
-        stmt.setString(2, sessionID);
-        stmt.executeUpdate();
-        return false;
-    }
-
-    public Boolean userIsModerator(int userID, String sessionID) throws SQLException{
+    public Boolean userIsModerator(User user, String sessionID) throws SQLException{
         String query = "SELECT * FROM MODERATOR_SESSION WHERE userID = ? AND sessionID = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
-        stmt.setInt(1, userID);
+        stmt.setInt(1, user.getId());
         stmt.setString(2, sessionID);
         ResultSet rs = stmt.executeQuery();
         if(rs.next()){
             return true;
         }
         return false;
-        
     }
 
     public ArrayList<User> getSessionModerators (String sessionID) throws SQLException{
@@ -376,7 +358,6 @@ public class DBConnection {
         if(rs.next()){
             return new Sesh(sessionID, rs.getString("seriesID"), rs.getString("sname"),
             getUserByID(rs.getInt("id")), rs.getBoolean("ended"), loadChat(sessionID), loadPushedQuestions(sessionID), getSessionModerators(sessionID));
-        //NEED TO ACTUALL LOAD CHAT AND PUSHED QUESTIONS
         }
         return null;
     }
@@ -388,8 +369,8 @@ public class DBConnection {
         ResultSet rs = stmt.executeQuery();
         if(rs.next()){
             return new HostSesh(sessionID, rs.getString("seriesID"), rs.getString("sname"), rs.getFloat("mood"),
-            getUserByID(rs.getInt("userID")), rs.getBoolean("ended"),  loadHiddenQuestions(sessionID), loadChat(sessionID), rs.getString("secure"),loadPushedQuestions(sessionID), new ArrayList<MoodDate>(), getSessionModerators(sessionID));
-        //NEED TO ACTUALL LOAD CHAT AND PUSHED QUESTIONS
+            getUserByID(rs.getInt("userID")), rs.getBoolean("ended"),  loadPushedQuestions(sessionID), loadChat(sessionID), 
+                rs.getString("secure"),loadHiddenQuestions(sessionID), new ArrayList<MoodDate>(), getSessionModerators(sessionID));
         }
         return null;
     }
@@ -401,8 +382,15 @@ public class DBConnection {
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setString(1, sessionID);
         ResultSet rs = stmt.executeQuery();
+        Message m;
+        Boolean anon;
         while (rs.next()){
-            Message m = new Message(getUserByID(rs.getInt("userID")), rs.getString("msg"), rs.getTimestamp("stamp"), rs.getBoolean("anon"),rs.getInt("id"));
+             anon = rs.getBoolean("anon");
+            if(anon){
+                m = new Message(new User("anonymous", "anonymous", "a@a.a"), rs.getString("msg"), rs.getTimestamp("stamp"), anon, rs.getInt("id"));  
+            }else{
+                m = new Message(getUserByID(rs.getInt("userID")), rs.getString("msg"), rs.getTimestamp("stamp"), anon, rs.getInt("id"));
+            }
             chat.addMessage(m);
         }
         return chat;
@@ -416,8 +404,10 @@ public class DBConnection {
         stmt.setString(1, sessionID);
         stmt.setBoolean(2, false);
         ResultSet rs = stmt.executeQuery();
+        int qID;
         while (rs.next()){
-            Question q = new Question(rs.getString("question"), new ArrayList<Answer>(), rs.getInt("id"), rs.getBoolean("pushed"));
+            qID = rs.getInt("id");
+            Question q = new Question(rs.getString("question"), loadAnswers(sessionID, qID), qID, rs.getBoolean("pushed"));
             questions.add(q);
         }
         return questions;
@@ -430,16 +420,36 @@ public class DBConnection {
         stmt.setString(1, sessionID);
         stmt.setBoolean(2, true);
         ResultSet rs = stmt.executeQuery();
+        int qID;
         while (rs.next()){
-            Question q = new Question(rs.getString("question"), new ArrayList<Answer>(), rs.getInt("id"), rs.getBoolean("pushed"));
+            qID = rs.getInt("id");
+            Question q = new Question(rs.getString("question"), loadAnswers(sessionID, qID), qID, rs.getBoolean("pushed"));
             questions.add(q);
         }
         return questions;
     }
 
-    //private ArrayList<Answer> loadAnswers(String sessionID, int qID) throws SQLException{
+    private ArrayList<Answer> loadAnswers(String sessionID, int qID) throws SQLException{
+        ArrayList<Answer> answers = new ArrayList<Answer>();
+        String query = "SELECT * FROM ANSWER WHERE sessionID =? AND qID = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        stmt.setInt(2, qID);
+        ResultSet rs = stmt.executeQuery();
+        Answer a;
+        Boolean anon;
+        while (rs.next()){
 
-    //}
+            anon = rs.getBoolean("anon");
+            if(anon){
+                a = new Answer(new User("anonymous", "anonymous", "a@a.a"), rs.getInt("reaction"), rs.getString("context"), rs.getTimestamp("stamp"), anon);
+            }else{
+                a = new Answer(getUserByID(rs.getInt("userID")), rs.getInt("reaction"), rs.getString("context"), rs.getTimestamp("stamp"), anon);
+            }
+            answers.add(a);
+        }
+        return answers;
+    }
 
     public Boolean emailExists(String email) throws SQLException{
         String query = "SELECT * FROM USER WHERE email = ?";

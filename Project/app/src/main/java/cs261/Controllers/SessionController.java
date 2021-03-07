@@ -21,7 +21,7 @@ public class SessionController{
 
         String name = request.queryParams("name");
         String token = request.cookie("token");
-        String secure = request.queryParams("secure");
+        Boolean secure = Boolean.parseBoolean(request.queryParamOrDefault("secure", "false"));
         String seriesID =  request.queryParams("series");
 
 
@@ -37,21 +37,17 @@ public class SessionController{
         do{
             sessionID = Sesh.generateID();
         }while(dbConn.sessionExists(sessionID));
-
-        if(secure.equals("true")){
-            secure = Sesh.generateID();
-        }else if(secure.equals("false")){
-            secure = null;
+        HostSesh hostSession;
+        if(secure){
+            hostSession = new HostSesh(sessionID, seriesID, name, user, Sesh.generateID());
         }else{
-            response.status(457);
-            logger.info("Couldn't recognise the secure value: {}", secure);
-            return "invalid secure";
+            hostSession = new HostSesh(sessionID, seriesID, name, user, "");
         }
 
-        HostSesh hostSession = new HostSesh(sessionID, seriesID, name, user, secure);
+        
         //add session to db
         dbConn.createSession(hostSession);
-        dbConn.addModerator(user.getId(), sessionID);
+        App.getApp().getCacher().addModerator(user, sessionID);
         return "token="+dbConn.newToken(user.getId())+","+gson.toJson(hostSession);
     };
 
@@ -80,28 +76,22 @@ public class SessionController{
 
         String sessionID = request.params(":id");
         String token = request.cookie("token");
-        String msg = request.queryParams("message");
-        String anonStr =  request.queryParams("anon");
-        Date date = new Date();
-        Boolean anon;        
+        String msg = request.queryParamOrDefault("message", "");
+        Boolean anon = Boolean.parseBoolean(request.queryParamOrDefault("anon", "false"));
+        Date date = new Date();       
 
         if(msg.equals("")){
             response.status(457);
             return "empty message";
         }
 
-        if(anonStr.equals("true")){
-            anon = true;
-        }else{
-            anon = false;
-        }
         User user = dbConn.getUserByToken(token);
         if(Objects.isNull(user)){
             response.status(450);
             logger.warn("Message submit to session {} attempted with invalid token: {}",sessionID, token);
             return "Invalid Token";
         }
-        if(!dbConn.userIsAttendee(sessionID, user.getId())&&!dbConn.userIsModerator(user.getId(),sessionID )){
+        if(!dbConn.userIsAttendee(sessionID, user.getId())&&!dbConn.userIsModerator(user,sessionID )){
             response.status(401);
             return "not authorised for session";
         }
@@ -141,7 +131,7 @@ public class SessionController{
             return "No user with that email exists";
         }
         //all checks past and success
-        dbConn.addModerator(newMod.getId(),sessionID);
+        App.getApp().getCacher().addModerator(newMod,sessionID);
         return "token="+dbConn.newToken(user.getId());
     };
 
@@ -151,7 +141,7 @@ public class SessionController{
         DBConnection dbConn = App.getApp().getDbConn();
 
         String token = request.cookie("token");
-        String password = request.queryParams("password");
+        String password = request.queryParamOrDefault("password", "");
         String sessionID = request.params(":id");
         User user = dbConn.getUserByToken(token);
         //token is valid
@@ -168,7 +158,7 @@ public class SessionController{
             return "Invalid session";
         }
 
-        if(dbConn.userIsModerator(user.getId(), sessionID)){
+        if(dbConn.userIsModerator(user, sessionID)){
             return "token="+dbConn.newToken(user.getId())+","+gson.toJson(session);
         }
 
@@ -180,18 +170,17 @@ public class SessionController{
         if(dbConn.userIsAttendee(sessionID, user.getId())){
             return  "token="+dbConn.newToken(user.getId())+","+gson.toJson(session.convertToSesh());
         }
-        if (Objects.isNull(password)){
-            password = "";
-        }
-        if (!Objects.isNull(session.getSecure())){
-            session.setSecure("");
-        }
-        if(session.getSecure().equals("")||session.getSecure().equals(password)){
+        
+        if(session.getSecure().equals(password)){
             dbConn.addUserToSession(sessionID, user.getId());
             return "token="+dbConn.newToken(user.getId())+","+gson.toJson(session.convertToSesh());
         }
-
-        response.status(456);
+        if(password.equals("")){
+            response.status(456);
+        }else{
+            response.status(458);
+        }
+        
         return "Wrong password";
     };
 
