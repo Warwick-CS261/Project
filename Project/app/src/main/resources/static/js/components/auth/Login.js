@@ -41,7 +41,7 @@ export default class Login extends React.Component {
   handleSubmit(event){
     let params = new URLSearchParams();
     params.append('email', this.state.email);
-    params.append('password', this.state.email);
+    params.append('password', this.state.password);
     $.ajax({
       url: '/auth/login',
       type: 'POST',
