@@ -97,9 +97,12 @@ section.body{
   width: 100vw;
   height: 100vh;
   filter: blur(4px);
+  
 }
+
+
 .landingcontainer{
-  margin-top: 100px;
+  padding-top: 100px;
   text-align: center;
   .title{
     display: inline-block;
@@ -197,9 +200,12 @@ section.body{
 .landingflex{
   margin-top: 100px;
   display: flex;
-  flex-direction: column;
-  justify-items: center;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
   text-align: center;
   height: 100%;
+  .landingflexchild{
+    align-self:center;
+  }
 }
 

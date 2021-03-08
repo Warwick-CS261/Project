@@ -88,6 +88,9 @@ class App extends React.Component {
             <Router>
               <Switch>
                 <Route exact path="/">
+                <video class="videobg" autoPlay muted loop id="myVideo">
+                  <source src="../img/beach.mp4" type="video/mp4"></source>
+                 </video>
                   <div className="landingcontainer">
                     <div className="title">
                       Project CS261 Group 45
