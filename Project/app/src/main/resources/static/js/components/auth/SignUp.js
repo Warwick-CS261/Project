@@ -63,10 +63,17 @@ export default class SignUp extends React.Component {
         console.log('Token');
         console.log(Cookies.get("token"));
       },
-      error: (jqXHR, status, error) => {
-        this.setState({
-          error: 'Something went wrong',
-        });
+      statusCode: {
+        453: ()=>{
+          this.setState({
+            error: 'Passwords don\'t match',
+          });
+        },
+        452: ()=>{
+          this.setState({
+            error: `User with email "${this.state.email}" already exists`,
+          });
+        }
       }
     });
     event.preventDefault();
