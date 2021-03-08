@@ -57,10 +57,12 @@ export default class Login extends React.Component {
         Cookies.set('token', token);
         this.props.updateToken(token);
       },
-      error: (jqXHR, status, error) => {
-        this.setState({
-          error: 'Something went wrong',
-        });
+      statusCode: {
+        455: ()=>{
+          this.setState({
+            error: 'Incorrect email or password',
+          });
+        }
       }
     });
     event.preventDefault();

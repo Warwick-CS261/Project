@@ -18,7 +18,7 @@ export default class HostQuestion extends React.Component {
     $.ajax({
       url: `/session/${this.props.sessionID}/question/delete`,
       type: 'POST',
-      data: params,
+      data: params.toString(),
       success: (data, status, jqXHR)=>{
         let token = handleToken(data);
         if (token === null || token === undefined){
@@ -51,7 +51,7 @@ export default class HostQuestion extends React.Component {
     $.ajax({
       url: `/session/${this.props.sessionID}/question/push`,
       type: 'POST',
-      data: params,
+      data: params.toString(),
       success: (data, status, jqXHR)=>{
         let token = handleToken(data);
         if (token === null || token === undefined){
@@ -85,7 +85,7 @@ export default class HostQuestion extends React.Component {
     $.ajax({
       url: `/session/${this.props.sessionID}/question/end`,
       type: 'POST',
-      data: params,
+      data: params.toString(),
       success: (data, status, jqXHR)=>{
         let token = handleToken(data);
         if (token === null || token === undefined){
@@ -116,7 +116,7 @@ export default class HostQuestion extends React.Component {
     let q = this.props.data;
     return(
       <li>
-        <span>{q.question}</span>
+        <button onClick={()=>this.props.handleSelect(q.id)}>{q.question}</button>
         {this.props.pushed ?
           <button onClick={this.handleEnd}><i className="bi bi-slash-circle-fill"></i></button>
           :

@@ -63,6 +63,9 @@ export default class CreateQuestion extends React.Component {
         Cookies.set('token', token);
         this.props.updateToken(token);
         // TODO update session component with the question
+        this.setState({
+          question: '',
+        });
       },
       statusCode: {
         401: ()=>{
