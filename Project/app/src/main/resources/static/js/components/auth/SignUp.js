@@ -197,7 +197,7 @@ export default class SignUp extends React.Component {
                         className="form-check-input"
                         required
                       />
-                      <label for="terms" class="form-label termslabel"><b>I accept the terms and conditions</b></label> 
+                      <label for="terms" class="form-label termslabel"><b>I accept the terms and conditions!</b></label> 
                       <br></br>
                     </div>
                     

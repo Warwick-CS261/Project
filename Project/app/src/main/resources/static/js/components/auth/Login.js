@@ -73,56 +73,73 @@ export default class Login extends React.Component {
 
   render(){
     return(
-      <div>
-        <h1>Login</h1>
+      <div className="blackbg">
+        <div className="registerBackground">
+        <p class="h1 text-center title-text"><i class="bi bi-person-fill"></i> Login</p>
         {this.state.error !== false && 
           <div className="alert alert-danger" role="alert">
             {this.state.error}
           </div>
         }
-        <form method="POST" onSubmit={this.handleSubmit} >
-          <div className="mb-3">
-            <input 
-              type="email" 
-              name="email" 
-              value={this.state.email}
-              onChange={this.handleChange}
-              onInvalid={this.handleInvalid}
-              className="form-control"
-              autoFocus
-              autoComplete="email"
-              required
-            />
+        <div className="container form-container">
+          <form method="POST" onSubmit={this.handleSubmit} >
+              <div class="row register-box">
+                <div class="col-12">
+                  <div className="row form-row">
+                    <div className="col-5">
+                      <label for="fn" class="form-label">Email</label>
+                    </div>
+                    <div class="col-7">
+                      <input 
+                        type="email" 
+                        name="email" 
+                        value={this.state.email}
+                        onChange={this.handleChange}
+                        onInvalid={this.handleInvalid}
+                        className="form-control"
+                        placeholder="John@Doe.com"
+                        autoFocus
+                        autoComplete="email"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="row form-row">
+                    <div className="col-5">
+                      <label for="fn" class="form-label">Password</label>
+                    </div>
+                    <div class="col-7">
+                      <input 
+                        type="password" 
+                        name="password" 
+                        value={this.state.password}
+                        onChange={this.handleChange}
+                        onInvalid={this.handleInvalid}
+                        className="form-control"
+                        placeholder="******"
+                        autoComplete="current-password"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="row form-row">
+                    <div className="terms">
+                        <input 
+                          type="checkbox" 
+                          name="stay"
+                          onChange={this.handleCheck}
+                          className="form-check-input"
+                        />
+                        <label for="terms" class="form-label termslabel"><b>I am not a robot!</b></label> 
+                        <br></br>
+                      </div>         
+                      <button type="submit" className="col-4 btn btn-primary btn-lg btn-round">Log In</button>
+                    </div>
+                </div>
+              </div>    
+            </form>
           </div>
-          <div className="mb-3">
-            <input 
-              type="password" 
-              name="password" 
-              value={this.state.password}
-              onChange={this.handleChange}
-              onInvalid={this.handleInvalid}
-              className="form-control"
-              autoComplete="current-password"
-              required
-            />
           </div>
-          <div className="mb-3">
-            <input 
-              type="checkbox" 
-              name="stay"
-              onChange={this.handleCheck}
-              className="form-check-input"
-            />
-          </div>
-          <div className="mb-3">
-            <button 
-              type="submit" 
-              className="btn btn-primary"
-            >
-              Log in
-            </button>
-          </div>
-        </form>
       </div>
     );
   }
