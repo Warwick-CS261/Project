@@ -25,6 +25,10 @@ export default class Reaction extends React.Component {
       }
     }
     
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange(event){

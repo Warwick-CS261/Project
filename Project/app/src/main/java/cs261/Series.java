@@ -21,6 +21,7 @@ public class Series {
     public Series(int id, String name){
         this.id = id;
         this.name = name;
+        sessions = new ArrayList<Sesh>();
     }
 
     public int getId() {
