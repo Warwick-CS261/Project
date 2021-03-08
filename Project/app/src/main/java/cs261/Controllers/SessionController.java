@@ -37,7 +37,7 @@ public class SessionController{
         //generate new unique session ID
         do{
             sessionID = Sesh.generateID();
-        }while(cacher.sessionExists(sessionID));
+        }while(dbConn.sessionExists(sessionID));
         HostSesh hostSession;
         if(secure){
             hostSession = new HostSesh(sessionID, seriesID, name, user, Sesh.generateID());
@@ -277,7 +277,7 @@ public class SessionController{
         }
 
         if(!dbConn.userIsAttendee(sessionID, user.getId() )){
-            response.status(2);
+            response.status(401);
             return "not authorised";
         }
 

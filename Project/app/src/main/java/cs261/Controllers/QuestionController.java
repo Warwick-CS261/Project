@@ -158,7 +158,7 @@ public class QuestionController{
         //session exits? maybe
 
         if(!cacher.userIsModerator(user, sessionID)){
-            response.status(1);
+            response.status(401);
             return "not authorised";
         }
 
