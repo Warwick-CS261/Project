@@ -96,13 +96,13 @@ export default class SignUp extends React.Component {
           }
           <div className="container form-container">
             <form onSubmit={this.handleSubmit} className="formwidth">
-              <div class="row register-box">
-                <div class="col-6">
+              <div className="row register-box">
+                <div className="col-6">
                   <div className="row form-row">
                     <div className="col-5">
-                      <label for="fn" class="form-label">First Name</label>
+                      <label htmlfor="fn" className="form-label">First Name</label>
                     </div>
-                    <div class="col-7">
+                    <div className="col-7">
                       <input
                         type="text" 
                         name="fname" 
@@ -119,9 +119,9 @@ export default class SignUp extends React.Component {
                   </div>
                   <div className="row form-row">
                     <div className="col-5">
-                      <label for="fn" class="form-label">Last Name</label>
+                      <label htmlfor="fn" className="form-label">Last Name</label>
                     </div>
-                    <div class="col-7">
+                    <div className="col-7">
                       <input 
                         type="text" 
                         name="lname" 
@@ -137,9 +137,9 @@ export default class SignUp extends React.Component {
                   </div>
                   <div className="row form-row">
                     <div className="col-5">
-                      <label for="fn" class="form-label">Email</label>
+                      <label htmlfor="fn" className="form-label">Email</label>
                     </div>
-                    <div class="col-7">
+                    <div className="col-7">
                       <input 
                         type="email" 
                         name="email" 
@@ -155,9 +155,9 @@ export default class SignUp extends React.Component {
                   </div>
                   <div className="row form-row">
                     <div className="col-5">
-                      <label for="fn" class="form-label">Password</label>
+                      <label htmlfor="fn" className="form-label">Password</label>
                     </div>
-                    <div class="col-7">
+                    <div className="col-7">
                       <input 
                         type="password" 
                         name="password" 
@@ -173,9 +173,9 @@ export default class SignUp extends React.Component {
                   </div>
                   <div className="row form-row">
                     <div className="col-5">
-                      <label for="fn" class="form-label">Confirm Password</label>
+                      <label htmlfor="fn" className="form-label">Confirm Password</label>
                     </div>
-                    <div class="col-7">
+                    <div className="col-7">
                       <input 
                         type="password" 
                         name="rpassword" 
@@ -190,9 +190,9 @@ export default class SignUp extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div class="col-6 register-right-side">
-                  <div class = "registerIcon">
-                      <i class="bi bi-person-circle"></i>
+                <div className="col-6 register-right-side">
+                  <div className = "registerIcon">
+                      <i className="bi bi-person-circle"></i>
                   </div>
                   <div className="register-bottom-right">
                     <div className="terms">
@@ -204,21 +204,16 @@ export default class SignUp extends React.Component {
                         className="form-check-input"
                         required
                       />
-                      <label for="terms" class="form-label termslabel"><b>I accept the terms and conditions!</b></label> 
+                      <label htmlfor="terms" className="form-label termslabel"><b>I accept the terms and conditions!</b></label> 
                       <br></br>
                     </div>
-                    
                   </div>          
                   <button type="submit" className="col-4 btn btn-primary btn-lg btn-round">Register</button>               
                 </div>
-              </div>
-              
-              
+              </div>           
             </form>
           </div>
-          
         </div>
-        
       </div>
     );
   }

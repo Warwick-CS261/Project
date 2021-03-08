@@ -69,13 +69,13 @@ export default class Main extends React.Component {
         icon: <i className="bi bi-person-circle"></i>
       },
       {
-        path: '/session/user',
+        path: '/session/host',
         key: 'session/user',
         text: 'My Sessions',
         icon: <i className="bi bi-calendar-event-fill"></i>,
       },
       {
-        path: '/sessions',
+        path: '/session/user',
         key: 'sessions',
         text: 'Sessions',
         icon: <i className="bi bi-calendar-range-fill"></i>,
