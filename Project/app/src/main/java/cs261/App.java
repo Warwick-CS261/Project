@@ -9,8 +9,8 @@ import cs261.Controllers.*;
 
 public class App {
 
-    static int port = 6969;
-    static String address = "www.eryl.cymru";
+    static int port = 4000;
+    static String address = "localhost";
     private DBConnection dbConn;
     private Obserable observable;
     private Analyse analyse;
@@ -76,7 +76,6 @@ public class App {
         path("/session", () -> {
             post("/create", SessionController.createSession);
             post("/user", SessionController.userSessions);
-            post("/watch", SessionController.watchSession);
 
             get("/create", returnPage);
             get("/user", returnPage);
@@ -92,6 +91,7 @@ public class App {
                 //post("/join", SessionController.joinSession);
                 post("/end", SessionController.endSession);
                 post("/delete", SessionController.deleteSession);
+                post("/watch", SessionController.watchSession);
                 //get("/join", returnPage);
 
                 path("/question", () -> {

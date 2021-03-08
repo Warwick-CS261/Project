@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Objects;
 
-public class Obserable implements Observable{
+public class Obserable{
     HashMap<String, LinkedList<Watcher>> map;
 
     public Obserable({
