@@ -152,14 +152,69 @@ public class Cacher {
 
     }
 
+    public Boolean userIsSessionHost(User user, String sessionID) throws Exception{
+        HostSesh hs;
+        if (!Objects.isNull(hs = searchCache(sessionID))){
+            return hs.getOwner().getId() == user.getId();
+        }
+        return dbConn.userIsSessionHost(user, sessionID);
+    }
+
 
     public Boolean sessionExists(String sessionID) throws Exception{
-        if(Objects.isNull(searchCache(sessionID))){
+        if(!Objects.isNull(searchCache(sessionID))){
             return true;
         }else{
             return dbConn.sessionExists(sessionID);
         }
     }
+
+    public Boolean endSession(String sessionID) throws SQLException{
+        HostSesh hs;
+        if (!Objects.isNull(hs = searchCache(sessionID))){
+            hs.setFinished(true);
+        }
+        dbConn.endSession(sessionID);
+        return true;
+    }
+
+    public Boolean sessionEnded(String sessionID) throws Exception{
+        HostSesh hs;
+        if (!Objects.isNull(hs = searchCache(sessionID))){
+            return hs.getFinished();
+        }
+        return dbConn.sessionEnded(sessionID);
+    }
+
+    public Boolean questionExists(String sessionID, int qID) throws Exception{
+        HostSesh hs;
+        if (!Objects.isNull(hs = searchCache(sessionID))){
+            if(!Objects.isNull(hs.getQuestionByID(qID))){
+                return true;
+            }
+        }
+        return dbConn.questionExists(sessionID, qID);
+    
+    }
+
+    public String getSessionPassword(String sessionID) throws SQLException{
+        HostSesh hs;
+        if (!Objects.isNull(hs = searchCache(sessionID))){
+            return hs.getSecure();
+        }
+        return dbConn.getSessionPassword(sessionID);
+    }
+
+    public Boolean deleteSession(String sessionID) throws Exception{
+        HostSesh hs;
+        if (!Objects.isNull(hs = searchCache(sessionID))){
+            recentSessions.remove(hs);
+        }
+        return dbConn.deleteSession(sessionID);
+    }
+
+
+    //add attendess to session and check?
 
     private HostSesh searchCache (String sessionID){
         for(HostSesh hs : recentSessions){

@@ -307,11 +307,11 @@ public class DBConnection {
         return moderators;
     }
 
-    public Boolean userIsSessionHost(int userID, String sessionID) throws SQLException{
+    public Boolean userIsSessionHost(User user, String sessionID) throws SQLException{
         String query = "SELECT * FROM SESH WHERE id = ? AND userID = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setString(1, sessionID);
-        stmt.setInt(2, userID);
+        stmt.setInt(2, user.getId());
         ResultSet rs = stmt.executeQuery();
         if(rs.next()){
             return true;

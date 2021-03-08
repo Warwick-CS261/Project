@@ -18,6 +18,7 @@ public class SessionController{
 
     public static Route createSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
+        Cacher cacher = App.getApp().getCacher();
 
         String name = request.queryParams("name");
         String token = request.cookie("token");
@@ -36,7 +37,7 @@ public class SessionController{
         //generate new unique session ID
         do{
             sessionID = Sesh.generateID();
-        }while(dbConn.sessionExists(sessionID));
+        }while(cacher.sessionExists(sessionID));
         HostSesh hostSession;
         if(secure){
             hostSession = new HostSesh(sessionID, seriesID, name, user, Sesh.generateID());
@@ -55,6 +56,7 @@ public class SessionController{
 
     public static Route userSessions = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
+        Cacher cacher = App.getApp().getCacher();
 
         String token = request.cookie("token");
         
@@ -73,6 +75,7 @@ public class SessionController{
 
     public static Route submitMessage = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
+        Cacher cacher = App.getApp().getCacher();
 
         String sessionID = request.params(":id");
         String token = request.cookie("token");
@@ -91,13 +94,13 @@ public class SessionController{
             logger.warn("Message submit to session {} attempted with invalid token: {}",sessionID, token);
             return "Invalid Token";
         }
-        if(!dbConn.userIsAttendee(sessionID, user.getId())&&!dbConn.userIsModerator(user,sessionID )){
+        if(!dbConn.userIsAttendee(sessionID, user.getId())&&!cacher.userIsModerator(user,sessionID )){
             response.status(401);
             return "not authorised for session";
         }
 
         Message message = new Message(user, msg, date, anon);
-        App.getApp().getCacher().createMessage(message, sessionID);
+        cacher.createMessage(message, sessionID);
         App.getApp().getObservable().notifyWatchers( 1, sessionID, gson.toJson(message));
         
         return "token="+dbConn.newToken(user.getId());
@@ -107,6 +110,7 @@ public class SessionController{
 
     public static Route addHost = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
+        Cacher cacher = App.getApp().getCacher();
 
         String token = request.cookie("token");
         String sessionID = request.queryParams(":id");
@@ -120,7 +124,7 @@ public class SessionController{
             return "Invalid Token";
         }
         //Checks if user requesting is host
-        if(!dbConn.userIsSessionHost(user.getId(), sessionID)){
+        if(!cacher.userIsSessionHost(user, sessionID)){
             response.status(401);
             return "No Permission";
         }
@@ -139,6 +143,7 @@ public class SessionController{
 
     public static Route joinSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
+        Cacher cacher = App.getApp().getCacher();
 
         String token = request.cookie("token");
         String password = request.queryParamOrDefault("password", "");
@@ -151,18 +156,18 @@ public class SessionController{
             return "Invalid Token";
         }
         //token exists
-        HostSesh session = dbConn.getHostSessionByID(sessionID);
+        HostSesh session = cacher.getHostSessionByID(sessionID);
         if(Objects.isNull(session)){
             response.status(454);
             logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
             return "Invalid session";
         }
 
-        if(dbConn.userIsModerator(user, sessionID)){
+        if(cacher.userIsModerator(user, sessionID)){
             return "token="+dbConn.newToken(user.getId())+","+gson.toJson(session);
         }
 
-        if(dbConn.sessionEnded(sessionID)){
+        if(cacher.sessionEnded(sessionID)){
             response.status(457);
             return "Session has ended";
         }
@@ -188,6 +193,7 @@ public class SessionController{
 
     public static Route endSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
+        Cacher cacher = App.getApp().getCacher();
         
         String token = request.cookie("token");
         String sessionID = request.params(":id");
@@ -200,22 +206,23 @@ public class SessionController{
             return "Invalid Token";
         }
 
-        if(!dbConn.userIsSessionHost(user.getId(), sessionID)){
+        if(!cacher.userIsSessionHost(user, sessionID)){
             response.status(401);
             return "No permission";
         }
 
-        if(dbConn.sessionEnded(sessionID)){
+        if(cacher.sessionEnded(sessionID)){
             response.status(457);
             return "Already ended";
         }
-        dbConn.endSession(sessionID);
+        cacher.endSession(sessionID);
         response.cookie("token", dbConn.newToken(user.getId()), 3600, false, true);
         return "Session Ended";
     };
 
     public static Route deleteSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
+        Cacher cacher = App.getApp().getCacher();
 
         String token = request.cookie("token");
         String sessionID = request.params(":id");
@@ -228,16 +235,18 @@ public class SessionController{
             return "Invalid Token";
         }
 
-        if(!dbConn.sessionExists(sessionID)){
+        if(!cacher.sessionExists(sessionID)){
             response.status(454);
             logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
             return "Session doesn't exist";
         }
 
-        if(!dbConn.userIsSessionHost(user.getId(), sessionID)){
+        if(!cacher.userIsSessionHost(user, sessionID)){
             response.status(401);
             return "No permission";
         }
+        cacher.deleteSession(sessionID);
+
         return "token="+dbConn.newToken(user.getId());
     };
 
@@ -245,6 +254,7 @@ public class SessionController{
     //but a token may be used twice (acceptable?)
     public static Route watchSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
+        Cacher cacher = App.getApp().getCacher();
 
         String token = request.cookie("token");
         String sessionID = request.queryParams(":id");
@@ -257,7 +267,7 @@ public class SessionController{
             return "Invalid Token";
         }
 
-        if(!dbConn.sessionExists(sessionID)){
+        if(!cacher.sessionExists(sessionID)){
             response.status(454);
             logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
             return "Session doesn't exist";
