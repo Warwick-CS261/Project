@@ -11,14 +11,12 @@ export default class Chat extends React.Component {
     super(props);
     if (this.props.chat !== null && this.props.chat !== undefined){
       this.state = {
-        msgs: this.props.chat.messages,
         anon: false,
         msg: "",
         error: false,
       }
     } else {
       this.state = {
-        msgs: [],
         anon: false,
         msg: "",
         error: false,
@@ -95,18 +93,21 @@ export default class Chat extends React.Component {
 
 
   render(){
-    let msgs = this.state.msgs;
+    let chat = this.props.chat;
+    if (chat !== null) {
+      chat = this.props.chat.messages;
+    }
     return(
       <>
         <h3>Chat</h3>
         <ul>
-        {msgs === null || msgs === undefined || msgs.length == 0 ?
+        {chat === null || chat === undefined || chat.length == 0 ?
           <p>No messages so far</p>
           :
-          this.state.msgs.map((msg) => {
+          chat.map((msg) => {
             return (<li key={msg.id}>
               {JSON.stringify(msg)}
-            </li>)
+            </li>);
           })
         }
         </ul>
