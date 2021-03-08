@@ -101,7 +101,7 @@ public class SessionController{
 
         Message message = new Message(user, msg, date, anon);
         cacher.createMessage(message, sessionID);
-        App.getApp().getObservable().notifyWatchers(1, sessionID, gson.toJson(message));
+        App.getApp().getObservable().notifyBoth(1, sessionID, gson.toJson(message));
         
         return "token="+dbConn.newToken(user.getId());
     };
@@ -137,7 +137,7 @@ public class SessionController{
         //all checks past and success
         cacher.addModerator(newMod,sessionID);
 
-        App.getApp().getObservable().notifyWatchers(6, sessionID, gson.toJson(newMod));
+        App.getApp().getObservable().notifyBoth(5, sessionID, gson.toJson(newMod));
         return "token="+dbConn.newToken(user.getId());
     };
 
@@ -219,7 +219,7 @@ public class SessionController{
         }
         cacher.endSession(sessionID);
 
-        App.getApp().getObservable().notifyWatchers(4, sessionID, gson.toJson(cacher.getHostSessionByID(sessionID).convertToSesh()));//TODO make end session return itself and json it
+        App.getApp().getObservable().notifyBoth(0, sessionID, gson.toJson(cacher.getHostSessionByID(sessionID).convertToSesh()));//TODO make end session return itself and json it
         return "token="+dbConn.newToken(user.getId());
     };
 
@@ -249,7 +249,7 @@ public class SessionController{
             return "No permission";
         }
         cacher.deleteSession(sessionID);
-        App.getApp().getObservable().notifyWatchers(7, sessionID, "deleted session "+sessionID);
+        App.getApp().getObservable().notifyBoth(6, sessionID, "deleted session "+sessionID);
         return "token="+dbConn.newToken(user.getId());
     };
 
@@ -280,11 +280,16 @@ public class SessionController{
             response.status(401);
             return "not authorised";
         }
-
         
         Watcher w = new Watcher();
-        String json = w.watch(sessionID); 
-
+        String json;
+        if(dbConn.userIsModerator(user, sessionID)){
+            json = w.watch(sessionID,true); 
+        }else{
+            json = w.watch(sessionID,false); 
+        }
+        
+        response.status(w.getType());
         //return json string
         return json;
     };

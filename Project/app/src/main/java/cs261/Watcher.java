@@ -6,7 +6,8 @@ public class Watcher {
     int type = 0;
     Boolean host = false;
 
-    public String watch(String sessionID) throws Exception{
+    public String watch(String sessionID, Boolean host) throws Exception{
+        this.host = host;
         App.getApp().getObservable().addToList(sessionID, this);
         App.getApp().getObservable().wait();
         return json;
@@ -14,6 +15,10 @@ public class Watcher {
 
     public Boolean isHost(){
         return host;
+    }
+
+    public int getType(){
+        return type;
     }
 
     public void setJson(String json){
