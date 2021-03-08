@@ -75,7 +75,7 @@ export default class Login extends React.Component {
     return(
       <div className="blackbg">
         <div className="registerBackground">
-        <p class="h1 text-center title-text"><i class="bi bi-person-fill"></i> Login</p>
+        <p className="h1 text-center title-text"><i className="bi bi-person-fill"></i> Login</p>
         {this.state.error !== false && 
           <div className="alert alert-danger" role="alert">
             {this.state.error}
@@ -83,13 +83,13 @@ export default class Login extends React.Component {
         }
         <div className="container form-container">
           <form method="POST" onSubmit={this.handleSubmit} >
-              <div class="row register-box">
-                <div class="col-12">
+              <div className="row register-box">
+                <div className="col-12">
                   <div className="row form-row">
                     <div className="col-5">
                       <label for="fn" class="form-label">Email</label>
                     </div>
-                    <div class="col-7">
+                    <div className="col-7">
                       <input 
                         type="email" 
                         name="email" 
@@ -108,7 +108,7 @@ export default class Login extends React.Component {
                     <div className="col-5">
                       <label for="fn" class="form-label">Password</label>
                     </div>
-                    <div class="col-7">
+                    <div className="col-7">
                       <input 
                         type="password" 
                         name="password" 
@@ -130,7 +130,7 @@ export default class Login extends React.Component {
                           onChange={this.handleCheck}
                           className="form-check-input"
                         />
-                        <label for="terms" class="form-label termslabel"><b>I am not a robot!</b></label> 
+                        <label for="terms" className="form-label termslabel"><b>I am not a robot!</b></label> 
                         <br></br>
                       </div>         
                       <button type="submit" className="col-4 btn btn-primary btn-lg btn-round">Log In</button>
