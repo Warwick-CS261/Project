@@ -4,14 +4,17 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Objects;
 
-public class Obserable {
+public class Obserable implements Observable{
     HashMap<String, LinkedList<Watcher>> map;
 
-    public Obserable(){
+    public Obserable({
         map = new HashMap<>();
     }
 
     public void addToList(String sessionID, Watcher w){
+            if(Objects.isNull(map.get(sessionID))){
+                map.put(sessionID, new LinkedList<Watcher>());
+            }
             map.get(sessionID).add(w);
             return;
     }
