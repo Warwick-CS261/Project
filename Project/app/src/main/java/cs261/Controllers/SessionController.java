@@ -276,7 +276,7 @@ public class SessionController{
             return "Session doesn't exist";
         }
 
-        if(!dbConn.userIsAttendee(sessionID, user.getId() )){
+        if(!dbConn.userIsAttendee(sessionID, user.getId())&&!cacher.userIsModerator(user, sessionID)){
             response.status(401);
             return "not authorised";
         }

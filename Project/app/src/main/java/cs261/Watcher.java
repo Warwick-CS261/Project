@@ -8,8 +8,10 @@ public class Watcher {
 
     public String watch(String sessionID, Boolean host) throws Exception{
         this.host = host;
-        App.getApp().getObservable().addToList(sessionID, this);
-        App.getApp().getObservable().wait();
+        Object o = App.getApp().getObservable().addToList(sessionID, this);
+        synchronized(o){
+            o.wait();
+        }
         return json;
     }
 
