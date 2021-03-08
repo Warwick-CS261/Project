@@ -71,7 +71,10 @@ public class Cacher {
     public Boolean endQuestion(String sessionID, int qID) throws Exception{
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))){
-            hs.getQuestionByID(qID).setPushed(false);
+            Question q = hs.getQuestionByID(qID);
+            q.setPushed(false);
+            hs.getPushedQuestions().remove(q);
+            hs.getHiddenQuestions().add(q);
         }
         dbConn.endQuestion(sessionID, qID);
         return true;
