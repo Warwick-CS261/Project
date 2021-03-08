@@ -129,10 +129,9 @@ public class DBConnection {
         //now attendee
         query = "SELECT sessionID FROM ATTENDEE_SESSION WHERE userID = ?";
         PreparedStatement stmt2 = connection.prepareStatement(query);
-        stmt.setInt(1, userID);
+        stmt2.setInt(1, userID);
         ResultSet rs2 = stmt2.executeQuery();
-        while(rs.next()){
-            System.out.println("attendee session");
+        while(rs2.next()){
             userSeries.addSession(getSessionByID(rs2.getString("sessionID")));
         }
 
