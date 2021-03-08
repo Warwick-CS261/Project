@@ -29,7 +29,7 @@ public class QuestionController{
         User user = dbConn.getUserByToken(token);
         if(Objects.isNull(user)){
             response.status(450);
-            logger.warn("Create question in session {} attempted with invalid token: {}", sessionID,token);
+            logger.warn("Create question in session {} attempted with invalid token: {}", sessionID, token);
             return "Invalid Token";
         }
         //need to check user is moderator or owner
@@ -40,6 +40,14 @@ public class QuestionController{
 
         Question q = new Question(question, pushed);
         App.getApp().getCacher().createQuestion(q, sessionID);
+
+        if(pushed){
+            App.getApp().getObservable().notifyWatchers(3, sessionID, gson.toJson(q));
+        }else{
+            App.getApp().getObservable().notifyHosts(3, sessionID, gson.toJson(q));
+        }
+
+
         return "token="+dbConn.newToken(user.getId())+","+gson.toJson(q);
     };
 
@@ -84,7 +92,7 @@ public class QuestionController{
         cacher.setSessionMood(sessionID, App.getApp().getAnalyse().newMoodCoefficient(cacher.getSessionMood(sessionID), App.getApp().getAnalyse().parseText(answer.getContext()), dbConn.numOfAnswersToQ(sessionID, qID)));
         cacher.createMoodDate(sessionID, new MoodDate(cacher.getSessionMood(sessionID), new Date()));
         
-        App.getApp().getObservable().notifyHosts(3, sessionID, gson.toJson(answer));
+        App.getApp().getObservable().notifyHosts(3, sessionID, gson.toJson(answer));//TODO this will need a question ID or it's useless
         return "token="+dbConn.newToken(user.getId());
     };
 
@@ -118,7 +126,9 @@ public class QuestionController{
             return "not authorised";
         }
 
-        dbConn.deleteQuestion(sessionID, qID);
+        cacher.deleteQuestion(sessionID, qID);
+
+        App.getApp().getObservable().notifyWatchers(7, sessionID, "removed question id: "+qID+" from session "+ sessionID);
 
         return "token="+dbConn.newToken(user.getId());
     };
@@ -158,8 +168,8 @@ public class QuestionController{
             return "no such question";
         }  
 
-        dbConn.endQuestion(sessionID, qID);
-        //App.getApp().getObservable().notifyWatchers(3, sessionID, gson.toJson(q));
+        cacher.endQuestion(sessionID, qID);
+        App.getApp().getObservable().notifyWatchers(4, sessionID, gson.toJson(q));//need to discuss how to do this
 
         return "token="+dbConn.newToken(user.getId());
     };

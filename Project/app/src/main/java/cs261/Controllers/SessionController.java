@@ -101,7 +101,7 @@ public class SessionController{
 
         Message message = new Message(user, msg, date, anon);
         cacher.createMessage(message, sessionID);
-        App.getApp().getObservable().notifyWatchers( 1, sessionID, gson.toJson(message));
+        App.getApp().getObservable().notifyWatchers(1, sessionID, gson.toJson(message));
         
         return "token="+dbConn.newToken(user.getId());
     };
@@ -135,12 +135,14 @@ public class SessionController{
             return "No user with that email exists";
         }
         //all checks past and success
-        App.getApp().getCacher().addModerator(newMod,sessionID);
+        cacher.addModerator(newMod,sessionID);
+
+        App.getApp().getObservable().notifyWatchers(6, sessionID, gson.toJson(newMod));
         return "token="+dbConn.newToken(user.getId());
     };
 
 
-
+    //TODO want to redo this
     public static Route joinSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
         Cacher cacher = App.getApp().getCacher();
@@ -216,8 +218,9 @@ public class SessionController{
             return "Already ended";
         }
         cacher.endSession(sessionID);
-        response.cookie("token", dbConn.newToken(user.getId()), 3600, false, true);
-        return "Session Ended";
+
+        App.getApp().getObservable().notifyWatchers(4, sessionID, gson.toJson(cacher.getHostSessionByID(sessionID).convertToSesh()));//TODO make end session return itself and json it
+        return "token="+dbConn.newToken(user.getId());
     };
 
     public static Route deleteSession = (Request request, Response response) -> {
@@ -246,7 +249,7 @@ public class SessionController{
             return "No permission";
         }
         cacher.deleteSession(sessionID);
-
+        App.getApp().getObservable().notifyWatchers(7, sessionID, "deleted session "+sessionID);
         return "token="+dbConn.newToken(user.getId());
     };
 
