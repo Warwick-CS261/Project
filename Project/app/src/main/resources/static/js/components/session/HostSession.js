@@ -60,46 +60,51 @@ class HostSession extends React.Component {
   }
 
   async componentDidUpdate(){
-    let { field, data } = await $.ajax({
-      url: `/session/${this.state.id}/watch`,
-      type: 'POST',
-      timeout: 300000,
-      statusCode: {
-        230: (data)=>{
-          console.log(data);
-        },
-        231: (data)=>{
-          console.log(data);
-        },
-        232: (data)=>{
-          console.log(data);
-        },
-        233: (data)=>{
-          console.log(data);
-        },
-        234: (data)=>{
-          console.log(data);
-        },
-        235: (data)=>{
-          console.log(data);
-        },
-        236: (data)=>{
-          console.log(data);
-        },
-        237: (data)=>{
-          console.log(data);
-        },
-        401: ()=> {
-          console.log(data);
-        },
-        450: ()=>{
-          console.log(data);
-        },
-        454: ()=>{
-          console.log(data);
+    try {
+      let { field, data } = await $.ajax({
+        url: `/session/${this.state.id}/watch`,
+        type: 'POST',
+        timeout: 300000,
+        statusCode: {
+          230: (data)=>{
+            console.log(data);
+          },
+          231: (data)=>{
+            console.log(data);
+          },
+          232: (data)=>{
+            console.log(data);
+          },
+          233: (data)=>{
+            console.log(data);
+          },
+          234: (data)=>{
+            console.log(data);
+          },
+          235: (data)=>{
+            console.log(data);
+          },
+          236: (data)=>{
+            console.log(data);
+          },
+          237: (data)=>{
+            console.log(data);
+          },
+          401: ()=> {
+            console.log(data);
+          },
+          450: ()=>{
+            console.log(data);
+          },
+          454: ()=>{
+            console.log(data);
+          }
         }
-      }
-    });
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    
   }
 
   render() {

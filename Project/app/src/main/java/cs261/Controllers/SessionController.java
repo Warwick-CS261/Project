@@ -260,7 +260,7 @@ public class SessionController{
         Cacher cacher = App.getApp().getCacher();
 
         String token = request.cookie("token");
-        String sessionID = request.queryParams(":id");
+        String sessionID = request.params(":id");
         
         User user = dbConn.getUserByToken(token);
         //token is valid

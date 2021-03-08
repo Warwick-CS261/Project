@@ -12,8 +12,11 @@ public class Obserable {
     }
 
     public void addToList(String sessionID, Watcher w){
-            map.get(sessionID).add(w);
-            return;
+        if(Objects.isNull(map.get(sessionID))){
+            map.put(sessionID, new LinkedList<Watcher>());
+        }
+        map.get(sessionID).add(w);
+        return;
     }
 
     public void notifyAttendees(int type, String sessionID, String json){
