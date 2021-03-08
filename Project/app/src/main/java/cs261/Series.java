@@ -18,10 +18,13 @@ public class Series {
         this.id = id;
         this.name = name;
         sessions = new ArrayList<Sesh>();
+<<<<<<< HEAD
     }
 
     public void addSession(Sesh s){
         sessions.add(s);
+=======
+>>>>>>> frontend
     }
 
 

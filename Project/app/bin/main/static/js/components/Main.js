@@ -10,7 +10,6 @@ import {
 import Home from './Home';
 import Logo from './Logo';
 import User from './User';
-import Sessions from './Sessions';
 import MySessions from './MySessions';
 import AttendeeSession from './session/AttendeeSession';
 import HostSession from './session/HostSession';
@@ -142,10 +141,16 @@ export default class Main extends React.Component {
             <User />
           </Route>
           <Route path={routes[2].path}>
-            <MySessions />
+            <MySessions
+              updateToken={this.props.updateToken}
+              isMod={true}
+            />
           </Route>
           <Route path={routes[3].path}>
-            <Sessions />
+            <MySessions
+              updateToken={this.props.updateToken}
+              isMod={false}
+            />
           </Route>
           <Route path="/session/:id"
             children={this.state.isHost ?

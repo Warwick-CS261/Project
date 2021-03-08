@@ -28,9 +28,6 @@ export default class Chat extends React.Component {
     this.handleCheck = this.handleCheck.bind(this);
 
   }
-  componentDidMount(){
-    console.log(this.state.msgs);
-  }
 
   handleChange(event){
     this.setState({
