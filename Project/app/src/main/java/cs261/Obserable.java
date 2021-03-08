@@ -16,27 +16,32 @@ public class Obserable {
             return;
     }
 
-    public void notifyWatchers(int type, String sessionID, String json){
+    public void notifyAttendees(int type, String sessionID, String json){
         if(!Objects.isNull(map.get(sessionID))){ 
             for (Watcher w : map.get(sessionID)){
                     w.setJson(json);
-                    w.setType(type);
+                    w.setType(230+type);
                     w.notify();
                     map.get(sessionID).remove(w);
             }
         }
     }
 
-    public void notifyHosts(int type, String sessionID, String json){
+    public void notifyModerators(int type, String sessionID, String json){
         if(!Objects.isNull(map.get(sessionID))){ 
             for (Watcher w : map.get(sessionID)){
                 if(w.isHost()){
                     w.setJson(json);
-                    w.setType(type);
+                    w.setType(230+type);
                     w.notify();
                     map.get(sessionID).remove(w);
                 };
             }
         }
+    }
+
+    public void notifyBoth(int type, String sessionID, String json){
+        notifyAttendees(type, sessionID, json);
+        notifyModerators(type, sessionID, json);
     }
 }
