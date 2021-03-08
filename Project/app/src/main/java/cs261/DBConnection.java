@@ -132,7 +132,7 @@ public class DBConnection {
         stmt2.setInt(1, userID);
         ResultSet rs2 = stmt2.executeQuery();
         while(rs2.next()){
-            userSeries.addSession(getSessionByID(rs2.getString("sessionID")));
+            userSeries.addSession(getHostSessionByID(rs2.getString("sessionID")).convertToSesh());
         }
 
         return userSeries;
