@@ -21,6 +21,11 @@ public class Obserable{
             return map.get(sessionID);
     }
 
+    public void removeFromList(String sessionID, Watcher w){
+
+        map.get(sessionID).remove(w);
+        return;
+}
     
 
     public void notifyAttendees(int type, String sessionID, String json){
@@ -31,9 +36,9 @@ public class Obserable{
                 for (Watcher w : wl){
                         w.setJson(json);
                         w.setType(230+type);
-                        map.get(sessionID).notifyAll();
-                        map.get(sessionID).remove(w);
+                        w.requiresAttendee();
                 }
+                map.get(sessionID).notifyAll();
             }
         }
     }
@@ -43,19 +48,26 @@ public class Obserable{
         if(!Objects.isNull(wl = map.get(sessionID))){ 
             synchronized (wl){
                 for (Watcher w : wl){
-                    if(w.isHost()){
-                        w.setJson(json);
-                        w.setType(230+type);
-                        map.get(sessionID).notifyAll();
-                        map.get(sessionID).remove(w);
-                    };
+                    w.setJson(json);
+                    w.setType(230+type);
+                    w.requiresMod();
                 }
+                map.get(sessionID).notifyAll();
             }
         }
     }
 
     public void notifyBoth(int type, String sessionID, String json){
-        notifyAttendees(type, sessionID, json);
-        notifyModerators(type, sessionID, json);
+        List<Watcher> wl;
+        if(!Objects.isNull(wl = map.get(sessionID))){ 
+            synchronized (wl){
+                for (Watcher w : wl){
+                    w.setJson(json);
+                    w.setType(230+type);
+                    w.both();
+                }
+                map.get(sessionID).notifyAll();
+            }
+        }
     }
 }
