@@ -14,14 +14,17 @@ public class Series {
 
     }
 
+    public Series(int id, String name){
+        this.id = id;
+        this.name = name;
+        sessions = new ArrayList<Sesh>();
+    }
+
     public void addSession(Sesh s){
         sessions.add(s);
     }
 
-    public Series(int id, String name){
-        this.id = id;
-        this.name = name;
-    }
+
 
     public int getId() {
         return id;

@@ -67,7 +67,7 @@ public class SessionController{
             logger.warn("Get user sessions attempted with invalid token: {}", token);
             return "Invalid Token";
         }
-        return gson.toJson(dbConn.getUserSessions(user.getId()));
+        return "token="+dbConn.newToken(user.getId())+gson.toJson(dbConn.getUserSessions(user.getId()));
 
     };
 
