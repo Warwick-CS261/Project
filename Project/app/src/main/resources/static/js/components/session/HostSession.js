@@ -59,6 +59,49 @@ class HostSession extends React.Component {
     this.props.handleSession(null);
   }
 
+  async componentDidUpdate(){
+    let { field, data } = await $.ajax({
+      url: `/session/${this.state.id}/watch`,
+      type: 'POST',
+      timeout: 300000,
+      statusCode: {
+        230: (data)=>{
+
+        },
+        231: (data)=>{
+
+        },
+        232: (data)=>{
+
+        },
+        233: (data)=>{
+
+        },
+        234: (data)=>{
+
+        },
+        235: (data)=>{
+
+        },
+        236: (data)=>{
+
+        },
+        237: (data)=>{
+
+        },
+        401: ()=> {
+
+        },
+        450: ()=>{
+
+        },
+        454: ()=>{
+
+        }
+      }
+    });
+  }
+
   render() {
     return (
       <>
