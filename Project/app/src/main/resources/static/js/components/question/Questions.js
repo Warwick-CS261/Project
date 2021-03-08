@@ -1,16 +1,29 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
-import {
-  handleError,
-  handleToken,
-  handleJSON
-} from '../../util';
-import { Redirect } from 'react-router-dom';
+import { handleToken } from '../../util';
+
 import HostQuestion from './HostQuestion';
 import AttendeeQuestion from './AttendeeQuestion';
+import AnswerList from './AnswerList';
 
 export default class Questions extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      selected: -1,
+    };
+
+    this.handleSelect = this.handleSelect.bind(this);
+  }
+
+
+  handleSelect(qID){
+    this.setState({
+      selected: qID,
+    });
+  }
+
   render(){
 
     console.log(JSON.stringify(this.props));
@@ -26,6 +39,8 @@ export default class Questions extends React.Component {
                   data={pq}
                   pushed={true}
                   sessionID={this.props.sessionID}
+                  updateToken={this.props.updateToken}
+                  handleSelect={this.handleSelect}
                 />
               );
             })}
@@ -36,12 +51,17 @@ export default class Questions extends React.Component {
                   data={hq}
                   pushed={false}
                   sessionID={this.props.sessionID}
+                  updateToken={this.props.updateToken}
+                  handleSelect={this.handleSelect}
                 />
               );
             })}
           </div>
           <div className="content">
-            Answer list goes here
+            <AnswerList
+              qID={this.state.selected}
+              data={this.props.pushedQuestions.answers}
+            />
           </div>
         </>
       );
