@@ -350,18 +350,6 @@ public class DBConnection {
         return true;
     }
 
-    public Sesh getSessionByID(String sessionID) throws SQLException{
-        String query = "SELECT * FROM SESH WHERE id = ?";
-        PreparedStatement stmt = connection.prepareStatement(query);
-        stmt.setString(1, sessionID);
-        ResultSet rs = stmt.executeQuery();
-        if(rs.next()){
-            return new Sesh(sessionID, rs.getString("seriesID"), rs.getString("sname"),
-            getUserByID(rs.getInt("id")), rs.getBoolean("ended"), loadChat(sessionID), loadPushedQuestions(sessionID), getSessionModerators(sessionID));
-        }
-        return null;
-    }
-
     public HostSesh getHostSessionByID(String sessionID) throws SQLException{
         String query = "SELECT * FROM SESH WHERE id = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
