@@ -63,11 +63,6 @@ class AttendeeSession extends React.Component {
           // handle session
           this.props.handleSession(session);
           if (session.secure === null || session.secure === undefined) {
-            try {
-              this.handleWait();
-            } catch (error) {
-              console.log(error);
-            }
             this.setState({
               id: session.id,
               seriesID: session.seriesID,
@@ -107,62 +102,58 @@ class AttendeeSession extends React.Component {
     }
   }
 
-  async handleWait(){
-    if (!this.state.subscribed){
-      this.setState({
-        subscribed: true,
-      });
-      setTimeout(()=>{
-        this.setState({
-          subscribed: false,
-        });
-      }, 300000);
-      let res, {status, responseText} = await $.ajax({
-        url: `/session/${this.state.id}/watch`,
-        type: "POST",
-        timeout: 300000,
-      });
-      switch(status){
-        case 230:
-          console.log(responseText);
-          break;
-        case 231:
-          console.log(responseText);
-          break;
-        case 232:
-          console.log(responseText);
-          break;
-        case 233:
-          console.log(responseText);
-          break;
-        case 234:
-          console.log(responseText);
-          break;
-        case 235:
-          console.log(responseText);
-          break;
-        case 236:
-          console.log(responseText);
-          break;
-        case 237:
-          console.log(responseText);
-          break;
-        case 401:
-          console.log(responseText);
-          break;
-        case 450:
-          console.log(responseText);
-          break;
-        case 454:
-          console.log(responseText);
-          break;
-      }
-    }
-  }
-
   async componentDidUpdate() {
     try {
-      await this.handleWait();
+      if (!this.state.subscribed && this.state.id !== ""){
+        this.setState({
+          subscribed: true,
+        });
+        setTimeout(()=>{
+          this.setState({
+            subscribed: false,
+          });
+        }, 300000);
+        let res, {status, responseText} = await $.ajax({
+          url: `/session/${this.state.id}/watch`,
+          type: "POST",
+          timeout: 300000,
+        });
+        switch(status){
+          case 230:
+            console.log(responseText);
+            break;
+          case 231:
+            console.log(responseText);
+            break;
+          case 232:
+            console.log(responseText);
+            break;
+          case 233:
+            console.log(responseText);
+            break;
+          case 234:
+            console.log(responseText);
+            break;
+          case 235:
+            console.log(responseText);
+            break;
+          case 236:
+            console.log(responseText);
+            break;
+          case 237:
+            console.log(responseText);
+            break;
+          case 401:
+            console.log(responseText);
+            break;
+          case 450:
+            console.log(responseText);
+            break;
+          case 454:
+            console.log(responseText);
+            break;
+        }
+      }
     } catch (error) {
       console.log(error);
     }

@@ -31,6 +31,7 @@ class HostSession extends React.Component {
         pushedQuestions: session.pushedQuestions,
         chat: session.chat,
         error: false,
+        subscribed: true,
       };
     } else {
       this.state = {
@@ -46,13 +47,15 @@ class HostSession extends React.Component {
         pushedQuestions: [],
         chat: null,
         error: false,
+        subscribed: true,
       };
     }
   }
 
   componentDidMount(){
-    let { id }  = this.props.match.params;
-    console.log(id);
+    this.setState({
+      subscribed: false,
+    });
   }
 
   componentWillUnmount(){
@@ -61,46 +64,56 @@ class HostSession extends React.Component {
 
   async componentDidUpdate(){
     try {
-      let { field, data } = await $.ajax({
-        url: `/session/${this.state.id}/watch`,
-        type: 'POST',
-        timeout: 300000,
-        statusCode: {
-          230: (data)=>{
-            console.log(data);
-          },
-          231: (data)=>{
-            console.log(data);
-          },
-          232: (data)=>{
-            console.log(data);
-          },
-          233: (data)=>{
-            console.log(data);
-          },
-          234: (data)=>{
-            console.log(data);
-          },
-          235: (data)=>{
-            console.log(data);
-          },
-          236: (data)=>{
-            console.log(data);
-          },
-          237: (data)=>{
-            console.log(data);
-          },
-          401: ()=> {
-            console.log(data);
-          },
-          450: ()=>{
-            console.log(data);
-          },
-          454: ()=>{
-            console.log(data);
-          }
+      if (!this.state.subscribed && this.state.id !== ""){
+        this.setState({
+          subscribed: true,
+        });
+        setTimeout(()=>{
+          this.setState({
+            subscribed: false,
+          });
+        }, 300000);
+        let res, {status, responseText} = await $.ajax({
+          url: `/session/${this.state.id}/watch`,
+          type: "POST",
+          timeout: 300000,
+        });
+        switch(status){
+          case 230:
+            console.log(responseText);
+            break;
+          case 231:
+            console.log(responseText);
+            break;
+          case 232:
+            console.log(responseText);
+            break;
+          case 233:
+            console.log(responseText);
+            break;
+          case 234:
+            console.log(responseText);
+            break;
+          case 235:
+            console.log(responseText);
+            break;
+          case 236:
+            console.log(responseText);
+            break;
+          case 237:
+            console.log(responseText);
+            break;
+          case 401:
+            console.log(responseText);
+            break;
+          case 450:
+            console.log(responseText);
+            break;
+          case 454:
+            console.log(responseText);
+            break;
         }
-      });
+      }
     } catch (error) {
       console.log(error);
     }
