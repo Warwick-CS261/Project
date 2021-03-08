@@ -21,6 +21,7 @@ public class AuthController{
         User user = dbConn.verifyPassword(email, pword);
         if(Objects.isNull(user)){
             response.status(455);
+            System.out.println(email+" "+pword);
             logger.warn("User with email: doesn't exist or incorrect password", email);
             return "Incorrect email or password";
         }else{

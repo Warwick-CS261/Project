@@ -16,13 +16,8 @@ public class Analyse {
         executor.setStreamHandler(streamHandler);
 
         int exitCode = executor.execute(cmdLine);
-        return Float.parseFloat(outputStream.toString().trim());// Float.parseFloat(outputStream.toString().trim());
+        return Float.parseFloat(outputStream.toString().trim());
     }
-    /*
-    public float parseText(String str) throws Exception {
-        String val = inv.invokeFunction("func1", str).toString();
-        return Float.parseFloat(val);
-    }*/
 
     public float newMoodCoefficient(float oldMean, float newValue, int numValues) {
         return ((oldMean * numValues) + newValue) / (numValues + 1);

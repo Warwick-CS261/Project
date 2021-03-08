@@ -100,7 +100,7 @@ public class DBConnection {
     }
 
     public Boolean pushQuestion(String sessionId, int questionID) throws SQLException{
-        String query = "UPDATE QUESTION SET pushed = TRUE WHERE id = ? & sessionID = ?";
+        String query = "UPDATE QUESTION SET pushed = 1 WHERE id = ? & sessionID = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setInt(1, questionID);
         stmt.setString(2, sessionId);
@@ -109,7 +109,7 @@ public class DBConnection {
     }
 
     public Boolean endQuestion(String sessionId, int questionID) throws SQLException{
-        String query = "UPDATE QUESTION SET pushed = FALSE WHERE id = ? & sessionID = ?";
+        String query = "UPDATE QUESTION SET pushed = 0 WHERE id = ? & sessionID = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setInt(1, questionID);
         stmt.setString(2, sessionId);
@@ -151,7 +151,7 @@ public class DBConnection {
     }
 
     public Boolean deleteQuestion(String sessionID, int questionID) throws SQLException{
-        String query = "DELETE FROM QUESTIONS WHERE id = ? & sessionID = ?";
+        String query = "DELETE FROM QUESTION WHERE id = ? AND sessionID = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setInt(1, questionID);
         stmt.setString(2, sessionID);
@@ -307,11 +307,11 @@ public class DBConnection {
         return moderators;
     }
 
-    public Boolean userIsSessionHost(int userID, String sessionID) throws SQLException{
+    public Boolean userIsSessionHost(User user, String sessionID) throws SQLException{
         String query = "SELECT * FROM SESH WHERE id = ? AND userID = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setString(1, sessionID);
-        stmt.setInt(2, userID);
+        stmt.setInt(2, user.getId());
         ResultSet rs = stmt.executeQuery();
         if(rs.next()){
             return true;

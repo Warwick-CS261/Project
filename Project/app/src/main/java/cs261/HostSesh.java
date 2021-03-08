@@ -77,11 +77,20 @@ public class HostSesh extends Sesh {
         }
         for(Question q : hiddenQuestions){
             if (q.getID() == id){
-                pushedQuestions.remove(q);
+                hiddenQuestions.remove(q);
                 return q;
             }
         }
         return null;
+    }
+
+    public Boolean addQuestion(Question q){
+        if(q.getPushed()){
+            pushedQuestions.add(q);
+        }else{
+            hiddenQuestions.add(q);
+        }
+        return true;
     }
 
     public String getSecure() {
