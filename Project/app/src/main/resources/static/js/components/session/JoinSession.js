@@ -32,7 +32,7 @@ export default class JoinSession extends React.Component {
 
   handleSubmit(event){
     let params = new URLSearchParams();
-    params.append('password');
+    params.append('password', this.state.password);
     $.ajax({
       url: `/session/${this.state.sessionID}`,
       type: 'POST',
