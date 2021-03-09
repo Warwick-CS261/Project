@@ -13,7 +13,7 @@ public class Watcher {
         this.isMod = isMod;
         Object o = App.getApp().getObservable().addToList(sessionID, this);
         synchronized(o){
-            while(!(requiresMod && isMod)||!(requiresAttendee && !isMod)||!both){
+            while(!(requiresMod && isMod)&&!(requiresAttendee && !isMod)&&!both){
                 o.wait();
             }
         }
