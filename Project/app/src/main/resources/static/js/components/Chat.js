@@ -2,7 +2,6 @@ import React from 'react';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
 import { Redirect } from 'react-router-dom';
-import { handleToken } from '../util';
 
 
 
@@ -51,7 +50,8 @@ export default class Chat extends React.Component {
       type: 'POST',
       data: params.toString(),
       success: (data, status, jqXHR) =>{
-        let token = handleToken(data);
+        let object = JSON.parse(data);
+        let token = object.token;
         if (token === null || token === undefined) {
           this.setState({
             error: 'Server response was invalid'

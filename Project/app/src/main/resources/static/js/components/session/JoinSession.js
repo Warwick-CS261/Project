@@ -1,11 +1,6 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
-import {
-  handleError,
-  handleToken,
-  handleJSON
-} from '../../util';
 import { Redirect } from 'react-router-dom';
 
 export default class JoinSession extends React.Component {
@@ -38,14 +33,15 @@ export default class JoinSession extends React.Component {
       type: 'POST',
       data: params.toString(),
       success: (data, status, jqXHR) => {
-        let token = handleToken(data);
+        let object = JSON.parse(data);
+        let token = object.token;
         if (token === null || token === undefined){
           this.setState({
             error: 'Timed out, please log in again',
           });
           return;
         }
-        let session = handleJSON(data);
+        let session = object.session;
         if (session === null) {
           this.setState({
             error: 'Server response was invalid'

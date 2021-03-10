@@ -1,7 +1,6 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
-import {handleToken, handleError} from '../../util';
 
 /**
  * Login component
@@ -47,7 +46,8 @@ export default class Login extends React.Component {
       type: 'POST',
       data: params.toString(),
       success: (data, status, jqXHR) => {
-        let token = handleToken(data);
+        let object = JSON.parse(data);
+        let token = object.token;
         if (token === null || token === undefined){
           this.setState({
             error: data,

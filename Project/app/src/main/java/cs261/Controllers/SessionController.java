@@ -291,6 +291,6 @@ public class SessionController{
         
         response.status(w.getType());
         //return json string
-        return "token="+dbConn.newToken(user.getId()) +","+ json;
+        return json;
     };
 }
