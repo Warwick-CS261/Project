@@ -49,7 +49,7 @@ public class QuestionController {
             App.getApp().getObservable().notifyModerators(7, sessionID, gson.toJson(q));
         }
 
-        return "{token:'" + dbConn.newToken(user.getId()) + "', question:" + gson.toJson(q) + "}";
+        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\", \"question\":" + gson.toJson(q) + "}";
     };
 
     public static Route submitResponse = (Request request, Response response) -> {
@@ -97,7 +97,7 @@ public class QuestionController {
 
         App.getApp().getObservable().notifyModerators(8, sessionID, gson.toJson(answer));// TODO this will need a
                                                                                          // question ID or it's useless
-        return "{token:'" + dbConn.newToken(user.getId()) + "'}";
+        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
     };
 
     public static Route deleteQuestion = (Request request, Response response) -> {
@@ -136,7 +136,7 @@ public class QuestionController {
         App.getApp().getObservable().notifyBoth(7777, sessionID,
                 "removed question id: " + qID + " from session " + sessionID);
 
-        return "{token:'" + dbConn.newToken(user.getId()) + "'}";
+        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
     };
 
     public static Route endQuestion = (Request request, Response response) -> {
@@ -177,7 +177,7 @@ public class QuestionController {
         cacher.endQuestion(sessionID, qID);
         App.getApp().getObservable().notifyBoth(3, sessionID, gson.toJson(q));// need to discuss how to do this
 
-        return "{token:'" + dbConn.newToken(user.getId()) + "'}";
+        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
     };
 
     public static Route pushQuestion = (Request request, Response response) -> {
@@ -219,7 +219,7 @@ public class QuestionController {
         App.getApp().getObservable().notifyAttendees(2, sessionID, gson.toJson(q));
         App.getApp().getObservable().notifyModerators(237, sessionID, gson.toJson(q));
 
-        return "{token:'" + dbConn.newToken(user.getId()) + "'}";
+        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
     };
 
 }
