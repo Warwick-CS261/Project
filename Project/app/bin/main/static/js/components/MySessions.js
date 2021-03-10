@@ -71,8 +71,29 @@ export default class MySessions extends React.Component {
 
     if (this.props.isMod){
       return (
-        <>
-          {this.state.modSessions.map((session)=>{
+        <section className="main">
+          <div className="container-fluid">
+            {this.state.modSessions.map((session)=>{
+              return (
+                <div
+                  key={session.id}
+                  onClick={()=>this.handleClick(session.id)}
+                >
+                  <h6>{session.sessionName}</h6>
+                  <span>{session.id}</span>
+                  <span>{session.owner.fname} {session.owner.lname}</span>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )
+    }
+
+    return (
+      <section className="main">
+          <div className="container-fluid">
+            {this.state.attendedSessions.map((session)=>{
             return (
               <div
                 key={session.id}
@@ -84,25 +105,8 @@ export default class MySessions extends React.Component {
               </div>
             );
           })}
-        </>
-      )
-    }
-
-    return (
-      <>
-        {this.state.attendedSessions.map((session)=>{
-          return (
-            <div
-              key={session.id}
-              onClick={()=>this.handleClick(session.id)}
-            >
-              <h6>{session.sessionName}</h6>
-              <span>{session.id}</span>
-              <span>{session.owner.fname} {session.owner.lname}</span>
-            </div>
-          );
-        })}
-      </>
+          </div>
+      </section>
     )
   }
 }
