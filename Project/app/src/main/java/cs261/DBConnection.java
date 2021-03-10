@@ -289,6 +289,24 @@ public class DBConnection {
         return null;
     }
 
+    public User getUserByWatchToken(String watchToken) throws SQLException {
+        String query = "SELECT userID FROM USER_TOKEN WHERE watchToken = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, watchToken);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            query = "SELECT * FROM USER WHERE id = ?";
+            PreparedStatement stmt2 = connection.prepareStatement(query);
+            stmt2.setInt(1, rs.getInt("userID"));
+            ResultSet rs2 = stmt2.executeQuery();
+            if (rs2.next()) {
+                return new User(rs2.getInt("id"), rs2.getString("fname"), rs2.getString("lname"),
+                        rs2.getString("email"));
+            }
+        }
+        return null;
+    }
+
     public User getUserByEmail(String email) throws SQLException {
         String query = "SELECT * FROM USER WHERE email = ?";
         PreparedStatement stmt = connection.prepareStatement(query);

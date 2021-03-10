@@ -254,7 +254,7 @@ public class SessionController {
         String watchToken = request.cookie("watchToken");
         String sessionID = request.params(":id");
 
-        User user = dbConn.getUserByToken(watchToken);
+        User user = dbConn.getUserByWatchToken(watchToken);
         // token is valid
         if (Objects.isNull(user)) {
             response.status(450);
