@@ -93,7 +93,10 @@ export default class Main extends React.Component {
       <>
         <section className="body">
           <section className="menu">
+            
+            <div class="logo">
             <Logo />
+            </div>
             <nav className="nav">
               <ul>
                 {routes.map((route, index) => {
@@ -109,7 +112,7 @@ export default class Main extends React.Component {
                     );
                   }
                 })}
-                <li className="nav-link" key="logout">
+                <li className="nav-link nav-logout" key="logout" id="nav-logout">
                   <a 
                     href="/"
                     onClick={this.props.onLogout}
