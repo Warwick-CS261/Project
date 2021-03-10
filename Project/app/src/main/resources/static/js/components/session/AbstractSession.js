@@ -4,6 +4,7 @@ import $ from "jquery";
 import { withRouter } from 'react-router';
 import AttendeeSession from './AttendeeSession';
 import HostSession from './HostSession';
+import { handleToken, handleJSON } from '../../util';
 
 
 class AbstractSession extends React.Component {
@@ -76,12 +77,13 @@ class AbstractSession extends React.Component {
     }
   }
 
-  componentDidUpdate(){
-    if (this.props.session !== undefined && this.props.session !== null){
-      this.setState({
+  static getDerivedStateFromProps(props, state){
+    if (props.session !== undefined && props.session !== null){
+      return {
         loading: false,
-      });
+      };
     }
+    return null;
   }
 
   componentDidCatch(error, info){

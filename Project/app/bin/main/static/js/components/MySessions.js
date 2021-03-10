@@ -71,7 +71,6 @@ export default class MySessions extends React.Component {
 
     if (this.props.isMod){
       return (
-        <>
         <section className="main">
           <div className="container-fluid">
             {this.state.modSessions.map((session)=>{
@@ -88,13 +87,10 @@ export default class MySessions extends React.Component {
             })}
           </div>
         </section>
-          
-        </>
       )
     }
 
     return (
-      <>
       <section className="main">
           <div className="container-fluid">
             {this.state.attendedSessions.map((session)=>{
@@ -111,8 +107,6 @@ export default class MySessions extends React.Component {
           })}
           </div>
       </section>
-        
-      </>
     )
   }
 }

@@ -91,13 +91,34 @@ section.body{
   }
 
 }
+.videobgwrapper {
+  filter:blur(4px);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: -100;
+}
 .videobg{
   position: absolute;
-  z-index: -1;
-  width: 100vw;
-  height: 100vh;
-  filter: blur(4px);
-  
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+@media (min-aspect-ratio: 16/9) {
+  .videobg{
+    width: 100%;
+    height: auto;
+  }
+}
+@media (max-aspect-ratio: 16/9) {
+  .videobg {
+    width: auto;
+    height: 100%;
+  }
 }
 
 
