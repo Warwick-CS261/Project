@@ -99,11 +99,12 @@ export default class HostSession extends React.Component {
             this.props.updateWatchToken(watchToken);
             switch(jqXHR.status){
               case 231:
-                this.setState(old => {
-                  return {
-                    chat: old.messages.push(object.update)
+                this.setState(({chat}) => {
+                  chat: {
+                    messages: [...chat.messages, object.update]//I can't do it :(
+                    console.log(messages);
                   }
-                })
+                  })
                 break;
             }
           }
