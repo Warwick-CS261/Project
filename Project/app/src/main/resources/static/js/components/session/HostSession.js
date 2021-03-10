@@ -74,8 +74,6 @@ export default class HostSession extends React.Component {
   */
   async componentDidUpdate(){
     try {
-      console.log('Function call update');
-      console.log(this.state.subscribed);
       if (!this.state.subscribed && this.state.id !== ""){
         console.log('Entering watch state setting flag subscribed');
         this.setState({
@@ -87,7 +85,7 @@ export default class HostSession extends React.Component {
             subscribed: false,
           });
         }, 300000);
-        let res = await $.ajax({
+        await $.ajax({
           url: `/session/${this.state.id}/watch`,
           type: "POST",
           timeout: 300000,
@@ -95,8 +93,10 @@ export default class HostSession extends React.Component {
             console.log(data);
             console.log(status);
             console.log(jqXHR);
-            Cookies.set('token', token);
             let object = JSON.parse(data);
+            let watchToken = object.watchToken;
+            Cookies.set('watchToken', watchToken);
+            this.props.updateWatchToken(watchToken);
           }
         });
 

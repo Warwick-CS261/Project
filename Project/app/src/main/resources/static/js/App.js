@@ -64,9 +64,9 @@ class App extends React.Component {
     });
   }
 
-  updateWatchToken(watchToken){
+  updateWatchToken(token){
     this.setState({
-      watchToken: watchToken,
+      watchToken: token,
     });
   }
 
@@ -135,6 +135,7 @@ class App extends React.Component {
             <Main
               onLogout={this.handleLogout}
               updateToken={this.updateToken}
+              updateWatchToken={this.updateWatchToken}
               updateWatchToken={this.updateWatchToken}
             />
           </Router>

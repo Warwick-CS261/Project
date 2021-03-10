@@ -62,6 +62,9 @@ class AttendeeSession extends React.Component {
           timeout: 300000,
           success: (data, status, jqXHR) =>{
             let object = JSON.parse(data);
+            let watchToken = object.watchToken;
+            Cookies.set('watchToken', watchToken);
+            this.props.updateWatchToken(watchToken);
             console.log(data);
             console.log(status);
             console.log(jqXHR);
