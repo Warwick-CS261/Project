@@ -16,6 +16,7 @@ import HostSession from './session/HostSession';
 import JoinSession from './session/JoinSession';
 import CreateSession from './session/CreateSession';
 import CreateSeries from './session/CreateSeries';
+import AbstractSession from './session/AbstractSession';
 
 export default class Main extends React.Component {
   constructor(props){
@@ -153,17 +154,12 @@ export default class Main extends React.Component {
             />
           </Route>
           <Route path="/session/:id"
-            children={this.state.isHost ?
-              <HostSession
-                session={this.state.session}
+            children={
+              <AbstractSession
+                session={this.props.session}
                 handleSession={this.handleSession}
                 updateToken={this.props.updateToken}
-              />
-              :
-              <AttendeeSession
-                session={this.state.session}
-                handleSession={this.handleSession}
-                updateToken={this.props.updateToken}
+                isHost={this.state.isHost}
               />
             }
           />

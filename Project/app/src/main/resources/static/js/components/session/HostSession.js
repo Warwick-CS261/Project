@@ -76,10 +76,12 @@ class HostSession extends React.Component {
   async componentDidUpdate(){
     try {
       if (!this.state.subscribed && this.state.id !== ""){
+        console.log('Entering watch state setting flag subscribed');
         this.setState({
           subscribed: true,
         });
         setTimeout(()=>{
+          console.log('5 min up, setting subscribed to false');
           this.setState({
             subscribed: false,
           });
@@ -89,6 +91,7 @@ class HostSession extends React.Component {
           type: "POST",
           timeout: 300000,
         });
+        console.log('Response received', responseText);
         switch(status){
           case 230:
             console.log(responseText);
