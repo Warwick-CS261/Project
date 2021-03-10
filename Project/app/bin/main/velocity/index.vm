@@ -11,10 +11,12 @@
   <link rel="stylesheet" href="http://$address/css/index.css">
   <!-- Bootstrap js -->
   <script src="http://$address/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
 </head>
 <body>
   <div id="app"></div>
   <!-- App -->
   <script src="http://$address/js/dist/index.js"></script>
+
 </body>
 </html>
