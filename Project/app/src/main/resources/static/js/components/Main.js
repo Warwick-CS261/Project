@@ -165,7 +165,7 @@ export default class Main extends React.Component {
               <AbstractSession
                 session={this.state.session}
                 updateToken={this.props.updateToken}
-                isHost={this.isHost}
+                isHost={this.state.isHost}
                 handleSession={this.handleSession}
               />
             }

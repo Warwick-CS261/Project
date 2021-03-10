@@ -2,7 +2,6 @@ import React from 'react';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
 import { Redirect } from 'react-router-dom';
-import { handleToken } from '../../util';
 
 export default class Reaction extends React.Component {
   constructor(props){
@@ -52,7 +51,8 @@ export default class Reaction extends React.Component {
       type: 'POST',
       data: params.toString(),
       success: (data, status, jqXHR) =>{
-        let token = handleToken(token);
+        let json = JSON.parse(data);
+        let token = json.token;
         if (token === null || token === undefined){
           this.setState({
             error: 'Server response was invalid'
