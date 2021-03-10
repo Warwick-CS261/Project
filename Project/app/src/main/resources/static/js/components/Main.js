@@ -168,6 +168,7 @@ export default class Main extends React.Component {
                 updateToken={this.props.updateToken}
                 isHost={this.state.isHost}
                 handleSession={this.handleSession}
+                updateWatchToken={this.props.updateWatchToken}
               />
             }
           />

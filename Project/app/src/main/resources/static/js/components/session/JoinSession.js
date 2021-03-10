@@ -113,46 +113,66 @@ export default class JoinSession extends React.Component {
 
     return(
       <>
-        <h2>Join Session</h2>
-        <form onSubmit={this.handleSubmit}>
-          {this.state.error !== false && 
-            <div className="alert alert-danger" role="alert">
-              {this.state.error}
-            </div>
-          }
-          {this.state.protected ?
-            <div className="mb-3">
-              <input
-                type="text"
-                name="password"
-                className="form-control"
-                value={this.state.password}
-                onChange={this.handleChange}
-                placeholder="Password"
-              />
-            </div> : 
-            <div className="mb-3">
-              <input 
-                type="text"
-                name="sessionID"
-                className="form-control"
-                value={this.state.sessionID}
-                onChange={this.handleChange}
-                autoFocus
-                required
-                placeholder="Session ID"
-              />
-            </div>
-          }
-          <div className="mb-3">
-            <button 
-              type="submit"
-              className="btn btn-primary"
-            >
-              Join Session
-            </button>
+      <section className="main">
+        <div className="container-fluid">
+          <div className="heading">
+            <h1><i className="bi bi-box-arrow-in-right"></i>Join Session</h1>
           </div>
-        </form>
+          <div className="sessionbox">
+            <div className="box">
+            <h3>Enter session code:</h3>
+              <form onSubmit={this.handleSubmit}>
+                {this.state.error !== false && 
+                  <div className="alert alert-danger" role="alert">
+                    {this.state.error}
+                  </div>
+                }
+                {this.state.protected ?
+                  <div className="mb-3">
+                    <input
+                      type="text"
+                      name="password"
+                      className="form-control"
+                      value={this.state.password}
+                      onChange={this.handleChange}
+                      placeholder="Password"
+                    />
+                  </div> : 
+                  <div className="mb-3">
+                    <input 
+                      type="text"
+                      name="sessionID"
+                      className="form-control"
+                      value={this.state.sessionID}
+                      onChange={this.handleChange}
+                      autoFocus
+                      required
+                      placeholder="Session ID"
+                    />
+                  </div>
+                }
+                <div className="mb-3">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col text-center">
+                        <button 
+                          type="submit"
+                          className="btn btn-dark btn-lg"
+                        >
+                          Join Session
+                        </button>
+                      </div>
+                    </div>
+                  </div>  
+                  
+                </div>
+              </form>
+            </div>
+          </div>
+          
+        </div>
+      </section>
+        
       </>
     )
   }

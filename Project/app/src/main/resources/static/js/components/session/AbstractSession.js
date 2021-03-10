@@ -109,6 +109,7 @@ class AbstractSession extends React.Component {
           session={this.props.session}
           handleSession={this.props.handleSession}
           updateToken={this.props.updateToken}
+          updateWatchToken={this.props.updateWatchToken}
         />
       );
     }
@@ -118,6 +119,7 @@ class AbstractSession extends React.Component {
         session={this.props.session}
         handleSession={this.props.handleSession}
         updateToken={this.props.updateToken}
+        updateWatchToken={this.props.updateWatchToken}
       />
     );
   }
