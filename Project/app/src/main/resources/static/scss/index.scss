@@ -230,3 +230,24 @@ section.body{
   }
 }
 
+.sessionbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  margin-top: 5%;
+  .box{
+    width: 400px;
+    height: 600px;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 25px;
+    background-color:rgba(255, 255, 255, .5);
+  }
+}
+
+
+
+
