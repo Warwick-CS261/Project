@@ -55,12 +55,15 @@ export default class SignUp extends React.Component {
         let object = JSON.parse(data);
         console.log(object);
         let token = object.token;
-        if (token === null || token === undefined){
+        let watchToken = object.watchToken;
+        if (token === null || token === undefined || watchToken === undefined || watchToken === null){
           this.setState({
             error: 'Something went wrong please try again',
           });
         }
         Cookies.set('token', token);
+        Cookies.set('watchToken', watchToken);
+        this.props.updateWatchToken(watchToken);
         this.props.updateToken(token);
         console.log('Token');
         console.log(Cookies.get("token"));
@@ -90,7 +93,7 @@ export default class SignUp extends React.Component {
     return(
       <div className="blackbg">
         <div className="registerBackground">
-        <p class="h1 text-center title-text"><i class="bi bi-person-fill"></i> Create User</p>
+        <p className="h1 text-center title-text"><i className="bi bi-person-fill"></i> Create User</p>
           {this.state.error !== false && 
             <div className="alert alert-danger" role="alert">
               {this.state.error}

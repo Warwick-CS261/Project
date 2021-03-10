@@ -91,9 +91,9 @@ export default class Main extends React.Component {
 
     return(
       <>
-      <section class="body">
-        <section class="menu">
-          <div class="logo">
+      <section className="body">
+        <section className="menu">
+          <div className="logo">
             <Logo />
           </div>
           

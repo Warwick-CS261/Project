@@ -66,7 +66,7 @@ class App extends React.Component {
 
   updateWatchToken(watchToken){
     this.setState({
-      watchToken: token,
+      watchToken: watchToken,
     });
   }
 
