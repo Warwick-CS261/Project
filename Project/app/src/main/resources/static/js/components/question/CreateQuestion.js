@@ -110,11 +110,22 @@ export default class CreateQuestion extends React.Component {
             />
           </div>
           <div className="mb-3">
+            Push question immediately.
             <input
               type="checkbox"
               name="pushed"
               className="form-check-input"
               value={this.state.pushed}
+              onChange={this.handleCheck}
+            />
+          </div>
+          <div className="mb-3">
+            Include it in the general feedback
+            <input
+              type="checkbox"
+              name="general"
+              className="form-check-input"
+              value={this.state.general}
               onChange={this.handleCheck}
             />
           </div>

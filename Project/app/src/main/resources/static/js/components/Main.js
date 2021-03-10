@@ -16,6 +16,7 @@ import HostSession from './session/HostSession';
 import JoinSession from './session/JoinSession';
 import CreateSession from './session/CreateSession';
 import CreateSeries from './session/CreateSeries';
+import AbstractSession from './session/AbstractSession';
 
 export default class Main extends React.Component {
   constructor(props){
@@ -90,84 +91,90 @@ export default class Main extends React.Component {
 
     return(
       <>
-        <Logo />
-        <nav className="nav">
-          <ul>
-            {routes.map((route, index) => {
-              if (index < routes.length -1){
-                return(
-                  <li className="nav-link" key={route.key}>
-                    <NavLink 
-                      to={route.path}
-                      exact={route.exact}
-                      children={<>{route.icon}<span>{route.text}</span></>}
-                    />
-                  </li>
-                );
+        <section className="body">
+          <section className="menu">
+            <Logo />
+            <nav className="nav">
+              <ul>
+                {routes.map((route, index) => {
+                  if (index < routes.length -1){
+                    return(
+                      <li className="nav-link" key={route.key}>
+                        <NavLink 
+                          to={route.path}
+                          exact={route.exact}
+                          children={<>{route.icon}<span>{route.text}</span></>}
+                        />
+                      </li>
+                    );
+                  }
+                })}
+                <li className="nav-link" key="logout">
+                  <a 
+                    href="/"
+                    onClick={this.props.onLogout}
+                  ><i className="bi bi-box-arrow-left"></i>Logout</a>
+                </li>
+              </ul>
+            </nav>
+          </section>
+          
+          <Switch>
+            {/* Home route */}
+            <Route exact path={routes[0].path}>
+              <Home />
+            </Route>
+            <Route path="/session/create">
+              <CreateSession
+                updateToken={this.props.updateToken}
+                handleSession={this.handleSession}
+              />
+            </Route>
+            <Route path="/session/join" >
+              <JoinSession
+                updateToken={this.props.updateToken}
+                handleSession={this.handleSession}
+              />
+            </Route>
+            <Route path="/session/createSeries">
+              <CreateSeries
+                updateToken={this.props.updateToken}
+                handleSession={this.handleSession}
+              />
+            </Route>
+            <Route path={routes[1].path}>
+              <User />
+            </Route>
+            <Route path={routes[2].path}>
+              <MySessions
+                updateToken={this.props.updateToken}
+                isHost={this.state.isHost}
+              />
+            </Route>
+            <Route path={routes[3].path}>
+              <MySessions
+                updateToken={this.props.updateToken}
+                isMod={false}
+              />
+            </Route>
+            <Route path="/session/:id"
+              children={this.state.isHost ?
+                <HostSession
+                  session={this.state.session}
+                  handleSession={this.handleSession}
+                  updateToken={this.props.updateToken}
+                />
+                :
+                <AttendeeSession
+                  session={this.state.session}
+                  handleSession={this.handleSession}
+                  updateToken={this.props.updateToken}
+                />
               }
-            })}
-            <li className="nav-link" key="logout">
-              <a 
-                href="/"
-                onClick={this.props.onLogout}
-              ><i className="bi bi-box-arrow-left"></i>Logout</a>
-            </li>
-          </ul>
-        </nav>
-        <Switch>
-          {/* Home route */}
-          <Route exact path={routes[0].path}>
-            <Home />
-          </Route>
-          <Route path="/session/create">
-            <CreateSession
-              updateToken={this.props.updateToken}
-              handleSession={this.handleSession}
             />
-          </Route>
-          <Route path="/session/join" >
-            <JoinSession
-              updateToken={this.props.updateToken}
-              handleSession={this.handleSession}
-            />
-          </Route>
-          <Route path="/session/createSeries">
-            <CreateSeries
-              updateToken={this.props.updateToken}
-              handleSession={this.handleSession}
-            />
-          </Route>
-          <Route path={routes[1].path}>
-            <User />
-          </Route>
-          <Route path={routes[2].path}>
-            <MySessions
-              updateToken={this.props.updateToken}
-              isMod={true}
-            />
-          </Route>
-          <Route path={routes[3].path}>
-            <MySessions
-              updateToken={this.props.updateToken}
-              isMod={false}
-            />
-          </Route>
-          <Route path="/session/:id"
-            children={this.state.isHost ?
-              <HostSession
-                session={this.state.session}
-                handleSession={this.handleSession}
-                updateToken={this.props.updateToken}
-              />
-              :
-              <AttendeeSession
-                session={this.state.session}
-                handleSession={this.handleSession}
-                updateToken={this.props.updateToken}
-              />
-            }
-          />
-        </Switch>
+          </Switch>
+        </section>
+        
       </>
     );
   }
