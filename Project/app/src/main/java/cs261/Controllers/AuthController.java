@@ -25,7 +25,7 @@ public class AuthController {
             return "Incorrect email or password";
         } else {
             logger.info("User with email: {} succefully logged in", email);
-            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\", \"watchToken:\""
+            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\", \"watchToken\":\""
                     + dbConn.newWatchToken(user.getId()) + "\"}";
         }
     };
