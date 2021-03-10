@@ -51,7 +51,9 @@ export default class SignUp extends React.Component {
       type: 'POST',
       data: params.toString(),
       success: (data, status, jqXHR) => {
+        console.log(data);
         let object = JSON.parse(data);
+        console.log(object);
         let token = object.token;
         if (token === null || token === undefined){
           this.setState({

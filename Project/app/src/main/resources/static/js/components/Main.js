@@ -107,6 +107,7 @@ export default class Main extends React.Component {
                         to={route.path}
                         exact={route.exact}
                         children={<>{route.icon}<span>{route.text}</span></>}
+                        activeClassName="active"
                       />
                     </li>
                   );
