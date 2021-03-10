@@ -84,11 +84,11 @@ export default class HostSession extends React.Component {
           this.setState({
             subscribed: false,
           });
-        }, 300000);
+        }, 60000);
         await $.ajax({
           url: `/session/${this.state.id}/watch`,
           type: "POST",
-          timeout: 300000,
+          timeout: 60000,
           success: (data, status, jqXHR) =>{
             console.log(data);
             console.log(status);
@@ -97,6 +97,15 @@ export default class HostSession extends React.Component {
             let watchToken = object.watchToken;
             Cookies.set('watchToken', watchToken);
             this.props.updateWatchToken(watchToken);
+            switch(jqXHR.status){
+              case 231:
+                this.setState(old => {
+                  return {
+                    chat: old.messages.push(object.update)
+                  }
+                })
+                break;
+            }
           }
         });
 
