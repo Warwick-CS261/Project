@@ -187,8 +187,8 @@ export default class Main extends React.Component {
           <Route path={routes[3].path}>
             <Sessions />
           </Route>
-          <Route path="/session/:id">
-            {this.state.isHost ?
+          <Route path="/session/:id"
+            children={this.state.isHost ?
               <HostSession
                 session={this.state.session}
                 handleSession={this.handleSession}
@@ -199,7 +199,7 @@ export default class Main extends React.Component {
                 handleSession={this.handleSession}
               />
             }
-          </Route>
+          />
         </Switch>
       </>
     );
