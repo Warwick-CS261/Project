@@ -5,15 +5,14 @@ import {
   NavLink,
   Switch
 } from 'react-router-dom';
-import { Redirect, withRouter } from 'react-router';
-import { handleJSON, handleToken } from '../../util';
+import { Redirect } from 'react-router';
 import $ from 'jquery';
 
 import Chat from '../Chat';
 import CreateQuestion from '../question/CreateQuestion';
 import Questions from '../question/Questions';
 
-class HostSession extends React.Component {
+export default class HostSession extends React.Component {
   constructor(props) {
     super(props);
     let session = this.props.session;
@@ -88,56 +87,19 @@ class HostSession extends React.Component {
             subscribed: false,
           });
         }, 300000);
-        let res, {status, responseText} = await $.ajax({
+        let res = await $.ajax({
           url: `/session/${this.state.id}/watch`,
           type: "POST",
           timeout: 300000,
+          success: (data, status, jqXHR) =>{
+            console.log(data);
+            console.log(status);
+            console.log(jqXHR);
+            Cookies.set('token', token);
+            let object = JSON.parse(data);
+          }
         });
-        console.log('Response received', responseText);
-        let token = handleToken(responseText);
-        if (token === null || token === undefined){
-          this.setState({
-            error: 'Server response was invalid'
-          });
-          return;
-        }
-        Cookies.set('token', token);
-        let object = handleJSON(responseText);
-        switch(status){
-          case 230:
-            console.log(230 + responseText);
-            break;
-          case 231:
-            console.log(231 + responseText);
-            break;
-          case 232:
-            console.log(232 + responseText);
-            break;
-          case 233:
-            console.log(233 + responseText);
-            break;
-          case 234:
-            console.log(234 + responseText);
-            break;
-          case 235:
-            console.log(235 + responseText);
-            break;
-          case 236:
-            console.log(236 + responseText);
-            break;
-          case 237:
-            console.log(237 + responseText);
-            break;
-          case 401:
-            console.log(responseText);
-            break;
-          case 450:
-            console.log(responseText);
-            break;
-          case 454:
-            console.log(responseText);
-            break;
-        }
+
         this.setState({
           subscribed: false,
         });
@@ -179,5 +141,3 @@ class HostSession extends React.Component {
     );
   }
 }
-
-export default withRouter(HostSession);

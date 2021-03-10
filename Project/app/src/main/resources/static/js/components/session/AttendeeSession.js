@@ -2,7 +2,6 @@ import React from "react";
 import Cookies from "js-cookie";
 import { Route, NavLink, Switch } from "react-router-dom";
 import { withRouter } from "react-router";
-import { handleJSON, handleToken } from "../../util";
 import $ from "jquery";
 
 import Chat from "../Chat";
@@ -21,7 +20,7 @@ class AttendeeSession extends React.Component {
         pushedQuestions: session.pushedQuestions,
         chat: session.chat,
         error: false,
-        subscribed: false,
+        subscribed: true,
       };
     } else {
       this.state = {
@@ -32,9 +31,15 @@ class AttendeeSession extends React.Component {
         pushedQuestions: [],
         chat: null,
         error: false,
-        subscribed: false,
+        subscribed: true,
       };
     }
+  }
+
+  componentDidMount(){
+    this.setState({
+      subscribed: false,
+    });
   }
 
   async componentDidUpdate() {
@@ -50,56 +55,22 @@ class AttendeeSession extends React.Component {
             subscribed: false,
           });
         }, 300000);
-        let res, {status, responseText} = await $.ajax({
+
+        let res = await $.ajax({
           url: `/session/${this.state.id}/watch`,
           type: "POST",
           timeout: 300000,
+          success: (data, status, jqXHR) =>{
+            let object = JSON.parse(data);
+            console.log(data);
+            console.log(status);
+            console.log(jqXHR);
+          }
         });
-        console.log('Response received', responseText);
-        let token = handleToken(responseText);
-        if (token === null || token === undefined){
-          this.setState({
-            error: 'Server response was invalid'
-          });
-          return;
-        }
-        Cookies.set('token', token);
-        let object = handleJSON(responseText);
-        switch(status){
-          case 230:
-            console.log(responseText);
-            break;
-          case 231:
-            console.log(responseText);
-            break;
-          case 232:
-            console.log(responseText);
-            break;
-          case 233:
-            console.log(responseText);
-            break;
-          case 234:
-            console.log(responseText);
-            break;
-          case 235:
-            console.log(responseText);
-            break;
-          case 236:
-            console.log(responseText);
-            break;
-          case 237:
-            console.log(responseText);
-            break;
-          case 401:
-            console.log(responseText);
-            break;
-          case 450:
-            console.log(responseText);
-            break;
-          case 454:
-            console.log(responseText);
-            break;
-        }
+        
+        this.setState({
+          subscribed: false,
+        });
       }
     } catch (error) {
       console.log(error);

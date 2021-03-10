@@ -1,7 +1,6 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 import $, { param } from 'jquery';
-import {handleToken, handleError} from '../../util';
 
 /**
  * SignUp component 
@@ -52,7 +51,8 @@ export default class SignUp extends React.Component {
       type: 'POST',
       data: params.toString(),
       success: (data, status, jqXHR) => {
-        let token = handleToken(data);
+        let object = JSON.parse(data);
+        let token = object.token;
         if (token === null || token === undefined){
           this.setState({
             error: 'Something went wrong please try again',
