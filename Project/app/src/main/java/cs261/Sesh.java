@@ -52,12 +52,19 @@ public class Sesh {
         return code;
     }
 
-
+/*
     public Boolean addQuestion(Question q){
         pushedQuestions.add(q);
         return true;
     }
+*/
+    public ArrayList<User> getModerators() {
+        return moderators;
+    }
 
+    public void setModerators(ArrayList<User> moderators) {
+        this.moderators = moderators;
+    }
 
     public Chat getChat() {
         return chat;

@@ -9,9 +9,17 @@ import cs261.Controllers.*;
 
 public class App {
 
+    static int port = 4000;
+    static String address = "localhost";
     private DBConnection dbConn;
+    private Obserable observable;
+    private Analyse analyse;
+    private Cacher cacher;
     public static App app;
 
+    public Analyse getAnalyse(){
+        return analyse;
+    }
 
     public DBConnection getDbConn(){
         return dbConn;
@@ -21,6 +29,18 @@ public class App {
         return app;
     }
 
+    public  Obserable getObservable(){
+        return observable;
+    }
+
+    public Cacher getCacher(){
+        return cacher;
+    }
+
+    public int getPort(){
+        return port;
+    }
+
     public static void main(String[] args) throws Exception{
         app = new App();
         
@@ -28,16 +48,19 @@ public class App {
     }
 
     private void run() throws Exception{
+        
         staticFiles.location("/static");
-        port(6969);
+        port(port);
         Class.forName("org.sqlite.JDBC");
         dbConn = new DBConnection("jdbc:sqlite:database/database.db");
+        observable = new Obserable();
+        analyse = new Analyse();
+        //System.out.println(analyse.parseText("this app is better than facebook"));
+        cacher = new Cacher(dbConn);
         
 
-        get("/", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            return Util.render(model, "velocity/index.vm");
-        });
+        get("/", returnPage);
+        get("/user", returnPage);
 
 
 
@@ -57,7 +80,7 @@ public class App {
             get("/create", returnPage);
             get("/user", returnPage);
             get("/join", returnPage);
-
+            get("/session/host", returnPage);
             post("/:id", SessionController.joinSession);
             get("/:id", returnPage);
             
@@ -68,6 +91,7 @@ public class App {
                 //post("/join", SessionController.joinSession);
                 post("/end", SessionController.endSession);
                 post("/delete", SessionController.deleteSession);
+                post("/watch", SessionController.watchSession);
                 //get("/join", returnPage);
 
                 path("/question", () -> {
@@ -82,16 +106,9 @@ public class App {
     }
     public static Route returnPage = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
+        model.put("address", address+":"+port);
         return Util.render(model, "velocity/index.vm");
     };
-
-
-
-
-
-
-
-
 }
 
 

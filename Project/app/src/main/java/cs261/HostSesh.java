@@ -39,9 +39,59 @@ public class HostSesh extends Sesh {
     }
 
     public Sesh convertToSesh(){
-        return this;
+        return new Sesh(id, seriesID, sessionName, owner, finished, chat, pushedQuestions, moderators);
     }
 
+    public Boolean pushQuestion(int qID){
+        for(Question q : hiddenQuestions){
+            if(q.getID() == qID){
+                hiddenQuestions.remove(q);
+                pushedQuestions.add(q);
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    public Question getQuestionByID(int id){
+        for(Question q : pushedQuestions){
+            if (q.getID() == id){
+                return q;
+            }
+        }
+        for(Question q : hiddenQuestions){
+            if (q.getID() == id){
+                return q;
+            }
+        }
+        return null;
+    }
+
+    public Question deleteQuestionByID(int id){
+        for(Question q : pushedQuestions){
+            if (q.getID() == id){
+                pushedQuestions.remove(q);
+                return q;
+            }
+        }
+        for(Question q : hiddenQuestions){
+            if (q.getID() == id){
+                hiddenQuestions.remove(q);
+                return q;
+            }
+        }
+        return null;
+    }
+
+    public Boolean addQuestion(Question q){
+        if(q.getPushed()){
+            pushedQuestions.add(q);
+        }else{
+            hiddenQuestions.add(q);
+        }
+        return true;
+    }
 
     public String getSecure() {
         return secure;

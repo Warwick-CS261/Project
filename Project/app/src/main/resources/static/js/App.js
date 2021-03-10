@@ -17,8 +17,8 @@ import {
 } from 'react-router-dom';
 
 // Components
-import SignUp from './components/SignUp';
-import Login from './components/Login';
+import SignUp from './components/auth/SignUp';
+import Login from './components/auth/Login';
 import Main from './components/Main';
 
 $(document).ready(()=>{
@@ -88,9 +88,22 @@ class App extends React.Component {
             <Router>
               <Switch>
                 <Route exact path="/">
-                  <h1>Project CS261{"\n"}Group 45</h1>
-                  <Link className="btn btn-primary"to="/auth/login" >Login!</Link>
-                  <Link className="btn btn-primary"to="/auth/register" >Register!</Link>
+                <video class="videobg" autoPlay muted loop id="myVideo">
+                  <source src="../img/beach.mp4" type="video/mp4"></source>
+                 </video>
+                  <div className="landingcontainer">
+                    <div className="title">
+                      Project CS261 Group 45
+                    </div>
+                  </div>
+                  <div className="landingflex">
+                    <div className="landingflexchild">
+                      <Link className="btn btn-primary btn-lg"to="/auth/login" >Login!</Link>
+                    </div>
+                    <div className="landingflexchild">
+                      <Link className="btn btn-primary btn-lg"to="/auth/register" >Register!</Link>
+                    </div>
+                  </div>
                 </Route>
                 <Route path="/auth/login">
                   <Login updateToken={this.updateToken}/>

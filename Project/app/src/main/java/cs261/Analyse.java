@@ -1,45 +1,74 @@
 package cs261;
 
 import java.io.*;
-import javax.script.*;
+import org.apache.commons.exec.*;
 
 public class Analyse {
 
-    public static Invocable inv;
+    public float parseText(String str) throws Exception {
+        String line = "python3 " + "src/main/python/main.py "+"'"+str+"'";
+        CommandLine cmdLine = CommandLine.parse(line);
+            
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
+            
+        DefaultExecutor executor = new DefaultExecutor();
+        executor.setStreamHandler(streamHandler);
 
-    public static void main(String[] args) {
-        try {
-            init();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void init() throws Exception {
-        // All outputs from the python file are written to this StringWriter
-        StringWriter writer = new StringWriter();
-        ScriptContext context = new SimpleScriptContext();
-        context.setWriter(writer);
-    
-        // The engine to interpret the python scripts
-        ScriptEngine engine = new ScriptEngineManager().getEngineByName("python");
-        engine.setContext(context);
-    
-        // An object to interact with python functions
-        inv = (Invocable) engine;
-    
-        // Execute the python script
-        engine.eval(new FileReader("src/main/python/runner.py"));
-    
-        //System.out.println(writer.toString().trim());
-    }
-
-    public static String parseText(String str) throws Exception {
-        return inv.invokeFunction("func1", str).toString();
+        int exitCode = executor.execute(cmdLine);
+        return Float.parseFloat(outputStream.toString().trim());
     }
 
     public float newMoodCoefficient(float oldMean, float newValue, int numValues) {
         return ((oldMean * numValues) + newValue) / (numValues + 1);
+    }
+
+    public float analyseResponse(int smiley, float textValue) {
+
+        int smileyValue = smiley - 2;
+
+        /*
+
+        Case 1:  Smiley positive and text very positive
+        Case 2:  Smiley positive and text neutral to slightly positive
+        Case 3:  Smiley positive and text negative
+
+        Case 4:  Smiley negative and text very negative
+        Case 5:  Smiley negative and text neutral to slightly negative
+        Case 6:  Smiley negative and text positive
+
+        Case 7:  Smiley neutral and text very positive
+        case 8:  Smiley neutral and text very negative
+        Case 9:  Smiley neutral and text slightly positive
+        case 10: Smiley neutral and text slightly negative
+
+        */
+
+        // Case 1 + Case 4
+        if ((smileyValue < 0 && textValue < -0.3) || (smileyValue > 0 && textValue > 0.3)) {
+            return textValue;
+        }
+
+        // Case 2 + Case 5
+        if ((smileyValue < 0 && textValue > -0.3 && textValue <= 0) || (smileyValue > 0 && textValue < 0.3 && textValue >= 0)) {
+            return textValue * 2;
+        }
+
+        // Case 3 + 6
+        if ((smileyValue < 0 && textValue > 0) || (smileyValue > 0 && textValue < 0)) {
+            return smileyValue - textValue;
+        }
+
+        if (smileyValue == 0) {
+            // Case 7 + 8
+            if (textValue > 0.3 || textValue < -0.3)
+                return textValue / 3;
+            // Case 9 + 10
+            else
+                return textValue;
+        }
+
+        return 0;
     }
 
 }

@@ -10,13 +10,12 @@ import {
 import Home from './Home';
 import Logo from './Logo';
 import User from './User';
-import Sessions from './Sessions';
 import MySessions from './MySessions';
-import AttendeeSession from './AttendeeSession';
-import HostSession from './HostSession';
-import JoinSession from './JoinSession';
-import CreateSession from './CreateSession';
-import CreateSeries from './CreateSeries';
+import AttendeeSession from './session/AttendeeSession';
+import HostSession from './session/HostSession';
+import JoinSession from './session/JoinSession';
+import CreateSession from './session/CreateSession';
+import CreateSeries from './session/CreateSeries';
 
 export default class Main extends React.Component {
   constructor(props){
@@ -38,6 +37,7 @@ export default class Main extends React.Component {
     if (session === null){
       this.setState({
         session: session,
+        isHost: false,
       });
       return;
     }
@@ -49,51 +49,10 @@ export default class Main extends React.Component {
     this.setState({
       session: session,
       isHost: host,
-    }, ()=> {
-      console.log("this should be 1st");
     });
   }
 
-  componentDidMount() {
-    history.pushState({route:'/'}, '', '/');
-  }
-
   render(){
-    let home = {
-      session: {
-        id: 'session',
-        icon: <i class="bi bi-calendar-plus-fill"></i>,
-        text: 'Create Session'
-      },
-      join: {
-        id: 'join',
-        icon: <i class="bi bi-box-arrow-in-right"></i>,
-        text: 'Join Session'
-      },
-      series: {
-        id: 'series',
-        icon: <i class="bi bi-calendar-week-fill"></i>,
-        text: 'Create Series'
-      }
-    };
-
-    let user = {
-      id: 'user',
-      icon: <i class="bi bi-person-circle"></i>,
-      text: 'Your Profile'
-    };
-
-    let sessions = {
-      grid: {
-        id: 'grid',
-        icon: <i class="bi bi-calendar-week-fill"></i>,
-        text: 'Sessions'
-      },
-      session: {
-        id: 'session',
-        icon: <i class="bi bi-calendar-date-fill"></i>,
-      }
-    };
 
     const routes = [
       {
@@ -110,13 +69,13 @@ export default class Main extends React.Component {
         icon: <i className="bi bi-person-circle"></i>
       },
       {
-        path: '/session/user',
+        path: '/session/host',
         key: 'session/user',
         text: 'My Sessions',
         icon: <i className="bi bi-calendar-event-fill"></i>,
       },
       {
-        path: '/sessions',
+        path: '/session/user',
         key: 'sessions',
         text: 'Sessions',
         icon: <i className="bi bi-calendar-range-fill"></i>,
@@ -182,21 +141,29 @@ export default class Main extends React.Component {
             <User />
           </Route>
           <Route path={routes[2].path}>
-            <MySessions />
+            <MySessions
+              updateToken={this.props.updateToken}
+              isMod={true}
+            />
           </Route>
           <Route path={routes[3].path}>
-            <Sessions />
+            <MySessions
+              updateToken={this.props.updateToken}
+              isMod={false}
+            />
           </Route>
           <Route path="/session/:id"
             children={this.state.isHost ?
               <HostSession
                 session={this.state.session}
                 handleSession={this.handleSession}
+                updateToken={this.props.updateToken}
               />
               :
               <AttendeeSession
                 session={this.state.session}
                 handleSession={this.handleSession}
+                updateToken={this.props.updateToken}
               />
             }
           />
