@@ -1,7 +1,7 @@
 import React from "react";
 import Cookies from "js-cookie";
 import { Route, NavLink, Switch } from "react-router-dom";
-import { Redirect, withRouter } from "react-router";
+import { withRouter } from "react-router";
 import { handleJSON, handleToken } from "../../util";
 import $ from "jquery";
 
@@ -37,78 +37,15 @@ class AttendeeSession extends React.Component {
     }
   }
 
-  componentDidMount() {
-    let id = this.props.match.params.id;
-    if (this.state.id === "" || id != this.state.id) {
-      $.ajax({
-        url: `/session/${id}`,
-        type: "POST",
-        success: (data, status, jqXHR) => {
-          let token = handleToken(data);
-          if (token === null || token === undefined) {
-            this.setState({
-              error: "Server response was invalid",
-            });
-            return;
-          }
-          let session = handleJSON(data);
-          if (session === null) {
-            this.setState({
-              error: "Server response was invalid",
-            });
-          }
-          // set cookies
-          Cookies.set("token", token);
-          this.props.updateToken(token);
-          // handle session
-          this.props.handleSession(session);
-          if (session.secure === null || session.secure === undefined) {
-            this.setState({
-              id: session.id,
-              seriesID: session.seriesID,
-              sessionName: session.sessionName,
-              owner: session.owner,
-              pushedQuestions: session.pushedQuestions,
-              chat: session.chat,
-              error: false,
-            });
-          }
-        },
-        statusCode: {
-          // Invalid token
-          450: () => {
-            console.log("Token invalid");
-            this.setState({
-              error: <Redirect to="/auth/login" />,
-            });
-          },
-          // Invalid session
-          454: () => {
-            console.log("Invalid session");
-          },
-          // Password missing
-          456: () => {
-            console.log("Password required to access session");
-            this.setState({
-              error: <Redirect to="/session/join" />,
-            });
-          },
-          // Session ended
-          457: () => {
-            console.log("Session has ended, only hosts can access it");
-          },
-        },
-      });
-    }
-  }
-
   async componentDidUpdate() {
     try {
       if (!this.state.subscribed && this.state.id !== ""){
+        console.log('Entering watch state setting flag subsrcibed');
         this.setState({
           subscribed: true,
         });
         setTimeout(()=>{
+          console.log('5 min up, setting subscribed to false');
           this.setState({
             subscribed: false,
           });
@@ -118,6 +55,7 @@ class AttendeeSession extends React.Component {
           type: "POST",
           timeout: 300000,
         });
+        console.log('Response received', responseText);
         switch(status){
           case 230:
             console.log(responseText);

@@ -16,6 +16,7 @@ import HostSession from './session/HostSession';
 import JoinSession from './session/JoinSession';
 import CreateSession from './session/CreateSession';
 import CreateSeries from './session/CreateSeries';
+import AbstractSession from './session/AbstractSession';
 
 export default class Main extends React.Component {
   constructor(props){
@@ -147,7 +148,7 @@ export default class Main extends React.Component {
             <Route path={routes[2].path}>
               <MySessions
                 updateToken={this.props.updateToken}
-                isMod={true}
+                isHost={this.state.isHost}
               />
             </Route>
             <Route path={routes[3].path}>
