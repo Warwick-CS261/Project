@@ -7,67 +7,60 @@ import java.util.List;
 import java.util.Objects;
 
 public class Obserable{
-    HashMap<String, List<Watcher>> map;
-
+    HashMap<Boolean, HashMap<String, List<Watcher>>> map;
     public Obserable(){
-        map = new HashMap<>();
+        map = new HashMap<Boolean, HashMap<String, List<Watcher>>>();
+        map.put(true, new HashMap<String, List<Watcher>>());
+        map.put(false, new HashMap<String, List<Watcher>>());
     }
 
-    public List<Watcher> addToList(String sessionID, Watcher w){
-            if(Objects.isNull(map.get(sessionID))){
-                map.put(sessionID, Collections.synchronizedList(new LinkedList<Watcher>()));
-            }
-            map.get(sessionID).add(w);
-            return map.get(sessionID);
+    public List<Watcher> addToList(String sessionID, Watcher w, Boolean isMod){
+
+        if(Objects.isNull(map.get(isMod).get(sessionID))){
+            map.get(isMod).put(sessionID, Collections.synchronizedList(new LinkedList<Watcher>()));
+        }
+        map.get(isMod).get(sessionID).add(w);
+        return map.get(isMod).get(sessionID);
+
     }
 
-    public void removeFromList(String sessionID, Watcher w){
 
-        map.get(sessionID).remove(w);
+    public void removeFromList(String sessionID, Watcher w, Boolean isMod){
+
+        map.get(isMod).get(sessionID).add(w);
         return;
 }
     
 
     public void notifyAttendees(int type, String sessionID, String json){
         List<Watcher> wl;
-        if(!Objects.isNull(wl = map.get(sessionID))){ 
+        if(!Objects.isNull(wl = map.get(false).get(sessionID))){ 
             
             synchronized (wl){
                 for (Watcher w : wl){
                         w.setJson(json);
                         w.setType(230+type);
-                        w.requiresAttendee();
                 }
-                map.get(sessionID).notifyAll();
+                map.get(false).get(sessionID).notifyAll();
             }
         }
     }
 
     public void notifyModerators(int type, String sessionID, String json){
         List<Watcher> wl;
-        if(!Objects.isNull(wl = map.get(sessionID))){ 
+        if(!Objects.isNull(wl = map.get(true).get(sessionID))){ 
             synchronized (wl){
                 for (Watcher w : wl){
                     w.setJson(json);
                     w.setType(230+type);
-                    w.requiresMod();
                 }
-                map.get(sessionID).notifyAll();
+                map.get(true).get(sessionID).notifyAll();
             }
         }
     }
 
     public void notifyBoth(int type, String sessionID, String json){
-        List<Watcher> wl;
-        if(!Objects.isNull(wl = map.get(sessionID))){ 
-            synchronized (wl){
-                for (Watcher w : wl){
-                    w.setJson(json);
-                    w.setType(230+type);
-                    w.both();
-                }
-                map.get(sessionID).notifyAll();
-            }
-        }
+        notifyAttendees(type, sessionID, json);
+        notifyModerators(type, sessionID, json);
     }
 }
