@@ -11,7 +11,8 @@ CREATE TABLE USER (
 DROP TABLE USER_TOKEN;
 CREATE TABLE USER_TOKEN (
   userID INTEGER,
-  token VARCHAR(64),
+  token VARCHAR(32),
+  watchToken varchar(32),
   FOREIGN KEY(userID) REFERENCES USER(id)
 );
 
@@ -83,6 +84,8 @@ CREATE TABLE QUESTION (
   sessionID VARCHAR (6),
   question VARCHAR(100),
   pushed BIT,
+  general BIT,
+  mood float,
   FOREIGN KEY(sessionID) REFERENCES SESH(id)
 );
 
