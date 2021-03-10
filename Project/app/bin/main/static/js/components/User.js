@@ -3,7 +3,14 @@ import React from 'react';
 export default class User extends React.Component {
   render() {
     return (
-      <>User Component</>
+      <>
+      <section className="main">
+        <div className="container-fluid">
+          User Component
+        </div>
+      </section>
+      
+      </>
     )
   }
 }
