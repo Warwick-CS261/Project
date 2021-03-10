@@ -6,64 +6,59 @@ import java.util.*;
 
 import cs261.Controllers.*;
 
-
 public class App {
 
-    static int port = 4000;
-    static String address = "localhost";
+    static int port = 6969;
+    static String address = "www.eryl.cymru";
     private DBConnection dbConn;
     private Obserable observable;
     private Analyse analyse;
     private Cacher cacher;
     public static App app;
 
-    public Analyse getAnalyse(){
+    public Analyse getAnalyse() {
         return analyse;
     }
 
-    public DBConnection getDbConn(){
+    public DBConnection getDbConn() {
         return dbConn;
     }
 
-    public static App getApp(){
+    public static App getApp() {
         return app;
     }
 
-    public  Obserable getObservable(){
+    public Obserable getObservable() {
         return observable;
     }
 
-    public Cacher getCacher(){
+    public Cacher getCacher() {
         return cacher;
     }
 
-    public int getPort(){
+    public int getPort() {
         return port;
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         app = new App();
-        
+
         app.run();
     }
 
-    private void run() throws Exception{
-        
+    private void run() throws Exception {
+
         staticFiles.location("/static");
         port(port);
         Class.forName("org.sqlite.JDBC");
         dbConn = new DBConnection("jdbc:sqlite:database/database.db");
         observable = new Obserable();
         analyse = new Analyse();
-        //System.out.println(analyse.parseText("this app is better than facebook"));
+        // System.out.println(analyse.parseText("this app is better than facebook"));
         cacher = new Cacher(dbConn);
-        
 
         get("/", returnPage);
         get("/user", returnPage);
-
-
-
 
         path("/auth", () -> {
             post("/login", AuthController.login);
@@ -83,16 +78,15 @@ public class App {
             get("/session/host", returnPage);
             post("/:id", SessionController.joinSession);
             get("/:id", returnPage);
-            
 
             path("/:id", () -> {
                 post("/chat", SessionController.submitMessage);
                 post("/addHost", SessionController.addHost);
-                //post("/join", SessionController.joinSession);
+                // post("/join", SessionController.joinSession);
                 post("/end", SessionController.endSession);
                 post("/delete", SessionController.deleteSession);
                 post("/watch", SessionController.watchSession);
-                //get("/join", returnPage);
+                // get("/join", returnPage);
 
                 path("/question", () -> {
                     post("/create", QuestionController.createQuestion);
@@ -104,11 +98,10 @@ public class App {
             });
         });
     }
+
     public static Route returnPage = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
-        model.put("address", address+":"+port);
+        model.put("address", address + ":" + port);
         return Util.render(model, "velocity/index.vm");
     };
 }
-
-

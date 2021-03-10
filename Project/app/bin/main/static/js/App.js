@@ -37,11 +37,13 @@ class App extends React.Component {
     this.state = {
       token: null,
       firstName: '',
-      lastName: ''
+      lastName: '',
+      watchToken: null,
     };
 
     this.handleLogout = this.handleLogout.bind(this);
     this.updateToken = this.updateToken.bind(this);
+    this.updateWatchToken = this.updateWatchToken.bind(this);
   }
 
   handleLogout(){
@@ -58,24 +60,29 @@ class App extends React.Component {
 
   updateToken(token){
     this.setState({
-      auth: {
-        login: false,
-        signUp: false,
-      },
       token: token,
+    });
+  }
+
+  updateWatchToken(watchToken){
+    this.setState({
+      watchToken: token,
     });
   }
 
 
   componentDidMount(){
     let tokenCookie = Cookies.get('token');
-    if (tokenCookie === undefined || tokenCookie === '') {
+    let watchTokenCookie = Cookies.get('watchToken');
+    if (tokenCookie === undefined || tokenCookie === '' || watchTokenCookie === undefined || watchTokenCookie === '') {
       this.setState({
         token: null,
+        watchToken: null,
       });
     } else {
       this.setState({
-        token: tokenCookie
+        token: tokenCookie,
+        watchToken: watchTokenCookie,
       });
     }
   }
@@ -109,10 +116,16 @@ class App extends React.Component {
                   </div>
                 </Route>
                 <Route path="/auth/login">
-                  <Login updateToken={this.updateToken}/>
+                  <Login
+                    updateToken={this.updateToken}
+                    updateWatchToken={this.updateWatchToken}
+                  />
                 </Route>
                 <Route path="/auth/register">
-                  <SignUp updateToken={this.updateToken} />
+                  <SignUp
+                    updateToken={this.updateToken}
+                    updateWatchToken={this.watchTokenCookie}
+                  />
                 </Route>
               </Switch>
             </Router>
@@ -121,7 +134,9 @@ class App extends React.Component {
           <Router>
             <Main
               onLogout={this.handleLogout}
-              updateToken={this.updateToken} />
+              updateToken={this.updateToken}
+              updateWatchToken={this.updateWatchToken}
+            />
           </Router>
         }
       </>

@@ -25,8 +25,8 @@ public class AuthController {
             return "Incorrect email or password";
         } else {
             logger.info("User with email: {} succefully logged in", email);
-            return "{token:'" + dbConn.newToken(user.getId()) + "', watchToken:'" + dbConn.newWatchToken(user.getId())
-                    + "'}";
+            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\", \"watchToken:\""
+                    + dbConn.newWatchToken(user.getId()) + "\"}";
         }
     };
 
@@ -51,8 +51,8 @@ public class AuthController {
             dbConn.createUser(user, password, "salt");
             user = dbConn.getUserByEmail(email);
             logger.info("Created bew user with email: {}", email);
-            return "{token:'" + dbConn.newToken(user.getId()) + "', watchToken:'" + dbConn.newWatchToken(user.getId())
-                    + "'}";
+            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\", \"watchToken\":\""
+                    + dbConn.newWatchToken(user.getId()) + "\"}";
         }
     };
 

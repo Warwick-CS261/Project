@@ -46,7 +46,7 @@ public class SessionController {
         // add session to db
         dbConn.createSession(hostSession);
         App.getApp().getCacher().addModerator(user, sessionID);
-        return "{token:'" + dbConn.newToken(user.getId()) + "',session:" + gson.toJson(hostSession) + "}";
+        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"session\":" + gson.toJson(hostSession) + "}";
     };
 
     public static Route userSessions = (Request request, Response response) -> {
@@ -61,7 +61,7 @@ public class SessionController {
             logger.warn("Get user sessions attempted with invalid token: {}", token);
             return "Invalid Token";
         }
-        return "{token:'" + dbConn.newToken(user.getId()) + "',series:"
+        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"series\":"
                 + gson.toJson(dbConn.getUserSessions(user.getId())) + "}";
 
     };
@@ -96,7 +96,7 @@ public class SessionController {
         cacher.createMessage(message, sessionID);
         App.getApp().getObservable().notifyBoth(1, sessionID, gson.toJson(message));
 
-        return "{token:'" + dbConn.newToken(user.getId()) + "'}";
+        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
     };
 
     public static Route addHost = (Request request, Response response) -> {
@@ -129,7 +129,7 @@ public class SessionController {
         cacher.addModerator(newMod, sessionID);
 
         App.getApp().getObservable().notifyBoth(5, sessionID, gson.toJson(newMod));
-        return "{token:'" + dbConn.newToken(user.getId()) + "'}";
+        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
     };
 
     // TODO want to redo this
@@ -156,7 +156,7 @@ public class SessionController {
         }
 
         if (cacher.userIsModerator(user, sessionID)) {
-            return "{token:'" + dbConn.newToken(user.getId()) + "',session:" + gson.toJson(session) + "}";
+            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"session\":" + gson.toJson(session) + "}";
         }
 
         if (cacher.sessionEnded(sessionID)) {
@@ -165,14 +165,14 @@ public class SessionController {
         }
 
         if (dbConn.userIsAttendee(sessionID, user.getId())) {
-            return "{token:'" + dbConn.newToken(user.getId()) + "',session:" + gson.toJson(session.convertToSesh())
-                    + "}";
+            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"session\":"
+                    + gson.toJson(session.convertToSesh()) + "}";
         }
 
         if (session.getSecure().equals(password)) {
             dbConn.addUserToSession(sessionID, user.getId());
-            return "{token:'" + dbConn.newToken(user.getId()) + "',session:" + gson.toJson(session.convertToSesh())
-                    + "}";
+            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"session\":"
+                    + gson.toJson(session.convertToSesh()) + "}";
         }
         if (password.equals("")) {
             response.status(456);
@@ -212,7 +212,7 @@ public class SessionController {
         App.getApp().getObservable().notifyBoth(0, sessionID,
                 gson.toJson(cacher.getHostSessionByID(sessionID).convertToSesh()));// TODO make end session return
                                                                                    // itself and json it
-        return "{token:'" + dbConn.newToken(user.getId()) + "'}";
+        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
     };
 
     public static Route deleteSession = (Request request, Response response) -> {
@@ -242,7 +242,7 @@ public class SessionController {
         }
         cacher.deleteSession(sessionID);
         App.getApp().getObservable().notifyBoth(6, sessionID, "deleted session " + sessionID);
-        return "{token:'" + dbConn.newToken(user.getId()) + "'}";
+        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
     };
 
     // Could cause problems with tokens, however it shouldn't
@@ -283,6 +283,6 @@ public class SessionController {
 
         response.status(w.getType());
         // return json string
-        return "{watchToken:'" + dbConn.newWatchToken(user.getId()) + "',update:" + json + "}";
+        return "{\"watchToken\":\"" + dbConn.newWatchToken(user.getId()) + "\",\"update\":" + json + "}";
     };
 }
