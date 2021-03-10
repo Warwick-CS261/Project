@@ -56,6 +56,15 @@ class AttendeeSession extends React.Component {
           timeout: 300000,
         });
         console.log('Response received', responseText);
+        let token = handleToken(responseText);
+        if (token === null || token === undefined){
+          this.setState({
+            error: 'Server response was invalid'
+          });
+          return;
+        }
+        Cookies.set('token', token);
+        let object = handleJSON(responseText);
         switch(status){
           case 230:
             console.log(responseText);
