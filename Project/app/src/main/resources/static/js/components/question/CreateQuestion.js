@@ -36,9 +36,11 @@ export default class CreateQuestion extends React.Component {
   }
 
   handleSubmit(event){
-    let params = new URLSearchParams();
-    params.append('question', this.state.question);
-    params.append('pushed', this.state.pushed);
+    let params = new URLSearchParams()
+    .append('question', this.state.question)
+    .append('pushed', this.state.pushed)
+    .append('general', this.state.general);
+    
     $.ajax({
       url: `/session/${this.props.sessionID}/question/create`,
       type: 'POST',

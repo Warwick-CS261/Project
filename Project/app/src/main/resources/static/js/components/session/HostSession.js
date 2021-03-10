@@ -63,18 +63,20 @@ class HostSession extends React.Component {
   }
 
   /*
-  230 - session ended
-  231 - new message
-  232 - question pushed
-  233 - question pulled
-  234 - response to question received
-  235 - moderator added
-  236 - session deleted
-  237 - question created (need to read pushed value)
-  238 - question deleted
+    230 - session ended
+    231 - new message
+    232 - question pushed
+    233 - question pulled
+    234 - response to question received
+    235 - moderator added
+    236 - session deleted
+    237 - question created (need to read pushed value)
+    238 - question deleted
   */
   async componentDidUpdate(){
     try {
+      console.log('Function call update');
+      console.log(this.state.subscribed);
       if (!this.state.subscribed && this.state.id !== ""){
         console.log('Entering watch state setting flag subscribed');
         this.setState({
@@ -92,30 +94,39 @@ class HostSession extends React.Component {
           timeout: 300000,
         });
         console.log('Response received', responseText);
+        let token = handleToken(responseText);
+        if (token === null || token === undefined){
+          this.setState({
+            error: 'Server response was invalid'
+          });
+          return;
+        }
+        Cookies.set('token', token);
+        let object = handleJSON(responseText);
         switch(status){
           case 230:
-            console.log(responseText);
+            console.log(230 + responseText);
             break;
           case 231:
-            console.log(responseText);
+            console.log(231 + responseText);
             break;
           case 232:
-            console.log(responseText);
+            console.log(232 + responseText);
             break;
           case 233:
-            console.log(responseText);
+            console.log(233 + responseText);
             break;
           case 234:
-            console.log(responseText);
+            console.log(234 + responseText);
             break;
           case 235:
-            console.log(responseText);
+            console.log(235 + responseText);
             break;
           case 236:
-            console.log(responseText);
+            console.log(236 + responseText);
             break;
           case 237:
-            console.log(responseText);
+            console.log(237 + responseText);
             break;
           case 401:
             console.log(responseText);
@@ -127,6 +138,9 @@ class HostSession extends React.Component {
             console.log(responseText);
             break;
         }
+        this.setState({
+          subscribed: false,
+        });
       }
     } catch (error) {
       console.log(error);
