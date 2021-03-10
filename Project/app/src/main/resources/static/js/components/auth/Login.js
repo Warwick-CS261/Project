@@ -1,7 +1,6 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
-import {handleToken, handleError} from '../../util';
 
 /**
  * Login component
@@ -47,14 +46,17 @@ export default class Login extends React.Component {
       type: 'POST',
       data: params.toString(),
       success: (data, status, jqXHR) => {
-        let token = handleToken(data);
-        if (token === null || token === undefined){
+        let object = JSON.parse(data);
+        let token = object.token;
+        let watchToken = object.watchToken;
+        if (token === null || token === undefined || watchToken === undefined || watchToken === null){
           this.setState({
-            error: data,
+            error: 'Something went wrong please try again',
           });
-          return;
         }
         Cookies.set('token', token);
+        Cookies.set('watchToken', watchToken);
+        this.props.updateWatchToken(watchToken);
         this.props.updateToken(token);
       },
       statusCode: {
@@ -89,7 +91,7 @@ export default class Login extends React.Component {
                 <div className="col-12">
                   <div className="row form-row">
                     <div className="col-5">
-                      <label for="fn" class="form-label">Email</label>
+                      <label htmlFor="fn" className="form-label">Email</label>
                     </div>
                     <div className="col-7">
                       <input 
@@ -108,7 +110,7 @@ export default class Login extends React.Component {
                   </div>
                   <div className="row form-row">
                     <div className="col-5">
-                      <label for="fn" class="form-label">Password</label>
+                      <label htmlFor="fn" className="form-label">Password</label>
                     </div>
                     <div className="col-7">
                       <input 
@@ -132,7 +134,7 @@ export default class Login extends React.Component {
                           onChange={this.handleCheck}
                           className="form-check-input"
                         />
-                        <label for="terms" className="form-label termslabel"><b>I am not a robot!</b></label> 
+                        <label htmlFor="terms" className="form-label termslabel"><b>I am not a robot!</b></label> 
                         <br></br>
                       </div>         
                       <button type="submit" className="col-4 btn btn-primary btn-lg btn-round">Log In</button>

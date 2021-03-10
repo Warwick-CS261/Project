@@ -91,9 +91,9 @@ export default class Main extends React.Component {
 
     return(
       <>
-      <section class="body">
-        <section class="menu">
-          <div class="logo">
+      <section className="body">
+        <section className="menu">
+          <div className="logo">
             <Logo />
           </div>
           
@@ -107,6 +107,7 @@ export default class Main extends React.Component {
                         to={route.path}
                         exact={route.exact}
                         children={<>{route.icon}<span>{route.text}</span></>}
+                        activeClassName="active"
                       />
                     </li>
                   );
@@ -165,7 +166,7 @@ export default class Main extends React.Component {
               <AbstractSession
                 session={this.state.session}
                 updateToken={this.props.updateToken}
-                isHost={this.isHost}
+                isHost={this.state.isHost}
                 handleSession={this.handleSession}
               />
             }

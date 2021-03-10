@@ -4,7 +4,6 @@ import $ from "jquery";
 import { withRouter } from 'react-router';
 import AttendeeSession from './AttendeeSession';
 import HostSession from './HostSession';
-import { handleToken, handleJSON } from '../../util';
 
 
 class AbstractSession extends React.Component {
@@ -30,14 +29,15 @@ class AbstractSession extends React.Component {
         url: `/session/${id}`,
         type: "POST",
         success: (data, status, jqXHR) => {
-          let token = handleToken(data);
+          let json = JSON.parse(data);
+          let token = json.token;
           if (token === null || token === undefined) {
             this.setState({
               error: "Server response was invalid",
             });
             return;
           }
-          let session = handleJSON(data);
+          let session = json.session;
           if (session === null) {
             this.setState({
               error: "Server response was invalid",

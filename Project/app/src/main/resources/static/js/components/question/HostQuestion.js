@@ -1,7 +1,6 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
-import { handleToken } from '../../util';
 
 export default class HostQuestion extends React.Component {
   constructor(props){
@@ -20,7 +19,8 @@ export default class HostQuestion extends React.Component {
       type: 'POST',
       data: params.toString(),
       success: (data, status, jqXHR)=>{
-        let token = handleToken(data);
+        let object = JSON.parse(data);
+        let token = object.token;
         if (token === null || token === undefined){
           // TODO handle error in higher component
           console.log('Session response was invalid');
@@ -53,7 +53,8 @@ export default class HostQuestion extends React.Component {
       type: 'POST',
       data: params.toString(),
       success: (data, status, jqXHR)=>{
-        let token = handleToken(data);
+        let object = JSON.parse(data);
+        let token = object.token;
         if (token === null || token === undefined){
           // TODO handle error in higher component
           console.log('Session response was invalid');
@@ -87,7 +88,8 @@ export default class HostQuestion extends React.Component {
       type: 'POST',
       data: params.toString(),
       success: (data, status, jqXHR)=>{
-        let token = handleToken(data);
+        let object = JSON.parse(data);
+        let token = object.token;
         if (token === null || token === undefined){
           // TODO handle error in higher component
           console.log('Session response was invalid');

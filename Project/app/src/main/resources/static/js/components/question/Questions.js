@@ -1,7 +1,6 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
-import { handleToken } from '../../util';
 
 import HostQuestion from './HostQuestion';
 import AttendeeQuestion from './AttendeeQuestion';

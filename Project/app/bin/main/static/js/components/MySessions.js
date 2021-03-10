@@ -1,7 +1,6 @@
 import Cookies from 'js-cookie';
 import React from 'react';
 import $ from 'jquery';
-import { handleJSON, handleToken } from '../util';
 import { Redirect } from 'react-router';
 
 export default class MySessions extends React.Component {
@@ -22,14 +21,16 @@ export default class MySessions extends React.Component {
       url: '/session/user',
       type: 'POST',
       success: (data, status, jqXHR) =>{
-        let token = handleToken(data);
+        let object = JSON.parse(data);
+
+        let token = object.token;
         if (token === null || token === undefined) {
           this.setState({
             error: 'Server response was invalid',
           });
           return;
         }
-        let series = handleJSON(data);
+        let series = object.series;
         let modList = [];
         let attendedList = [];
         series.sessions.map((session) => {
@@ -71,8 +72,29 @@ export default class MySessions extends React.Component {
 
     if (this.props.isMod){
       return (
-        <>
-          {this.state.modSessions.map((session)=>{
+        <section className="main">
+          <div className="container-fluid">
+            {this.state.modSessions.map((session)=>{
+              return (
+                <div
+                  key={session.id}
+                  onClick={()=>this.handleClick(session.id)}
+                >
+                  <h6>{session.sessionName}</h6>
+                  <span>{session.id}</span>
+                  <span>{session.owner.fname} {session.owner.lname}</span>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )
+    }
+
+    return (
+      <section className="main">
+          <div className="container-fluid">
+            {this.state.attendedSessions.map((session)=>{
             return (
               <div
                 key={session.id}
@@ -84,25 +106,8 @@ export default class MySessions extends React.Component {
               </div>
             );
           })}
-        </>
-      )
-    }
-
-    return (
-      <>
-        {this.state.attendedSessions.map((session)=>{
-          return (
-            <div
-              key={session.id}
-              onClick={()=>this.handleClick(session.id)}
-            >
-              <h6>{session.sessionName}</h6>
-              <span>{session.id}</span>
-              <span>{session.owner.fname} {session.owner.lname}</span>
-            </div>
-          );
-        })}
-      </>
+          </div>
+      </section>
     )
   }
 }
