@@ -62,6 +62,17 @@ class HostSession extends React.Component {
     this.props.handleSession(null);
   }
 
+  /*
+  230 - session ended
+  231 - new message
+  232 - question pushed
+  233 - question pulled
+  234 - response to question received
+  235 - moderator added
+  236 - session deleted
+  237 - question created (need to read pushed value)
+  238 - question deleted
+  */
   async componentDidUpdate(){
     try {
       if (!this.state.subscribed && this.state.id !== ""){
