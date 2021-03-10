@@ -91,30 +91,37 @@ export default class Main extends React.Component {
 
     return(
       <>
-        <Logo />
-        <nav className="nav">
-          <ul>
-            {routes.map((route, index) => {
-              if (index < routes.length -1){
-                return(
-                  <li className="nav-link" key={route.key}>
-                    <NavLink 
-                      to={route.path}
-                      exact={route.exact}
-                      children={<>{route.icon}<span>{route.text}</span></>}
-                    />
-                  </li>
-                );
-              }
-            })}
-            <li className="nav-link" key="logout">
-              <a 
-                href="/"
-                onClick={this.props.onLogout}
-              ><i className="bi bi-box-arrow-left"></i>Logout</a>
-            </li>
-          </ul>
-        </nav>
+      <section class="body">
+        <section class="menu">
+          <div class="logo">
+            <Logo />
+          </div>
+          
+          <nav className="nav">
+            <ul>
+              {routes.map((route, index) => {
+                if (index < routes.length -1){
+                  return(
+                    <li className="nav-link" key={route.key}>
+                      <NavLink 
+                        to={route.path}
+                        exact={route.exact}
+                        children={<>{route.icon}<span>{route.text}</span></>}
+                      />
+                    </li>
+                  );
+                }
+              })}
+              <li className="nav-link nav-logout" key="logout">
+                <a 
+                  href="/"
+                  onClick={this.props.onLogout}
+                ><i className="bi bi-box-arrow-left"></i>Logout</a>
+              </li>
+            </ul>
+          </nav>
+        </section>
+        
         <Switch>
           {/* Home route */}
           <Route exact path={routes[0].path}>
@@ -164,6 +171,8 @@ export default class Main extends React.Component {
             }
           />
         </Switch>
+      </section>
+        
       </>
     );
   }
