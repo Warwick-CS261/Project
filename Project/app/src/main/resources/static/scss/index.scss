@@ -247,7 +247,13 @@ section.body{
     background-color:rgba(255, 255, 255, .5);
   }
 }
-
+.sessionprivate{
+  display: flex;
+  flex-direction: row;
+  .private{
+    margin-left: 8px;
+  }
+}
 
 
 

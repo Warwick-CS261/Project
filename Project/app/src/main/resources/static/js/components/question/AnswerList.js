@@ -15,8 +15,13 @@ export default class AnswerList extends React.Component {
       <>
         <ul>
           {this.props.data.map(answer => {
+            //TODO add key
             return(
+<<<<<<< HEAD
               <li key={answer.context}>
+=======
+              <li>
+>>>>>>> 850030032942282b2cbd963ce42ebe236185c0f5
                 {JSON.stringify(answer)}
               </li>
             );
