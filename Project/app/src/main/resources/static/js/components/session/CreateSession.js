@@ -88,7 +88,7 @@ export default class CreateSession extends React.Component {
           <section className="main">
             <div className="container-fluid">
               <div className="heading">
-                <h1><i className="bi bi-box-arrow-in-right"></i>Create Session</h1>
+                <h1><i className="bi bi-pencil-fill"></i>Create Session</h1>
               </div>
               <div className="sessionbox">
                 <div className="box">
@@ -122,12 +122,18 @@ export default class CreateSession extends React.Component {
                     </div>
                     
                     <div className="mb-3">
-                      <button 
-                        type="submit"
-                        className="btn btn-primary"
-                      >
-                        Create Session
-                      </button>
+                      <div className="container">
+                        <div className="row">
+                          <div className="col text-center">
+                            <button 
+                              type="submit"
+                              className="btn btn-dark btn-lg"
+                            >
+                              Create Session
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </form>
                 </div>

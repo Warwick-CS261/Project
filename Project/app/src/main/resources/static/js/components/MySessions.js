@@ -74,21 +74,28 @@ export default class MySessions extends React.Component {
       return (
         <section className="main">
           <div className="container-fluid">
-            {this.state.modSessions.map((session)=>{
-              return (
-                <div
-                  key={session.id}
-                  onClick={()=>this.handleClick(session.id)}
-                >
-                  <div className="sessiongridchild">
-                    <h6>{session.sessionName}</h6>
-                    <span>{session.id}</span>
-                    <span>{session.owner.fname} {session.owner.lname}</span>
-                  </div>
-                  
-                </div>
-              );
-            })}
+            <div className="heading">
+              <h1><i className="bi bi-calendar-event-fill"></i>Sessions</h1>
+            </div>
+            <div className="sessiongridcontainer">
+              <div className="sessiongrid">
+                {this.state.modSessions.map((session)=>{
+                  return (
+                    <div
+                      key={session.id}
+                      onClick={()=>this.handleClick(session.id)}
+                    >
+                      <div className="sessiongridchild">
+                        <h3>{session.sessionName}</h3>
+                        <i>#<span>{session.id}</span></i><br></br>
+                        <h5>Host: <span>{session.owner.fname} {session.owner.lname}</span></h5>
+                      </div>
+                      
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </section>
       )
@@ -97,18 +104,29 @@ export default class MySessions extends React.Component {
     return (
       <section className="main">
           <div className="container-fluid">
-            {this.state.attendedSessions.map((session)=>{
-            return (
-              <div
-                key={session.id}
-                onClick={()=>this.handleClick(session.id)}
-              >
-                <h6>{session.sessionName}</h6>
-                <span>{session.id}</span>
-                <span>{session.owner.fname} {session.owner.lname}</span>
+            <div className="heading">
+                <h1><i className="bi bi-calendar-event-fill"></i>Sessions</h1>
               </div>
-            );
-          })}
+              <div className="sessiongridcontainer">
+                <div className="sessiongrid">
+                  {this.state.attendedSessions.map((session)=>{
+                    return (
+                      <div
+                        key={session.id}
+                        onClick={()=>this.handleClick(session.id)}
+                      >
+                        <div className="sessiongridchild">
+                          <h3>{session.sessionName}</h3>
+                          <i>#<span>{session.id}</span></i>
+                          <h5>Host: <span>{session.owner.fname} {session.owner.lname}</span></h5>
+                        </div>
+                        
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            
           </div>
       </section>
     )
