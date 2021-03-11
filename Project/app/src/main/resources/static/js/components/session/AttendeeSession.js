@@ -54,12 +54,12 @@ class AttendeeSession extends React.Component {
           this.setState({
             subscribed: false,
           });
-        }, 300000);
+        }, 60000);
 
         let res = await $.ajax({
           url: `/session/${this.state.id}/watch`,
           type: "POST",
-          timeout: 300000,
+          timeout: 60000,
           success: (data, status, jqXHR) =>{
             let object = JSON.parse(data);
             let watchToken = object.watchToken;
@@ -68,6 +68,17 @@ class AttendeeSession extends React.Component {
             console.log(data);
             console.log(status);
             console.log(jqXHR);
+            if (jqXHR.status == 231){
+              this.setState((oldProps)=>{
+                console.log(oldProps);
+                console.log(object);
+                let newChat = oldProps.chat;
+                newChat.messages.push(object.update);
+                return {
+                  chat: newChat,
+                }
+              });
+            }
           }
         });
         
