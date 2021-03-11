@@ -132,22 +132,25 @@ export default class Main extends React.Component {
             <CreateSession
               updateToken={this.props.updateToken}
               handleSession={this.handleSession}
+              updateWatchToken={this.props.updateWatchToken}
             />
           </Route>
           <Route path="/session/join" >
             <JoinSession
               updateToken={this.props.updateToken}
               handleSession={this.handleSession}
+              updateWatchToken={this.props.updateWatchToken}
             />
           </Route>
           <Route path="/session/createSeries">
             <CreateSeries
               updateToken={this.props.updateToken}
               handleSession={this.handleSession}
+              updateWatchToken={this.props.updateWatchToken}
             />
           </Route>
           <Route path={routes[1].path}>
-            <User />
+            <User user={this.props.user} />
           </Route>
           <Route path={routes[2].path}>
             <MySessions
@@ -159,6 +162,7 @@ export default class Main extends React.Component {
             <MySessions
               updateToken={this.props.updateToken}
               isMod={false}
+              user={this.props.user}
             />
           </Route>
           <Route path="/session/:id"

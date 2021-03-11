@@ -11,6 +11,7 @@ import $ from 'jquery';
 import Chat from '../Chat';
 import CreateQuestion from '../question/CreateQuestion';
 import Questions from '../question/Questions';
+import AddMod from './AddMod';
 
 export default class HostSession extends React.Component {
   constructor(props) {
@@ -142,6 +143,16 @@ export default class HostSession extends React.Component {
           sessionID={this.state.id}
           updateToken={this.props.updateToken}
           isHost={true}
+        />
+        <button
+          className="btn btn-warning"
+          onClick={this.handleEnd}
+        >
+          End Session
+        </button>
+        <AddMod
+          sessionID={this.state.id}
+          updateToken={this.props.updateToken}
         />
         {JSON.stringify(this.state)}
       </>

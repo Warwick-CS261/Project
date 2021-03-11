@@ -123,7 +123,7 @@ public class DBConnection {
     // needs to filter out duplicates
     public Series getUserSessions(int userID) throws SQLException {
         String query = "SELECT id FROM SESH WHERE userID = ?";
-        Series userSeries = new Series(-1, "userssesiions");
+        Series userSeries = new Series("000000", "userssesiions");
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setInt(1, userID);
         ResultSet rs = stmt.executeQuery();
@@ -369,6 +369,17 @@ public class DBConnection {
         String query = "SELECT * FROM SESH WHERE id = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setString(1, sessionID);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean seriesExists(String seriesID) throws SQLException {
+        String query = "SELECT * FROM SERIES WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, seriesID);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             return true;
