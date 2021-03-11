@@ -171,8 +171,9 @@ public class SessionController {
 
         if (session.getSecure().equals(password)) {
             dbConn.addUserToSession(sessionID, user.getId());
-            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"session\":"
-                    + gson.toJson(session.convertToSesh()) + "}";
+            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"watchToken\":\""
+                    + dbConn.newWatchToken(user.getId()) + "\",\"session\":" + gson.toJson(session.convertToSesh())
+                    + "}";
         }
         if (password.equals("")) {
             response.status(456);

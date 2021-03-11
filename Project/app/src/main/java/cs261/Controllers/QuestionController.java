@@ -58,7 +58,7 @@ public class QuestionController {
 
         String token = request.cookie("token");
         String sessionID = request.params(":id");
-        String context = request.queryParams("asnwer");
+        String context = request.queryParams("context");
         String anon = request.queryParams("anon");
         int smiley = Integer.parseInt(request.queryParams("smiley"));
         int qID = Integer.parseInt(request.queryParams("qID"));
