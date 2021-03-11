@@ -156,7 +156,8 @@ public class SessionController {
         }
 
         if (cacher.userIsModerator(user, sessionID)) {
-            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"session\":" + gson.toJson(session) + "}";
+            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"watchToken\":\""
+                    + dbConn.newWatchToken(user.getId()) + "\",\"session\":" + gson.toJson(session) + "}";
         }
 
         if (cacher.sessionEnded(sessionID)) {
@@ -165,8 +166,9 @@ public class SessionController {
         }
 
         if (dbConn.userIsAttendee(sessionID, user.getId())) {
-            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"session\":"
-                    + gson.toJson(session.convertToSesh()) + "}";
+            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"watchToken\":\""
+                    + dbConn.newWatchToken(user.getId()) + "\",\"session\":" + gson.toJson(session.convertToSesh())
+                    + "}";
         }
 
         if (session.getSecure().equals(password)) {
@@ -283,7 +285,9 @@ public class SessionController {
         }
 
         response.status(w.getType());
+        String[] types = { "", ",\"message\":", ",\"question\":", ",\"answer\":", ",\"user\":", ",\"id\":",
+                ",\"question\":", ",\"qID\":" };
         // return json string
-        return "{\"watchToken\":\"" + dbConn.newWatchToken(user.getId()) + "\",\"update\":" + json + "}";
+        return "{\"watchToken\":\"" + dbConn.newWatchToken(user.getId()) + "\"" + types[w.getType() - 200] + json + "}";
     };
 }
