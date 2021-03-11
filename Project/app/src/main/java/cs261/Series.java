@@ -3,30 +3,27 @@ package cs261;
 import java.util.ArrayList;
 
 public class Series {
-    int id;
+    String id;
     String name;
     ArrayList<Sesh> sessions;
 
-    public Series(int id, String name, ArrayList<Sesh> sessions){
+    public Series(String id, String name, ArrayList<Sesh> sessions) {
         this.id = id;
         this.name = name;
         this.sessions = sessions;
-
     }
 
-    public Series(int id, String name){
+    public Series(String id, String name) {
         this.id = id;
         this.name = name;
         sessions = new ArrayList<Sesh>();
     }
 
-    public void addSession(Sesh s){
+    public void addSession(Sesh s) {
         sessions.add(s);
     }
 
-
-
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -38,7 +35,7 @@ public class Series {
         return sessions;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -49,6 +46,5 @@ public class Series {
     public void setSessions(ArrayList<Sesh> sessions) {
         this.sessions = sessions;
     }
-
 
 }

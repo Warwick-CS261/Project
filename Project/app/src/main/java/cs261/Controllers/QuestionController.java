@@ -21,34 +21,47 @@ public class QuestionController {
         DBConnection dbConn = App.getApp().getDbConn();
         Cacher cacher = App.getApp().getCacher();
 
+        // gets params
         String sessionID = request.params(":id");
         String token = request.cookie("token");
         String question = request.queryParams("question");
         Boolean pushed = Boolean.parseBoolean(request.queryParamOrDefault("pushed", "false"));
         Boolean general = Boolean.parseBoolean(request.queryParamOrDefault("general", "false"));
-        // add pushed variable
+
         User user = dbConn.getUserByToken(token);
+        // verifies valid token
         if (Objects.isNull(user)) {
             response.status(450);
             logger.warn("Create question in session {} attempted with invalid token: {}", sessionID, token);
             return "Invalid Token";
         }
-        // need to check user is moderator or owner
+
+        if (!cacher.sessionExists(sessionID)) {
+            response.status(454);
+            logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
+            return "session doesn't exist";
+        }
+
+        // verify user is moderator or owner
         if (!cacher.userIsModerator(user, sessionID)) {
             response.status(401);
             return "not authorised for session " + sessionID;
         }
 
+        // creates question
         Question q = new Question(question, pushed, general);
         App.getApp().getCacher().createQuestion(q, sessionID);
 
         if (pushed) {
+            // notifies attendees and mods as question is pushed
             App.getApp().getObservable().notifyAttendees(2, sessionID, gson.toJson(q));
             App.getApp().getObservable().notifyModerators(7, sessionID, gson.toJson(q));
         } else {
+            // notifies mods as question is hidden
             App.getApp().getObservable().notifyModerators(7, sessionID, gson.toJson(q));
         }
 
+        // returns new token and instance json of question
         return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\", \"question\":" + gson.toJson(q) + "}";
     };
 
@@ -131,10 +144,15 @@ public class QuestionController {
             return "not authorised";
         }
 
+        Question q = cacher.getQuestionByID(sessionID, qID);
+        if (Objects.isNull(q)) {
+            response.status(454);
+            return "no such question";
+        }
+
         cacher.deleteQuestion(sessionID, qID);
 
-        App.getApp().getObservable().notifyBoth(7777, sessionID,
-                "removed question id: " + qID + " from session " + sessionID);
+        App.getApp().getObservable().notifyBoth(7, sessionID, Integer.toString(qID));
 
         return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
     };
