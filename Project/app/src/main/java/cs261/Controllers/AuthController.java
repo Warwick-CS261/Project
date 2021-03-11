@@ -83,4 +83,22 @@ public class AuthController {
         return "Token expired";
     };
 
+    public static Route userDetails = (Request request, Response response) -> {
+        DBConnection dbConn = App.getApp().getDbConn();
+        // gets token
+        String token = request.cookie("token");
+
+        // verifies token and gets user
+        User user = dbConn.getUserByToken(token);
+
+        if (Objects.isNull(user)) {
+            response.status(450);
+            logger.warn("Tried to get user details with invalid token {}", token);
+            return "Invalid Token";
+        }
+
+        // returns new token and user data
+        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"user\":" + gson.toJson(user) + "}";
+    };
+
 }

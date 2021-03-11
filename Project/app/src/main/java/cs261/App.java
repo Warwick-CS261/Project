@@ -59,6 +59,7 @@ public class App {
 
         get("/", returnPage);
         get("/user", returnPage);
+        post("/user", AuthController.userDetails);
 
         path("/auth", () -> {
             post("/login", AuthController.login);
