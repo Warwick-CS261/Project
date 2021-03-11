@@ -80,9 +80,12 @@ export default class MySessions extends React.Component {
                   key={session.id}
                   onClick={()=>this.handleClick(session.id)}
                 >
-                  <h6>{session.sessionName}</h6>
-                  <span>{session.id}</span>
-                  <span>{session.owner.fname} {session.owner.lname}</span>
+                  <div className="sessiongridchild">
+                    <h6>{session.sessionName}</h6>
+                    <span>{session.id}</span>
+                    <span>{session.owner.fname} {session.owner.lname}</span>
+                  </div>
+                  
                 </div>
               );
             })}
