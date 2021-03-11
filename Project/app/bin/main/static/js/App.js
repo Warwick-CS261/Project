@@ -118,13 +118,11 @@ class App extends React.Component {
                 <Route path="/auth/login">
                   <Login
                     updateToken={this.updateToken}
-                    updateWatchToken={this.updateWatchToken}
                   />
                 </Route>
                 <Route path="/auth/register">
                   <SignUp
                     updateToken={this.updateToken}
-                    updateWatchToken={this.watchTokenCookie}
                   />
                 </Route>
               </Switch>
@@ -135,7 +133,6 @@ class App extends React.Component {
             <Main
               onLogout={this.handleLogout}
               updateToken={this.updateToken}
-              updateWatchToken={this.updateWatchToken}
               updateWatchToken={this.updateWatchToken}
             />
           </Router>
