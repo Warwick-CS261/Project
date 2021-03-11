@@ -5,6 +5,7 @@ import $ from 'jquery';
 import HostQuestion from './HostQuestion';
 import AttendeeQuestion from './AttendeeQuestion';
 import AnswerList from './AnswerList';
+import Reaction from './Reaction';
 
 export default class Questions extends React.Component {
   constructor(props){
@@ -31,7 +32,6 @@ export default class Questions extends React.Component {
         <>
           <div className="side">
             {this.props.pushedQuestions.map((pq) => {
-              console.log('reached');
               return(
                 <HostQuestion
                   key={pq.id}
@@ -68,10 +68,24 @@ export default class Questions extends React.Component {
       return(
         <>
           <div className="side">
-  
+          {this.props.pushedQuestions.map((pq) => {
+              return(
+                <AttendeeQuestion
+                  key={pq.id}
+                  data={pq}
+                  pushed={true}
+                  sessionID={this.props.sessionID}
+                  handleSelect={this.handleSelect}
+                />
+              );
+            })}
           </div>
           <div className="content">
-  
+            <Reaction
+              qID={this.state.selected}
+              question={this.state.question}
+              updateToken={this.props.updateToken}
+            />
           </div>
         </>
       );
