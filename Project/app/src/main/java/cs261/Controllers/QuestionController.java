@@ -44,9 +44,9 @@ public class QuestionController {
 
         if (pushed) {
             App.getApp().getObservable().notifyAttendees(2, sessionID, gson.toJson(q));
-            App.getApp().getObservable().notifyModerators(7, sessionID, gson.toJson(q));
+            App.getApp().getObservable().notifyModerators(6, sessionID, gson.toJson(q));
         } else {
-            App.getApp().getObservable().notifyModerators(7, sessionID, gson.toJson(q));
+            App.getApp().getObservable().notifyModerators(6, sessionID, gson.toJson(q));
         }
 
         return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\", \"question\":" + gson.toJson(q) + "}";
@@ -95,7 +95,7 @@ public class QuestionController {
                 App.getApp().getAnalyse().parseText(answer.getContext()), dbConn.numOfAnswersToQ(sessionID, qID)));
         cacher.createMoodDate(sessionID, new MoodDate(cacher.getSessionMood(sessionID), new Date()));
 
-        App.getApp().getObservable().notifyModerators(8, sessionID, gson.toJson(answer));// TODO this will need a
+        App.getApp().getObservable().notifyModerators(3, sessionID, gson.toJson(answer));// TODO this will need a
                                                                                          // question ID or it's useless
         return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
     };
@@ -133,8 +133,7 @@ public class QuestionController {
 
         cacher.deleteQuestion(sessionID, qID);
 
-        App.getApp().getObservable().notifyBoth(7777, sessionID,
-                "removed question id: " + qID + " from session " + sessionID);
+        App.getApp().getObservable().notifyBoth(7, sessionID, Integer.toString(qID));
 
         return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
     };
@@ -175,7 +174,7 @@ public class QuestionController {
         }
 
         cacher.endQuestion(sessionID, qID);
-        App.getApp().getObservable().notifyBoth(3, sessionID, gson.toJson(q));// need to discuss how to do this
+        App.getApp().getObservable().notifyBoth(2, sessionID, gson.toJson(q));// need to discuss how to do this
 
         return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
     };
@@ -216,8 +215,7 @@ public class QuestionController {
         }
 
         cacher.pushQuestion(sessionID, qID);
-        App.getApp().getObservable().notifyAttendees(2, sessionID, gson.toJson(q));
-        App.getApp().getObservable().notifyModerators(237, sessionID, gson.toJson(q));
+        App.getApp().getObservable().notifyBoth(2, sessionID, gson.toJson(q));
 
         return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
     };

@@ -135,7 +135,7 @@ public class SessionController {
 
         // all checks past and success
         cacher.addModerator(newMod, sessionID);
-        App.getApp().getObservable().notifyBoth(5, sessionID, gson.toJson(newMod));
+        App.getApp().getObservable().notifyBoth(4, sessionID, gson.toJson(newMod));
         return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
     };
 
@@ -257,7 +257,7 @@ public class SessionController {
             return "No permission";
         }
         cacher.deleteSession(sessionID);
-        App.getApp().getObservable().notifyBoth(6, sessionID, "deleted session " + sessionID);
+        App.getApp().getObservable().notifyBoth(5, sessionID, "deleted session " + sessionID);
         return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
     };
 
