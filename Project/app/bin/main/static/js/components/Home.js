@@ -27,7 +27,7 @@ export default class Home extends React.Component {
                   Join Session
                 </NavLink>
               </div>
-              <div class="home-action join-session">
+              <div className="home-action join-session">
                 <h3>Give feedback</h3>
                 <p>
                   Join a team and show how satisfied you are, ask questions and chat
@@ -41,7 +41,7 @@ export default class Home extends React.Component {
                   Create Session
                 </NavLink>
               </div>
-              <div class="home-action create-series">
+              <div className="home-action create-series">
                 <h3>Organize workshops</h3>
                 <p>Host a series of sessions, have a workshop hosted!</p>
                 <NavLink 
@@ -53,17 +53,8 @@ export default class Home extends React.Component {
                 </NavLink>
               </div>
             </div>
-            
-            
-            
-
           </div>
-
-          
-      
         </section>
-      
-         
       </>
     );
   }
