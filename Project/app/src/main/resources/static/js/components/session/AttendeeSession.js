@@ -68,14 +68,16 @@ class AttendeeSession extends React.Component {
             console.log(data);
             console.log(status);
             console.log(jqXHR);
-            switch(jqXHR.status){
-              case 231:
-                this.setState(old => {
-                  return {
-                    chat: old.messages.push(object.update)
-                  }
-                })
-                break;
+            if (jqXHR.status == 231){
+              this.setState((oldProps)=>{
+                console.log(oldProps);
+                console.log(object);
+                let newChat = oldProps.chat;
+                newChat.messages.push(object.update);
+                return {
+                  chat: newChat,
+                }
+              });
             }
           }
         });

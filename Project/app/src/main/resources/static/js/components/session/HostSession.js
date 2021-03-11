@@ -90,22 +90,21 @@ export default class HostSession extends React.Component {
           type: "POST",
           timeout: 60000,
           success: (data, status, jqXHR) =>{
-            console.log(data);
-            console.log(status);
             console.log(jqXHR);
             let object = JSON.parse(data);
             let watchToken = object.watchToken;
             Cookies.set('watchToken', watchToken);
             this.props.updateWatchToken(watchToken);
-            switch(jqXHR.status){
-              case 231:
-                this.setState(({chat}) => {
-                  chat: {
-                    messages: [...chat.messages, object.update]//I can't do it :(
-                    console.log(messages);
-                  }
-                  })
-                break;
+            if (jqXHR.status == 231){
+              this.setState((oldProps)=>{
+                console.log(oldProps);
+                console.log(object);
+                let newChat = oldProps.chat;
+                newChat.messages.push(object.update);
+                return {
+                  chat: newChat,
+                }
+              });
             }
           }
         });
