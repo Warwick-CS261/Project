@@ -1,6 +1,6 @@
 import React from 'react';
 import Cookies from 'js-cookie';
-import $, { param } from 'jquery';
+import $ from 'jquery';
 import { Redirect } from 'react-router-dom';
 
 export default class CreateQuestion extends React.Component {

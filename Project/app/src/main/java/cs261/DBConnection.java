@@ -52,7 +52,7 @@ public class DBConnection {
 
     public Question createQuestion(Question q, String sessionID) throws SQLException {
         int qs = numOfSessQuest(sessionID);
-        String query = "INSERT INTO QUESTION VALUES(?,?,?,?)";
+        String query = "INSERT INTO QUESTION VALUES(?,?,?,?,?,?)";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setInt(1, qs);
         stmt.setString(2, sessionID);
@@ -183,7 +183,7 @@ public class DBConnection {
     }
 
     public int numOfAnswersToQ(String sessionID, int qID) throws SQLException {
-        String query = "SELECT COUNT(id) FROM QUESTION WHERE sessionID = ? AND qID = ?";
+        String query = "SELECT COUNT(*) FROM ANSWER WHERE sessionID = ? AND qID = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setString(1, sessionID);
         stmt.setInt(2, qID);

@@ -152,9 +152,9 @@ export default class JoinSession extends React.Component {
                   </div>
                 }
                 <div className="mb-3">
-                  <div class="container">
-                    <div class="row">
-                      <div class="col text-center">
+                  <div className="container">
+                    <div className="row">
+                      <div className="col text-center">
                         <button 
                           type="submit"
                           className="btn btn-dark btn-lg"
