@@ -120,13 +120,11 @@ export default class MySessions extends React.Component {
                           <i>#<span>{session.id}</span></i>
                           <h5>Host: <span>{session.owner.fname} {session.owner.lname}</span></h5>
                         </div>
-                        
                       </div>
                     );
                   })}
                 </div>
               </div>
-            
           </div>
       </section>
     )
