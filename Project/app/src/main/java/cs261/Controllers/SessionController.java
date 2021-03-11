@@ -121,15 +121,20 @@ public class SessionController {
             response.status(401);
             return "No Permission";
         }
+
         // Gets new mod and checks exists
         User newMod = dbConn.getUserByEmail(email);
         if (Objects.isNull(newMod)) {
             response.status(454);
             return "No user with that email exists";
         }
+        if (cacher.userIsModerator(user, sessionID)) {
+            response.status(457);
+            return "user is already a moderator";
+        }
+
         // all checks past and success
         cacher.addModerator(newMod, sessionID);
-
         App.getApp().getObservable().notifyBoth(5, sessionID, gson.toJson(newMod));
         return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
     };
@@ -201,6 +206,12 @@ public class SessionController {
             response.status(450);
             logger.warn("End session {} attempted with invalid token: {}", sessionID, token);
             return "Invalid Token";
+        }
+
+        if (!cacher.sessionExists(sessionID)) {
+            response.status(454);
+            logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
+            return "Invalid session";
         }
 
         if (!cacher.userIsSessionHost(user, sessionID)) {
