@@ -287,7 +287,9 @@ public class SessionController {
         }
 
         response.status(w.getType());
+        String[] types = { "", ",\"message\":", ",\"question\":", ",\"answer\":", ",\"user\":", ",\"id\":",
+                ",\"question\":", ",\"qID\":" };
         // return json string
-        return "{\"watchToken\":\"" + dbConn.newWatchToken(user.getId()) + "\",\"update\":" + json + "}";
+        return "{\"watchToken\":\"" + dbConn.newWatchToken(user.getId()) + "\"" + types[w.getType() - 200] + json + "}";
     };
 }
