@@ -58,8 +58,7 @@ CREATE TABLE ANSWER (
   context VARCHAR(256), -- context to feedback from the requirements
   FOREIGN KEY(qID) REFERENCES QUESTION(id),
   FOREIGN KEY(userID) REFERENCES USER(id),
-  FOREIGN KEY(sessionID) REFERENCES SESH(id),
-  PRIMARY KEY (qid, sessionID)
+  FOREIGN KEY(sessionID) REFERENCES SESH(id)
 );
 
 DROP TABLE MODERATOR_SESSION;
