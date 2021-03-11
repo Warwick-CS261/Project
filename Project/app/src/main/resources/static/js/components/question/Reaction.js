@@ -9,7 +9,7 @@ export default class Reaction extends React.Component {
     if (this.props.qID === null || this.props.qID === undefined){
       this.state = {
         question: "How's the session going?",
-        answer: "",
+        context: "",
         anon: false,
         smiley: -1,
         qID: -1,
@@ -17,7 +17,7 @@ export default class Reaction extends React.Component {
     } else {
       this.state = {
         question: this.props.question,
-        answer: "",
+        context: "",
         anon: false,
         smiley: -1,
         qID: this.props.qID

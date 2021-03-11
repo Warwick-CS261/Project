@@ -1,6 +1,7 @@
 import React from 'react';
 import Cookies from 'js-cookie';
-import $, { param } from 'jquery';
+import $ from 'jquery';
+import { Redirect } from 'react-router';
 
 /**
  * SignUp component 
@@ -16,6 +17,7 @@ export default class SignUp extends React.Component {
       rpassword: '',
       terms: false,
       error: false,
+      success: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -55,18 +57,16 @@ export default class SignUp extends React.Component {
         let object = JSON.parse(data);
         console.log(object);
         let token = object.token;
-        let watchToken = object.watchToken;
-        if (token === null || token === undefined || watchToken === undefined || watchToken === null){
+        if (token === null || token === undefined){
           this.setState({
             error: 'Something went wrong please try again',
           });
         }
+        this.setState({
+          success: true,
+        });
         Cookies.set('token', token);
-        Cookies.set('watchToken', watchToken);
-        this.props.updateWatchToken(watchToken);
         this.props.updateToken(token);
-        console.log('Token');
-        console.log(Cookies.get("token"));
       },
       statusCode: {
         453: ()=>{
@@ -84,12 +84,13 @@ export default class SignUp extends React.Component {
     event.preventDefault();
   }
 
-  componentWillUnmount(){
-    // TODO change to redirect
-    history.pushState({route: '/'}, '', '/');
-  }
-
   render(){
+    if (this.state.success){
+      return(
+        <Redirect to="/" />
+      );
+    }
+    
     return(
       <div className="blackbg">
         <div className="registerBackground">

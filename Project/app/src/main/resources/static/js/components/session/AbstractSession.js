@@ -31,6 +31,7 @@ class AbstractSession extends React.Component {
         success: (data, status, jqXHR) => {
           let json = JSON.parse(data);
           let token = json.token;
+          let watchToken = json.watchToken;
           if (token === null || token === undefined) {
             this.setState({
               error: "Server response was invalid",
@@ -45,7 +46,9 @@ class AbstractSession extends React.Component {
           }
           // set cookies
           Cookies.set("token", token);
+          Cookies.set('watchToken', watchToken);
           this.props.updateToken(token);
+          this.props.updateWatchToken(watchToken);
           // handle session
           this.props.handleSession(session);
         },
