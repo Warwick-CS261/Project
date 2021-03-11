@@ -62,15 +62,14 @@ export default class HostSession extends React.Component {
   }
 
   /*
-    230 - session ended
-    231 - new message
-    232 - question pushed
-    233 - question pulled
-    234 - response to question received
-    235 - moderator added
-    236 - session deleted
-    237 - question created (need to read pushed value)
-    238 - question deleted
+    230 - session ended {""}
+    231 - new message {message}
+    232 - question changed {question}
+    233 - response to question received {answer}
+    234 - moderator added {user}
+    235 - session deleted {id}
+    236 - question created (need to read pushed value) {question}
+    237 - question deleted {qID}
   */
   async componentDidUpdate(){
     try {
@@ -97,8 +96,6 @@ export default class HostSession extends React.Component {
             this.props.updateWatchToken(watchToken);
             if (jqXHR.status == 231){
               this.setState((oldProps)=>{
-                console.log(oldProps);
-                console.log(object);
                 let newChat = oldProps.chat;
                 newChat.messages.push(object.update);
                 return {
@@ -120,6 +117,7 @@ export default class HostSession extends React.Component {
   }
 
   render() {
+    // TODO display refresh page
     return (
       <>
         <h2>{this.state.sessionName}</h2>
