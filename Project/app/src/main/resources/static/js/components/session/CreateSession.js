@@ -45,7 +45,8 @@ export default class CreateSession extends React.Component {
       success: (data, status, jqXHR) => {
         let object = JSON.parse(data);
         let token = object.token;
-        if (token === null || token === undefined ){
+        let watchToken = object.watchToken;
+        if (token === null || token === undefined || watchToken === undefined || watchToken === null){
           this.setState({
             error: data,
           });
@@ -61,7 +62,9 @@ export default class CreateSession extends React.Component {
         console.log(session);
         // set new tokens
         Cookies.set('token', token);
+        Cookies.set('watchToken', watchToken);
         this.props.updateToken(token);
+        this.props.updateWatchToken(watchToken);
         // update main component
         this.props.handleSession(session);
         this.setState({

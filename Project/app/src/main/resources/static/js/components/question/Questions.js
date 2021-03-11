@@ -11,7 +11,7 @@ export default class Questions extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      selected: -1,
+      selected: 0,
     };
 
     this.handleSelect = this.handleSelect.bind(this);

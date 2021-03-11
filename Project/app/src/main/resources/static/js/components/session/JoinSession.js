@@ -35,7 +35,8 @@ export default class JoinSession extends React.Component {
       success: (data, status, jqXHR) => {
         let object = JSON.parse(data);
         let token = object.token;
-        if (token === null || token === undefined){
+        let watchToken = object.watchToken;
+        if (token === null || token === undefined || watchToken === undefined || watchToken === null){
           this.setState({
             error: 'Timed out, please log in again',
           });
@@ -50,7 +51,9 @@ export default class JoinSession extends React.Component {
         console.log(session);
         // setting new tokens
         Cookies.set('token', token);
+        Cookies.set('watchToken', watchToken);
         this.props.updateToken(token);
+        this.props.updateWatchToken(watchToken);
         // handle session
         this.props.handleSession(session);
         this.setState({
