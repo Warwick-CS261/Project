@@ -14,7 +14,7 @@ public class Cacher {
         recentSessions = new CircularFifoQueue<HostSesh>(100);
     }
 
-    public Boolean createQuestion(Question q, String sessionID) throws Exception {
+    public Boolean createQuestion(Question q, String sessionID) throws SQLException {
         HostSesh hs;
         Question newQ = dbConn.createQuestion(q, sessionID);
 
@@ -24,7 +24,7 @@ public class Cacher {
         return true;
     }
 
-    public Boolean createAnswer(Answer a, String sessionID, int qID) throws Exception {
+    public Boolean createAnswer(Answer a, String sessionID, int qID) throws SQLException {
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))) {
             hs.getQuestionByID(qID).addAnswer(a);
@@ -33,7 +33,7 @@ public class Cacher {
         return true;
     }
 
-    public float getQuestionMood(String sessionID, int qID) throws Exception {
+    public float getQuestionMood(String sessionID, int qID) throws SQLException {
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))) {
             return hs.getQuestionByID(qID).getMood();
@@ -41,7 +41,7 @@ public class Cacher {
         return dbConn.getQuestionByID(sessionID, qID).getMood();
     }
 
-    public Boolean questionIsGeneral(String sessionID, int qID) throws Exception {
+    public Boolean questionIsGeneral(String sessionID, int qID) throws SQLException {
         return getQuestionByID(sessionID, qID).getGeneral();
     }
 
@@ -49,9 +49,7 @@ public class Cacher {
         return true;
     }
 
-    // TODO
-    // Could do questions like this
-    public Boolean createMessage(Message message, String sessionID) throws Exception {
+    public Boolean createMessage(Message message, String sessionID) throws SQLException {
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))) {
             message.setId(hs.getChat().getMessages().size());
@@ -63,7 +61,7 @@ public class Cacher {
         return true;
     }
 
-    public Boolean createMoodDate(String sessionID, MoodDate moodDate) throws Exception {
+    public Boolean createMoodDate(String sessionID, MoodDate moodDate) throws SQLException {
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))) {
             hs.getMoodHistory().add(moodDate);
@@ -72,7 +70,7 @@ public class Cacher {
         return true;
     }
 
-    public Boolean pushQuestion(String sessionID, int qID) throws Exception {
+    public Boolean pushQuestion(String sessionID, int qID) throws SQLException {
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))) {
             hs.pushQuestion(qID);
@@ -81,7 +79,7 @@ public class Cacher {
         return true;
     }
 
-    public Boolean endQuestion(String sessionID, int qID) throws Exception {
+    public Boolean endQuestion(String sessionID, int qID) throws SQLException {
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))) {
             Question q = hs.getQuestionByID(qID);
@@ -93,7 +91,7 @@ public class Cacher {
         return true;
     }
 
-    public HostSesh getHostSessionByID(String sessionID) throws Exception {
+    public HostSesh getHostSessionByID(String sessionID) throws SQLException {
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))) {
             return hs;
@@ -104,7 +102,7 @@ public class Cacher {
         return null;
     }
 
-    public Question getQuestionByID(String sessionID, int qID) throws Exception {
+    public Question getQuestionByID(String sessionID, int qID) throws SQLException {
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))) {
             return hs.getQuestionByID(qID);
@@ -112,7 +110,7 @@ public class Cacher {
         return dbConn.getQuestionByID(sessionID, qID);
     }
 
-    public Boolean deleteQuestion(String sessionID, int qID) throws Exception {
+    public Boolean deleteQuestion(String sessionID, int qID) throws SQLException {
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))) {
             hs.deleteQuestionByID(qID);
@@ -129,7 +127,7 @@ public class Cacher {
         return dbConn.getSessionMood(sessionID);
     }
 
-    public Boolean setSessionMood(String sessionID, float mood) throws Exception {
+    public Boolean setSessionMood(String sessionID, float mood) throws SQLException {
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))) {
             hs.setMood(mood);
@@ -138,7 +136,7 @@ public class Cacher {
         return true;
     }
 
-    public Boolean addModerator(User user, String sessionID) throws Exception {
+    public Boolean addModerator(User user, String sessionID) throws SQLException {
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))) {
             hs.getModerators().add(user);
@@ -159,7 +157,7 @@ public class Cacher {
         return dbConn.userIsModerator(user, sessionID);
     }
 
-    public ArrayList<User> getSessionModerators(String sessionID) throws Exception {
+    public ArrayList<User> getSessionModerators(String sessionID) throws SQLException {
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))) {
             return hs.getModerators();
@@ -168,7 +166,7 @@ public class Cacher {
 
     }
 
-    public Boolean userIsSessionHost(User user, String sessionID) throws Exception {
+    public Boolean userIsSessionHost(User user, String sessionID) throws SQLException {
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))) {
             return hs.getOwner().getId() == user.getId();
@@ -176,7 +174,7 @@ public class Cacher {
         return dbConn.userIsSessionHost(user, sessionID);
     }
 
-    public Boolean sessionExists(String sessionID) throws Exception {
+    public Boolean sessionExists(String sessionID) throws SQLException {
         if (!Objects.isNull(searchCache(sessionID))) {
             return true;
         } else {
@@ -193,7 +191,7 @@ public class Cacher {
         return true;
     }
 
-    public Boolean sessionEnded(String sessionID) throws Exception {
+    public Boolean sessionEnded(String sessionID) throws SQLException {
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))) {
             return hs.getFinished();
@@ -201,7 +199,7 @@ public class Cacher {
         return dbConn.sessionEnded(sessionID);
     }
 
-    public Boolean questionExists(String sessionID, int qID) throws Exception {
+    public Boolean questionExists(String sessionID, int qID) throws SQLException {
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))) {
             if (!Objects.isNull(hs.getQuestionByID(qID))) {
@@ -220,7 +218,7 @@ public class Cacher {
         return dbConn.getSessionPassword(sessionID);
     }
 
-    public Boolean deleteSession(String sessionID) throws Exception {
+    public Boolean deleteSession(String sessionID) throws SQLException {
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))) {
             recentSessions.remove(hs);
