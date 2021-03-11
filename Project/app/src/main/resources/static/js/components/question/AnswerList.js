@@ -16,7 +16,7 @@ export default class AnswerList extends React.Component {
         <ul>
           {this.props.data.map(answer => {
             return(
-              <li key={answer.}>
+              <li key={answer.context}>
                 {JSON.stringify(answer)}
               </li>
             );

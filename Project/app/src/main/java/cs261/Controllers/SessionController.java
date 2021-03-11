@@ -288,6 +288,6 @@ public class SessionController {
         String[] types = { "", ",\"message\":", ",\"question\":", ",\"answer\":", ",\"user\":", ",\"id\":",
                 ",\"question\":", ",\"qID\":" };
         // return json string
-        return "{\"watchToken\":\"" + dbConn.newWatchToken(user.getId()) + "\"" + types[w.getType() - 200] + json + "}";
+        return "{\"watchToken\":\"" + dbConn.newWatchToken(user.getId()) + "\"" + types[w.getType() - 230] + json + "}";
     };
 }
