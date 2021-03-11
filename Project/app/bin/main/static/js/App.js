@@ -36,8 +36,11 @@ class App extends React.Component {
     super(props);
     this.state = {
       token: null,
-      firstName: '',
-      lastName: '',
+      user: {
+        firstName: '',
+        lastName: '',
+        email: '',
+      },
       watchToken: null,
     };
 
@@ -70,6 +73,15 @@ class App extends React.Component {
     });
   }
 
+  setUser(fname, lname, email){
+    this.setState({
+      user: {
+        firstName: fname,
+        lastName: lname,
+        email: email,
+      },
+    });
+  }
 
   componentDidMount(){
     let tokenCookie = Cookies.get('token');
@@ -118,13 +130,11 @@ class App extends React.Component {
                 <Route path="/auth/login">
                   <Login
                     updateToken={this.updateToken}
-                    updateWatchToken={this.updateWatchToken}
                   />
                 </Route>
                 <Route path="/auth/register">
                   <SignUp
                     updateToken={this.updateToken}
-                    updateWatchToken={this.watchTokenCookie}
                   />
                 </Route>
               </Switch>
@@ -136,7 +146,7 @@ class App extends React.Component {
               onLogout={this.handleLogout}
               updateToken={this.updateToken}
               updateWatchToken={this.updateWatchToken}
-              updateWatchToken={this.updateWatchToken}
+              user={this.state.user}
             />
           </Router>
         }
