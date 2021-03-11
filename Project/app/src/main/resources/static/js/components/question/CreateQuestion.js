@@ -10,6 +10,7 @@ export default class CreateQuestion extends React.Component {
       question: "",
       pushed: false,
       error: false,
+      general: false,
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -31,10 +32,10 @@ export default class CreateQuestion extends React.Component {
   }
 
   handleSubmit(event){
-    let params = new URLSearchParams()
-    .append('question', this.state.question)
-    .append('pushed', this.state.pushed)
-    .append('general', this.state.general);
+    let params = new URLSearchParams();
+    params.append('question', this.state.question);
+    params.append('pushed', this.state.pushed);
+    params.append('general', this.state.general);
     
     $.ajax({
       url: `/session/${this.props.sessionID}/question/create`,

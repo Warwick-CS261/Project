@@ -60,6 +60,7 @@ export default class Login extends React.Component {
         });
         Cookies.set('token', token);
         this.props.updateToken(token);
+        this.props.setUser(object.user.fname, object.user.lname, object.user.email);
       },
       statusCode: {
         455: ()=>{

@@ -150,7 +150,7 @@ export default class Main extends React.Component {
             />
           </Route>
           <Route path={routes[1].path}>
-            <User />
+            <User user={this.props.user} />
           </Route>
           <Route path={routes[2].path}>
             <MySessions
@@ -162,6 +162,7 @@ export default class Main extends React.Component {
             <MySessions
               updateToken={this.props.updateToken}
               isMod={false}
+              user={this.props.user}
             />
           </Route>
           <Route path="/session/:id"

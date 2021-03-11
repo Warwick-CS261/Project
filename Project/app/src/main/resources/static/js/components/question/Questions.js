@@ -25,8 +25,6 @@ export default class Questions extends React.Component {
   }
 
   render(){
-
-    console.log(JSON.stringify(this.props));
     if (this.props.isHost){
       return(
         <>
@@ -59,7 +57,7 @@ export default class Questions extends React.Component {
           <div className="content">
             <AnswerList
               qID={this.state.selected}
-              data={this.props.pushedQuestions.answers}
+              data={this.props.pushedQuestions[this.state.selected].answers}
             />
           </div>
         </>
@@ -83,6 +81,7 @@ export default class Questions extends React.Component {
           <div className="content">
             <Reaction
               qID={this.state.selected}
+              sessionID={this.props.sessionID}
               question={this.state.question}
               updateToken={this.props.updateToken}
             />
