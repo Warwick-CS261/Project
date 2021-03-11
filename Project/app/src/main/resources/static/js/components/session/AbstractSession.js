@@ -108,22 +108,32 @@ class AbstractSession extends React.Component {
     }
     if (this.props.isHost){
       return(
-        <HostSession
-          session={this.props.session}
-          handleSession={this.props.handleSession}
-          updateToken={this.props.updateToken}
-          updateWatchToken={this.props.updateWatchToken}
-        />
+        <section className="main">
+          <div className="container-fluid">
+            <HostSession
+              session={this.props.session}
+              handleSession={this.props.handleSession}
+              updateToken={this.props.updateToken}
+              updateWatchToken={this.props.updateWatchToken}
+            />
+          </div>
+        </section>
+        
       );
     }
 
     return(
-      <AttendeeSession
-        session={this.props.session}
-        handleSession={this.props.handleSession}
-        updateToken={this.props.updateToken}
-        updateWatchToken={this.props.updateWatchToken}
-      />
+      <section className="main">
+        <div className="container-fluid">
+          <AttendeeSession
+            session={this.props.session}
+            handleSession={this.props.handleSession}
+            updateToken={this.props.updateToken}
+            updateWatchToken={this.props.updateWatchToken}
+          />
+        </div>
+      </section>
+      
     );
   }
 }

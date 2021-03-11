@@ -45,9 +45,10 @@ public class SessionController {
 
         // add session to db
         dbConn.createSession(hostSession);
-        App.getApp().getCacher().createQuestion(new Question("",true,true),sessionID);
+        App.getApp().getCacher().createQuestion(new Question("", true, true), sessionID);
         App.getApp().getCacher().addModerator(user, sessionID);
-        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"session\":" + gson.toJson(hostSession) + "}";
+        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"watchToken\":\""
+                + dbConn.newWatchToken(user.getId()) + "\",\"session\":" + gson.toJson(hostSession) + "}";
     };
 
     public static Route userSessions = (Request request, Response response) -> {
@@ -105,7 +106,7 @@ public class SessionController {
         Cacher cacher = App.getApp().getCacher();
 
         String token = request.cookie("token");
-        String sessionID = request.queryParams(":id");
+        String sessionID = request.params(":id");
         String email = request.queryParams("email");
 
         User user = dbConn.getUserByToken(token);

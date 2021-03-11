@@ -108,7 +108,7 @@ public class QuestionController {
                 App.getApp().getAnalyse().parseText(answer.getContext()), dbConn.numOfAnswersToQ(sessionID, qID)));
         cacher.createMoodDate(sessionID, new MoodDate(cacher.getSessionMood(sessionID), new Date()));
 
-        App.getApp().getObservable().notifyModerators(8, sessionID, gson.toJson(answer));// TODO this will need a
+        App.getApp().getObservable().notifyModerators(7, sessionID, gson.toJson(answer));// TODO this will need a
                                                                                          // question ID or it's useless
         return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
     };

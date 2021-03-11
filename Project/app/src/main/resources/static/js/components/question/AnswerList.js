@@ -10,7 +10,8 @@ export default class AnswerList extends React.Component {
         <p>No answers yet for question {this.props.qID}</p>
       );
     }
-
+    console.log(this.props.data);
+    console.log("DATA ^");
     return(
       <>
         <ul>

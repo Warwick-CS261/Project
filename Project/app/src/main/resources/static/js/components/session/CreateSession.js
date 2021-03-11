@@ -45,7 +45,8 @@ export default class CreateSession extends React.Component {
       success: (data, status, jqXHR) => {
         let object = JSON.parse(data);
         let token = object.token;
-        if (token === null || token === undefined ){
+        let watchToken = object.watchToken;
+        if (token === null || token === undefined || watchToken === undefined || watchToken === null){
           this.setState({
             error: data,
           });
@@ -61,7 +62,9 @@ export default class CreateSession extends React.Component {
         console.log(session);
         // set new tokens
         Cookies.set('token', token);
+        Cookies.set('watchToken', watchToken);
         this.props.updateToken(token);
+        this.props.updateWatchToken(watchToken);
         // update main component
         this.props.handleSession(session);
         this.setState({
@@ -88,7 +91,7 @@ export default class CreateSession extends React.Component {
           <section className="main">
             <div className="container-fluid">
               <div className="heading">
-                <h1><i className="bi bi-box-arrow-in-right"></i>Create Session</h1>
+                <h1><i className="bi bi-pencil-fill"></i>Create Session</h1>
               </div>
               <div className="sessionbox">
                 <div className="box">
@@ -122,12 +125,18 @@ export default class CreateSession extends React.Component {
                     </div>
                     
                     <div className="mb-3">
-                      <button 
-                        type="submit"
-                        className="btn btn-primary"
-                      >
-                        Create Session
-                      </button>
+                      <div className="container">
+                        <div className="row">
+                          <div className="col text-center">
+                            <button 
+                              type="submit"
+                              className="btn btn-dark btn-lg"
+                            >
+                              Create Session
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </form>
                 </div>
