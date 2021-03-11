@@ -103,7 +103,9 @@ class AbstractSession extends React.Component {
 
     if (this.state.loading){
       return(
-        <>Lodaing...</>
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
       );
     }
     if (this.props.isHost){

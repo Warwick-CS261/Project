@@ -119,10 +119,11 @@ export default class HostQuestion extends React.Component {
     return(
       <li>
         <button onClick={()=>this.props.handleSelect(q.id)}>{q.question}</button>
-        {this.props.pushed ?
-          <button onClick={this.handleEnd}><i className="bi bi-slash-circle-fill"></i></button>
-          :
-          <button onClick={this.handlePush}><i className="bi bi-eye-slash-fill"></i></button>
+        {!this.props.finished &&
+          this.props.pushed ?
+            <button onClick={this.handleEnd}><i className="bi bi-slash-circle-fill"></i></button>
+            :
+            <button onClick={this.handlePush}><i className="bi bi-eye-slash-fill"></i></button>
         }
         <button onClick={this.handleDelete}><i className="bi bi-trash-fill"></i></button>
       </li>

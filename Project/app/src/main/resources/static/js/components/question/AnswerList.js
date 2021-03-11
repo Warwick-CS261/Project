@@ -5,20 +5,18 @@ import $ from 'jquery';
 export default class AnswerList extends React.Component {
   render(){
     let data = this.props.data;
-    if (data === undefined || data === null){
+    if (data === undefined || data === null || data.length == 0){
       return(
         <p>No answers yet for question {this.props.qID}</p>
       );
     }
-    console.log(this.props.data);
-    console.log("DATA ^");
     return(
       <>
         <ul>
           {this.props.data.map(answer => {
             //TODO add key
             return(
-              <li>
+              <li key={answer.stamp}>
                 {JSON.stringify(answer)}
               </li>
             );
