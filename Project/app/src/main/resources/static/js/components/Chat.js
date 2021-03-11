@@ -15,7 +15,7 @@ export default class Chat extends React.Component {
     return(
       <>
         <h3>Chat</h3>
-        <ul>
+        <ul className="list-unstyled">
         {chat === null || chat === undefined || chat.length == 0 ?
           <p>No messages so far</p>
           :
@@ -28,7 +28,7 @@ export default class Chat extends React.Component {
                   <span>{msg.user.fname} {msg.user.lname}</span>
                   :
                   <span>Anonymous</span>
-                }&#8212;
+                } &#8212; 
                 <span>{msg.stamp}</span>
                 <p>{msg.msg}</p>
               </li>
