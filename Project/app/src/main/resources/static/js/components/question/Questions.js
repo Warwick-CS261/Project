@@ -38,6 +38,7 @@ export default class Questions extends React.Component {
                   sessionID={this.props.sessionID}
                   updateToken={this.props.updateToken}
                   handleSelect={this.handleSelect}
+                  finished={this.state.finished}
                 />
               );
             })}
@@ -50,6 +51,7 @@ export default class Questions extends React.Component {
                   sessionID={this.props.sessionID}
                   updateToken={this.props.updateToken}
                   handleSelect={this.handleSelect}
+                  finished={this.state.finished}
                 />
               );
             })}
