@@ -52,7 +52,7 @@ export default class Reaction extends React.Component {
     }
     let params = new URLSearchParams();
     params.append('anon',this.state.anon);
-    params.append('qID', this.state.qID);
+    params.append('qID', this.props.qID);
     params.append('smiley', this.state.smiley);
     params.append('context', this.state.context);
     $.ajax({
@@ -133,6 +133,7 @@ export default class Reaction extends React.Component {
         <form onSubmit={this.handleSubmit} >
           <div className="mb-3" >
             <button
+              type="button"
               onClick={this.handleClick.bind(this,"happy")}
               className="happy"
               id="happy-btn"
@@ -140,6 +141,7 @@ export default class Reaction extends React.Component {
               <i className="bi bi-emoji-laughing-fill"></i>
             </button>
             <button
+              type="button"
               onClick={this.handleClick.bind(this,"neutral")}
               className="neutral"
               id="neutral-btn"
@@ -147,6 +149,7 @@ export default class Reaction extends React.Component {
               <i className="bi bi-emoji-neutral-fill"></i>
             </button>
             <button
+              type="button"
               onClick={this.handleClick.bind(this,"sad")}
               className="sad"
               id="sad-btn"

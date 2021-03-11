@@ -56,6 +56,37 @@ export default class MySessions extends React.Component {
       }
     })
   }
+  
+  handleDelete(id){
+    $.ajax({
+      url: `/session/${id}/delete`,
+      type: 'POST',
+      success: (data, status, jqXHR)=>{
+        let object = JSON.parse(data);
+        let token = object.token;
+        if (token === undefined || token === null){
+          this.setState({
+            error: 'Server response was invalid',
+          });
+        }
+        Cookies.set('token', token);
+        this.props.updateToken(token);
+      },
+      statusCode: {
+        450: ()=>{
+          console.log('Invalid token');
+        },
+        454: ()=>{
+          console.log('Session not found');
+        },
+        401: ()=>{
+          this.setState({
+            error: 'Unauthorized action',
+          });
+        }
+      }
+    });
+  }
 
   handleClick(id){
     this.setState({
@@ -89,6 +120,14 @@ export default class MySessions extends React.Component {
                         <h3>{session.sessionName}</h3>
                         <i>#<span>{session.id}</span></i><br></br>
                         <h5>Host: <span>{session.owner.fname} {session.owner.lname}</span></h5>
+                        {this.props.user.email === session.owner.email &&
+                          <button
+                            className="btn btn-danger"
+                            onClick={()=> this.handleDelete(session.id)}
+                          >
+                            <i className="bi bi-trash-fill"></i>
+                          </button>
+                        }
                       </div>
                       
                     </div>

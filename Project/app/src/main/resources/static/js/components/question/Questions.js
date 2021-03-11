@@ -5,12 +5,13 @@ import $ from 'jquery';
 import HostQuestion from './HostQuestion';
 import AttendeeQuestion from './AttendeeQuestion';
 import AnswerList from './AnswerList';
+import Reaction from './Reaction';
 
 export default class Questions extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      selected: -1,
+      selected: 0,
     };
 
     this.handleSelect = this.handleSelect.bind(this);
@@ -24,14 +25,11 @@ export default class Questions extends React.Component {
   }
 
   render(){
-
-    console.log(JSON.stringify(this.props));
     if (this.props.isHost){
       return(
         <>
           <div className="side">
             {this.props.pushedQuestions.map((pq) => {
-              console.log('reached');
               return(
                 <HostQuestion
                   key={pq.id}
@@ -59,7 +57,7 @@ export default class Questions extends React.Component {
           <div className="content">
             <AnswerList
               qID={this.state.selected}
-              data={this.props.pushedQuestions.answers}
+              data={this.props.pushedQuestions[this.state.selected].answers}
             />
           </div>
         </>
@@ -68,10 +66,25 @@ export default class Questions extends React.Component {
       return(
         <>
           <div className="side">
-  
+          {this.props.pushedQuestions.map((pq) => {
+              return(
+                <AttendeeQuestion
+                  key={pq.id}
+                  data={pq}
+                  pushed={true}
+                  sessionID={this.props.sessionID}
+                  handleSelect={this.handleSelect}
+                />
+              );
+            })}
           </div>
           <div className="content">
-  
+            <Reaction
+              qID={this.state.selected}
+              sessionID={this.props.sessionID}
+              question={this.state.question}
+              updateToken={this.props.updateToken}
+            />
           </div>
         </>
       );
