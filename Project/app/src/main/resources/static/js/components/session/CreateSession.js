@@ -88,7 +88,7 @@ export default class CreateSession extends React.Component {
           <Redirect to={`/session/${this.state.sessionID}`} />
           :
           <>
-          <section className="main">
+          <section className="main blackbg">
             <div className="container-fluid">
               <div className="heading">
                 <h1><i className="bi bi-pencil-fill"></i>Create Session</h1>

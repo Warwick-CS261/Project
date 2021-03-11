@@ -93,43 +93,31 @@ export default class Login extends React.Component {
           <form method="POST" onSubmit={this.handleSubmit} >
               <div className="row register-box">
                 <div className="col-12">
-                  <div className="row form-row">
-                    <div className="col-5">
-                      <label htmlFor="fn" className="form-label">Email</label>
-                    </div>
-                    <div className="col-7">
-                      <input 
-                        type="email" 
-                        name="email" 
-                        value={this.state.email}
-                        onChange={this.handleChange}
-                        onInvalid={this.handleInvalid}
-                        className="form-control"
-                        placeholder="John@Doe.com"
-                        autoFocus
-                        autoComplete="email"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="row form-row">
-                    <div className="col-5">
-                      <label htmlFor="fn" className="form-label">Password</label>
-                    </div>
-                    <div className="col-7">
-                      <input 
-                        type="password" 
-                        name="password" 
-                        value={this.state.password}
-                        onChange={this.handleChange}
-                        onInvalid={this.handleInvalid}
-                        className="form-control"
-                        placeholder="******"
-                        autoComplete="current-password"
-                        required
-                      />
-                    </div>
-                  </div>
+                    <label htmlFor="fn" className="form-label">Email</label>
+                    <input 
+                      type="email" 
+                      name="email" 
+                      value={this.state.email}
+                      onChange={this.handleChange}
+                      onInvalid={this.handleInvalid}
+                      className="form-control"
+                      placeholder="John@Doe.com"
+                      autoFocus
+                      autoComplete="email"
+                      required
+                    />
+                    <label htmlFor="fn" className="form-label mt-2">Password</label>
+                    <input 
+                      type="password" 
+                      name="password" 
+                      value={this.state.password}
+                      onChange={this.handleChange}
+                      onInvalid={this.handleInvalid}
+                      className="form-control"
+                      placeholder="******"
+                      autoComplete="current-password"
+                      required
+                    />
                   <div className="row form-row">
                     <div className="terms">
                         <input 

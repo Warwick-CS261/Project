@@ -116,7 +116,7 @@ export default class JoinSession extends React.Component {
 
     return(
       <>
-      <section className="main">
+      <section className="main blackbg">
         <div className="container-fluid">
           <div className="heading">
             <h1><i className="bi bi-box-arrow-in-right"></i>Join Session</h1>

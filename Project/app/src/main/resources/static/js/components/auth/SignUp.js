@@ -105,98 +105,68 @@ export default class SignUp extends React.Component {
             <form onSubmit={this.handleSubmit} className="formwidth">
               <div className="row register-box">
                 <div className="col-6">
-                  <div className="row form-row">
-                    <div className="col-5">
-                      <label htmlfor="fn" className="form-label">First Name</label>
-                    </div>
-                    <div className="col-7">
-                      <input
-                        type="text" 
-                        name="fname" 
-                        value={this.state.value} 
-                        onChange={this.handleChange}
-                        onInvalid={this.handleInvalid}
-                        className="form-control"
-                        placeholder="John"
-                        autoFocus
-                        autoComplete="given-name"
-                        required
-                      />
-                    </div>
+                    <label htmlfor="fn" className="form-label">First Name</label>
+                    <input
+                      type="text" 
+                      name="fname" 
+                      value={this.state.value} 
+                      onChange={this.handleChange}
+                      onInvalid={this.handleInvalid}
+                      className="form-control"
+                      placeholder="John"
+                      autoFocus
+                      autoComplete="given-name"
+                      required
+                    />
+                    <label htmlfor="fn" className="form-label mt-2">Last Name</label>
+                    <input 
+                      type="text" 
+                      name="lname" 
+                      value={this.state.value} 
+                      onChange={this.handleChange}
+                      onInvalid={this.handleInvalid}
+                      className="form-control"
+                      placeholder="Doe"
+                      autoComplete="family-name"
+                      required
+                    />
+                    <label htmlfor="fn" className="form-label mt-2">Email</label>
+                    <input 
+                      type="email" 
+                      name="email" 
+                      value={this.state.value} 
+                      onChange={this.handleChange}
+                      onInvalid={this.handleInvalid}
+                      className="form-control"
+                      placeholder="John@Doe.com"
+                      autoComplete="email"
+                      required
+                    />
+                    <label htmlfor="fn" className="form-label mt-2">Password</label>
+                    <input 
+                      type="password" 
+                      name="password" 
+                      value={this.state.value} 
+                      onChange={this.handleChange}
+                      onInvalid={this.handleInvalid}
+                      className="form-control"
+                      placeholder="******"
+                      autoComplete="new-password"
+                      required
+                    />
+                    <label htmlfor="fn" className="form-label mt-2">Confirm Password</label>
+                    <input 
+                      type="password" 
+                      name="rpassword" 
+                      value={this.state.value} 
+                      onChange={this.handleChange}
+                      onInvalid={this.handleInvalid}
+                      className="form-control"
+                      placeholder="******"
+                      autoComplete="new-password"
+                      required
+                    />
                   </div>
-                  <div className="row form-row">
-                    <div className="col-5">
-                      <label htmlfor="fn" className="form-label">Last Name</label>
-                    </div>
-                    <div className="col-7">
-                      <input 
-                        type="text" 
-                        name="lname" 
-                        value={this.state.value} 
-                        onChange={this.handleChange}
-                        onInvalid={this.handleInvalid}
-                        className="form-control"
-                        placeholder="Doe"
-                        autoComplete="family-name"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="row form-row">
-                    <div className="col-5">
-                      <label htmlfor="fn" className="form-label">Email</label>
-                    </div>
-                    <div className="col-7">
-                      <input 
-                        type="email" 
-                        name="email" 
-                        value={this.state.value} 
-                        onChange={this.handleChange}
-                        onInvalid={this.handleInvalid}
-                        className="form-control"
-                        placeholder="John@Doe.com"
-                        autoComplete="email"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="row form-row">
-                    <div className="col-5">
-                      <label htmlfor="fn" className="form-label">Password</label>
-                    </div>
-                    <div className="col-7">
-                      <input 
-                        type="password" 
-                        name="password" 
-                        value={this.state.value} 
-                        onChange={this.handleChange}
-                        onInvalid={this.handleInvalid}
-                        className="form-control"
-                        placeholder="******"
-                        autoComplete="new-password"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="row form-row">
-                    <div className="col-5">
-                      <label htmlfor="fn" className="form-label">Confirm Password</label>
-                    </div>
-                    <div className="col-7">
-                      <input 
-                        type="password" 
-                        name="rpassword" 
-                        value={this.state.value} 
-                        onChange={this.handleChange}
-                        onInvalid={this.handleInvalid}
-                        className="form-control"
-                        placeholder="******"
-                        autoComplete="new-password"
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
                 <div className="col-6 register-right-side">
                   <div className = "registerIcon">
                       <i className="bi bi-person-circle"></i>
