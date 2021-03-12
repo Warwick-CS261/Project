@@ -8,7 +8,7 @@ import {
 import { Redirect } from 'react-router';
 import $ from 'jquery';
 
-import Chat from '../Chat';
+import Chat from './Chat';
 import CreateQuestion from '../question/CreateQuestion';
 import Questions from '../question/Questions';
 import AddMod from './AddMod';
@@ -98,7 +98,7 @@ export default class HostSession extends React.Component {
             if (jqXHR.status == 231){
               this.setState((oldProps)=>{
                 let newChat = oldProps.chat;
-                newChat.messages.push(object.update);
+                newChat.messages.push(object.message);
                 return {
                   chat: newChat,
                 }
@@ -114,7 +114,31 @@ export default class HostSession extends React.Component {
     } catch (error) {
       console.log(error);
     }
-    
+  }
+
+  handleEnd(){
+    $.ajax({
+      url: `/session/${this.state.id}/end`,
+      type: 'POST',
+      success: (data, status, jqXHR)=>{
+        let object = JSON.parse(data);
+        let token = object.token;
+        if (token === undefined || token === null){
+          this.setState({
+            error: 'Server response was invalid',
+          });
+          return;
+        }
+        Cookies.set('token', token);
+        this.props.updateToken(token);
+        this.setState({
+          finished: true,
+        });
+      },
+      statusCode: {
+
+      }
+    });
   }
 
   render() {
@@ -133,23 +157,47 @@ export default class HostSession extends React.Component {
           updateToken={this.props.updateToken}
           chat={this.state.chat}
         />
-        <CreateQuestion
-          sessionID={this.state.id}
-          updateToken={this.props.updateToken}
-        />
+        {!this.state.finished &&
+          <CreateQuestion
+            sessionID={this.state.id}
+            updateToken={this.props.updateToken}
+          />
+        }
         <Questions
           pushedQuestions={this.state.pushedQuestions}
           hiddenQuestions={this.state.hiddenQuestions}
           sessionID={this.state.id}
           updateToken={this.props.updateToken}
           isHost={true}
+          finished={this.state.finished}
         />
-        <button
-          className="btn btn-warning"
-          onClick={this.handleEnd}
-        >
+        {/* End session btn */}
+        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
           End Session
         </button>
+        <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">End Session</h5>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div className="modal-body">
+                Are you sure you want to end the session? This will remove access for the attendees.
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={this.handleEnd}
+                >
+                  Yes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
         <AddMod
           sessionID={this.state.id}
           updateToken={this.props.updateToken}

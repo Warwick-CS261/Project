@@ -1,6 +1,6 @@
 import React from 'react';
 import Cookies from 'js-cookie';
-import $, { param } from 'jquery';
+import $ from 'jquery';
 import { Redirect } from 'react-router-dom';
 
 export default class Reaction extends React.Component {
@@ -70,6 +70,9 @@ export default class Reaction extends React.Component {
         }
         Cookies.set('token', token);
         this.props.updateToken(token);
+        this.setState({
+          context: '',
+        });
       },
       statusCode: {
         450: ()=>{
@@ -123,7 +126,7 @@ export default class Reaction extends React.Component {
   render(){
     return(
       <>
-        <h6>{this.state.question}</h6>
+        <h6>{this.state.question ? this.state.question : 'How is the session going?'}</h6>
         <hr />
         {this.state.error !== false && (
           <div className="alert alert-danger" role="alert">
@@ -164,7 +167,6 @@ export default class Reaction extends React.Component {
               onChange={this.handleChange}
               value={this.state.context}
               className="form-control"
-              autoFocus
               required
             />
           </div>

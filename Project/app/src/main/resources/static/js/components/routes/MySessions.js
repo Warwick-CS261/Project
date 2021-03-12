@@ -102,6 +102,7 @@ export default class MySessions extends React.Component {
     }
 
     if (this.props.isMod){
+      // TODO remove session
       return (
         <section className="main">
           <div className="container-fluid">
@@ -124,7 +125,10 @@ export default class MySessions extends React.Component {
                         this.props.user.email === session.owner.email &&
                           <button
                             className="btn btn-danger"
-                            onClick={()=> this.handleDelete(session.id)}
+                            onClick={(e)=> {
+                              e.stopPropagation(); 
+                              this.handleDelete(session.id)
+                            }}
                           >
                             <i className="bi bi-trash-fill"></i>
                           </button>

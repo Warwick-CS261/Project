@@ -7,6 +7,7 @@ $neutral: #e0e041;
 $sad: #e05841;
 
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import './session';
 
 body{
   width: 100vw;

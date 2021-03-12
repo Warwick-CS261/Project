@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import JoinSession from './session/JoinSession';
-import CreateSession from './session/CreateSession';
-import CreateSeries from './session/CreateSeries';
+import JoinSession from '../session/JoinSession';
+import CreateSession from '../session/CreateSession';
+import CreateSeries from '../session/CreateSeries';
 
 export default class Home extends React.Component {
   render() {

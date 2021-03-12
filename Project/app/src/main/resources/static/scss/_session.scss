@@ -1,0 +1,48 @@
+$mood-1: #e05841;
+$mood-2: #E06641;
+$mood-3: #E07341; 
+$mood-4: #E08141;
+$mood-5: #E08E41; 
+$mood-6: #E09C41;
+$mood-7: #E0AA41;
+$mood-8: #E0B741;
+$mood-9: #E0C541;
+$mood-10: #E0D241;
+$mood-11: #E0E041;
+$mood-12: #D0E042;
+$mood-13: #C0E042;
+$mood-14: #B0E043;
+$mood-15: #A0E043;
+$mood-16: #91E144;
+$mood-17: #81E145;
+$mood-18: #71E145;
+$mood-19: #61E146;
+$mood-20: #51E146;
+$mood-21: #41E147;
+
+$sad: $mood-1;
+$neutral: $mood-11;
+$happy: $mood-21;
+
+
+// Questions
+.host-question{
+  padding-left: .5rem;
+  padding-right: .5rem;
+  padding-top: .3rem;
+  padding-bottom: .3rem;
+  background-color: $primary;
+  border-radius: 10px;
+  margin-bottom: .2rem;
+  
+  button{
+    border: 0;
+    background: none;
+  }
+
+  .controllers{
+    float: right;
+  }
+
+  
+}

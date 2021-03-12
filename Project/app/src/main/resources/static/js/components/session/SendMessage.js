@@ -3,9 +3,7 @@ import Cookies from 'js-cookie';
 import $ from 'jquery';
 import { Redirect } from 'react-router-dom';
 
-
-
-export default class Chat extends React.Component {
+export default class SendMessage extends React.Component {
   constructor(props){
     super(props);
     if (this.props.chat !== null && this.props.chat !== undefined){
@@ -13,20 +11,19 @@ export default class Chat extends React.Component {
         anon: false,
         msg: "",
         error: false,
-      }
+      };
     } else {
       this.state = {
         anon: false,
         msg: "",
         error: false,
-      }
+      };
     }
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
-
   }
+
 
   handleChange(event){
     this.setState({
@@ -87,61 +84,42 @@ export default class Chat extends React.Component {
     event.preventDefault();
   }
 
-
   render(){
-    let chat = this.props.chat;
-    if (chat !== null) {
-      chat = this.props.chat.messages;
-    }
     return(
-      <>
-        <h3>Chat</h3>
-        <ul>
-        {chat === null || chat === undefined || chat.length == 0 ?
-          <p>No messages so far</p>
-          :
-          chat.map((msg) => {
-            return (<li key={msg.id}>
-              {JSON.stringify(msg)}
-            </li>);
-          })
+      <form onSubmit={this.handleSubmit}>
+        {this.state.error !== false && 
+          <div className="alert alert-danger" role="alert">
+            {this.state.error}
+          </div>
         }
-        </ul>
-        <form onSubmit={this.handleSubmit}>
-          {this.state.error !== false && 
-            <div className="alert alert-danger" role="alert">
-              {this.state.error}
-            </div>
-          }
-          <div className="mb-3">
-            <input
-              type="text"
-              name="msg"
-              className="form-control"
-              onChange={this.handleChange}
-              value={this.state.msg}
-              placeholder="Send a message"
-            />  
-          </div>
-          <div className="mb-3">
-            <input
-              type="checkbox"
-              name="anon"
-              className="form-check-input"
-              onChange={this.handleCheck}
-              value={this.state.anon}
-            />
-          </div>
-          <div className="mb-3">
-            <button
-              type="submit"
-              className="btn btn-primary"
-            >
-              Send
-            </button>
-          </div>
-        </form>
-      </>
-    );
+        <div className="mb-3">
+          <input
+            type="text"
+            name="msg"
+            className="form-control"
+            onChange={this.handleChange}
+            value={this.state.msg}
+            placeholder="Send a message"
+          />  
+        </div>
+        <div className="mb-3">
+          <input
+            type="checkbox"
+            name="anon"
+            className="form-check-input"
+            onChange={this.handleCheck}
+            value={this.state.anon}
+          />
+        </div>
+        <div className="mb-3">
+          <button
+            type="submit"
+            className="btn btn-primary"
+          >
+            Send
+          </button>
+        </div>
+      </form>
+    )
   }
 }

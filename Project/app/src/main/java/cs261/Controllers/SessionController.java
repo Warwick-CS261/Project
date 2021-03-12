@@ -18,289 +18,473 @@ public class SessionController {
 
     public static Route createSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
-
+        // gets params
         String name = request.queryParams("name");
         String token = request.cookie("token");
-        Boolean secure = Boolean.parseBoolean(request.queryParamOrDefault("secure", "false"));
-        String seriesID = request.queryParams("series");
+        try {
+            Boolean secure = Boolean.parseBoolean(request.queryParamOrDefault("secure", "false"));
+            String seriesID = request.queryParams("series");
 
-        User user = dbConn.getUserByToken(token);
-        // token is valid
-        if (Objects.isNull(user)) {
-            response.status(450);
-            logger.warn("Session creation attempted with invalid token: {}", token);
-            return "Invalid Token";
-        }
-        String sessionID;
-        // generate new unique session ID
-        do {
-            sessionID = Sesh.generateID();
-        } while (dbConn.sessionExists(sessionID));
-        HostSesh hostSession;
-        if (secure) {
-            hostSession = new HostSesh(sessionID, seriesID, name, user, Sesh.generateID());
-        } else {
-            hostSession = new HostSesh(sessionID, seriesID, name, user, "");
-        }
+            // verifies user exists
+            User user = dbConn.getUserByToken(token);
+            // token is valid
+            if (Objects.isNull(user)) {
+                response.status(450);
+                logger.warn("Session creation attempted with invalid token: {}", token);
+                return "Invalid Token";
+            }
 
-        // add session to db
-        dbConn.createSession(hostSession);
-        App.getApp().getCacher().createQuestion(new Question("", true, true), sessionID);
-        App.getApp().getCacher().addModerator(user, sessionID);
-        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"watchToken\":\""
-                + dbConn.newWatchToken(user.getId()) + "\",\"session\":" + gson.toJson(hostSession) + "}";
+            // generate new unique session ID
+            String sessionID;
+            do {
+                sessionID = Sesh.generateID();
+            } while (dbConn.sessionExists(sessionID));
+
+            // creates the session
+            HostSesh hostSession;
+            if (secure) {
+                // generates password if session should be secure
+                hostSession = new HostSesh(sessionID, seriesID, name, user, Sesh.generateID());
+            } else {
+                // creates session with empty password if not secure
+                hostSession = new HostSesh(sessionID, seriesID, name, user, "");
+            }
+
+            // add session to db
+            dbConn.createSession(hostSession);
+            // creates default question
+            App.getApp().getCacher().createQuestion(new Question("", true, true), sessionID);
+            // adds host as moderator
+            App.getApp().getCacher().addModerator(user, sessionID);
+
+            // returns new token, watch token and session json
+            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"watchToken\":\""
+                    + dbConn.newWatchToken(user.getId()) + "\",\"session\":" + gson.toJson(hostSession) + "}";
+        } catch (Exception e) {
+            logger.warn("Encountered an exception trying to create a session, message as follows: \n{}",
+                    e.getMessage());
+        }
+        response.status(459);
+        return "Couldn't peform this operation";
     };
 
     public static Route userSessions = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
 
+        // gets params
         String token = request.cookie("token");
+        try {
+            // gets user and verifies token
+            User user = dbConn.getUserByToken(token);
+            // token is valid
+            if (Objects.isNull(user)) {
+                response.status(450);
+                logger.warn("Get user sessions attempted with invalid token: {}", token);
+                return "Invalid Token";
+            }
 
-        User user = dbConn.getUserByToken(token);
-        // token is valid
-        if (Objects.isNull(user)) {
-            response.status(450);
-            logger.warn("Get user sessions attempted with invalid token: {}", token);
-            return "Invalid Token";
+            // returns new token and series containing all the user's sessions, host and not
+            // host
+            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"series\":"
+                    + gson.toJson(dbConn.getUserSessions(user.getId())) + "}";
+        } catch (Exception e) {
+            logger.warn("Encountered an exception trying to get user sessions, message as follows: \n{}",
+                    e.getMessage());
         }
-        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"series\":"
-                + gson.toJson(dbConn.getUserSessions(user.getId())) + "}";
-
+        response.status(459);
+        return "Couldn't peform this operation";
     };
 
     public static Route submitMessage = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
         Cacher cacher = App.getApp().getCacher();
-
+        // gets params
         String sessionID = request.params(":id");
         String token = request.cookie("token");
         String msg = request.queryParamOrDefault("message", "");
-        Boolean anon = Boolean.parseBoolean(request.queryParamOrDefault("anon", "false"));
-        Date date = new Date();
+        try {
+            Boolean anon = Boolean.parseBoolean(request.queryParamOrDefault("anon", "false"));
+            Date date = new Date();
+            // checks message isn't empty
+            if (msg.equals("")) {
+                response.status(457);
+                return "empty message";
+            }
 
-        if (msg.equals("")) {
-            response.status(457);
-            return "empty message";
+            // checks user exists
+            User user = dbConn.getUserByToken(token);
+            if (Objects.isNull(user)) {
+                response.status(450);
+                logger.warn("Message submit to session {} attempted with invalid token: {}", sessionID, token);
+                return "Invalid Token";
+            }
+
+            // check user is authorised for session
+            if (!dbConn.userIsAttendee(sessionID, user.getId()) && !cacher.userIsModerator(user, sessionID)) {
+                response.status(401);
+                return "not authorised for session";
+            }
+
+            // creates new message
+            Message message = new Message(user, msg, date, anon);
+            cacher.createMessage(message, sessionID);
+
+            // notifies all watch
+            App.getApp().getObservable().notifyBoth(1, sessionID, gson.toJson(message));
+
+            // returns new token
+            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
+        } catch (Exception e) {
+            logger.warn("Encountered an exception trying to submit a message, message as follows: \n{}",
+                    e.getMessage());
         }
-
-        User user = dbConn.getUserByToken(token);
-        if (Objects.isNull(user)) {
-            response.status(450);
-            logger.warn("Message submit to session {} attempted with invalid token: {}", sessionID, token);
-            return "Invalid Token";
-        }
-        if (!dbConn.userIsAttendee(sessionID, user.getId()) && !cacher.userIsModerator(user, sessionID)) {
-            response.status(401);
-            return "not authorised for session";
-        }
-
-        Message message = new Message(user, msg, date, anon);
-        cacher.createMessage(message, sessionID);
-        App.getApp().getObservable().notifyBoth(1, sessionID, gson.toJson(message));
-
-        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
+        response.status(459);
+        return "Couldn't peform this operation";
     };
 
     public static Route addHost = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
         Cacher cacher = App.getApp().getCacher();
 
+        // gets params
         String token = request.cookie("token");
         String sessionID = request.params(":id");
         String email = request.queryParams("email");
+        try {
+            // verifies token and gets user
+            User user = dbConn.getUserByToken(token);
+            if (Objects.isNull(user)) {
+                response.status(450);
+                logger.warn("Add Host to session {} attempted with invalid token: {}", sessionID, token);
+                return "Invalid Token";
+            }
 
-        User user = dbConn.getUserByToken(token);
-        // token is valid
-        if (Objects.isNull(user)) {
-            response.status(450);
-            logger.warn("Add Host to session {} attempted with invalid token: {}", sessionID, token);
-            return "Invalid Token";
-        }
-        // Checks if user requesting is host
-        if (!cacher.userIsSessionHost(user, sessionID)) {
-            response.status(401);
-            return "No Permission";
-        }
+            // verifies session exists
+            if (!cacher.sessionExists(sessionID)) {
+                response.status(454);
+                logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
+                return "session doesn't exist";
+            }
 
-        // Gets new mod and checks exists
-        User newMod = dbConn.getUserByEmail(email);
-        if (Objects.isNull(newMod)) {
-            response.status(454);
-            return "No user with that email exists";
-        }
-        if (cacher.userIsModerator(user, sessionID)) {
-            response.status(457);
-            return "user is already a moderator";
-        }
+            // Checks if user requesting is host
+            if (!cacher.userIsSessionHost(user, sessionID)) {
+                response.status(401);
+                return "No Permission";
+            }
 
-        // all checks past and success
-        cacher.addModerator(newMod, sessionID);
-        App.getApp().getObservable().notifyBoth(4, sessionID, gson.toJson(newMod));
-        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
+            // Gets new mod and checks if they exist
+            User newMod = dbConn.getUserByEmail(email);
+            if (Objects.isNull(newMod)) {
+                response.status(454);
+                return "No user with that email exists";
+            }
+            // checks they're not already a mod
+            if (cacher.userIsModerator(newMod, sessionID)) {
+                response.status(457);
+                return "user is already a moderator";
+            }
+
+            // all checks passed and success
+            cacher.addModerator(newMod, sessionID);
+            // notifies all watchers
+            App.getApp().getObservable().notifyBoth(4, sessionID, gson.toJson(newMod));
+
+            // returns new token
+            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
+        } catch (Exception e) {
+            logger.warn("Encountered an exception trying to add a host, message as follows: \n{}", e.getMessage());
+        }
+        response.status(459);
+        return "Couldn't peform this operation";
     };
 
-    // TODO want to redo this
     public static Route joinSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
         Cacher cacher = App.getApp().getCacher();
 
+        // gets params
         String token = request.cookie("token");
         String password = request.queryParamOrDefault("password", "");
         String sessionID = request.params(":id");
-        User user = dbConn.getUserByToken(token);
-        // token is valid
-        if (Objects.isNull(user)) {
-            response.status(450);
-            logger.warn("Join session {} attempted with invalid token: {}", sessionID, token);
-            return "Invalid Token";
-        }
-        // token exists
-        HostSesh session = cacher.getHostSessionByID(sessionID);
-        if (Objects.isNull(session)) {
-            response.status(454);
-            logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
-            return "Invalid session";
-        }
+        try {
+            // verifies token is valid and gets user
+            User user = dbConn.getUserByToken(token);
+            if (Objects.isNull(user)) {
+                response.status(450);
+                logger.warn("Join session {} attempted with invalid token: {}", sessionID, token);
+                return "Invalid Token";
+            }
+            // verifies session exists and gets session
+            HostSesh session = cacher.getHostSessionByID(sessionID);
+            if (Objects.isNull(session)) {
+                response.status(454);
+                logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
+                return "Invalid session";
+            }
 
-        if (cacher.userIsModerator(user, sessionID)) {
-            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"watchToken\":\""
-                    + dbConn.newWatchToken(user.getId()) + "\",\"session\":" + gson.toJson(session) + "}";
-        }
+            // verifies user is moderator
+            if (cacher.userIsModerator(user, sessionID)) {
+                return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"watchToken\":\""
+                        + dbConn.newWatchToken(user.getId()) + "\",\"session\":" + gson.toJson(session) + "}";
+            }
 
-        if (cacher.sessionEnded(sessionID)) {
-            response.status(457);
-            return "Session has ended";
-        }
+            // verifies session hasn't ended
+            if (cacher.sessionEnded(sessionID)) {
+                response.status(457);
+                return "Session has ended";
+            }
 
-        if (dbConn.userIsAttendee(sessionID, user.getId())) {
-            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"watchToken\":\""
-                    + dbConn.newWatchToken(user.getId()) + "\",\"session\":" + gson.toJson(session.convertToSesh())
-                    + "}";
-        }
+            // if user has previously joined session just send them session data and new
+            // token nad new watch token
+            if (dbConn.userIsAttendee(sessionID, user.getId())) {
+                return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"watchToken\":\""
+                        + dbConn.newWatchToken(user.getId()) + "\",\"session\":" + gson.toJson(session.convertToSesh())
+                        + "}";
+            }
 
-        if (session.getSecure().equals(password)) {
-            dbConn.addUserToSession(sessionID, user.getId());
-            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"watchToken\":\""
-                    + dbConn.newWatchToken(user.getId()) + "\",\"session\":" + gson.toJson(session.convertToSesh())
-                    + "}";
-        }
-        if (password.equals("")) {
-            response.status(456);
-        } else {
-            response.status(458);
-        }
+            // if first time joining verify user has correct pasword then send session data,
+            // new token and new watch token
+            if (session.getSecure().equals(password)) {
+                dbConn.addUserToSession(sessionID, user.getId());
+                return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"watchToken\":\""
+                        + dbConn.newWatchToken(user.getId()) + "\",\"session\":" + gson.toJson(session.convertToSesh())
+                        + "}";
+            }
+            // verifies if password was wrong or if password is simply required
+            if (password.equals("")) {
+                response.status(456);
+            } else {
+                response.status(458);
+            }
 
-        return "Wrong password";
+            // returns the password was wrong
+            return "Wrong password";
+        } catch (Exception e) {
+            logger.warn("Encountered an exception trying to join a session, message as follows: \n{}", e.getMessage());
+        }
+        response.status(459);
+        return "Couldn't peform this operation";
     };
 
     public static Route endSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
         Cacher cacher = App.getApp().getCacher();
 
+        // gets params
         String token = request.cookie("token");
         String sessionID = request.params(":id");
+        try {
+            // verifies token and gets user
+            User user = dbConn.getUserByToken(token);
+            if (Objects.isNull(user)) {
+                response.status(450);
+                logger.warn("End session {} attempted with invalid token: {}", sessionID, token);
+                return "Invalid Token";
+            }
 
-        User user = dbConn.getUserByToken(token);
-        // token is valid
-        if (Objects.isNull(user)) {
-            response.status(450);
-            logger.warn("End session {} attempted with invalid token: {}", sessionID, token);
-            return "Invalid Token";
+            // verifies session exists
+            if (!cacher.sessionExists(sessionID)) {
+                response.status(454);
+                logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
+                return "Invalid session";
+            }
+
+            // verifies user is a moderator
+            if (!cacher.userIsModerator(user, sessionID)) {
+                response.status(401);
+                return "No permission";
+            }
+
+            // verifies session hasn't already been ended
+            if (cacher.sessionEnded(sessionID)) {
+                response.status(457);
+                return "Already ended";
+            }
+            // ends session
+            cacher.endSession(sessionID);
+
+            // notifies all watchers that session has ended
+            App.getApp().getObservable().notifyBoth(0, sessionID, "");
+
+            // returns new token
+            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
+        } catch (Exception e) {
+            logger.warn("Encountered an exception trying to end a session, message as follows: \n{}", e.getMessage());
         }
-
-        if (!cacher.sessionExists(sessionID)) {
-            response.status(454);
-            logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
-            return "Invalid session";
-        }
-
-        if (!cacher.userIsSessionHost(user, sessionID)) {
-            response.status(401);
-            return "No permission";
-        }
-
-        if (cacher.sessionEnded(sessionID)) {
-            response.status(457);
-            return "Already ended";
-        }
-        cacher.endSession(sessionID);
-
-        App.getApp().getObservable().notifyBoth(0, sessionID,
-                gson.toJson(cacher.getHostSessionByID(sessionID).convertToSesh()));// TODO make end session return
-                                                                                   // itself and json it
-        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
+        response.status(459);
+        return "Couldn't peform this operation";
     };
 
     public static Route deleteSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
         Cacher cacher = App.getApp().getCacher();
-
+        // gets params
         String token = request.cookie("token");
         String sessionID = request.params(":id");
+        try {
+            // verifies token and gets user
+            User user = dbConn.getUserByToken(token);
+            if (Objects.isNull(user)) {
+                response.status(450);
+                logger.warn("Delete session {} attempted with invalid token: {}", sessionID, token);
+                return "Invalid Token";
+            }
 
-        User user = dbConn.getUserByToken(token);
-        // token is valid
-        if (Objects.isNull(user)) {
-            response.status(450);
-            logger.warn("Delete session {} attempted with invalid token: {}", sessionID, token);
-            return "Invalid Token";
-        }
+            // verifies session exists
+            if (!cacher.sessionExists(sessionID)) {
+                response.status(454);
+                logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
+                return "Session doesn't exist";
+            }
 
-        if (!cacher.sessionExists(sessionID)) {
-            response.status(454);
-            logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
-            return "Session doesn't exist";
-        }
+            // verifies user is session host
+            if (!cacher.userIsSessionHost(user, sessionID)) {
+                response.status(401);
+                return "No permission";
+            }
+            // deletes the session
+            cacher.deleteSession(sessionID);
 
-        if (!cacher.userIsSessionHost(user, sessionID)) {
-            response.status(401);
-            return "No permission";
+            // notifies watchers that sesison has been deleted
+
+            App.getApp().getObservable().notifyBoth(5, sessionID, "");
+
+            // returns new token
+            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
+        } catch (Exception e) {
+            logger.warn("Encountered an exception trying to delete a session, message as follows: \n{}",
+                    e.getMessage());
         }
-        cacher.deleteSession(sessionID);
-        App.getApp().getObservable().notifyBoth(5, sessionID, "deleted session " + sessionID);
-        return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
+        response.status(459);
+        return "Couldn't peform this operation";
+    };
+    public static Route copySession = (Request request, Response response) -> {
+        DBConnection dbConn = App.getApp().getDbConn();
+        Cacher cacher = App.getApp().getCacher();
+        String token = request.cookie("token");
+        String sessionID = request.params(":id");
+        try {
+
+            // verifies token and gets user
+            User user = dbConn.getUserByToken(token);
+            if (Objects.isNull(user)) {
+                response.status(450);
+                logger.warn("Delete session {} attempted with invalid token: {}", sessionID, token);
+                return "Invalid Token";
+            }
+
+            HostSesh hs = cacher.getHostSessionByID(sessionID);
+            // verifies session exists
+            if (Objects.isNull(hs)) {
+                response.status(454);
+                logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
+                return "Session doesn't exist";
+            }
+
+            // verifies user is session host
+            if (!cacher.userIsSessionHost(user, sessionID)) {
+                response.status(401);
+                return "No permission";
+            }
+            String seriesID;
+            if (Objects.isNull(hs.getSeriesID())) {
+
+                do {
+                    seriesID = Sesh.generateID();
+                } while (dbConn.seriesExists(seriesID));
+            } else {
+                seriesID = hs.getSeriesID();
+            }
+
+            cacher.setSessionSeries(sessionID, seriesID);
+
+            String newSessionID;
+            do {
+                newSessionID = Sesh.generateID();
+            } while (dbConn.sessionExists(newSessionID));
+
+            String newSecure = "";
+            if (!hs.getSecure().equals("")) {
+                newSecure = Sesh.generateID();
+            }
+
+            HostSesh hs2 = new HostSesh(newSessionID, seriesID, hs.getSessionName(), (float) 0, user, false,
+                    hs.getPushedQuestions(), new Chat(), newSecure, hs.getHiddenQuestions(), new ArrayList<MoodDate>(),
+                    new ArrayList<User>());
+            for (Question q : hs2.getPushedQuestions()) {
+                hs2.pullQuestion(q.getID());
+            }
+            cacher.addModerator(user, newSessionID);
+
+            dbConn.createSession(hs2);
+
+            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"watchToken\":\""
+                    + dbConn.newWatchToken(user.getId()) + "\",\"session\":" + gson.toJson(hs2) + "}";
+
+        } catch (Exception e) {
+            logger.warn("Encountered an exception trying to create a session, message as follows: \n{}",
+                    e.getMessage());
+        }
+        response.status(459);
+        return "Couldn't peform this operation";
+
     };
 
-    // Could cause problems with tokens, however it shouldn't
-    // but a token may be used twice (acceptable?)
     public static Route watchSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
         Cacher cacher = App.getApp().getCacher();
-
+        // gets params
         String watchToken = request.cookie("watchToken");
         String sessionID = request.params(":id");
+        try {
+            // verifies token and gets user
+            User user = dbConn.getUserByWatchToken(watchToken);
+            if (Objects.isNull(user)) {
+                response.status(450);
+                logger.warn("Watch session {} attempted with invalid token: {}", sessionID, watchToken);
+                return "Invalid Token";
+            }
 
-        User user = dbConn.getUserByWatchToken(watchToken);
-        // token is valid
-        if (Objects.isNull(user)) {
-            response.status(450);
-            logger.warn("Watch session {} attempted with invalid token: {}", sessionID, watchToken);
-            return "Invalid Token";
+            // verifies sesison exists
+            if (!cacher.sessionExists(sessionID)) {
+                response.status(454);
+                logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
+                return "Session doesn't exist";
+            }
+
+            // verifies user is authrised to watch this session
+            if (!dbConn.userIsAttendee(sessionID, user.getId()) && !cacher.userIsModerator(user, sessionID)) {
+                response.status(401);
+                return "not authorised";
+            }
+
+            // creates a new watcher
+            Watcher w = new Watcher();
+            String json;
+
+            if (dbConn.userIsModerator(user, sessionID)) {
+                // if user is moderaotr, watch from moderator perspective
+                json = w.watch(sessionID, true);
+            } else {
+                // otherwise watch from attendee perspective
+                json = w.watch(sessionID, false);
+            }
+
+            // set reponse type
+            response.status(w.getType());
+
+            // types of update
+            String[] types = { "", ",\"message\":", ",\"question\":", ",\"answer\":", ",\"user\":", ",\"id\":",
+                    ",\"question\":", ",\"qID\":" };
+
+            // returns new watch token and the update
+            return "{\"watchToken\":\"" + dbConn.newWatchToken(user.getId()) + "\"" + types[w.getType() - 230] + json
+                    + "}";
+        } catch (Exception e) {
+            logger.warn("Encountered an exception trying to create a session, message as follows: \n{}",
+                    e.getMessage());
         }
-
-        if (!cacher.sessionExists(sessionID)) {
-            response.status(454);
-            logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
-            return "Session doesn't exist";
-        }
-
-        if (!dbConn.userIsAttendee(sessionID, user.getId()) && !cacher.userIsModerator(user, sessionID)) {
-            response.status(401);
-            return "not authorised";
-        }
-
-        Watcher w = new Watcher();
-        String json;
-        if (dbConn.userIsModerator(user, sessionID)) {
-            json = w.watch(sessionID, true);
-        } else {
-            json = w.watch(sessionID, false);
-        }
-
-        response.status(w.getType());
-        String[] types = { "", ",\"message\":", ",\"question\":", ",\"answer\":", ",\"user\":", ",\"id\":",
-                ",\"question\":", ",\"qID\":" };
-        // return json string
-        return "{\"watchToken\":\"" + dbConn.newWatchToken(user.getId()) + "\"" + types[w.getType() - 230] + json + "}";
+        response.status(459);
+        return "Couldn't peform this operation";
     };
 }
