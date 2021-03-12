@@ -57,8 +57,7 @@ export default class MySessions extends React.Component {
     })
   }
   
-  handleDelete(e,id){
-    e.stopPropagation();
+  handleDelete(id){
     $.ajax({
       url: `/session/${id}/delete`,
       type: 'POST',
@@ -89,8 +88,7 @@ export default class MySessions extends React.Component {
     });
   }
 
-  handleClone(e, id){
-    e.stopPropagation();
+  handleClone(id){
     $.ajax({
       url: `/session/${id}/clone`,
       type: 'POST',
@@ -161,15 +159,21 @@ export default class MySessions extends React.Component {
                           <>
                             <button
                               className="btn btn-danger"
-                              onClick={(e)=> this.handleDelete(session.id)}
+                              onClick={e=>{
+                                e.stopPropagation();
+                                this.handleDelete(session.id)}
+                              }
                             >
                               <i className="bi bi-trash-fill"></i>
                             </button>
                             <button
                               className="btn-dark"
-                              onClick={(e)=> this.handleClone(session.id)}
+                              onClick={e=>{
+                                e.stopPropagation();
+                                this.handleClone(session.id)}
+                              }
                             >
-                              <i class="bi bi-clipboard-plus"></i>
+                              <i className="bi bi-clipboard-plus"></i>
                             </button>
                           </>
                           :

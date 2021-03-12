@@ -99,14 +99,26 @@ export default class HostSession extends React.Component {
             let watchToken = object.watchToken;
             Cookies.set('watchToken', watchToken);
             this.props.updateWatchToken(watchToken);
-            if (jqXHR.status == 231){
-              this.setState((oldProps)=>{
-                let newChat = oldProps.chat;
-                newChat.messages.push(object.message);
-                return {
-                  chat: newChat,
-                }
-              });
+            switch(jqXHR.status){
+              case 230:
+                this.setState({
+                  finished: true,
+                });
+                break;
+              case 231:
+                this.setState((oldProps)=>{
+                  let newChat = oldProps.chat;
+                  newChat.messages.push(object.message);
+                  return {
+                    chat: newChat,
+                  }
+                });
+                break;
+              case 232:
+                this.setState((oldProps)=>{
+                  // TODO remove / add question
+                });
+                break;
             }
           }
         });

@@ -17,6 +17,7 @@ import JoinSession from './session/JoinSession';
 import CreateSession from './session/CreateSession';
 import CreateSeries from './session/CreateSeries';
 import AbstractSession from './session/AbstractSession';
+import Cookies from 'js-cookie';
 
 export default class Main extends React.Component {
   constructor(props){
@@ -72,6 +73,7 @@ export default class Main extends React.Component {
             return;
           }
           this.props.setUser(user.fname, user.lname, user.email);
+          Cookies.set('token', token);
           this.props.updateToken(token);
         },
         statusCode: {
@@ -82,6 +84,36 @@ export default class Main extends React.Component {
       })
     }
   };
+
+  componentDidUpdate(){
+    if (this.props.user.email === ""){
+      $.ajax({
+        url: '/user',
+        type: 'POST',
+        dataType: 'json',
+        success: (data, status, jqXHR)=>{
+          console.log(data);
+          let token = data.token;
+          let user = data.user;
+          if (token === undefined || token === null){
+            this.setState({
+
+            });
+            console.log('JSON parsing failed');
+            return;
+          }
+          this.props.setUser(user.fname, user.lname, user.email);
+          Cookies.set('token', token);
+          this.props.updateToken(token);
+        },
+        statusCode: {
+          450: ()=>{
+            //TODO redirect
+          }
+        }
+      })
+    }
+  }
 
   static getDerivedStateFromError(){
     return {
@@ -198,6 +230,7 @@ export default class Main extends React.Component {
             <MySessions
               updateToken={this.props.updateToken}
               isMod={true}
+              handleSession={this.handleSession}
               user={this.props.user}
             />
           </Route>
@@ -205,6 +238,7 @@ export default class Main extends React.Component {
             <MySessions
               updateToken={this.props.updateToken}
               isMod={false}
+              handleSession={this.handleSession}
               user={this.props.user}
             />
           </Route>
