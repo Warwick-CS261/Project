@@ -19,6 +19,7 @@ export default class MySessions extends React.Component {
       $.ajax({
         url: '/user',
         type: 'POST',
+        async: false,
         dataType: 'json',
         success: (data, status, jqXHR)=>{
           console.log(data);
