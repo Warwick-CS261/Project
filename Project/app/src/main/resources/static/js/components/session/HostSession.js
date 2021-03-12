@@ -117,6 +117,7 @@ export default class HostSession extends React.Component {
                 break;
               case 232:
                 this.setState((prevState)=>{
+                  // BUG question doens't load into different array
                   let question = object.question;
                   let oldPushed = prevState.pushedQuestions;
                   let oldHidden = prevState.hiddenQuestions;
@@ -147,8 +148,8 @@ export default class HostSession extends React.Component {
                 break;
               case 233:
                 this.setState((prevState)=>{
-                  let answer = object.answer;
-                  let qID = object.qID;
+                  let answer = object.answer.answer;
+                  let qID = object.answer.qID;
                   let index;
                   index = prevState.pushedQuestions.indexOf(qID);
                   if (index > -1){
@@ -188,8 +189,9 @@ export default class HostSession extends React.Component {
                 break;
               case 237:
                 this.setState((prevState)=>{
+                  let qID = object.qID
                   let index;
-                  index = prevState.hiddenQuestions.findIndex(x => x.prop2 ==="yutu");
+                  index = prevState.hiddenQuestions.findIndex(x => x.qID === qID);
                   if (index > -1){
                     let newHidden = prevState.hiddenQuestions;
                     newHidden.splice(index,1);
