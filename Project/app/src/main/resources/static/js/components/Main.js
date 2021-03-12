@@ -55,66 +55,6 @@ export default class Main extends React.Component {
     });
   }
 
-  componentDidMount(){
-    if (this.props.user.email === ""){
-      $.ajax({
-        url: '/user',
-        type: 'POST',
-        dataType: 'json',
-        success: (data, status, jqXHR)=>{
-          console.log(data);
-          let token = data.token;
-          let user = data.user;
-          if (token === undefined || token === null){
-            this.setState({
-
-            });
-            console.log('JSON parsing failed');
-            return;
-          }
-          this.props.setUser(user.fname, user.lname, user.email);
-          Cookies.set('token', token);
-          this.props.updateToken(token);
-        },
-        statusCode: {
-          450: ()=>{
-            //TODO redirect
-          }
-        }
-      })
-    }
-  };
-
-  componentDidUpdate(){
-    if (this.props.user.email === ""){
-      $.ajax({
-        url: '/user',
-        type: 'POST',
-        dataType: 'json',
-        success: (data, status, jqXHR)=>{
-          console.log(data);
-          let token = data.token;
-          let user = data.user;
-          if (token === undefined || token === null){
-            this.setState({
-
-            });
-            console.log('JSON parsing failed');
-            return;
-          }
-          this.props.setUser(user.fname, user.lname, user.email);
-          Cookies.set('token', token);
-          this.props.updateToken(token);
-        },
-        statusCode: {
-          450: ()=>{
-            //TODO redirect
-          }
-        }
-      })
-    }
-  }
-
   static getDerivedStateFromError(){
     return {
       hasError: true,
@@ -188,7 +128,7 @@ export default class Main extends React.Component {
                 }
               })}
               <li className="nav-link nav-logout" key="logout">
-                <a 
+                <a
                   href="/"
                   onClick={this.props.onLogout}
                 ><i className="bi bi-box-arrow-left"></i>Logout</a>
@@ -224,7 +164,10 @@ export default class Main extends React.Component {
             />
           </Route>
           <Route path={routes[1].path}>
-            <User user={this.props.user} />
+            <User
+              user={this.props.user}
+              setUser={this.props.setUser}
+            />
           </Route>
           <Route path={routes[2].path}>
             <MySessions
@@ -232,6 +175,7 @@ export default class Main extends React.Component {
               isMod={true}
               handleSession={this.handleSession}
               user={this.props.user}
+              setUser={this.props.setUser}
             />
           </Route>
           <Route path={routes[3].path}>
@@ -240,6 +184,7 @@ export default class Main extends React.Component {
               isMod={false}
               handleSession={this.handleSession}
               user={this.props.user}
+              setUser={this.props.setUser}
             />
           </Route>
           <Route path="/session/:id"

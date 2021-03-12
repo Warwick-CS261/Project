@@ -12,7 +12,6 @@ export default class Chat extends React.Component {
     if (chat !== null && chat !== undefined) {
       chat = this.props.chat.messages;
     }
-    console.log(chat);
     return(
       <>
       <div className="chat-container">

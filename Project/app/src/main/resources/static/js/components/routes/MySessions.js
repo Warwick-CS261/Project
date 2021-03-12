@@ -14,6 +14,34 @@ export default class MySessions extends React.Component {
     }
 
     this.handleClick = this.handleClick.bind(this);
+
+    if (this.props.user.email === ""){
+      $.ajax({
+        url: '/user',
+        type: 'POST',
+        dataType: 'json',
+        success: (data, status, jqXHR)=>{
+          console.log(data);
+          let token = data.token;
+          let user = data.user;
+          if (token === undefined || token === null){
+            this.setState({
+
+            });
+            console.log('JSON parsing failed');
+            return;
+          }
+          this.props.setUser(user.fname, user.lname, user.email);
+          Cookies.set('token', token);
+          this.props.updateToken(token);
+        },
+        statusCode: {
+          450: ()=>{
+            //TODO redirect
+          }
+        }
+      })
+    }
   }
 
   componentDidMount(){
