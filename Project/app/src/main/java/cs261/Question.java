@@ -28,6 +28,10 @@ public class Question {
         this.mood = (float) 0;
     }
 
+    public Question attendeeQuestion() {
+        return new Question(question, new ArrayList<Answer>(), id, pushed, general, (float) 0.0);
+    }
+
     public Boolean getGeneral() {
         return general;
     }
