@@ -200,7 +200,7 @@ export default class HostSession extends React.Component {
                       hiddenQuestions: newHidden, 
                     };
                   } else {
-                    index = prevState.pushedQuestions;
+                    index = prevState.pushedQuestions.findIndex(x => x.qID === qID);
                     if (index > -1){
                       let newPushed = prevState.pushedQuestions;
                       newPushed.splice(index,1);
