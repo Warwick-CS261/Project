@@ -254,7 +254,9 @@ export default class HostSession extends React.Component {
     // TODO display refresh page
     return (
       <>
-        <h2>{this.state.sessionName}</h2>
+        <div className="heading">
+          <h1><i className="bi bi-calendar-event-fill"></i>{this.state.sessionName}</h1>
+        </div>
         <h6>{this.state.id}</h6>
         {this.state.error !== false && 
           <div className="alert alert-danger" role="alert">
