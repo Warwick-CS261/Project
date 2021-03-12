@@ -40,70 +40,89 @@ export default class Questions extends React.Component {
       });
       return(
         <>
-          <div className="side">
-            <ul className="list-unstyled">
-            {this.props.pushedQuestions.map((pq) => {
-              return(
-                <HostQuestion
-                  key={pq.id}
-                  data={pq}
-                  pushed={true}
-                  sessionID={this.props.sessionID}
-                  updateToken={this.props.updateToken}
-                  handleSelect={this.handleSelect}
-                  finished={this.props.finished}
+          <div className="question-container">
+            <div className="question-left">
+              <h3 className="questions">Questions</h3>
+              <hr className="text-white"></hr>
+              <div className="question-scroll">
+                <ul className="list-unstyled">
+                {this.props.pushedQuestions.map((pq) => {
+                  return(
+                    <HostQuestion
+                      key={pq.id}
+                      data={pq}
+                      pushed={true}
+                      sessionID={this.props.sessionID}
+                      updateToken={this.props.updateToken}
+                      handleSelect={this.handleSelect}
+                      finished={this.props.finished}
+                    />
+                  );
+                })}
+                {this.props.hiddenQuestions.map(hq =>{
+                  return(
+                    <HostQuestion
+                      key={hq.id}
+                      data={hq}
+                      pushed={false}
+                      sessionID={this.props.sessionID}
+                      updateToken={this.props.updateToken}
+                      handleSelect={this.handleSelect}
+                      finished={this.props.finished}
+                    />
+                  );
+                })}
+                </ul>
+              </div>
+            </div>
+            <div className="question-right">
+              <div className="content">
+                <AnswerList
+                  qID={this.state.selected}
+                  data={answers}
                 />
-              );
-            })}
-            {this.props.hiddenQuestions.map(hq =>{
-              return(
-                <HostQuestion
-                  key={hq.id}
-                  data={hq}
-                  pushed={false}
-                  sessionID={this.props.sessionID}
-                  updateToken={this.props.updateToken}
-                  handleSelect={this.handleSelect}
-                  finished={this.props.finished}
-                />
-              );
-            })}
-            </ul>
+              </div>
+            </div>
           </div>
-          <div className="content">
-            <AnswerList
-              qID={this.state.selected}
-              data={answers}
-            />
-          </div>
+          
         </>
       );
     } else {
       return(
         <>
-          <div className="side">
-            <ul className="list-unstyled">
-              {this.props.pushedQuestions.map((pq) => {
-                return(
-                  <AttendeeQuestion
-                    key={pq.id}
-                    data={pq}
-                    pushed={true}
-                    sessionID={this.props.sessionID}
-                    handleSelect={this.handleSelect}
-                  />
-                );
-              })}
-            </ul>
+          <div className="question-container">
+            <div className="question-left">
+              <h3 className="questions">Questions</h3>
+              <hr className="text-white"></hr>
+              <div className="question-scroll">
+                <ul className="list-unstyled">
+                  {this.props.pushedQuestions.map((pq) => {
+                    return(
+                      <AttendeeQuestion
+                        key={pq.id}
+                        data={pq}
+                        pushed={true}
+                        sessionID={this.props.sessionID}
+                        handleSelect={this.handleSelect}
+                      />
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+            <div className="question-right">
+              <div className="content">
+                <Reaction
+                  qID={this.state.selected}
+                  sessionID={this.props.sessionID}
+                  question={this.state.question}
+                  updateToken={this.props.updateToken}
+                />
+              </div>
+            </div>
           </div>
-          <div className="content">
-            <Reaction
-              qID={this.state.selected}
-              sessionID={this.props.sessionID}
-              question={this.state.question}
-              updateToken={this.props.updateToken}
-            />
-          </div>
+          
+          
         </>
       );
     }

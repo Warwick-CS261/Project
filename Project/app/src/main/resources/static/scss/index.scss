@@ -261,6 +261,8 @@ section.body{
   background-size: cover;
   border-radius:50px;
   height:80vh;
+  overflow-y: scroll;
+  
   .sessiongrid{
     display:grid;
     grid-template-columns: auto auto auto;
@@ -278,6 +280,9 @@ section.body{
       box-shadow: 10px 10px $dark;
     }
   }
+}
+.sessiongridcontainer::-webkit-scrollbar {
+  display: none;
 }
 .chat-container{
   background-color: $dark;
@@ -349,5 +354,57 @@ section.body{
     }
   }
   
+}
+
+.question-container{
+  display:flex;
+  flex-direction: row;
+  margin-bottom: 32px;
+  height:500px;
+  width:50%;
+  .question-left{
+    width:33.3%;
+    background-color: $dark;
+    padding:16px;
+    border-radius:25px 0px 0px 25px;
+    .questions{
+      color:$primary;
+      margin-bottom: 8px;
+    }
+    .question-scroll{
+      height:400px;
+      overflow-y: scroll;
+    }
+    .question-scroll::-webkit-scrollbar {
+      display: none;
+    }
+  } 
+  .question-right{
+    width:66.7%;
+    background-color: #ffffff;
+    padding:16px;
+    border-radius:0px 25px 25px 0px;  
+    .content{
+      width:100%;
+      height:450px;
+      overflow-y: scroll;
+      .question-host{
+        width:100%;
+        .answer{
+          border: 1px solid black;
+          border-radius: 15px;
+          padding: 8px;
+          width:100%;
+          margin-bottom:16px;
+        }
+      }
+      .question-att{
+  
+      }
+    }
+    .content::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
 
