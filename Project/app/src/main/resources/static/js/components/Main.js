@@ -6,7 +6,7 @@ import {
   Redirect,
   useHistory
 } from 'react-router-dom';
-
+import $ from 'jquery';
 import Home from './routes/Home';
 import Logo from './Logo';
 import User from './routes/User';
@@ -24,6 +24,7 @@ export default class Main extends React.Component {
     this.state = {
       session: null,
       isHost: false,
+      hasError: false,
     }
 
     this.handleSession = this.handleSession.bind(this);
@@ -53,7 +54,48 @@ export default class Main extends React.Component {
     });
   }
 
+  componentDidMount(){
+    if (this.props.user.email === ""){
+      $.ajax({
+        url: '/user',
+        type: 'POST',
+        dataType: 'json',
+        success: (data, status, jqXHR)=>{
+          console.log(data);
+          let token = data.token;
+          let user = data.user;
+          if (token === undefined || token === null){
+            this.setState({
+
+            });
+            console.log('JSON parsing failed');
+            return;
+          }
+          this.props.setUser(user.fname, user.lname, user.email);
+          this.props.updateToken(token);
+        },
+        statusCode: {
+          450: ()=>{
+            //TODO redirect
+          }
+        }
+      })
+    }
+  };
+
+  static getDerivedStateFromError(){
+    return {
+      hasError: true,
+    }
+  }
+
   render(){
+
+    if (this.state.hasError){
+      return(
+        <h1>Something went wrong</h1>
+      )
+    }
 
     const routes = [
       {
@@ -179,7 +221,6 @@ export default class Main extends React.Component {
           />
         </Switch>
       </section>
-        
       </>
     );
   }

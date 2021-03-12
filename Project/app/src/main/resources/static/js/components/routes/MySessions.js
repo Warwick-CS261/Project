@@ -57,7 +57,8 @@ export default class MySessions extends React.Component {
     })
   }
   
-  handleDelete(id){
+  handleDelete(e,id){
+    e.stopPropagation();
     $.ajax({
       url: `/session/${id}/delete`,
       type: 'POST',
@@ -71,6 +72,40 @@ export default class MySessions extends React.Component {
         }
         Cookies.set('token', token);
         this.props.updateToken(token);
+      },
+      statusCode: {
+        450: ()=>{
+          console.log('Invalid token');
+        },
+        454: ()=>{
+          console.log('Session not found');
+        },
+        401: ()=>{
+          this.setState({
+            error: 'Unauthorized action',
+          });
+        }
+      }
+    });
+  }
+
+  handleClone(e, id){
+    e.stopPropagation();
+    $.ajax({
+      url: `/session/${id}/clone`,
+      type: 'POST',
+      success: (data, status, jqXHR)=>{
+        let object = JSON.parse(data);
+        let token = object.token;
+        if (token === undefined || token === null){
+          this.setState({
+            error: 'Server response was invalid',
+          });
+        }
+        let session = object.session;
+        Cookies.set('token', token);
+        this.props.updateToken(token);
+        this.props.handleSession(session);
       },
       statusCode: {
         450: ()=>{
@@ -123,15 +158,20 @@ export default class MySessions extends React.Component {
                         <h5>Host: <span>{session.owner.fname} {session.owner.lname}</span></h5>
                         {this.props.user !== undefined ?
                         this.props.user.email === session.owner.email &&
-                          <button
-                            className="btn btn-danger"
-                            onClick={(e)=> {
-                              e.stopPropagation(); 
-                              this.handleDelete(session.id)
-                            }}
-                          >
-                            <i className="bi bi-trash-fill"></i>
-                          </button>
+                          <>
+                            <button
+                              className="btn btn-danger"
+                              onClick={(e)=> this.handleDelete(session.id)}
+                            >
+                              <i className="bi bi-trash-fill"></i>
+                            </button>
+                            <button
+                              className="btn-dark"
+                              onClick={(e)=> this.handleClone(session.id)}
+                            >
+                              <i class="bi bi-clipboard-plus"></i>
+                            </button>
+                          </>
                           :
                           <></>
                         }

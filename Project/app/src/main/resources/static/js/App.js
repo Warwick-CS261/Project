@@ -150,6 +150,7 @@ class App extends React.Component {
               updateToken={this.updateToken}
               updateWatchToken={this.updateWatchToken}
               user={this.state.user}
+              setUser={this.setUser}
             />
           </Router>
         }

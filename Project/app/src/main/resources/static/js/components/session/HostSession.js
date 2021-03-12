@@ -60,6 +60,10 @@ export default class HostSession extends React.Component {
 
   componentWillUnmount(){
     this.props.handleSession(null);
+    if (this.timeHandle){
+      clearTimeout(this.timerHandle);
+      this.timerHandle = 0;
+    }
   }
 
   /*
@@ -79,7 +83,7 @@ export default class HostSession extends React.Component {
         this.setState({
           subscribed: true,
         });
-        setTimeout(()=>{
+        this.timerHandle = setTimeout(()=>{
           console.log('5 min up, setting subscribed to false');
           this.setState({
             subscribed: false,

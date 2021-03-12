@@ -57,7 +57,7 @@ class AttendeeSession extends React.Component {
           });
         }, 60000);
 
-        let res = await $.ajax({
+        await $.ajax({
           url: `/session/${this.state.id}/watch`,
           type: "POST",
           timeout: 60000,
@@ -66,13 +66,8 @@ class AttendeeSession extends React.Component {
             let watchToken = object.watchToken;
             Cookies.set('watchToken', watchToken);
             this.props.updateWatchToken(watchToken);
-            console.log(data);
-            console.log(status);
-            console.log(jqXHR);
             if (jqXHR.status == 231){
               this.setState((oldProps)=>{
-                console.log(oldProps);
-                console.log(object);
                 let newChat = oldProps.chat;
                 newChat.messages.push(object.message);
                 return {
