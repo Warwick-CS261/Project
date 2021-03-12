@@ -57,7 +57,7 @@ class AttendeeSession extends React.Component {
           });
         }, 60000);
 
-        let res = await $.ajax({
+        await $.ajax({
           url: `/session/${this.state.id}/watch`,
           type: "POST",
           timeout: 60000,

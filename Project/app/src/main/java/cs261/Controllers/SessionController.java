@@ -407,10 +407,9 @@ public class SessionController {
             if (!hs.getSecure().equals("")) {
                 newSecure = Sesh.generateID();
             }
-
-            HostSesh hs2 = new HostSesh(newSessionID, seriesID, hs.getSessionName(), (float) 0, user, false,
-                    hs.getPushedQuestions(), new Chat(), newSecure, hs.getHiddenQuestions(), new ArrayList<MoodDate>(),
-                    new ArrayList<User>());
+            HostSesh hs2 = new HostSesh(newSessionID, seriesID, new String(hs.getSessionName()), (float) 0, user, false,
+                    new ArrayList<Question>(hs.getPushedQuestions()), new Chat(), newSecure,
+                    new ArrayList<Question>(hs.getHiddenQuestions()), new ArrayList<MoodDate>(), new ArrayList<User>());
             for (Question q : hs2.getPushedQuestions()) {
                 hs2.pullQuestion(q.getID());
             }
