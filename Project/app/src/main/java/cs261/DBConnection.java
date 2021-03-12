@@ -48,6 +48,7 @@ public class DBConnection {
         stmt.setInt(6, s.getOwner().getId());
         stmt.executeUpdate();
 
+        createMoodDate(s.getId(), new MoodDate((float) 0.0, new java.util.Date()));
         /*
          * for (Question q : s.getHiddenQuestions()) { createQuestion(q, s.getId()); }
          */
