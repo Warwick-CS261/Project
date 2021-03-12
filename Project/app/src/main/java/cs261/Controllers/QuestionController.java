@@ -239,6 +239,7 @@ public class QuestionController {
 
             // ends questions
             cacher.endQuestion(sessionID, qID);
+            q.setPushed(false);
 
             // notifies everyone
             App.getApp().getObservable().notifyBoth(2, sessionID, gson.toJson(q.attendeeQuestion()));// need to discuss
@@ -294,6 +295,7 @@ public class QuestionController {
 
             // pushes questions
             cacher.pushQuestion(sessionID, qID);
+            q.setPushed(true);
 
             // notifies all watchers question has ended
             App.getApp().getObservable().notifyBoth(2, sessionID, gson.toJson(q.attendeeQuestion()));
