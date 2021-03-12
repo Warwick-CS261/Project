@@ -13,11 +13,13 @@ class AbstractSession extends React.Component {
       this.state = {
         loading: true,
         error: false,
+        hasError: false,
       }
     } else{
       this.state = {
         loading: false,
         error: false,
+        hasError: false,
       }
     }
   }
@@ -80,6 +82,12 @@ class AbstractSession extends React.Component {
     }
   }
 
+  static getDerivedStateFromError(){
+    return {
+      hasError: true,
+    }
+  }
+
   static getDerivedStateFromProps(props, state){
     if (props.session !== undefined && props.session !== null){
       return {
@@ -95,6 +103,14 @@ class AbstractSession extends React.Component {
   }
 
   render(){
+    if (this.state.hasError){
+      return(
+        <div className="text-center">
+          <h1>Something went wrong</h1>
+        </div>
+      );
+    }
+
     if (this.state.error !== false){
       return(
         <>{this.state.error}</>
