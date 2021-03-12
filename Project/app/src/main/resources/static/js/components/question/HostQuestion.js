@@ -11,7 +11,8 @@ export default class HostQuestion extends React.Component {
     this.handleEnd = this.handleEnd.bind(this);
   }
 
-  handleDelete(){
+  handleDelete(e){
+    e.stopPropagation();
     let params = new URLSearchParams();
     params.append('qID', this.props.data.id);
     $.ajax({
@@ -45,7 +46,8 @@ export default class HostQuestion extends React.Component {
     });
   }
 
-  handlePush(){
+  handlePush(e){
+    e.stopPropagation();
     let params = new URLSearchParams();
     params.append('qID', this.props.data.id);
     $.ajax({
@@ -80,7 +82,8 @@ export default class HostQuestion extends React.Component {
 
   }
 
-  handleEnd(){
+  handleEnd(e){
+    e.stopPropagation();
     let params = new URLSearchParams();
     params.append('qID', this.props.data.id);
     $.ajax({
@@ -116,16 +119,36 @@ export default class HostQuestion extends React.Component {
   
   render(){
     let q = this.props.data;
+    if (this.props.data.id === 0){
+      return(
+        <li className="host-question" data-mood={q.mood} onClick={()=>this.props.handleSelect(q.id)} >
+          <button>
+            General feedback
+          </button>
+        </li>
+      );
+    }
+
     return(
-      <li>
-        <button onClick={()=>this.props.handleSelect(q.id)}>{q.question}</button>
-        {!this.props.finished &&
-          this.props.pushed ?
-            <button onClick={this.handleEnd}><i className="bi bi-slash-circle-fill"></i></button>
-            :
-            <button onClick={this.handlePush}><i className="bi bi-eye-slash-fill"></i></button>
-        }
-        <button onClick={this.handleDelete}><i className="bi bi-trash-fill"></i></button>
+      <li className="host-question" data-mood={q.mood} onClick={()=>this.props.handleSelect(q.id)}>
+        <button >
+          {q.question}
+        </button>
+        <span className="controllers">
+          {!this.props.finished &&
+            this.props.pushed ?
+              <button onClick={this.handleEnd}>
+                <i className="bi bi-slash-circle-fill"></i>
+              </button>
+              :
+              <button onClick={this.handlePush}>
+                <i className="bi bi-eye-slash-fill"></i>
+              </button>
+          }
+          <button onClick={this.handleDelete}>
+            <i className="bi bi-trash-fill"></i>
+          </button>
+        </span>
       </li>
     );
   }

@@ -622,7 +622,7 @@ public class DBConnection {
     }
 
     public Boolean deleteSession(String sessionID) throws SQLException {
-        String query = "DELETE FROM SESSION WHERE sessionID = ?";
+        String query = "DELETE FROM SESH WHERE id = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setString(1, sessionID);
         stmt.executeUpdate();

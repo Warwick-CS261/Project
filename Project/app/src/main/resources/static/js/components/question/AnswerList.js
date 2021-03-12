@@ -7,17 +7,27 @@ export default class AnswerList extends React.Component {
     let data = this.props.data;
     if (data === undefined || data === null || data.length == 0){
       return(
-        <p>No answers yet for question {this.props.qID}</p>
+        <p>No responses yet</p>
       );
     }
     return(
       <>
-        <ul>
+        <ul className="list-unstyled">
           {this.props.data.map(answer => {
-            //TODO add key
             return(
-              <li key={answer.stamp}>
-                {JSON.stringify(answer)}
+              <li
+                key={answer.stamp+answer.context}
+                className="answer"
+                data-smiley={answer.smiley}
+              >
+                <span><i className="bi bi-person-circle"></i></span>
+                {!answer.anon ?
+                  <span>{answer.user.fname} {answer.user.lname}</span>
+                  :
+                  <span>Anonymous</span>
+                } &#8212; 
+                <span>{answer.stamp}</span>
+                <p>{answer.context}</p>
               </li>
             );
           })}

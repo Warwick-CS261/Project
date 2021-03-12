@@ -12,13 +12,14 @@ export default class Questions extends React.Component {
     super(props);
     this.state = {
       selected: 0,
+      pushed: true,
     };
 
     this.handleSelect = this.handleSelect.bind(this);
   }
 
 
-  handleSelect(qID){
+  handleSelect(qID, push){
     this.setState({
       selected: qID,
     });
@@ -26,9 +27,21 @@ export default class Questions extends React.Component {
 
   render(){
     if (this.props.isHost){
+      let answers;
+      this.props.pushedQuestions.forEach(q => {
+        if (q.id === this.state.selected){
+          answers = q.answers;
+        }
+      });
+      this.props.hiddenQuestions.forEach(q => {
+        if (q.id === this.state.selected){
+          answers = q.answers;
+        }
+      });
       return(
         <>
           <div className="side">
+            <ul className="list-unstyled">
             {this.props.pushedQuestions.map((pq) => {
               return(
                 <HostQuestion
@@ -38,7 +51,7 @@ export default class Questions extends React.Component {
                   sessionID={this.props.sessionID}
                   updateToken={this.props.updateToken}
                   handleSelect={this.handleSelect}
-                  finished={this.state.finished}
+                  finished={this.props.finished}
                 />
               );
             })}
@@ -51,15 +64,16 @@ export default class Questions extends React.Component {
                   sessionID={this.props.sessionID}
                   updateToken={this.props.updateToken}
                   handleSelect={this.handleSelect}
-                  finished={this.state.finished}
+                  finished={this.props.finished}
                 />
               );
             })}
+            </ul>
           </div>
           <div className="content">
             <AnswerList
               qID={this.state.selected}
-              data={this.props.pushedQuestions[this.state.selected].answers}
+              data={answers}
             />
           </div>
         </>
@@ -68,17 +82,19 @@ export default class Questions extends React.Component {
       return(
         <>
           <div className="side">
-          {this.props.pushedQuestions.map((pq) => {
-              return(
-                <AttendeeQuestion
-                  key={pq.id}
-                  data={pq}
-                  pushed={true}
-                  sessionID={this.props.sessionID}
-                  handleSelect={this.handleSelect}
-                />
-              );
-            })}
+            <ul className="list-unstyled">
+              {this.props.pushedQuestions.map((pq) => {
+                return(
+                  <AttendeeQuestion
+                    key={pq.id}
+                    data={pq}
+                    pushed={true}
+                    sessionID={this.props.sessionID}
+                    handleSelect={this.handleSelect}
+                  />
+                );
+              })}
+            </ul>
           </div>
           <div className="content">
             <Reaction
