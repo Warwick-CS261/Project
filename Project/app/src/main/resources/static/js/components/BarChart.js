@@ -4,11 +4,11 @@ import Chart from 'chart.js';
 export default class BarChart extends React.Component {
   constructor(props) {
     super(props);
-    this.timeLineRef = React.createRef();
+    this.barChartRef = React.createRef();
   }
 
   componentDidMount(){
-    const chartRef = this.timeLineRef.current.getContext('2d');
+    const chartRef = this.barChartRef.current.getContext('2d');
 
     let dataObj = this.props.data;
   
@@ -78,7 +78,7 @@ export default class BarChart extends React.Component {
 
   render(){
     return(
-      <canvas ref={this.timeLineRef} />
+      <canvas ref={this.barChartRef} />
     );
   } 
 }

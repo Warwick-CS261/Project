@@ -1,19 +1,26 @@
 import React from 'react';
 import Chart from 'chart.js';
-import { moment } from 'moment';
+import moment from 'moment';
 
 
 export default class Timeline extends React.Component {
-
+  constructor(props) {
+    super(props);
+    this.timeLineRef = React.createRef();
+  }
 
   componentDidMount(){
-    let dataObj = this.props.data
-    for (let [key, value] of Object.entries(dataObj)){
-      if (key == "date"){
-        key = new Date(value);
+    const timeRef = this.timeLineRef.current.getContext('2d');
+
+    let data = JSON.stringify(this.props.data);
+    var dataObj = JSON.parse(data, function(key, value) {
+      if (key == "date") {
+        return new Date(value);
+      } else {
+        return value;
       }
-    }
-  
+    });
+
     var dates = [];
     var moods = [];
   
@@ -22,7 +29,7 @@ export default class Timeline extends React.Component {
       moods.push(dataSlice.mood);
     });
   
-    //---------------------------Deciding-what-to-display-----------------------------------
+    // Compute data
   
     var dataPoint1 = dataObj[0];
     var dataPoint2 = dataObj[dataObj.length - 1];
@@ -42,7 +49,7 @@ export default class Timeline extends React.Component {
       dateFormat = "DD MMM";
     }
   
-    //-----------------------------Deciding-data-points-------------------------------------
+    // Compute data points
   
     var maxDataPoints = 20;
   
@@ -65,7 +72,7 @@ export default class Timeline extends React.Component {
     for (let i = 0; i < maxDataPoints - 1; i++) {
       nextData.setMinutes( nextData.getMinutes() + timeStep );
   
-      currentData = [];
+      let currentData = [];
   
       while (dates[dataToAddIndex] <= nextData) {
         currentData.push(moods[dataToAddIndex]);
@@ -85,7 +92,7 @@ export default class Timeline extends React.Component {
   
     }
 
-    new Chart(ctx, {
+    new Chart(timeRef, {
       // The type of chart we want to create
       type: 'line',
   
@@ -119,5 +126,13 @@ export default class Timeline extends React.Component {
       }
       }
     });
+  }
+
+  render(){
+    return(
+      <div className="bg-dark">
+        <canvas ref={this.timeLineRef} />
+      </div>
+    )
   }
 }
