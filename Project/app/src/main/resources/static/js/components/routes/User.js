@@ -38,15 +38,23 @@ export default class User extends React.Component {
       <section className="main">
         <div className="container-fluid">
           <div className="heading">
-              <h1><i className="bi bi-person-circle"></i>Profile</h1>
+            <h1><i className="bi bi-person-circle"></i>Profile</h1>
           </div>
           <div className="sessionbox">
             <div className="box">
-              <h1>Hi {this.props.user.firstName}</h1>
-              <p>Your data:</p>
-              <p>First Name: {this.props.user.firstName}</p>
-              <p>Last Name: {this.props.user.lastName}</p>
-              <p>Email: {this.props.user.email}</p>
+            <h1 className="text-center mb-3">Profile of {this.props.user.firstName}</h1>
+              <div className="profile-element">
+                <p className="text-center text-white">First Name: </p>
+                <h3 className="text-center text-white">{this.props.user.firstName}</h3>
+              </div>
+              <div className="profile-element">
+                <p className="text-center text-white">Last Name: </p>
+                <h3 className="text-center text-white">{this.props.user.lastName}</h3>
+              </div>
+              <div className="profile-element">
+                <p className="text-center text-white">Email: </p>
+                <h3 className="text-center text-white">{this.props.user.email}</h3>
+              </div>
             </div>
           </div>
         </div>
