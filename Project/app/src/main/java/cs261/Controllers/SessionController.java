@@ -369,7 +369,7 @@ public class SessionController {
             User user = dbConn.getUserByToken(token);
             if (Objects.isNull(user)) {
                 response.status(450);
-                logger.warn("Delete session {} attempted with invalid token: {}", sessionID, token);
+                logger.warn("Clone session {} attempted with invalid token: {}", sessionID, token);
                 return "Invalid Token";
             }
 
@@ -410,19 +410,22 @@ public class SessionController {
             HostSesh hs2 = new HostSesh(newSessionID, seriesID, new String(hs.getSessionName()), (float) 0, user, false,
                     new ArrayList<Question>(hs.getPushedQuestions()), new Chat(), newSecure,
                     new ArrayList<Question>(hs.getHiddenQuestions()), new ArrayList<MoodDate>(), new ArrayList<User>());
+            dbConn.createSession(hs2);
             for (Question q : hs2.getPushedQuestions()) {
-                hs2.pullQuestion(q.getID());
+                dbConn.createQuestion(q, newSessionID);
+            }
+            for (Question q : hs2.getHiddenQuestions()) {
+                q.setPushed(false);
+                dbConn.createQuestion(q, newSessionID);
             }
             cacher.addModerator(user, newSessionID);
-
-            dbConn.createSession(hs2);
 
             return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"watchToken\":\""
                     + dbConn.newWatchToken(user.getId()) + "\",\"session\":" + gson.toJson(hs2) + "}";
 
         } catch (Exception e) {
             logger.warn("Encountered an exception trying to create a session, message as follows: \n{}",
-                    e.getStackTrace());
+                    e.getMessage());
         }
         response.status(459);
         return "Couldn't peform this operation";

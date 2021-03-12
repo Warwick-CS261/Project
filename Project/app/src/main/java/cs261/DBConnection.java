@@ -48,10 +48,11 @@ public class DBConnection {
         stmt.setInt(6, s.getOwner().getId());
         stmt.executeUpdate();
 
-        for (Question q : s.getHiddenQuestions()) {
-            createQuestion(q, s.getId());
-        }
+        /*
+         * for (Question q : s.getHiddenQuestions()) { createQuestion(q, s.getId()); }
+         */
         return s;
+
     }
 
     public Boolean createSeries(String seriesID, User user) throws SQLException {
