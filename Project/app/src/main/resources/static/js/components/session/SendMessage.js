@@ -92,17 +92,7 @@ export default class SendMessage extends React.Component {
             {this.state.error}
           </div>
         }
-        <div className="mb-3">
-          <input
-            type="text"
-            name="msg"
-            className="form-control"
-            onChange={this.handleChange}
-            value={this.state.msg}
-            placeholder="Send a message"
-          />  
-        </div>
-        <div className="mb-3">
+        <div className="chat-anonymous">
           <input
             type="checkbox"
             name="anon"
@@ -110,13 +100,24 @@ export default class SendMessage extends React.Component {
             onChange={this.handleCheck}
             value={this.state.anon}
           />
+          <div className="anonymous fs-6">Anonymous</div>
         </div>
-        <div className="mb-3">
+        
+        <div className="chat-input">
+          <input
+            type="text"
+            name="msg"
+            className=""
+            onChange={this.handleChange}
+            value={this.state.msg}
+            placeholder="Send a message"
+          />  
+          
           <button
             type="submit"
-            className="btn btn-primary"
+            className="transparent-button"
           >
-            Send
+            <i className="bi bi-cursor-fill fs-3"></i>
           </button>
         </div>
       </form>
