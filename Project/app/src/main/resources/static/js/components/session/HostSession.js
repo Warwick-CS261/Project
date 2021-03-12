@@ -12,6 +12,7 @@ import Chat from './Chat';
 import CreateQuestion from '../question/CreateQuestion';
 import Questions from '../question/Questions';
 import AddMod from './AddMod';
+import BarChart from '../BarChart';
 
 export default class HostSession extends React.Component {
   constructor(props) {
@@ -94,7 +95,6 @@ export default class HostSession extends React.Component {
           type: "POST",
           timeout: 60000,
           success: (data, status, jqXHR) =>{
-            console.log(jqXHR);
             let object = JSON.parse(data);
             let watchToken = object.watchToken;
             Cookies.set('watchToken', watchToken);
@@ -122,25 +122,25 @@ export default class HostSession extends React.Component {
                   let oldPushed = prevState.pushedQuestions;
                   let oldHidden = prevState.hiddenQuestions;
                   if (question.pushed){
-                    let index = oldHidden.indexOf(question);
+                    let index = oldHidden.findIndex(x => x.id === question.id);
                     if (index > -1){
-                      let newHidden = oldHidden.splice(index,1);
-                      let newPushed = oldPushed.push(question);
+                      oldHidden.splice(index,1);
+                      oldPushed.push(question);
                       return {
                         ...prevState,
-                        hiddenQuestions: newHidden,
-                        pushedQuestions: newPushed,
+                        hiddenQuestions: oldHidden,
+                        pushedQuestions: oldPushed,
                       }
                     }
                   } else {
-                    let index = oldPushed.indexOf(question);
+                    let index = oldPushed.findIndex(x => x.id === question.id);
                     if (index > -1){
-                      let newPushed = oldPushed.splice(index,1);
-                      let newHidden = oldHidden.push(question);
+                      oldPushed.splice(index,1);
+                      oldHidden.push(question);
                       return {
                         ...prevState,
-                        hiddenQuestions: newHidden,
-                        pushedQuestions: newPushed,
+                        hiddenQuestions: oldHidden,
+                        pushedQuestions: oldPushed,
                       };
                     }
                   }
@@ -149,9 +149,9 @@ export default class HostSession extends React.Component {
               case 233:
                 this.setState((prevState)=>{
                   let answer = object.answer.answer;
-                  let qID = object.answer.qID;
+                  let id = object.answer.qID;
                   let index;
-                  index = prevState.pushedQuestions.indexOf(qID);
+                  index = prevState.pushedQuestions.findIndex(x => x.id === id);
                   if (index > -1){
                     let newPushed = prevState.pushedQuestions;
                     newPushed[index].answers.push(answer);
@@ -191,7 +191,7 @@ export default class HostSession extends React.Component {
                 this.setState((prevState)=>{
                   let qID = object.qID
                   let index;
-                  index = prevState.hiddenQuestions.findIndex(x => x.qID === qID);
+                  index = prevState.hiddenQuestions.findIndex(x => x.id === qID);
                   if (index > -1){
                     let newHidden = prevState.hiddenQuestions;
                     newHidden.splice(index,1);
@@ -200,7 +200,7 @@ export default class HostSession extends React.Component {
                       hiddenQuestions: newHidden, 
                     };
                   } else {
-                    index = prevState.pushedQuestions.findIndex(x => x.qID === qID);
+                    index = prevState.pushedQuestions.findIndex(x => x.id === qID);
                     if (index > -1){
                       let newPushed = prevState.pushedQuestions;
                       newPushed.splice(index,1);
@@ -254,13 +254,22 @@ export default class HostSession extends React.Component {
     // TODO display refresh page
     return (
       <>
-        <h2>{this.state.sessionName}</h2>
-        <h6>{this.state.id}</h6>
+        <div className="heading">
+          <h1><i className="bi bi-calendar-event-fill"></i>{this.state.sessionName}</h1>
+        </div>
+        <h6>#{this.state.id}</h6>
+        {this.state.secure !== "" &&
+        <h6>
+          <i className="bi bi-shield-lock-fill"></i>
+          {this.state.secure}
+        </h6>
+        }
         {this.state.error !== false && 
           <div className="alert alert-danger" role="alert">
             {this.state.error}
           </div>
         }
+        <BarChart data={this.state.moodHistory} />
         <Chat
           sessionID={this.state.id}
           updateToken={this.props.updateToken}

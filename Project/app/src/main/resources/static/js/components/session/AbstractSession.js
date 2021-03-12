@@ -1,7 +1,7 @@
 import React from 'react';
 import Cookies from "js-cookie";
 import $ from "jquery";
-import { withRouter } from 'react-router';
+import { Redirect, withRouter } from 'react-router';
 import AttendeeSession from './AttendeeSession';
 import HostSession from './HostSession';
 
