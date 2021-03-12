@@ -358,6 +358,77 @@ public class SessionController {
         response.status(459);
         return "Couldn't peform this operation";
     };
+    public static Route copySession = (Request request, Response response) -> {
+        DBConnection dbConn = App.getApp().getDbConn();
+        Cacher cacher = App.getApp().getCacher();
+        String token = request.cookie("token");
+        String sessionID = request.params(":id");
+        try {
+
+            // verifies token and gets user
+            User user = dbConn.getUserByToken(token);
+            if (Objects.isNull(user)) {
+                response.status(450);
+                logger.warn("Delete session {} attempted with invalid token: {}", sessionID, token);
+                return "Invalid Token";
+            }
+
+            HostSesh hs = cacher.getHostSessionByID(sessionID);
+            // verifies session exists
+            if (Objects.isNull(hs)) {
+                response.status(454);
+                logger.warn("User {} attempted to access session {} but it doesn't exist", user.getId(), sessionID);
+                return "Session doesn't exist";
+            }
+
+            // verifies user is session host
+            if (!cacher.userIsSessionHost(user, sessionID)) {
+                response.status(401);
+                return "No permission";
+            }
+            String seriesID;
+            if (Objects.isNull(hs.getSeriesID())) {
+
+                do {
+                    seriesID = Sesh.generateID();
+                } while (dbConn.seriesExists(seriesID));
+            } else {
+                seriesID = hs.getSeriesID();
+            }
+
+            cacher.setSessionSeries(sessionID, seriesID);
+
+            String newSessionID;
+            do {
+                newSessionID = Sesh.generateID();
+            } while (dbConn.sessionExists(newSessionID));
+
+            String newSecure = "";
+            if (!hs.getSecure().equals("")) {
+                newSecure = Sesh.generateID();
+            }
+
+            HostSesh hs2 = new HostSesh(newSessionID, seriesID, hs.getSessionName(), (float) 0, user, false,
+                    hs.getPushedQuestions(), new Chat(), newSecure, hs.getHiddenQuestions(), new ArrayList<MoodDate>(),
+                    new ArrayList<User>());
+            for (Question q : hs2.getPushedQuestions()) {
+                hs2.pullQuestion(q.getID());
+            }
+            cacher.addModerator(user, newSessionID);
+
+            dbConn.createSession(hs2);
+
+            return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"watchToken\":\""
+                    + dbConn.newWatchToken(user.getId()) + "\",\"session\":" + gson.toJson(hs2) + "}";
+
+        } catch (Exception e) {
+            logger.warn("Encountered an exception trying to create a session, message as follows: \n{}",
+                    e.getMessage());
+        }
+        response.status(459);
+        return "Couldn't peform this operation";
+
+    };
 
     public static Route watchSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();

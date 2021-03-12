@@ -27,7 +27,7 @@ CREATE TABLE SERIES
 (
   id VARCHAR(6) PRIMARY KEY,
   userID INTEGER,
-  seriesName VARCHAR(30)
+  seriesName VARCHAR(30),
 );
 
 

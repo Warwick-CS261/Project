@@ -20,8 +20,8 @@ public class AuthController {
     public static Route login = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
 
-        String email = StringUtils.encodeHtml(request.queryParams("email"));
-        String pword = StringUtils.encodeHtml(request.queryParams("password"));
+        String email = escapeHtml(request.queryParams("email"));
+        String pword = escapeHtml(request.queryParams("password"));
 
         // REGEX EMAIL
         try {
@@ -49,11 +49,11 @@ public class AuthController {
     public static Route register = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
         // gets params
-        String email = StringUtils.encodeHtml(request.queryParams("email"));
-        String fname = StringUtils.encodeHtml(request.queryParams("fname"));
-        String lname = StringUtils.encodeHtml(request.queryParams("lname"));
-        String password = StringUtils.encodeHtml(request.queryParams("password"));
-        String rpassword = StringUtils.encodeHtml(request.queryParams("rpassword"));
+        String email = escapeHtml(request.queryParams("email"));
+        String fname = escapeHtml(request.queryParams("fname"));
+        String lname = escapeHtml(request.queryParams("lname"));
+        String password = escapeHtml(request.queryParams("password"));
+        String rpassword = escapeHtml(request.queryParams("rpassword"));
 
         // REGEX EMAIL
         // REGEX PASSWORD
@@ -91,7 +91,7 @@ public class AuthController {
     public static Route logout = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
         // gets token
-        String token = StringUtils.encodeHtml(request.cookie("token"));
+        String token = escapeHtml(request.cookie("token"));
         try {
             // expires token
             dbConn.expireToken(token);

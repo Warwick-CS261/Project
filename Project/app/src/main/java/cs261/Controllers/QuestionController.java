@@ -111,18 +111,19 @@ public class QuestionController {
 
             // creates new answer
             Answer answer = new Answer(user, smiley, context, new Date(), anonymous);
+            float textMood = App.getApp().getAnalyse().parseText(answer.getContext());
             // checks if the question should be used for the general mood of the session
             if (cacher.questionIsGeneral(sessionID, qID)) {
-
                 // sets session mood
-                cacher.setSessionMood(sessionID,
-                        App.getApp().getAnalyse().newMoodCoefficient(cacher.getSessionMood(sessionID),
-                                App.getApp().getAnalyse().parseText(answer.getContext()),
-                                dbConn.numOfAnswersToQ(sessionID, qID)));
-
+                cacher.setSessionMood(sessionID, App.getApp().getAnalyse().newMoodCoefficient(
+                        cacher.getSessionMood(sessionID), textMood, dbConn.numOfGeneralAnswers(sessionID)));
                 // creates new mood date
                 cacher.createMoodDate(sessionID, new MoodDate(cacher.getSessionMood(sessionID), new Date()));
             }
+
+            // sets new question mood
+            cacher.setQuestionMood(sessionID, qID, App.getApp().getAnalyse().newMoodCoefficient(
+                    cacher.getQuestionMood(sessionID, qID), textMood, dbConn.numOfAnswersToQ(sessionID, qID)));
 
             // creates new answer
             cacher.createAnswer(answer, sessionID, qID);

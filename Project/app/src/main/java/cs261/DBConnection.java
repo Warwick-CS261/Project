@@ -47,7 +47,30 @@ public class DBConnection {
         stmt.setString(5, s.getSecure());
         stmt.setInt(6, s.getOwner().getId());
         stmt.executeUpdate();
+
+        for (Question q : s.getHiddenQuestions()) {
+            createQuestion(q, s.getId());
+        }
         return s;
+    }
+
+    public Boolean createSeries(String seriesID, User user) throws SQLException {
+        String query = "INSERT INTO SERIES VALUES (?,?,?)";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, seriesID);
+        stmt.setInt(2, user.getId());
+        stmt.setString(3, "");
+        stmt.executeUpdate();
+        return true;
+    }
+
+    public Boolean setSessionSeries(String sessionID, String seriesID) throws SQLException {
+        String query = "UPDATE SESH SET seriesID = ? WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, seriesID);
+        stmt.setString(2, sessionID);
+        stmt.executeUpdate();
+        return true;
     }
 
     public Question createQuestion(Question q, String sessionID) throws SQLException {
@@ -208,6 +231,34 @@ public class DBConnection {
         stmt.setString(2, sessionID);
         stmt.executeUpdate();
         return true;
+    }
+
+    public Boolean setQuestionMood(String sessionID, int qID, float mood) throws SQLException {
+        String query = "UPDATE QUESTION SET mood = ? WHERE id =? AND sessionID =?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setFloat(1, mood);
+        stmt.setInt(2, qID);
+        stmt.setString(3, sessionID);
+        stmt.executeUpdate();
+        return true;
+    }
+
+    public int numOfGeneralAnswers(String sessionID) throws SQLException {
+        int count = 0;
+        String query = "SELECT id FROM QUESTION WHERE sessionID = ? AND general = 1";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, sessionID);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            query = "SELECT count(*) FROM ANSWER WHERE qID = ? AND sessionID = ?";
+            PreparedStatement stmt2 = connection.prepareStatement(query);
+            stmt2.setInt(1, rs.getInt(1));
+            stmt2.setString(2, sessionID);
+            ResultSet rs2 = stmt2.executeQuery();
+            rs2.next();
+            count = count + rs2.getInt(1);
+        }
+        return count;
     }
 
     public String newToken(int userID) throws SQLException {

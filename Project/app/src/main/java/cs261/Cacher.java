@@ -45,7 +45,12 @@ public class Cacher {
         return getQuestionByID(sessionID, qID).getGeneral();
     }
 
-    public Boolean setQuestionMood() {
+    public Boolean setQuestionMood(String sessionID, int qID, float mood) throws SQLException {
+        HostSesh hs;
+        if (!Objects.isNull(hs = searchCache(sessionID))) {
+            hs.getQuestionByID(qID).setMood(mood);
+        }
+        dbConn.setQuestionMood(sessionID, qID, mood);
         return true;
     }
 
@@ -82,10 +87,7 @@ public class Cacher {
     public Boolean endQuestion(String sessionID, int qID) throws SQLException {
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))) {
-            Question q = hs.getQuestionByID(qID);
-            q.setPushed(false);
-            hs.getPushedQuestions().remove(q);
-            hs.getHiddenQuestions().add(q);
+            hs.pullQuestion(qID);
         }
         dbConn.endQuestion(sessionID, qID);
         return true;
@@ -133,6 +135,15 @@ public class Cacher {
             hs.setMood(mood);
         }
         dbConn.setSessionMood(sessionID, mood);
+        return true;
+    }
+
+    public Boolean setSessionSeries(String sessionID, String seriesID) throws SQLException {
+        HostSesh hs;
+        if (!Objects.isNull(hs = searchCache(sessionID))) {
+            hs.setSeriesID(seriesID);
+        }
+        dbConn.setSessionSeries(sessionID, seriesID);
         return true;
     }
 
