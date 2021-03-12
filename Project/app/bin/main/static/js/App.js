@@ -47,6 +47,7 @@ class App extends React.Component {
     this.handleLogout = this.handleLogout.bind(this);
     this.updateToken = this.updateToken.bind(this);
     this.updateWatchToken = this.updateWatchToken.bind(this);
+    this.setUser = this.setUser.bind(this);
   }
 
   handleLogout(){
@@ -130,11 +131,13 @@ class App extends React.Component {
                 <Route path="/auth/login">
                   <Login
                     updateToken={this.updateToken}
+                    setUser={this.setUser}
                   />
                 </Route>
                 <Route path="/auth/register">
                   <SignUp
                     updateToken={this.updateToken}
+                    setUser={this.setUser}
                   />
                 </Route>
               </Switch>
