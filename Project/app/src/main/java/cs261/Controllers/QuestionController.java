@@ -112,13 +112,16 @@ public class QuestionController {
             // creates new answer
             Answer answer = new Answer(user, smiley, context, new Date(), anonymous);
             float textMood = App.getApp().getAnalyse().parseText(answer.getContext());
+            MoodDate moodDate = new MoodDate(cacher.getSessionMood(sessionID), new Date());
+            String moodDateStr = "null";
             // checks if the question should be used for the general mood of the session
             if (cacher.questionIsGeneral(sessionID, qID)) {
                 // sets session mood
                 cacher.setSessionMood(sessionID, App.getApp().getAnalyse().newMoodCoefficient(
                         cacher.getSessionMood(sessionID), textMood, dbConn.numOfGeneralAnswers(sessionID)));
                 // creates new mood date
-                cacher.createMoodDate(sessionID, new MoodDate(cacher.getSessionMood(sessionID), new Date()));
+                cacher.createMoodDate(sessionID, moodDate);
+                moodDateStr = gson.toJson(moodDate);
             }
 
             // sets new question mood
@@ -130,14 +133,14 @@ public class QuestionController {
 
             // notifies mods and provides new answer
             App.getApp().getObservable().notifyModerators(3, sessionID,
-                    "{\"qID\":" + qID + ",\"answer\":" + gson.toJson(answer) + "}");
+                    "{\"qID\":" + qID + ",\"answer\":" + gson.toJson(answer) + ",\"moodDate\":" + moodDateStr + "}");
 
             // returns new token
             return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
         } catch (Exception e) {
             logger.warn("Encountered an SQLEXcpeption trying to submit a response, message as follows: \n{}",
                     e.getMessage());
-                    e.printStackTrace();
+            e.printStackTrace();
         }
         response.status(459);
         return "Couldn't peform this operation";
