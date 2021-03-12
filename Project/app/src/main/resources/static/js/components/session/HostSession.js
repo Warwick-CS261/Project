@@ -12,6 +12,7 @@ import Chat from './Chat';
 import CreateQuestion from '../question/CreateQuestion';
 import Questions from '../question/Questions';
 import AddMod from './AddMod';
+import BarChart from '../BarChart';
 
 export default class HostSession extends React.Component {
   constructor(props) {
@@ -268,6 +269,7 @@ export default class HostSession extends React.Component {
             {this.state.error}
           </div>
         }
+        <BarChart data={this.state.moodHistory} />
         <Chat
           sessionID={this.state.id}
           updateToken={this.props.updateToken}

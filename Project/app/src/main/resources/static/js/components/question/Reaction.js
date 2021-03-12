@@ -8,7 +8,6 @@ export default class Reaction extends React.Component {
     super(props);
     if (this.props.qID === null || this.props.qID === undefined){
       this.state = {
-        question: "How's the session going?",
         context: "",
         anon: false,
         smiley: -1,
@@ -17,7 +16,6 @@ export default class Reaction extends React.Component {
       }
     } else {
       this.state = {
-        question: this.props.question,
         context: "",
         anon: false,
         smiley: -1,
@@ -126,7 +124,7 @@ export default class Reaction extends React.Component {
   render(){
     return(
       <>
-        <h6>{this.state.question ? this.state.question : 'How is the session going?'}</h6>
+        <h6>{this.props.question ? this.props.question : 'How is the session going?'}</h6>
         <hr />
         {this.state.error !== false && (
           <div className="alert alert-danger" role="alert">
