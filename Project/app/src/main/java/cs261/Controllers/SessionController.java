@@ -422,7 +422,7 @@ public class SessionController {
 
         } catch (Exception e) {
             logger.warn("Encountered an exception trying to create a session, message as follows: \n{}",
-                    e.getMessage());
+                    e.getStackTrace());
         }
         response.status(459);
         return "Couldn't peform this operation";
