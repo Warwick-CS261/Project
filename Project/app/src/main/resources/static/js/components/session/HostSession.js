@@ -94,7 +94,6 @@ export default class HostSession extends React.Component {
           type: "POST",
           timeout: 60000,
           success: (data, status, jqXHR) =>{
-            console.log(jqXHR);
             let object = JSON.parse(data);
             let watchToken = object.watchToken;
             Cookies.set('watchToken', watchToken);
@@ -121,20 +120,11 @@ export default class HostSession extends React.Component {
                   let question = object.question;
                   let oldPushed = prevState.pushedQuestions;
                   let oldHidden = prevState.hiddenQuestions;
-                  console.log(oldHidden);
-                  console.log(oldPushed);
-                  if (!question.pushed){
-                    console.log('QID');
-                    console.log(question.id);
-                    let index = oldHidden.findIndex(x => x.qID === question.qID);
-                    console.log('Search in Hidden');
-                    console.log(index);
-                    
+                  if (question.pushed){
+                    let index = oldHidden.findIndex(x => x.id === question.id);
                     if (index > -1){
                       oldHidden.splice(index,1);
-                      console.log(oldHidden);
                       oldPushed.push(question);
-                      console.log(oldPushed);
                       return {
                         ...prevState,
                         hiddenQuestions: oldHidden,
@@ -142,17 +132,10 @@ export default class HostSession extends React.Component {
                       }
                     }
                   } else {
-                    console.log('QID');
-                    console.log(question.id);
-                    let index = oldPushed.findIndex(x => {x.qID === question.qID});
-                    console.log('Search in pushed');
-                    console.log(index);
-
+                    let index = oldPushed.findIndex(x => x.id === question.id);
                     if (index > -1){
                       oldPushed.splice(index,1);
-                      console.log(oldPushed);
                       oldHidden.push(question);
-                      console.log(oldHidden);
                       return {
                         ...prevState,
                         hiddenQuestions: oldHidden,
@@ -165,9 +148,9 @@ export default class HostSession extends React.Component {
               case 233:
                 this.setState((prevState)=>{
                   let answer = object.answer.answer;
-                  let qID = object.answer.qID;
+                  let id = object.answer.qID;
                   let index;
-                  index = prevState.pushedQuestions.findIndex(x => x.qID === qID);
+                  index = prevState.pushedQuestions.findIndex(x => x.id === id);
                   if (index > -1){
                     let newPushed = prevState.pushedQuestions;
                     newPushed[index].answers.push(answer);
@@ -207,7 +190,7 @@ export default class HostSession extends React.Component {
                 this.setState((prevState)=>{
                   let qID = object.qID
                   let index;
-                  index = prevState.hiddenQuestions.findIndex(x => x.qID === qID);
+                  index = prevState.hiddenQuestions.findIndex(x => x.id === qID);
                   if (index > -1){
                     let newHidden = prevState.hiddenQuestions;
                     newHidden.splice(index,1);
@@ -216,7 +199,7 @@ export default class HostSession extends React.Component {
                       hiddenQuestions: newHidden, 
                     };
                   } else {
-                    index = prevState.pushedQuestions.findIndex(x => x.qID === qID);
+                    index = prevState.pushedQuestions.findIndex(x => x.id === qID);
                     if (index > -1){
                       let newPushed = prevState.pushedQuestions;
                       newPushed.splice(index,1);
