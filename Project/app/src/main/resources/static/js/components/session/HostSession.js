@@ -106,17 +106,110 @@ export default class HostSession extends React.Component {
                 });
                 break;
               case 231:
-                this.setState((oldProps)=>{
-                  let newChat = oldProps.chat;
+                this.setState((prevState)=>{
+                  let newChat = prevState.chat;
                   newChat.messages.push(object.message);
                   return {
+                    ...prevState,
                     chat: newChat,
                   }
                 });
                 break;
               case 232:
-                this.setState((oldProps)=>{
-                  // TODO remove / add question
+                this.setState((prevState)=>{
+                  // BUG question doens't load into different array
+                  let question = object.question;
+                  let oldPushed = prevState.pushedQuestions;
+                  let oldHidden = prevState.hiddenQuestions;
+                  if (question.pushed){
+                    let index = oldHidden.indexOf(question);
+                    if (index > -1){
+                      let newHidden = oldHidden.splice(index,1);
+                      let newPushed = oldPushed.push(question);
+                      return {
+                        ...prevState,
+                        hiddenQuestions: newHidden,
+                        pushedQuestions: newPushed,
+                      }
+                    }
+                  } else {
+                    let index = oldPushed.indexOf(question);
+                    if (index > -1){
+                      let newPushed = oldPushed.splice(index,1);
+                      let newHidden = oldHidden.push(question);
+                      return {
+                        ...prevState,
+                        hiddenQuestions: newHidden,
+                        pushedQuestions: newPushed,
+                      };
+                    }
+                  }
+                });
+                break;
+              case 233:
+                this.setState((prevState)=>{
+                  let answer = object.answer.answer;
+                  let qID = object.answer.qID;
+                  let index;
+                  index = prevState.pushedQuestions.indexOf(qID);
+                  if (index > -1){
+                    let newPushed = prevState.pushedQuestions;
+                    newPushed[index].answers.push(answer);
+                    return {
+                      ...prevState,
+                      pushedQuestions: newPushed,
+                    };
+                  };
+                });
+                break;
+              case 234:
+                this.setState((prevState)=>{
+                  // TODO add user to mods
+                });
+                break;
+              case 235:
+                // TODO redirect to home and display error
+                this.setState({
+                  error: <Redirect to={{
+                    pathname: '/',
+                    state: { error: 'Session has ended' }
+                  }} />,
+                });
+                break;
+              case 236:
+                this.setState((prevState)=>{
+                  let question = object.question;
+                  let newHidden = prevState.hiddenQuestions;
+                  newHidden.push(question);
+                  return {
+                    ...prevState,
+                    hiddenQuestions: newHidden,
+                  };
+                });
+                break;
+              case 237:
+                this.setState((prevState)=>{
+                  let qID = object.qID
+                  let index;
+                  index = prevState.hiddenQuestions.findIndex(x => x.qID === qID);
+                  if (index > -1){
+                    let newHidden = prevState.hiddenQuestions;
+                    newHidden.splice(index,1);
+                    return {
+                      ...prevState,
+                      hiddenQuestions: newHidden, 
+                    };
+                  } else {
+                    index = prevState.pushedQuestions.findIndex(x => x.qID === qID);
+                    if (index > -1){
+                      let newPushed = prevState.pushedQuestions;
+                      newPushed.splice(index,1);
+                      return {
+                        ...prevState,
+                        pushedQuestions: newPushed,
+                      };
+                    }
+                  }
                 });
                 break;
             }
