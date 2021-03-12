@@ -8,7 +8,7 @@ import {
 import { Redirect } from 'react-router';
 import $ from 'jquery';
 
-import Chat from '../Chat';
+import Chat from './Chat';
 import CreateQuestion from '../question/CreateQuestion';
 import Questions from '../question/Questions';
 import AddMod from './AddMod';

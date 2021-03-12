@@ -4,7 +4,7 @@ import { Route, NavLink, Switch } from "react-router-dom";
 import { withRouter } from "react-router";
 import $ from "jquery";
 
-import Chat from "../Chat";
+import Chat from "./Chat";
 import Reaction from "../question/Reaction";
 import Questions from "../question/Questions";
 
@@ -74,7 +74,7 @@ class AttendeeSession extends React.Component {
                 console.log(oldProps);
                 console.log(object);
                 let newChat = oldProps.chat;
-                newChat.messages.push(object.update);
+                newChat.messages.push(object.message);
                 return {
                   chat: newChat,
                 }

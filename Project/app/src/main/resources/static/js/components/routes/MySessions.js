@@ -102,6 +102,7 @@ export default class MySessions extends React.Component {
     }
 
     if (this.props.isMod){
+      // TODO remove session
       return (
         <section className="main">
           <div className="container-fluid">
@@ -120,16 +121,16 @@ export default class MySessions extends React.Component {
                         <h3>{session.sessionName}</h3>
                         <i>#<span>{session.id}</span></i><br></br>
                         <h5>Host: <span>{session.owner.fname} {session.owner.lname}</span></h5>
-                        {this.props.user !== undefined ?
-                        this.props.user.email === session.owner.email &&
+                        {this.props.user.email === session.owner.email &&
                           <button
                             className="btn btn-danger"
-                            onClick={()=> this.handleDelete(session.id)}
+                            onClick={(e)=> {
+                              e.stopPropagation(); 
+                              this.handleDelete(session.id)
+                            }}
                           >
                             <i className="bi bi-trash-fill"></i>
                           </button>
-                          :
-                          <></>
                         }
                       </div>
                       

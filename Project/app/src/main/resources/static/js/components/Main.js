@@ -7,10 +7,10 @@ import {
   useHistory
 } from 'react-router-dom';
 
-import Home from './Home';
+import Home from './routes/Home';
 import Logo from './Logo';
-import User from './User';
-import MySessions from './MySessions';
+import User from './routes/User';
+import MySessions from './routes/MySessions';
 import AttendeeSession from './session/AttendeeSession';
 import HostSession from './session/HostSession';
 import JoinSession from './session/JoinSession';
@@ -156,6 +156,7 @@ export default class Main extends React.Component {
             <MySessions
               updateToken={this.props.updateToken}
               isMod={true}
+              user={this.props.user}
             />
           </Route>
           <Route path={routes[3].path}>
