@@ -137,6 +137,7 @@ public class QuestionController {
         } catch (Exception e) {
             logger.warn("Encountered an SQLEXcpeption trying to submit a response, message as follows: \n{}",
                     e.getMessage());
+                    e.printStackTrace();
         }
         response.status(459);
         return "Couldn't peform this operation";

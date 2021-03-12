@@ -13,6 +13,8 @@ import CreateQuestion from '../question/CreateQuestion';
 import Questions from '../question/Questions';
 import AddMod from './AddMod';
 import BarChart from '../BarChart';
+import Timeline from '../Timeline';
+import Indicator from '../Indicator';
 
 export default class HostSession extends React.Component {
   constructor(props) {
@@ -67,16 +69,6 @@ export default class HostSession extends React.Component {
     }
   }
 
-  /*
-    230 - session ended {""}
-    231 - new message {message}
-    232 - question changed {question}
-    233 - response to question received {answer}
-    234 - moderator added {user}
-    235 - session deleted {id}
-    236 - question created (need to read pushed value) {question}
-    237 - question deleted {qID}
-  */
   async componentDidUpdate(){
     try {
       if (!this.state.subscribed && this.state.id !== ""){
@@ -100,11 +92,13 @@ export default class HostSession extends React.Component {
             Cookies.set('watchToken', watchToken);
             this.props.updateWatchToken(watchToken);
             switch(jqXHR.status){
+              // Session ended
               case 230:
                 this.setState({
                   finished: true,
                 });
                 break;
+              // New message
               case 231:
                 this.setState((prevState)=>{
                   let newChat = prevState.chat;
@@ -115,6 +109,7 @@ export default class HostSession extends React.Component {
                   }
                 });
                 break;
+              // Question changed
               case 232:
                 this.setState((prevState)=>{
                   // BUG question doens't load into different array
@@ -146,6 +141,7 @@ export default class HostSession extends React.Component {
                   }
                 });
                 break;
+              // Response received
               case 233:
                 this.setState((prevState)=>{
                   let answer = object.answer.answer;
@@ -162,11 +158,13 @@ export default class HostSession extends React.Component {
                   };
                 });
                 break;
+              // Moderator added to session
               case 234:
                 this.setState((prevState)=>{
                   // TODO add user to mods
                 });
                 break;
+              // Session deleted
               case 235:
                 // TODO redirect to home and display error
                 this.setState({
@@ -176,17 +174,28 @@ export default class HostSession extends React.Component {
                   }} />,
                 });
                 break;
+              // Created question
               case 236:
                 this.setState((prevState)=>{
                   let question = object.question;
-                  let newHidden = prevState.hiddenQuestions;
-                  newHidden.push(question);
-                  return {
-                    ...prevState,
-                    hiddenQuestions: newHidden,
-                  };
+                  if (!question.pushed){
+                    let newHidden = prevState.hiddenQuestions;
+                    newHidden.push(question);
+                    return {
+                      ...prevState,
+                      hiddenQuestions: newHidden,
+                    };
+                  } else {
+                    let newPushed = prevState.pushedQuestions;
+                    newPushed.push(question);
+                    return {
+                      ...prevState,
+                      pushedQuestions: newPushed,
+                    };
+                  }
                 });
                 break;
+              // Question deleted
               case 237:
                 this.setState((prevState)=>{
                   let qID = object.qID
@@ -212,6 +221,18 @@ export default class HostSession extends React.Component {
                   }
                 });
                 break;
+              // Token valid watchtoken invalid
+              case 250:
+                let token = object.token;
+                let watchToken = object.token;
+                if (watchToken === undefined || watchToken === null || token === undefined || token === null){
+                  console.log('Server response invalid');
+                  return;
+                }
+                Cookies.set('token', token);
+                Cookies.set('watchToken', watchToken);
+                this.props.updateToken(token);
+                this.props.updateWatchToken(token);
             }
           }
         });
@@ -269,7 +290,9 @@ export default class HostSession extends React.Component {
             {this.state.error}
           </div>
         }
+        <Indicator mood={this.state.mood} />
         <BarChart data={this.state.moodHistory} />
+        <Timeline data={this.state.moodHistory} />
         <Chat
           sessionID={this.state.id}
           updateToken={this.props.updateToken}

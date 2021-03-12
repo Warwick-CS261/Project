@@ -66,14 +66,92 @@ class AttendeeSession extends React.Component {
             let watchToken = object.watchToken;
             Cookies.set('watchToken', watchToken);
             this.props.updateWatchToken(watchToken);
-            if (jqXHR.status == 231){
-              this.setState((oldProps)=>{
-                let newChat = oldProps.chat;
-                newChat.messages.push(object.message);
-                return {
-                  chat: newChat,
+            switch(jqXHR.status){
+              // Session ended
+              case 230:
+                this.setState({
+                  finished: true,
+                });
+                break;
+              // New message
+              case 231:
+                this.setState((prevState)=>{
+                  let newChat = prevState.chat;
+                  newChat.messages.push(object.message);
+                  return {
+                    ...prevState,
+                    chat: newChat,
+                  }
+                });
+                break;
+              // Question changed
+              case 232:
+                this.setState((prevState)=>{
+                  // BUG question doens't load into different array
+                  let question = object.question;
+                  let oldPushed = prevState.pushedQuestions;
+                  if (question.pushed){
+                    oldPushed.push(question);
+                    return {
+                      ...prevState,
+                      pushedQuestions: oldPushed,
+                    }
+                  } else {
+                    let index = oldPushed.findIndex(x => x.id === question.id);
+                    if (index > -1){
+                      oldPushed.splice(index,1);
+                      return {
+                        ...prevState,
+                        pushedQuestions: oldPushed,
+                      };
+                    }
+                  }
+                });
+                break;
+              // Moderator added to session
+              case 234:
+                this.setState((prevState)=>{
+                  // TODO add user to mods
+                });
+                break;
+              // Session deleted
+              case 235:
+                // TODO redirect to home and display error
+                this.setState({
+                  error: <Redirect to={{
+                    pathname: '/',
+                    state: { error: 'Session has ended' }
+                  }} />,
+                });
+                break;
+              // Question deleted
+              case 237:
+                this.setState((prevState)=>{
+                  let qID = object.qID
+                  let index;
+                  index = prevState.pushedQuestions.findIndex(x => x.id === qID);
+                  if (index > -1){
+                    let newPushed = prevState.pushedQuestions;
+                    newPushed.splice(index,1);
+                    return {
+                      ...prevState,
+                      pushedQuestions: newPushed,
+                    };
+                  }
+                });
+                break;
+              // Token valid watchtoken invalid
+              case 250:
+                let token = object.token;
+                let watchToken = object.token;
+                if (watchToken === undefined || watchToken === null || token === undefined || token === null){
+                  console.log('Server response invalid');
+                  return;
                 }
-              });
+                Cookies.set('token', token);
+                Cookies.set('watchToken', watchToken);
+                this.props.updateToken(token);
+                this.props.updateWatchToken(token);
             }
           }
         });

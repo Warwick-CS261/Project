@@ -169,7 +169,7 @@ export default class MySessions extends React.Component {
         <section className="main">
           <div className="container-fluid">
             <div className="heading">
-              <h1><i className="bi bi-calendar-event-fill"></i>Sessions</h1>
+              <h1><i className="bi bi-calendar-event-fill"></i>My Sessions</h1>
             </div>
             <div className="sessiongridcontainer">
               <div className="sessiongrid">

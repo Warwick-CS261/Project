@@ -8,8 +8,8 @@ import cs261.Controllers.*;
 
 public class App {
 
-    static int port = 4000;
-    static String address = "localhost";
+    static int port = 80;
+    static String address = "www.eryl.cymru";
     private DBConnection dbConn;
     private Obserable observable;
     private Analyse analyse;
