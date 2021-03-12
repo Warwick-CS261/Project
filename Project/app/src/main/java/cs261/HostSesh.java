@@ -37,7 +37,12 @@ public class HostSesh extends Sesh {
     }
 
     public Sesh convertToSesh() {
-        return new Sesh(id, seriesID, sessionName, owner, finished, chat, pushedQuestions, moderators);
+        Sesh s = new Sesh(id, seriesID, sessionName, owner, finished, chat, new ArrayList<Question>(pushedQuestions),
+                moderators);
+        for (Question q : s.getPushedQuestions()) {
+            q.setAnswers(new ArrayList<Answer>());
+        }
+        return s;
     }
 
     public Boolean pushQuestion(int qID) {

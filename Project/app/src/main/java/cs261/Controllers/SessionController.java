@@ -88,8 +88,8 @@ public class SessionController {
             return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"series\":"
                     + gson.toJson(dbConn.getUserSessions(user.getId())) + "}";
         } catch (Exception e) {
-            logger.warn("Encountered an exception trying to get user sessions, message as follows: \n{}",
-                    e.getMessage());
+            logger.warn("Encountered an exception trying to get user sessions, message as follows: \n");
+            e.printStackTrace();
         }
         response.status(459);
         return "Couldn't peform this operation";

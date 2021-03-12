@@ -55,7 +55,7 @@ public class QuestionController {
 
             if (pushed) {
                 // notifies attendees and mods as question is pushed
-                App.getApp().getObservable().notifyAttendees(2, sessionID, gson.toJson(q));
+                App.getApp().getObservable().notifyAttendees(2, sessionID, gson.toJson(q.attendeeQuestion()));
                 App.getApp().getObservable().notifyModerators(6, sessionID, gson.toJson(q));
             } else {
                 App.getApp().getObservable().notifyModerators(6, sessionID, gson.toJson(q));
@@ -241,7 +241,8 @@ public class QuestionController {
             cacher.endQuestion(sessionID, qID);
 
             // notifies everyone
-            App.getApp().getObservable().notifyBoth(2, sessionID, gson.toJson(q));// need to discuss how to do this
+            App.getApp().getObservable().notifyBoth(2, sessionID, gson.toJson(q.attendeeQuestion()));// need to discuss
+                                                                                                     // how to do this
 
             // returns new token
             return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
@@ -295,7 +296,7 @@ public class QuestionController {
             cacher.pushQuestion(sessionID, qID);
 
             // notifies all watchers question has ended
-            App.getApp().getObservable().notifyBoth(2, sessionID, gson.toJson(q));
+            App.getApp().getObservable().notifyBoth(2, sessionID, gson.toJson(q.attendeeQuestion()));
 
             // returns new token
             return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
