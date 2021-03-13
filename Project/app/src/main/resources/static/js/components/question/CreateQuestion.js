@@ -104,6 +104,11 @@ export default class CreateQuestion extends React.Component {
                   <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body">
+                  {this.state.success && 
+                    <div className="alert alert-success" role="alert">
+                      New question has been created
+                    </div>
+                  }
                   {this.state.error !== false && 
                     <div className="alert alert-danger" role="alert">
                       {this.state.error}
