@@ -45,7 +45,7 @@ export default class Questions extends React.Component {
               <h3 className="questions">Questions</h3>
               <hr className="text-white"></hr>
               <div className="question-scroll">
-                <ul className="list-unstyled">
+                <ul className="list-unstyled question-list">
                 {this.props.pushedQuestions.map((pq) => {
                   return(
                     <HostQuestion
@@ -56,6 +56,7 @@ export default class Questions extends React.Component {
                       updateToken={this.props.updateToken}
                       handleSelect={this.handleSelect}
                       finished={this.props.finished}
+                      selected={this.state.selected}
                     />
                   );
                 })}
@@ -69,6 +70,7 @@ export default class Questions extends React.Component {
                       updateToken={this.props.updateToken}
                       handleSelect={this.handleSelect}
                       finished={this.props.finished}
+                      selected={this.state.selected}
                     />
                   );
                 })}
@@ -95,7 +97,7 @@ export default class Questions extends React.Component {
               <h3 className="questions">Questions</h3>
               <hr className="text-white"></hr>
               <div className="question-scroll">
-                <ul className="list-unstyled">
+                <ul className="list-unstyled question-list">
                   {this.props.pushedQuestions.map((pq) => {
                     return(
                       <AttendeeQuestion

@@ -26,9 +26,16 @@ export default class SendMessage extends React.Component {
 
 
   handleChange(event){
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
+    if (this.state.error !== false) {
+      this.setState({
+        [event.target.name]: event.target.value,
+      });
+    } else {
+      this.setState({
+        [event.target.name]: event.target.value,
+        error: false,
+      });
+    }
   }
 
   handleCheck(event){
@@ -38,6 +45,13 @@ export default class SendMessage extends React.Component {
   }
 
   handleSubmit(event){
+    if (this.state.msg === ""){
+      this.setState({
+        error: 'Cannot send empty message',
+      });
+      event.preventDefault();
+      return;
+    }
     let params = new URLSearchParams();
     params.append("message", this.state.msg);
     params.append("anon", this.state.anon);

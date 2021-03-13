@@ -46,3 +46,11 @@ $happy: $mood-21;
 
   
 }
+
+.question-list{
+  
+  .active{
+    background-color: $light;
+    color: $dark;
+  }
+}

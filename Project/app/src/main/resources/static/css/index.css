@@ -11349,6 +11349,11 @@ fieldset:disabled .btn {
   float: right;
 }
 
+.question-list .active {
+  background-color: #ffffff;
+  color: #342e37;
+}
+
 body {
   width: 100vw;
   margin: 0;
