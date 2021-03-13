@@ -14,7 +14,7 @@
         margin-bottom: 8px;
       }
       .question-scroll{
-        height:400px;
+        height:350px;
         overflow-y: scroll;
       }
       .question-scroll::-webkit-scrollbar {
@@ -48,4 +48,10 @@
         display: none;
       }
     }
+  }
+
+  .create-question{
+    height:50px;
+    background-color:$dark;
+    border-top: 1px solid $primary;
   }

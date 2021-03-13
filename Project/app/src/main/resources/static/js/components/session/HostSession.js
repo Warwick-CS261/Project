@@ -327,12 +327,7 @@ export default class HostSession extends React.Component {
               </div>
             </div>
             <div className="bot">
-              {!this.state.finished &&
-                <CreateQuestion
-                  sessionID={this.state.id}
-                  updateToken={this.props.updateToken}
-                />
-              }
+              
               <Questions
                 pushedQuestions={this.state.pushedQuestions}
                 hiddenQuestions={this.state.hiddenQuestions}
@@ -351,13 +346,12 @@ export default class HostSession extends React.Component {
             />
           </div>
         </div>
-        
-
-        
-        
-        
-        
-        
+        {!this.state.finished &&
+                <CreateQuestion
+                  sessionID={this.state.id}
+                  updateToken={this.props.updateToken}
+                />
+              }
         {/* End session btn */}
         {!this.state.finished &&
         <>

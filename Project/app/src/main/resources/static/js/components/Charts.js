@@ -36,7 +36,7 @@ export default class Charts extends React.Component {
     }
 
     return(
-      <div>
+      <div className="text-center">
         <button
             type="button"
             onClick={this.toggleChart}

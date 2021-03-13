@@ -76,6 +76,9 @@ export default class Questions extends React.Component {
                 })}
                 </ul>
               </div>
+              <div className="create-question">
+
+                </div>
             </div>
             <div className="question-right">
               <div className="content">
