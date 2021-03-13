@@ -110,22 +110,6 @@ public class QuestionController {
                 response.status(457);
                 return "No such question";
             }
-            System.out.println("firest");
-
-            HostSesh hs = cacher.getHostSessionByID(sessionID);
-
-            for (Question q2 : hs.getHiddenQuestions()) {
-                System.out.println(q2);
-                for (Answer a2 : q2.getAnswers()) {
-                    System.out.println(a2.toString());
-                }
-            }
-            for (Question q2 : hs.getPushedQuestions()) {
-                System.out.println(q2);
-                for (Answer a2 : q2.getAnswers()) {
-                    System.out.println(a2.toString());
-                }
-            }
 
             // creates new answer
             Answer answer = new Answer(user, smiley, context, new Date(), anonymous);
@@ -142,40 +126,12 @@ public class QuestionController {
                 moodDateStr = gson.toJson(moodDate);
             }
 
-            System.out.println("second");
-            for (Question q2 : hs.getHiddenQuestions()) {
-                System.out.println(q2);
-                for (Answer a2 : q2.getAnswers()) {
-                    System.out.println(a2.toString());
-                }
-            }
-            for (Question q2 : hs.getPushedQuestions()) {
-                System.out.println(q2);
-                for (Answer a2 : q2.getAnswers()) {
-                    System.out.println(a2.toString());
-                }
-            }
-
             // sets new question mood
             cacher.setQuestionMood(sessionID, qID, App.getApp().getAnalyse().newMoodCoefficient(
                     cacher.getQuestionMood(sessionID, qID), textMood, dbConn.numOfAnswersToQ(sessionID, qID)));
 
             // creates new answer
             cacher.createAnswer(answer, sessionID, qID);
-
-            System.out.println("third");
-            for (Question q2 : hs.getHiddenQuestions()) {
-                System.out.println(q2);
-                for (Answer a2 : q2.getAnswers()) {
-                    System.out.println(a2.toString());
-                }
-            }
-            for (Question q2 : hs.getPushedQuestions()) {
-                System.out.println(q2);
-                for (Answer a2 : q2.getAnswers()) {
-                    System.out.println(a2.toString());
-                }
-            }
 
             // notifies mods and provides new answer
             App.getApp().getObservable().notifyModerators(3, sessionID,

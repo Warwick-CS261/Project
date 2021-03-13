@@ -143,6 +143,8 @@ class AppTest {
             // Test db.userIsModerator
 
             db.createUser(u2, "0002", "2");
+            u2 = db.getUserByEmail("2222@email.com");
+            System.out.println(u2.getId());
             assertTrue(db.userIsModerator(u1, "ABCDEF"));
             assertFalse(db.userIsModerator(u2, "ABCDEF"));
             assertEquals(1, db.getSessionModerators("ABCDEF").size());
@@ -152,7 +154,7 @@ class AppTest {
 
         try {
             // Test db.setModerator
-            assertFalse(db.addModerator(u2, "ABCDEF"));
+            assertTrue(db.addModerator(u2, "ABCDEF"));
             assertTrue(db.userIsModerator(u2, "ABCDEF"));
             assertEquals(2, db.getSessionModerators("ABCDEF").size());
         } catch (SQLException e) {

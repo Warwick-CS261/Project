@@ -62,6 +62,7 @@ def recreateDB = task recreateDB(type: Exec) {
 
 
 def finilize = task finalize {
+    dependsOn recreateDB
     dependsOn npmInstall
     dependsOn npxBuild
 }
