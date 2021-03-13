@@ -59,7 +59,6 @@ export default class CreateSession extends React.Component {
           });
           return;
         }
-        console.log(session);
         // set new tokens
         Cookies.set('token', token);
         Cookies.set('watchToken', watchToken);

@@ -11,29 +11,32 @@ export default class BarChart extends React.Component {
     const chartRef = this.barChartRef.current.getContext('2d');
 
     let dataObj = this.props.data;
+    dataObj.splice(0,1);
   
     let moods = [];
-    for (let i = 0; i < 21; i++) {
-      moods.push(0);
+    let dataToPlot = [];
+    if (dataObj.length != 0){
+      for (let i = 0; i < 21; i++) {
+        moods.push(0);
+      }
+    
+      dataObj.forEach(dataSlice => {
+        let val = Math.round(dataSlice.mood * 10) / 10;
+        moods[(val + 1) * 10] += 1;
+      });
+    
+      for (let i = 0; i < moods.length; i++) {
+        moods[i] = (moods[i] / dataObj.length) * 100;
+      }
+    
+      let total = 0;
+      for (let i = 0; i < moods.length; i++) {
+        total += moods[i];
+      }
+      
+      dataToPlot = moods;
     }
-  
-    dataObj.forEach(dataSlice => {
-      let val = Math.round(dataSlice.mood * 10) / 10;
-      moods[(val + 1) * 10] += 1;
-    });
-  
-    for (let i = 0; i < moods.length; i++) {
-      moods[i] = (moods[i] / dataObj.length) * 100;
-    }
-  
-    let total = 0;
-    for (let i = 0; i < moods.length; i++) {
-      total += moods[i];
-    }
-    console.log(total);
-  
-  
-    let dataToPlot = moods;
+    
     let xAxis = ['-1', '-0.9', '-0.8', '-0.7', '-0.6', '-0.5', '-0.4', '-0.3', '-0.2', '-0.1', '0', '0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '1']
   
     new Chart(chartRef, {

@@ -53,9 +53,7 @@ export default class SignUp extends React.Component {
       type: 'POST',
       data: params.toString(),
       success: (data, status, jqXHR) => {
-        console.log(data);
         let object = JSON.parse(data);
-        console.log(object);
         let token = object.token;
         if (token === null || token === undefined){
           this.setState({
@@ -105,7 +103,7 @@ export default class SignUp extends React.Component {
             <form onSubmit={this.handleSubmit} className="formwidth">
               <div className="row register-box">
                 <div className="col-6">
-                    <label htmlfor="fn" className="form-label">First Name</label>
+                    <label htmlFor="fn" className="form-label">First Name</label>
                     <input
                       type="text" 
                       name="fname" 
@@ -118,7 +116,7 @@ export default class SignUp extends React.Component {
                       autoComplete="given-name"
                       required
                     />
-                    <label htmlfor="fn" className="form-label mt-2">Last Name</label>
+                    <label htmlFor="fn" className="form-label mt-2">Last Name</label>
                     <input 
                       type="text" 
                       name="lname" 
@@ -130,7 +128,7 @@ export default class SignUp extends React.Component {
                       autoComplete="family-name"
                       required
                     />
-                    <label htmlfor="fn" className="form-label mt-2">Email</label>
+                    <label htmlFor="fn" className="form-label mt-2">Email</label>
                     <input 
                       type="email" 
                       name="email" 
@@ -142,7 +140,7 @@ export default class SignUp extends React.Component {
                       autoComplete="email"
                       required
                     />
-                    <label htmlfor="fn" className="form-label mt-2">Password</label>
+                    <label htmlFor="fn" className="form-label mt-2">Password</label>
                     <input 
                       type="password" 
                       name="password" 
@@ -154,7 +152,7 @@ export default class SignUp extends React.Component {
                       autoComplete="new-password"
                       required
                     />
-                    <label htmlfor="fn" className="form-label mt-2">Confirm Password</label>
+                    <label htmlFor="fn" className="form-label mt-2">Confirm Password</label>
                     <input 
                       type="password" 
                       name="rpassword" 
@@ -181,7 +179,7 @@ export default class SignUp extends React.Component {
                         className="form-check-input"
                         required
                       />
-                      <label htmlfor="terms" className="form-label termslabel"><b>I accept the terms and conditions!</b></label> 
+                      <label htmlFor="terms" className="form-label termslabel"><b>I accept the terms and conditions!</b></label> 
                       <br></br>
                     </div>
                   </div>          
