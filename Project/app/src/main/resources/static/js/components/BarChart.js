@@ -99,7 +99,9 @@ export default class BarChart extends React.Component {
 
   render(){
     return(
-      <canvas ref={this.barChartRef} />
+      <div className="bg-light chart">
+        <canvas ref={this.barChartRef} />
+      </div>
     );
   } 
 }

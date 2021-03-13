@@ -25,6 +25,10 @@ body{
   color: $dark;
 }
 
+body::-webkit-scrollbar{
+  display: none;
+}
+
 
 
 

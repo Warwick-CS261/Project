@@ -10,6 +10,7 @@
     .chat-scroll{
       height:100%;
       max-height:525px;
+      min-height: 525px;
       overflow-y: scroll;
       .chat-msg{
         padding: 4px;

@@ -170,6 +170,7 @@ export default class Main extends React.Component {
             <User
               user={this.props.user}
               setUser={this.props.setUser}
+              updateToken={this.props.updateToken}
             />
           </Route>
           <Route path={routes[2].path}>

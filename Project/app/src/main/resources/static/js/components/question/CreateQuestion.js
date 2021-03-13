@@ -92,7 +92,7 @@ export default class CreateQuestion extends React.Component {
   render() {
     return(
       <>
-      <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createQuestion">
+        <button type="button" className="btn btn-primary w-100 pt-2" data-bs-toggle="modal" data-bs-target="#createQuestion">
           Create Question
         </button>
         <div className="modal fade" id="createQuestion" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

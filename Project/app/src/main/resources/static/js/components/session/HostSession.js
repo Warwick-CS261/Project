@@ -9,7 +9,6 @@ import { Redirect } from 'react-router';
 import $ from 'jquery';
 
 import Chat from './Chat';
-import CreateQuestion from '../question/CreateQuestion';
 import Questions from '../question/Questions';
 import AddMod from './AddMod';
 import Indicator from '../Indicator';
@@ -299,18 +298,13 @@ export default class HostSession extends React.Component {
         <div className="heading">
           <h1><i className="bi bi-calendar-event-fill"></i>{this.state.sessionName}</h1>
         </div>
-        <h6>Session Code: #{this.state.id}</h6>
-        {this.state.secure !== "" &&
-        <h6>
+        <h6 className="text-center">#{this.state.id} {this.state.secure !== "" &&
+          <>
           <i className="bi bi-shield-lock-fill"></i>
           {this.state.secure}
-        </h6>
-        }
-        {this.state.finished &&
-          <div className="alert bg-dark text-primary" role="alert">
-            <h4 className="fs-4 mb-0"><i className="bi bi-exclamation-circle-fill"></i> Session has ended</h4>
-          </div>
-        }
+          </>
+        }</h6>
+        
         {this.state.error !== false && 
           <div className="alert alert-danger" role="alert">
             {this.state.error}
@@ -341,6 +335,11 @@ export default class HostSession extends React.Component {
           <div className="chat">
             <div className="buttons mb-4 p-3">
               {/* End session btn */}
+              {this.state.finished &&
+                <div className="alert bg-dark text-primary" role="alert">
+                  <h4 className="fs-4 mb-0"><i className="bi bi-exclamation-circle-fill"></i> Session has ended</h4>
+                </div>
+              }
               {!this.state.finished &&
               <>
                 <button type="button" className="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#endModal">
@@ -390,12 +389,6 @@ export default class HostSession extends React.Component {
             />
           </div>
         </div>
-        {!this.state.finished &&
-                <CreateQuestion
-                  sessionID={this.state.id}
-                  updateToken={this.props.updateToken}
-                />
-              }
         
       </>
     );

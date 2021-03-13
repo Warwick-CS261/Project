@@ -28,7 +28,7 @@ export default class Charts extends React.Component {
           <button
             type="button"
             onClick={this.toggleChart}
-            className="btn btn-dark mb-2"
+            className="btn btn-light mb-2"
           >Show bar chart</button>
           <Timeline data={this.props.moodHistory} />
         </div>
@@ -40,7 +40,7 @@ export default class Charts extends React.Component {
         <button
             type="button"
             onClick={this.toggleChart}
-            className="btn btn-dark"
+            className="btn btn-dark mb-2"
           >Show line chart</button>
         <BarChart data={this.props.moodHistory} />
       </div>

@@ -6,6 +6,7 @@ import HostQuestion from './HostQuestion';
 import AttendeeQuestion from './AttendeeQuestion';
 import AnswerList from './AnswerList';
 import Reaction from './Reaction';
+import CreateQuestion from './CreateQuestion';
 
 export default class Questions extends React.Component {
   constructor(props){
@@ -76,9 +77,14 @@ export default class Questions extends React.Component {
                 })}
                 </ul>
               </div>
-              <div className="create-question">
-
+              {!this.props.finished &&
+                <div className="create-question">
+                  <CreateQuestion
+                    sessionID={this.props.sessionID}
+                    updateToken={this.props.updateToken}
+                  />
                 </div>
+              }
             </div>
             <div className="question-right">
               <div className="content">
