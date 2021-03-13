@@ -91,15 +91,10 @@ export default class Reaction extends React.Component {
         }
       }
     });
-    // TODO check that one of the smileys are selected
     event.preventDefault();
   }
 
   handleClick(btn, event){
-    // TODO check if only one smiley is selected
-    // remove selection from others
-    console.log(event);
-    console.log(btn);
     let num;
     switch(btn){
       case 'happy':

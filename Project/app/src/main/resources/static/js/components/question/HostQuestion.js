@@ -147,15 +147,15 @@ export default class HostQuestion extends React.Component {
         <span className="controllers">
           {!this.props.finished &&
             this.props.pushed ?
-              <button onClick={this.handleEnd}>
+              <button onClick={this.handleEnd} className="control">
                 <i className="bi bi-eye-fill"></i>
               </button>
               :
-              <button onClick={this.handlePush}>
+              <button onClick={this.handlePush} className="control">
                 <i className="bi bi-eye-slash-fill"></i>
               </button>
           }
-          <button onClick={this.handleDelete}>
+          <button onClick={this.handleDelete} className="control">
             <i className="bi bi-trash-fill"></i>
           </button>
         </span>

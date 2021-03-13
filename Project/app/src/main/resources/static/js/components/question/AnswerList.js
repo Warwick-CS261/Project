@@ -21,14 +21,14 @@ export default class AnswerList extends React.Component {
                   className="answer"
                   data-smiley={answer.smiley}
                 >
-                  <span><i className="bi bi-person-circle"></i></span>
+                  
                   {!answer.anon ?
                     <span>{answer.user.fname} {answer.user.lname}</span>
                     :
                     <span>Anonymous</span>
-                  } &#8212; 
-                  <span>{answer.stamp}</span>
-                  <p>{answer.context}</p>
+                  }
+                  <span className="stamp">{answer.stamp}</span>
+                  <p><span className="user-profile"><i className="bi bi-person-circle"></i> </span>{answer.context}</p>
                 </li>
               </div>
               

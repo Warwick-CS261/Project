@@ -26,7 +26,7 @@ export default class SendMessage extends React.Component {
 
 
   handleChange(event){
-    if (this.state.error !== false) {
+    if (this.state.error === false) {
       this.setState({
         [event.target.name]: event.target.value,
       });
@@ -130,6 +130,7 @@ export default class SendMessage extends React.Component {
           <button
             type="submit"
             className="transparent-button"
+            disabled={!this.state.msg}
           >
             <i className="bi bi-cursor-fill fs-3"></i>
           </button>

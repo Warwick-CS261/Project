@@ -132,6 +132,7 @@ export default class CreateQuestion extends React.Component {
             <button 
               type="submit"
               className="btn btn-primary"
+              disabled={!this.state.question}
             >
               Create Question
             </button>

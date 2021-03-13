@@ -1,6 +1,7 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
+import { Modal } from 'bootstrap';
 
 export default class AddMod extends React.Component {
   constructor(props){
@@ -22,6 +23,14 @@ export default class AddMod extends React.Component {
   }
 
   handleSubmit(event){
+    if (this.state.email === ''){
+      this.setState({
+        error: 'Enter email address'
+      });
+      event.preventDefault();
+      return;
+    }
+
     let params = new URLSearchParams();
     params.append("email", this.state.email);
     $.ajax({
@@ -43,6 +52,8 @@ export default class AddMod extends React.Component {
         this.setState({
           email: "",
         });
+        let modal = Modal.getInstance(document.getElementById('addModModal'));
+        modal.hide();
       },
       statusCode: {
         450: ()=>{
@@ -54,9 +65,8 @@ export default class AddMod extends React.Component {
           });
         },
         454: ()=> {
-          console.log('Invalid session');
           this.setState({
-            error: 'Session with that id is not found'
+            error: 'User with email not found'
           });
         },
         457: ()=>{
@@ -70,31 +80,51 @@ export default class AddMod extends React.Component {
   render(){
     return(
       <>
-        <form onSubmit={this.handleSubmit}>
-          {this.state.error !== false && 
-            <div className="alert alert-danger" role="alert">
-              {this.state.error}
+        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModModal">
+          Add Host
+        </button>
+        <div className="modal fade" id="addModModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <form onSubmit={this.handleSubmit}>
+                <div className="modal-header">
+                  <h5 className="modal-title" id="exampleModalLabel">Add Moderator</h5>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div className="modal-body">
+                  
+                    {this.state.error !== false && 
+                      <div className="alert alert-danger" role="alert">
+                        {this.state.error}
+                      </div>
+                    }
+                    <div className="mb-3">
+                      <input
+                        type="email"
+                        name="email"
+                        className="form-control"
+                        onChange={this.handleChange}
+                        value={this.state.email}
+                        placeholder="New Host Email"
+                        required
+                      />  
+                    </div>
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    disabled={!this.state.email}
+                  >
+                    Add Host
+                  </button>
+                </div>
+              </form>
             </div>
-          }
-          <div className="mb-3">
-            <input
-              type="email"
-              name="email"
-              className="form-control"
-              onChange={this.handleChange}
-              value={this.state.email}
-              placeholder="New Host Email"
-            />  
           </div>
-          <div className="mb-3">
-            <button
-              type="submit"
-              className="btn btn-primary"
-            >
-              Add Host
-            </button>
-          </div>
-        </form>
+        </div>
+        
       </>
     );
   }

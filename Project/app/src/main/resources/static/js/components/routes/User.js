@@ -1,6 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
-
+import Cookies from 'js-cookie';
 export default class User extends React.Component {
   componentDidMount(){
     if (this.props.user.email === ""){

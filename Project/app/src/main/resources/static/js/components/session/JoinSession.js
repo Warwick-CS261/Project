@@ -119,7 +119,7 @@ export default class JoinSession extends React.Component {
       <section className="main blackbg">
         <div className="container-fluid">
           <div className="heading">
-            <h1><i className="bi bi-box-arrow-in-right"></i>Join Session</h1>
+            <h1><i className="bi bi-box-arrow-in-right"></i> Join Session</h1>
           </div>
           <div className="sessionbox">
             <div className="box">
