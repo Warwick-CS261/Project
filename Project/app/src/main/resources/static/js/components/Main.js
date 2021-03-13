@@ -133,9 +133,8 @@ export default class Main extends React.Component {
                 <a
                   href="/"
                   onClick={this.props.onLogout}
-                  className="d-none d-sm-block"
                 ><i className="bi bi-box-arrow-left"></i>
-                <span>Logout</span></a>
+                <span className="d-none d-sm-inline-block">Logout</span></a>
               </li>
             </ul>
           </nav>

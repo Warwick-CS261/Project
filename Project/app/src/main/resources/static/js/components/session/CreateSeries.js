@@ -89,8 +89,11 @@ export default class CreateSeries extends React.Component {
       <>
         <section className="main">
           <div className="container-fluid">
+            <div className="heading">
+              <h1><i className="bi bi-pencil-fill"></i> Create Session</h1>
+            </div>
             <div className="alert alert-info mt-3" role="alert">
-              Feature of the future
+              Clone your sessions on the My sessions tab
             </div>
             {/*<div className="heading">
               <h1><i className="bi bi-box-arrow-in-right"></i>Create Series</h1>
