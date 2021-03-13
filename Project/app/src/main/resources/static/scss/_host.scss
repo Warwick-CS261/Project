@@ -8,6 +8,7 @@
         .top{
             display:flex;
             flex-direction:row;
+            margin-bottom: 32px;
             .indicator{
                 width:50%;
                 display:flex;
@@ -28,5 +29,9 @@
         align-self:flex-end;
         margin-left: auto;
         height:100%;
+        .buttons{
+            background-color: $dark;
+            border-radius: 25px;
+        }
     }
 }

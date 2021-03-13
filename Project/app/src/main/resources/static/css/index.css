@@ -10585,6 +10585,7 @@ fieldset:disabled .btn {
 .host-cont .not-chat .top {
   display: flex;
   flex-direction: row;
+  margin-bottom: 32px;
 }
 
 .host-cont .not-chat .top .indicator {
@@ -10604,6 +10605,11 @@ fieldset:disabled .btn {
   align-self: flex-end;
   margin-left: auto;
   height: 100%;
+}
+
+.host-cont .chat .buttons {
+  background-color: #342e37;
+  border-radius: 25px;
 }
 
 section.body {
