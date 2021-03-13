@@ -116,7 +116,7 @@ class App extends React.Component {
                 
                   <div className="landingcontainer">
                     <div className="title">
-                      Project CS261 Group 45
+                      SeshOn
                     </div>
                   </div>
                   <div className="landingflex">
