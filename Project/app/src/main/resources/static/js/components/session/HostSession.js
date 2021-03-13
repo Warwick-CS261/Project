@@ -53,6 +53,8 @@ export default class HostSession extends React.Component {
         subscribed: true,
       };
     }
+
+    this.handleEnd = this.handleEnd.bind(this);
   }
 
   componentDidMount(){
@@ -257,7 +259,7 @@ export default class HostSession extends React.Component {
     }
   }
 
-  handleEnd(){
+  handleEnd(e){
     $.ajax({
       url: `/session/${this.state.id}/end`,
       type: 'POST',
@@ -277,9 +279,15 @@ export default class HostSession extends React.Component {
         });
       },
       statusCode: {
+        450: ()=>{
 
+        },
+        401: ()=>{
+          
+        }
       }
     });
+    e.preventDefault();
   }
 
   render() {
