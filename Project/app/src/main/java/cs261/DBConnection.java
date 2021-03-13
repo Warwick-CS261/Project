@@ -168,7 +168,7 @@ public class DBConnection {
     }
 
     public Question getQuestionByID(String sessionID, int qID) throws SQLException {
-        String query = "SELECT * FROM QUESTION id = ? & sessionID = ?";
+        String query = "SELECT * FROM QUESTION WHERE id = ? AND sessionID = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setInt(1, qID);
         stmt.setString(2, sessionID);

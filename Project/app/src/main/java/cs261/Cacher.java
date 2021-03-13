@@ -26,35 +26,11 @@ public class Cacher {
 
     public Boolean createAnswer(Answer a, String sessionID, int qID) throws SQLException {
         HostSesh hs;
-        hs = searchCache(sessionID);
-        for (Question q : hs.getHiddenQuestions()) {
-            System.out.println(q);
-            for (Answer a2 : q.getAnswers()) {
-                System.out.println(a2.toString());
-            }
-        }
-        for (Question q : hs.getPushedQuestions()) {
-            System.out.println(q);
-            for (Answer a2 : q.getAnswers()) {
-                System.out.println(a2.toString());
-            }
-        }
-        if (!Objects.isNull(hs)) {
+
+        if (!Objects.isNull(hs = searchCache(sessionID))) {
             hs.getQuestionByID(qID).addAnswer(a);
         }
         dbConn.createAnswer(a, sessionID, qID);
-        for (Question q : hs.getHiddenQuestions()) {
-            System.out.println(q);
-            for (Answer a2 : q.getAnswers()) {
-                System.out.println(a2.toString());
-            }
-        }
-        for (Question q : hs.getPushedQuestions()) {
-            System.out.println(q);
-            for (Answer a2 : q.getAnswers()) {
-                System.out.println(a2.toString());
-            }
-        }
 
         return true;
     }
@@ -64,6 +40,7 @@ public class Cacher {
         if (!Objects.isNull(hs = searchCache(sessionID))) {
             return hs.getQuestionByID(qID).getMood();
         }
+
         return dbConn.getQuestionByID(sessionID, qID).getMood();
     }
 
@@ -125,6 +102,8 @@ public class Cacher {
             return hs;
         } else if (!Objects.isNull(hs = dbConn.getHostSessionByID(sessionID))) {
             recentSessions.add(hs);
+            // recentSessions.add(new HostSesh("afa", "w", "lol", new User("aq", "afd",
+            // "qd"), "nope"));
             return hs;
         }
         return null;
