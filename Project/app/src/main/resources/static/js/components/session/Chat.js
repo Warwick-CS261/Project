@@ -50,12 +50,12 @@ export default class Chat extends React.Component {
               return (
                 <li key={msg.id} className="chat-msg">
                   {!msg.anon ?
-                    <span>{msg.user.fname} {msg.user.lname}</span>
+                    <span><span className="user-profile"><i className="bi bi-person-circle"></i> </span>{msg.user.fname} {msg.user.lname}</span>
                     :
-                    <span>Anonymous</span>
+                    <span><span className="user-profile"><i className="bi bi-person-circle"></i> </span>Anonymous</span>
                   }
                   <span className="stamp">{msg.stamp}</span>
-                  <p><span className="user-profile"><i className="bi bi-person-circle"></i> </span>{msg.msg}</p>
+                  <p>{msg.msg}</p>
                 </li>
               );
             })}
