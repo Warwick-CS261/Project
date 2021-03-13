@@ -10,7 +10,7 @@ export default class BarChart extends React.Component {
   componentDidMount(){
     const chartRef = this.barChartRef.current.getContext('2d');
 
-    let dataObj = this.props.data;
+    let dataObj = JSON.parse(JSON.stringify(this.props.data));
     dataObj.splice(0,1);
   
     let moods = [];

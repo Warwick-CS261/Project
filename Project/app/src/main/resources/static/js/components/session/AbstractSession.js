@@ -58,6 +58,7 @@ class AbstractSession extends React.Component {
           // Invalid token
           450: () => {
             console.log("Token invalid");
+            Cookies.remove('token');
             this.setState({
               error: <Redirect to="/auth/login" />,
             });
