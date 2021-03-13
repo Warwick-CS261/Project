@@ -299,7 +299,7 @@ export default class HostSession extends React.Component {
         <div className="heading">
           <h1><i className="bi bi-calendar-event-fill"></i>{this.state.sessionName}</h1>
         </div>
-        <h6>#{this.state.id}</h6>
+        <h6>Session Code: #{this.state.id}</h6>
         {this.state.secure !== "" &&
         <h6>
           <i className="bi bi-shield-lock-fill"></i>
@@ -316,30 +316,48 @@ export default class HostSession extends React.Component {
             {this.state.error}
           </div>
         }
+        <div className="host-cont">
+          <div className="not-chat">
+            <div className="top">
+              <div className="indicator">
+                <Indicator mood={this.state.mood} />
+              </div>
+              <div className="graph">
+                <Charts moodHistory={this.state.moodHistory} />
+              </div>
+            </div>
+            <div className="bot">
+              {!this.state.finished &&
+                <CreateQuestion
+                  sessionID={this.state.id}
+                  updateToken={this.props.updateToken}
+                />
+              }
+              <Questions
+                pushedQuestions={this.state.pushedQuestions}
+                hiddenQuestions={this.state.hiddenQuestions}
+                sessionID={this.state.id}
+                updateToken={this.props.updateToken}
+                isHost={true}
+                finished={this.state.finished}
+              />
+            </div>
+          </div>
+          <div className="chat">
+            <Chat
+              sessionID={this.state.id}
+              updateToken={this.props.updateToken}
+              chat={this.state.chat}
+            />
+          </div>
+        </div>
         
-        <Indicator mood={this.state.mood} />
 
-        <Charts moodHistory={this.state.moodHistory} />
         
-        <Chat
-          sessionID={this.state.id}
-          updateToken={this.props.updateToken}
-          chat={this.state.chat}
-        />
-        {!this.state.finished &&
-          <CreateQuestion
-            sessionID={this.state.id}
-            updateToken={this.props.updateToken}
-          />
-        }
-        <Questions
-          pushedQuestions={this.state.pushedQuestions}
-          hiddenQuestions={this.state.hiddenQuestions}
-          sessionID={this.state.id}
-          updateToken={this.props.updateToken}
-          isHost={true}
-          finished={this.state.finished}
-        />
+        
+        
+        
+        
         {/* End session btn */}
         {!this.state.finished &&
         <>

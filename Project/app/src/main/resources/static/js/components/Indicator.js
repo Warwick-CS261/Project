@@ -11,13 +11,9 @@ export default class Indicator extends React.Component {
 
 
     return(
-      <div>
-        <div className="circle" style={{backgroundColor: color}}></div>
-        <div className="faces">
-          <i className="bi bi-emoji-laughing-fill"></i>
-          <i className="bi bi-emoji-neutral-fill"></i>
-          <i className="bi bi-emoji-frown-fill"></i>
-        </div>
+      <div className=" d-flex flex-column p-2 w-100">
+        <h3 className="text-center">Overall mood</h3>
+        <div className="circle align-self-center align-items-center" style={{backgroundColor: color}}></div>
       </div>
     )
   }

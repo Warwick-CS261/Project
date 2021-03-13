@@ -1,0 +1,32 @@
+.host-cont{
+    display:flex;
+    flex-direction:row;
+    .not-chat{
+        display:flex;
+        flex-direction:column;
+        width:60%;
+        .top{
+            display:flex;
+            flex-direction:row;
+            .indicator{
+                width:50%;
+                display:flex;
+                flex-direction:row;
+                align-items:center;
+                align-self:center;
+            }
+            .graph{
+                width:50%;
+            }
+        }
+        .bot{
+
+        }
+    }
+    .chat{
+        width:400px;
+        align-self:flex-end;
+        margin-left: auto;
+        height:100%;
+    }
+}

@@ -24,11 +24,11 @@ export default class Charts extends React.Component {
   render(){
     if (this.state.showLineChart) {
       return(
-        <div>
+        <div className="text-center">
           <button
             type="button"
             onClick={this.toggleChart}
-            className="btn btn-primary"
+            className="btn btn-dark mb-2"
           >Show bar chart</button>
           <Timeline data={this.props.moodHistory} />
         </div>

@@ -10278,7 +10278,7 @@ fieldset:disabled .btn {
 }
 
 .chat-container .chat-scroll {
-  height: 600px;
+  height: 450px;
   overflow-y: scroll;
 }
 
@@ -10561,6 +10561,41 @@ fieldset:disabled .btn {
 
 .termslabel {
   margin-left: 8px;
+}
+
+.host-cont {
+  display: flex;
+  flex-direction: row;
+}
+
+.host-cont .not-chat {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+.host-cont .not-chat .top {
+  display: flex;
+  flex-direction: row;
+}
+
+.host-cont .not-chat .top .indicator {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: center;
+}
+
+.host-cont .not-chat .top .graph {
+  width: 50%;
+}
+
+.host-cont .chat {
+  width: 400px;
+  align-self: flex-end;
+  margin-left: auto;
+  height: 100%;
 }
 
 section.body {
