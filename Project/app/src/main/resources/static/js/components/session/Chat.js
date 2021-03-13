@@ -40,7 +40,6 @@ export default class Chat extends React.Component {
     return(
       <>
       <div className="chat-container">
-        <h3>Chat</h3>
           <ul className="list-unstyled chat-scroll">
           {chat === null || chat === undefined || chat.length == 0 ?
             <p>No messages so far</p>
@@ -59,7 +58,7 @@ export default class Chat extends React.Component {
                 </li>
               );
             })}
-            <div style={{ float:"left", clear: "both" }}
+            <div className="d-none chat-base" style={{ float:"left", clear: "both" }}
              ref={(el) => { this.messagesEnd = el; }}>
             </div>
             </>

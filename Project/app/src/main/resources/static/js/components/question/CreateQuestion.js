@@ -104,7 +104,6 @@ export default class CreateQuestion extends React.Component {
               className="form-control"
               value={this.state.question}
               onChange={this.handleChange}
-              autoFocus
               required
             />
           </div>
