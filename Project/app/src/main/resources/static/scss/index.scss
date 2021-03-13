@@ -399,7 +399,7 @@ section.body{
         }
       }
       .question-att{
-  
+        
       }
     }
     .content::-webkit-scrollbar {
@@ -414,4 +414,14 @@ section.body{
   border-radius: 15px;
   background-color: $dark;
 }
+.happy.active{
+  color:$happy;
+}
+.neutral.active{
+  color:$neutral;
+}
+.sad.active{
+  color:$sad;
+}
+
 

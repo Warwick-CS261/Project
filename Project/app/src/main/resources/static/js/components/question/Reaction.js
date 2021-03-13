@@ -125,7 +125,7 @@ export default class Reaction extends React.Component {
   render(){
     return(
       <>
-        <h6>{this.props.question ? this.props.question : 'How is the session going?'}</h6>
+        <p className="text-center fs-5 fw-bold">{this.props.question ? this.props.question : 'How is the session going?'}</p>
         <hr />
         {this.state.error !== false && (
           <div className="alert alert-danger" role="alert">
