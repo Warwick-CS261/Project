@@ -26,10 +26,36 @@ public class Cacher {
 
     public Boolean createAnswer(Answer a, String sessionID, int qID) throws SQLException {
         HostSesh hs;
-        if (!Objects.isNull(hs = searchCache(sessionID))) {
+        hs = searchCache(sessionID);
+        for (Question q : hs.getHiddenQuestions()) {
+            System.out.println(q);
+            for (Answer a2 : q.getAnswers()) {
+                System.out.println(a2.toString());
+            }
+        }
+        for (Question q : hs.getPushedQuestions()) {
+            System.out.println(q);
+            for (Answer a2 : q.getAnswers()) {
+                System.out.println(a2.toString());
+            }
+        }
+        if (!Objects.isNull(hs)) {
             hs.getQuestionByID(qID).addAnswer(a);
         }
         dbConn.createAnswer(a, sessionID, qID);
+        for (Question q : hs.getHiddenQuestions()) {
+            System.out.println(q);
+            for (Answer a2 : q.getAnswers()) {
+                System.out.println(a2.toString());
+            }
+        }
+        for (Question q : hs.getPushedQuestions()) {
+            System.out.println(q);
+            for (Answer a2 : q.getAnswers()) {
+                System.out.println(a2.toString());
+            }
+        }
+
         return true;
     }
 
