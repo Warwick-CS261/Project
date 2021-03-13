@@ -121,7 +121,12 @@ export default class HostQuestion extends React.Component {
     let q = this.props.data;
     if (this.props.data.id === 0){
       return(
-        <li className="host-question" data-mood={q.mood} onClick={()=>this.props.handleSelect(q.id)} >
+        <li
+          className={this.props.selected === q.id ? 
+            "host-question active":"host-question"}
+          data-mood={q.mood}
+          onClick={()=>this.props.handleSelect(q.id)}
+        >
           <button>
             General feedback
           </button>
@@ -130,7 +135,12 @@ export default class HostQuestion extends React.Component {
     }
 
     return(
-      <li className="host-question" data-mood={q.mood} onClick={()=>this.props.handleSelect(q.id)}>
+      <li
+        className={this.props.selected === q.id ?
+          "host-question active":"host-question"}
+        data-mood={q.mood}
+        onClick={()=>this.props.handleSelect(q.id)}
+      >
         <button >
           {q.question}
         </button>
@@ -138,7 +148,7 @@ export default class HostQuestion extends React.Component {
           {!this.props.finished &&
             this.props.pushed ?
               <button onClick={this.handleEnd}>
-                <i className="bi bi-slash-circle-fill"></i>
+                <i className="bi bi-eye-fill"></i>
               </button>
               :
               <button onClick={this.handlePush}>
