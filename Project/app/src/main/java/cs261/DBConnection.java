@@ -446,6 +446,10 @@ public class DBConnection {
         stmt.setBoolean(1, true);
         stmt.setString(2, sessionID);
         stmt.executeUpdate();
+        query = "DELETE FROM ATTENDEE_SESSION WHERE sessionID = ?";
+        PreparedStatement stmt2 = connection.prepareStatement(query);
+        stmt2.setString(1, sessionID);
+        stmt2.executeUpdate();
         return true;
     }
 
