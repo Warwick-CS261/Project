@@ -449,6 +449,7 @@ public class SessionController {
                     logger.warn("Watch session {} attempted with invalid token: {}", sessionID, watchToken);
                     return "Invalid Tokens";
                 }
+                response.status(250);
                 logger.info("Watch token was invalid but token was not issuing two new tokens");
                 return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"watchToken\":\""
                         + dbConn.newWatchToken(user.getId()) + "\"}";

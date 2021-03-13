@@ -17,7 +17,7 @@ export default class AnswerList extends React.Component {
             return(
               <div className="question-host">
                 <li
-                  key={answer.stamp+answer.context}
+                  key={answer.stamp}
                   className="answer"
                   data-smiley={answer.smiley}
                 >
