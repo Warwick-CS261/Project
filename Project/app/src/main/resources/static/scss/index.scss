@@ -341,19 +341,20 @@ section.body{
     
     
   }
-  .chat-anonymous{
-    display:flex;
-    flex-direction: row;
-    margin-bottom: 24px;
-    input[type=checkbox]{
-      margin-right: 8px;
-      padding: none;
-    }
-    .anonymous{
-      color: white;
-    }
-  }
   
+  
+}
+.chat-anonymous{
+  display:flex;
+  flex-direction: row;
+  margin-bottom: 24px;
+  input[type=checkbox]{
+    margin-right: 8px;
+    padding: none;
+  }
+  .anonymous{
+    color: white;
+  }
 }
 
 .question-container{
@@ -461,7 +462,11 @@ section.body{
 }
 
 .reactiontextbox{
-  
+  width:100%;
+  border: 1px solid $primary;
+  border-radius:25px;
+  background-color: $primary;
+  padding:8px;
 }
 
 

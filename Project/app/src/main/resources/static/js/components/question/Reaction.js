@@ -132,8 +132,8 @@ export default class Reaction extends React.Component {
             {this.state.error}
           </div>
         )}
-        <form onSubmit={this.handleSubmit} >
-          <div className="mb-3 reaction-btn">
+        <form onSubmit={this.handleSubmit} className="w-100">
+          <div className="emoji-buttons-cont">
             <button
               type="button"
               onClick={this.handleClick.bind(this,"happy")}
@@ -153,7 +153,7 @@ export default class Reaction extends React.Component {
             <button
               type="button"
               onClick={this.handleClick.bind(this,"sad")}
-              className={this.state.smiley === 3 ? 'reaction sad active':'reaction sad'}
+              className={this.state.smiley === 1 ? 'reaction sad active':'reaction sad'}
               id="sad-btn"
             >
               <i className="bi bi-emoji-frown-fill"></i>
@@ -166,24 +166,28 @@ export default class Reaction extends React.Component {
               onChange={this.handleChange}
               value={this.state.context}
               className="reactiontextbox"
+              placeholder="Answer the question..."
               required
             />
           </div>
-          <div className="mb-3">
-            <input
-              type="checkbox"
-              name="anon"
-              onChange={this.handleCheck}
-              value={this.state.anon}
-              className="form-check-input"
-            />
+          <div className="chat-anonymous">
+            <div>
+              <input
+                type="checkbox"
+                name="anon"
+                onChange={this.handleCheck}
+                value={this.state.anon}
+                className="form-check-input"
+              />
+            </div>
+            <div className="pr-3">Anonymous</div>
           </div>
           <div className="mb-3">
             <button
               type="submit"
-              className="btn btn-dark"
+              className="btn btn-dark w-100 color-primary"
             >
-              Answer
+              <div className="fs-4 text-primary">Answer</div>
             </button>
           </div>
         </form>
