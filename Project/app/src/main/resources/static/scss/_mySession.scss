@@ -1,0 +1,29 @@
+.sessiongridcontainer{
+    margin-top: 32px;
+    background-image: url('../img/secondary-background.png');
+    background-size: cover;
+    border-radius:50px;
+    height:80vh;
+    overflow-y: scroll;
+    
+    .sessiongrid{
+      display:grid;
+      grid-template-columns: 33% 33% 33%;
+      padding: 16px;
+      
+      .sessiongridchild{
+        background-image: linear-gradient(#43E2B2,#24AFAF);
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        border-radius: 25px;
+        padding: 16px;
+        margin: 16px;
+        cursor: pointer;
+      }
+      .sessiongridchild:hover{
+        box-shadow: 10px 10px $dark;
+      }
+    }
+  }
+  .sessiongridcontainer::-webkit-scrollbar {
+    display: none;
+  }

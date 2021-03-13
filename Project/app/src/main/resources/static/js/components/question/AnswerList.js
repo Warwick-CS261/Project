@@ -7,7 +7,9 @@ export default class AnswerList extends React.Component {
     let data = this.props.data;
     if (data === undefined || data === null || data.length == 0){
       return(
-        <p>No responses yet</p>
+        <div class="alert alert-info w-100" role="alert">
+          No responses yet for this question
+        </div>
       );
     }
     return(
@@ -21,14 +23,14 @@ export default class AnswerList extends React.Component {
                   className="answer"
                   data-smiley={answer.smiley}
                 >
-                  <span><i className="bi bi-person-circle"></i></span>
+                  
                   {!answer.anon ?
                     <span>{answer.user.fname} {answer.user.lname}</span>
                     :
                     <span>Anonymous</span>
-                  } &#8212; 
-                  <span>{answer.stamp}</span>
-                  <p>{answer.context}</p>
+                  }
+                  <span className="stamp">{answer.stamp}</span>
+                  <p><span className="user-profile"><i className="bi bi-person-circle"></i> </span>{answer.context}</p>
                 </li>
               </div>
               

@@ -26,31 +26,133 @@ $happy: $mood-21;
 
 
 // Questions
-.host-question{
-  padding-left: .5rem;
-  padding-right: .5rem;
-  padding-top: .3rem;
-  padding-bottom: .3rem;
-  background-color: $primary;
-  border-radius: 10px;
-  margin-bottom: .2rem;
+
+
+.question-list{
+
+  .host-question{
+    padding-left: .5rem;
+    padding-right: .5rem;
+    padding-top: .3rem;
+    padding-bottom: .3rem;
+    background-color: $primary;
+    border-radius: 10px;
+    margin-bottom: .2rem;
+    
+    .controllers{
+      float: right;
+
+      .control{
+        opacity: 0.7;
+
+        &:hover{
+          opacity: 1;
+        }
+      }
+    }
+  
+    
+  }
+
+  .attendee-question{
+    padding-left: .5rem;
+    padding-right: .5rem;
+    padding-top: .3rem;
+    padding-bottom: .3rem;
+    background-color: $primary;
+    border-radius: 10px;
+    margin-bottom: .2rem;
+  }
   
   button{
     border: 0;
     background: none;
   }
 
-  .controllers{
-    float: right;
-  }
-
-  
-}
-
-.question-list{
-  
   .active{
     background-color: $light;
     color: $dark;
   }
+}
+
+// reactions 
+
+.reaction{
+  cursor: pointer;
+}
+.happy:hover {
+  color: lighten($happy, 5%);
+}
+.neutral:hover{
+  color: lighten($neutral, 5%);
+}
+.sad:hover{
+  color: lighten($sad, 5%);
+}
+
+// chat style
+
+.chat-msg,.question-host{
+  padding-left: .5rem;
+  padding-right: .5rem;
+
+  .stamp{
+    float: right;
+    color: $dark;
+    opacity: 0.8;
+    padding-right: 1rem;
+  }
+  
+  .user-profile{
+    font-size: x-large;
+  }
+
+  p{
+    margin: 0;
+  }
+}
+
+// answer list 
+
+.answer[data-smiley="1"] {
+  background-color: lighten($sad, 10%);
+}
+
+.answer[data-smiley="2"] {
+  background-color: lighten($neutral, 10%);
+}
+
+.answer[data-smiley="3"] {
+  background-color: lighten($happy, 10%);
+}
+
+.circle{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 1);
+  animation: pulse 2.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+  }
+  
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+.chart{
+  padding: 1rem;
+  border-radius: 15px;
 }

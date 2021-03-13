@@ -90,7 +90,7 @@ export default class CreateSession extends React.Component {
           <section className="main blackbg">
             <div className="container-fluid">
               <div className="heading">
-                <h1><i className="bi bi-pencil-fill"></i>Create Session</h1>
+                <h1><i className="bi bi-pencil-fill"></i> Create Session</h1>
               </div>
               <div className="sessionbox">
                 <div className="box">
@@ -130,6 +130,7 @@ export default class CreateSession extends React.Component {
                             <button 
                               type="submit"
                               className="btn btn-dark btn-lg"
+                              disabled={!this.state.name}
                             >
                               Create Session
                             </button>

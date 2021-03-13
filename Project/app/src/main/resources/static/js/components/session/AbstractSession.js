@@ -143,7 +143,7 @@ class AbstractSession extends React.Component {
 
     return(
       <section className="main">
-        <div className="container-fluid">
+        <div className="container-fluid h95">
           <AttendeeSession
             session={this.props.session}
             handleSession={this.props.handleSession}

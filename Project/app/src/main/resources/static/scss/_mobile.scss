@@ -1,0 +1,100 @@
+@media (max-width: 576px) {
+  section.body{
+    display: block;
+
+    .menu{
+      position: fixed;
+      z-index: 1001;
+      bottom: 0;
+      width: 100%;
+      min-height: 0;
+      height: 60px;
+      display: grid;
+      
+      .nav>ul{
+        padding-left: 32px;
+        padding-right: 32px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin: 0;
+      }
+
+      .nav-link{
+        align-items: stretch;
+        display: inline-block;
+        font-size: large;
+      }
+
+      .nav-logout{
+        position: static;
+      }
+    }
+
+    .main{
+      min-height: 100vh;
+      width: 100%;
+      padding-bottom: 70px;
+
+      .heading>h1{
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        margin:0;
+      }
+
+      .content{
+
+      }
+    }
+    
+  }
+
+  .sessiongridcontainer{
+    .sessiongrid{
+      grid-template-columns: auto;
+    }
+  }
+
+  .att-layout{
+    flex-direction: column;
+
+    .q{
+      width: 100%;
+      height: auto;
+    }
+    .c{
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .question-container{
+    flex-direction: column;
+    height: auto;
+
+    .question-left{
+      width: 100%;
+      border-radius: 25px 25px 0 0;
+
+      .question-scroll{
+        max-height: 400px;
+        height: auto;
+      }
+    }
+    .question-right{
+      width: 100%;
+      border-radius: 0 0 25px 25px;
+
+      .content{
+        height: auto;
+      }
+    }
+  }
+
+  .chat-container{
+    .chat-scroll{
+      height: 60vh;
+    }
+  }
+}

@@ -4,10 +4,13 @@ import Chart from 'chart.js';
 export default class BarChart extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { hasLoaded: false };
     this.barChartRef = React.createRef();
+
+    this.handleUpdate = this.handleUpdate.bind(this);
   }
 
-  componentDidMount(){
+  handleUpdate(){
     const chartRef = this.barChartRef.current.getContext('2d');
 
     let dataObj = JSON.parse(JSON.stringify(this.props.data));
@@ -79,9 +82,26 @@ export default class BarChart extends React.Component {
     });
   }
 
+  componentDidMount(){
+    if (!this.state.hasLoaded){
+      this.setState({
+        hasLoaded: false,
+      });
+    }
+    this.handleUpdate();
+  }
+  
+  componentDidUpdate(prevProps,prevState){
+    if (this.props.data != prevProps.data){
+      this.handleUpdate();
+    }
+  }
+
   render(){
     return(
-      <canvas ref={this.barChartRef} />
+      <div className="bg-light chart">
+        <canvas ref={this.barChartRef} />
+      </div>
     );
   } 
 }

@@ -4,6 +4,7 @@ import $ from 'jquery';
 import { Redirect } from 'react-router-dom';
 
 export default class CreateSeries extends React.Component {
+  /*
   constructor(props) {
     super(props);
     this.state = {
@@ -76,64 +77,71 @@ export default class CreateSeries extends React.Component {
     });
     event.preventDefault();
   }
+  */
   render() {
+    /*
+    if (this.state.submitted){
+      return <Redirect to={`/session/${this.state.sessionID}`} />
+    }
+    */
+
     return(
       <>
-        {this.state.submitted ?
-          <Redirect to={`/session/${this.state.sessionID}`} />
-          :
-          <>
-          <section className="main">
-            <div className="container-fluid">
-              <div className="heading">
-                <h1><i className="bi bi-box-arrow-in-right"></i>Create Series</h1>
-              </div>
-              <div className="sessionbox">
-                <div className="box">
-                  <h3>Enter series name:</h3>
-                  {this.state.error !== false && 
-                  <div className="alert alert-danger" role="alert">
-                    {this.state.error}
-                  </div>
-                  }
-                  <form onSubmit={this.handleSubmit}>
-                    <div className="mb-3">
-                      <input 
-                        type="text"
-                        name="name"
-                        className="form-control"
-                        value={this.state.name}
-                        onChange={this.handleChange}
-                        autoFocus
-                        required
-                      />
-                    </div>
-                    <div className="sessionprivate">
-                      <input
-                        type="checkbox"
-                        name="secure"
-                        className="form-check-input"
-                        value={this.state.secure}
-                        onChange={this.handleCheck}
-                      />
-                      <p className="private">Private</p>
-                    </div>
-                    
-                    <div className="mb-3">
-                      <button 
-                        type="submit"
-                        className="btn btn-primary"
-                      >
-                        Create Series
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
+        <section className="main">
+          <div className="container-fluid">
+            <div className="heading">
+              <h1><i className="bi bi-pencil-fill"></i> Create Session</h1>
             </div>
-          </section>  
-          </>
-        }
+            <div className="alert alert-info mt-3" role="alert">
+              Clone your sessions on the My sessions tab
+            </div>
+            {/*<div className="heading">
+              <h1><i className="bi bi-box-arrow-in-right"></i>Create Series</h1>
+            </div>
+            <div className="sessionbox">
+              <div className="box">
+                <h3>Enter series name:</h3>
+                {this.state.error !== false && 
+                <div className="alert alert-danger" role="alert">
+                  {this.state.error}
+                </div>
+                }
+                <form onSubmit={this.handleSubmit}>
+                  <div className="mb-3">
+                    <input 
+                      type="text"
+                      name="name"
+                      className="form-control"
+                      value={this.state.name}
+                      onChange={this.handleChange}
+                      autoFocus
+                      required
+                    />
+                  </div>
+                  <div className="sessionprivate">
+                    <input
+                      type="checkbox"
+                      name="secure"
+                      className="form-check-input"
+                      value={this.state.secure}
+                      onChange={this.handleCheck}
+                    />
+                    <p className="private">Private</p>
+                  </div>
+                  
+                  <div className="mb-3">
+                    <button 
+                      type="submit"
+                      className="btn btn-primary"
+                    >
+                      Create Series
+                    </button>
+                  </div>
+                </form>
+              </div>
+              </div> */}
+          </div>
+        </section>  
       </>
     )
   }

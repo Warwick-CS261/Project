@@ -6,6 +6,7 @@ import HostQuestion from './HostQuestion';
 import AttendeeQuestion from './AttendeeQuestion';
 import AnswerList from './AnswerList';
 import Reaction from './Reaction';
+import CreateQuestion from './CreateQuestion';
 
 export default class Questions extends React.Component {
   constructor(props){
@@ -19,7 +20,7 @@ export default class Questions extends React.Component {
   }
 
 
-  handleSelect(qID, push){
+  handleSelect(qID){
     this.setState({
       selected: qID,
     });
@@ -76,6 +77,14 @@ export default class Questions extends React.Component {
                 })}
                 </ul>
               </div>
+              {!this.props.finished &&
+                <div className="create-question">
+                  <CreateQuestion
+                    sessionID={this.props.sessionID}
+                    updateToken={this.props.updateToken}
+                  />
+                </div>
+              }
             </div>
             <div className="question-right">
               <div className="content">
@@ -90,6 +99,9 @@ export default class Questions extends React.Component {
         </>
       );
     } else {
+      let question = this.props.pushedQuestions.find(q => q.id === this.state.selected);
+      console.log(question);
+
       return(
         <>
           <div className="question-container">
@@ -106,6 +118,7 @@ export default class Questions extends React.Component {
                         pushed={true}
                         sessionID={this.props.sessionID}
                         handleSelect={this.handleSelect}
+                        selected={this.state.selected}
                       />
                     );
                   })}
@@ -117,7 +130,7 @@ export default class Questions extends React.Component {
                 <Reaction
                   qID={this.state.selected}
                   sessionID={this.props.sessionID}
-                  question={this.state.question}
+                  question={question.question}
                   updateToken={this.props.updateToken}
                 />
               </div>

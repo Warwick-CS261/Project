@@ -1,0 +1,19 @@
+.att-layout{
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    height:85%;
+    .q{
+      width:60%;
+      align-self: start;
+    }
+    .c{
+      width:400px;
+      align-self:flex-end;
+      margin-left: auto;
+      height:100%;
+    }
+  }
+  .h95{
+    height:97%;
+  }

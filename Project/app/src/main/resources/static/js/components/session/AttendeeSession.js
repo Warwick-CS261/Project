@@ -152,7 +152,8 @@ class AttendeeSession extends React.Component {
                 Cookies.set('token', token);
                 this.props.updateWatchToken(watchToken);
                 this.props.updateToken(token);
-              }
+                break;
+            }
               
               this.setState({
                 subscribed: false,
@@ -168,25 +169,33 @@ class AttendeeSession extends React.Component {
   render() {
     return (
       <>
-        <h2>{this.state.sessionName}</h2>
-        <h6>{this.state.id}</h6>
+        <div className="heading">
+          <h1><i className="bi bi-calendar-event-fill"></i>{this.state.sessionName}</h1>
+        </div>
+        <h6 className="text-center">#{this.state.id}</h6>
         {this.state.error !== false && (
           <div className="alert alert-danger" role="alert">
             {this.state.error}
           </div>
         )}
-        <Chat
-          sessionID={this.state.id}
-          updateToken={this.props.updateToken}
-          chat={this.state.chat}
-        />
-        <Questions
-          pushedQuestions={this.state.pushedQuestions}
-          sessionID={this.state.id}
-          updateToken={this.props.updateToken}
-          isHost={false}
-        />
-        {JSON.stringify(this.state)}
+        <div className="att-layout">
+          <div className="q">
+          <Questions
+            pushedQuestions={this.state.pushedQuestions}
+            sessionID={this.state.id}
+            updateToken={this.props.updateToken}
+            isHost={false}
+          />
+          </div>
+          <div className="c">
+          <Chat
+            sessionID={this.state.id}
+            updateToken={this.props.updateToken}
+            chat={this.state.chat}
+          />
+          </div>
+        </div>
+        
       </>
     );
   }

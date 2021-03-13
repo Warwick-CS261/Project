@@ -91,15 +91,10 @@ export default class Reaction extends React.Component {
         }
       }
     });
-    // TODO check that one of the smileys are selected
     event.preventDefault();
   }
 
   handleClick(btn, event){
-    // TODO check if only one smiley is selected
-    // remove selection from others
-    console.log(event);
-    console.log(btn);
     let num;
     switch(btn){
       case 'happy':
@@ -125,19 +120,20 @@ export default class Reaction extends React.Component {
   render(){
     return(
       <>
-        <h6>{this.props.question ? this.props.question : 'How is the session going?'}</h6>
+        <h5 className="text-center fs-5 fw-bold">{this.props.question !== "" ? this.props.question : 'How is the session going?'}</h5>
+        <p className="text-muted">*You need to select an emoji to send a response</p>
         <hr />
         {this.state.error !== false && (
           <div className="alert alert-danger" role="alert">
             {this.state.error}
           </div>
         )}
-        <form onSubmit={this.handleSubmit} >
-          <div className="mb-3" >
+        <form onSubmit={this.handleSubmit} className="w-100">
+          <div className="emoji-buttons-cont">
             <button
               type="button"
               onClick={this.handleClick.bind(this,"happy")}
-              className="happy"
+              className={this.state.smiley === 3 ? 'reaction happy active':'reaction happy'}
               id="happy-btn"
             >
               <i className="bi bi-emoji-laughing-fill"></i>
@@ -145,7 +141,7 @@ export default class Reaction extends React.Component {
             <button
               type="button"
               onClick={this.handleClick.bind(this,"neutral")}
-              className="neutral"
+              className={this.state.smiley === 2 ? 'reaction neutral active':'reaction neutral'}
               id="neutral-btn"
             >
               <i className="bi bi-emoji-neutral-fill"></i>
@@ -153,7 +149,7 @@ export default class Reaction extends React.Component {
             <button
               type="button"
               onClick={this.handleClick.bind(this,"sad")}
-              className="sad"
+              className={this.state.smiley === 1 ? 'reaction sad active':'reaction sad'}
               id="sad-btn"
             >
               <i className="bi bi-emoji-frown-fill"></i>
@@ -165,25 +161,30 @@ export default class Reaction extends React.Component {
               name="context"
               onChange={this.handleChange}
               value={this.state.context}
-              className="form-control"
+              className="reactiontextbox"
+              placeholder="Answer the question..."
               required
             />
           </div>
-          <div className="mb-3">
-            <input
-              type="checkbox"
-              name="anon"
-              onChange={this.handleCheck}
-              value={this.state.anon}
-              className="form-check-input"
-            />
+          <div className="chat-anonymous">
+            <div>
+              <input
+                type="checkbox"
+                name="anon"
+                onChange={this.handleCheck}
+                value={this.state.anon}
+                className="form-check-input"
+              />
+            </div>
+            <div className="pr-3">Anonymous</div>
           </div>
           <div className="mb-3">
             <button
               type="submit"
-              className="btn btn-primary"
+              className="btn btn-dark w-100 color-primary"
+              disabled={this.state.smiley == -1}
             >
-              Send
+              <div className="fs-4 text-primary">Answer</div>
             </button>
           </div>
         </form>

@@ -6,10 +6,20 @@ import moment from 'moment';
 export default class Timeline extends React.Component {
   constructor(props) {
     super(props);
+    this.state={ hasLoaded: false };
     this.timeLineRef = React.createRef();
+
+    this.handleUpdate = this.handleUpdate.bind(this);
   }
 
-  componentDidMount(){
+  handleUpdate(){
+    if (this.props.data.length == 0){
+      this.setState({
+        hasLoaded: false,
+      });
+      return;
+    }
+
     const timeRef = this.timeLineRef.current.getContext('2d');
 
     let data = JSON.stringify(this.props.data);
@@ -130,11 +140,29 @@ export default class Timeline extends React.Component {
       }
       }
     });
+    this.setState({
+      hasLoaded: true,
+    });
+  }
+
+  componentDidMount(){
+    if (!this.state.hasLoaded){
+      this.setState({
+        hasLoaded: false,
+      });
+    }
+    this.handleUpdate();
+  }
+  
+  componentDidUpdate(prevProps,prevState){
+    if (this.props.data != prevProps.data){
+      this.handleUpdate();
+    }
   }
 
   render(){
     return(
-      <div className="bg-dark">
+      <div className="bg-dark chart">
         <canvas ref={this.timeLineRef} />
       </div>
     )
