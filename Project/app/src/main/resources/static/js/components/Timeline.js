@@ -33,7 +33,11 @@ export default class Timeline extends React.Component {
   
     var dataPoint1 = dataObj[0];
     var dataPoint2 = dataObj[dataObj.length - 1];
-  
+
+    if(dataObj.length < 2){
+      dataPoint2 = dataObj[0];  
+    }
+    
     var diffTime = Math.abs(dataPoint1.date - dataPoint2.date);
     var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   

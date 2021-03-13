@@ -55,12 +55,12 @@ class AttendeeSession extends React.Component {
           this.setState({
             subscribed: false,
           });
-        }, 60000);
+        }, 300000);
 
         await $.ajax({
           url: `/session/${this.state.id}/watch`,
           type: "POST",
-          timeout: 60000,
+          timeout: 300000,
           success: (data, status, jqXHR) =>{
             let object = JSON.parse(data);
             let watchToken = object.watchToken;
@@ -143,21 +143,21 @@ class AttendeeSession extends React.Component {
               // Token valid watchtoken invalid
               case 250:
                 let token = object.token;
-                let watchToken = object.token;
+                let watchToken = object.watchToken;
                 if (watchToken === undefined || watchToken === null || token === undefined || token === null){
                   console.log('Server response invalid');
                   return;
                 }
-                Cookies.set('token', token);
                 Cookies.set('watchToken', watchToken);
+                Cookies.set('token', token);
+                this.props.updateWatchToken(watchToken);
                 this.props.updateToken(token);
-                this.props.updateWatchToken(token);
-            }
+              }
+              
+              this.setState({
+                subscribed: false,
+              });
           }
-        });
-        
-        this.setState({
-          subscribed: false,
         });
       }
     } catch (error) {

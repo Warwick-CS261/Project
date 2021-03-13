@@ -46,6 +46,7 @@ export default class Reaction extends React.Component {
       this.setState({
         error: 'You need to select a mood to send the response',
       });
+      event.preventDefault();
       return;
     }
     let params = new URLSearchParams();

@@ -81,11 +81,11 @@ export default class HostSession extends React.Component {
           this.setState({
             subscribed: false,
           });
-        }, 60000);
+        }, 300000);
         await $.ajax({
           url: `/session/${this.state.id}/watch`,
           type: "POST",
-          timeout: 60000,
+          timeout: 300000,
           success: (data, status, jqXHR) =>{
             let object = JSON.parse(data);
             let watchToken = object.watchToken;
@@ -146,15 +146,26 @@ export default class HostSession extends React.Component {
                 this.setState((prevState)=>{
                   let answer = object.answer.answer;
                   let id = object.answer.qID;
+                  let mood = object.moodDate;
                   let index;
                   index = prevState.pushedQuestions.findIndex(x => x.id === id);
                   if (index > -1){
                     let newPushed = prevState.pushedQuestions;
                     newPushed[index].answers.push(answer);
-                    return {
-                      ...prevState,
-                      pushedQuestions: newPushed,
-                    };
+                    if (mood !== null){
+                      let newMoodHistory = prevState.moodHistory;
+                      newMoodHistory.push(mood);
+                      return{
+                        ...prevState,
+                        pushedQuestions: newPushed,
+                        moodHistory: newMoodHistory,
+                      }
+                    } else{
+                      return {
+                        ...prevState,
+                        pushedQuestions: newPushed,
+                      };
+                    }
                   };
                 });
                 break;
@@ -224,22 +235,22 @@ export default class HostSession extends React.Component {
               // Token valid watchtoken invalid
               case 250:
                 let token = object.token;
-                let watchToken = object.token;
+                let watchToken = object.watchToken;
                 if (watchToken === undefined || watchToken === null || token === undefined || token === null){
                   console.log('Server response invalid');
                   return;
                 }
-                Cookies.set('token', token);
                 Cookies.set('watchToken', watchToken);
+                Cookies.set('token', token);
+                this.props.updateWatchToken(watchToken);
                 this.props.updateToken(token);
-                this.props.updateWatchToken(token);
             }
+            this.setState({
+              subscribed: false,
+            });
           }
         });
 
-        this.setState({
-          subscribed: false,
-        });
       }
     } catch (error) {
       console.log(error);
