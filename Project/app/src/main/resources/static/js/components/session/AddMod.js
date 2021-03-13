@@ -2,6 +2,7 @@ import React from 'react';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
 import { Modal } from 'bootstrap';
+import { Redirect } from 'react-router';
 
 export default class AddMod extends React.Component {
   constructor(props){
@@ -9,6 +10,7 @@ export default class AddMod extends React.Component {
     this.state = {
       email: '',
       error: false,
+      success: false,
     };
 
 
@@ -51,9 +53,8 @@ export default class AddMod extends React.Component {
         this.props.updateToken(token);
         this.setState({
           email: "",
+          success: true,
         });
-        let modal = Modal.getInstance(document.getElementById('addModModal'));
-        modal.hide();
       },
       statusCode: {
         450: ()=>{
@@ -96,6 +97,11 @@ export default class AddMod extends React.Component {
                     {this.state.error !== false && 
                       <div className="alert alert-danger" role="alert">
                         {this.state.error}
+                      </div>
+                    }
+                    {this.state.success && 
+                      <div className="alert alert-success" role="alert">
+                        New modarator has been successfully added
                       </div>
                     }
                     <div className="mb-3">

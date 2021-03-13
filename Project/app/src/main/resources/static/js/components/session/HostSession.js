@@ -12,9 +12,8 @@ import Chat from './Chat';
 import CreateQuestion from '../question/CreateQuestion';
 import Questions from '../question/Questions';
 import AddMod from './AddMod';
-import BarChart from '../BarChart';
-import Timeline from '../Timeline';
 import Indicator from '../Indicator';
+import Charts from '../Charts';
 
 export default class HostSession extends React.Component {
   constructor(props) {
@@ -35,6 +34,7 @@ export default class HostSession extends React.Component {
         chat: session.chat,
         error: false,
         subscribed: true,
+        success: false,
       };
     } else {
       this.state = {
@@ -51,6 +51,7 @@ export default class HostSession extends React.Component {
         chat: null,
         error: false,
         subscribed: true,
+        success: false,
       };
     }
 
@@ -276,6 +277,7 @@ export default class HostSession extends React.Component {
         this.props.updateToken(token);
         this.setState({
           finished: true,
+          success: false,
         });
       },
       statusCode: {
@@ -304,14 +306,21 @@ export default class HostSession extends React.Component {
           {this.state.secure}
         </h6>
         }
+        {this.state.finished &&
+          <div className="alert bg-dark text-primary" role="alert">
+            <h4 className="fs-4 mb-0"><i className="bi bi-exclamation-circle-fill"></i> Session has ended</h4>
+          </div>
+        }
         {this.state.error !== false && 
           <div className="alert alert-danger" role="alert">
             {this.state.error}
           </div>
         }
+        
         <Indicator mood={this.state.mood} />
-        <BarChart data={this.state.moodHistory} />
-        <Timeline data={this.state.moodHistory} />
+
+        <Charts moodHistory={this.state.moodHistory} />
+        
         <Chat
           sessionID={this.state.id}
           updateToken={this.props.updateToken}
@@ -332,37 +341,46 @@ export default class HostSession extends React.Component {
           finished={this.state.finished}
         />
         {/* End session btn */}
-        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#endModal">
-          End Session
-        </button>
-        <div className="modal fade" id="endModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">End Session</h5>
-                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div className="modal-body">
-                Are you sure you want to end the session? This will remove access for the attendees.
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={this.handleEnd}
-                >
-                  Yes
-                </button>
+        {!this.state.finished &&
+        <>
+          <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#endModal">
+            End Session
+          </button>
+          <div className="modal fade" id="endModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="exampleModalLabel">End Session</h5>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                {this.state.success && 
+                  <div className="alert alert-success" role="alert">
+                    Session has been ended
+                  </div>
+                }
+                <div className="modal-body">
+                  Are you sure you want to end the session? This will remove access for the attendees.
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={this.handleEnd}
+                  >
+                    Yes
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </>
+        }
+        
         <AddMod
           sessionID={this.state.id}
           updateToken={this.props.updateToken}
         />
-        {JSON.stringify(this.state)}
       </>
     );
   }
