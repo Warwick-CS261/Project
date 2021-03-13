@@ -179,7 +179,7 @@ class AttendeeSession extends React.Component {
           </div>
         )}
         <div className="att-layout">
-          <div class="q">
+          <div className="q">
           <Questions
             pushedQuestions={this.state.pushedQuestions}
             sessionID={this.state.id}
@@ -187,7 +187,7 @@ class AttendeeSession extends React.Component {
             isHost={false}
           />
           </div>
-          <div class="c">
+          <div className="c">
           <Chat
             sessionID={this.state.id}
             updateToken={this.props.updateToken}

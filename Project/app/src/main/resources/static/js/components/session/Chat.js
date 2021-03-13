@@ -58,7 +58,7 @@ export default class Chat extends React.Component {
                 </li>
               );
             })}
-            <div className="d-none chat-base" style={{ float:"left", clear: "both" }}
+            <div style={{ float:"left", clear: "both" }}
              ref={(el) => { this.messagesEnd = el; }}>
             </div>
             </>

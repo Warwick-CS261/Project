@@ -120,7 +120,8 @@ export default class Reaction extends React.Component {
   render(){
     return(
       <>
-        <h6 className="text-center fs-5 fw-bold">{this.props.question !== "" ? this.props.question : 'How is the session going?'}</h6>
+        <h5 className="text-center fs-5 fw-bold">{this.props.question !== "" ? this.props.question : 'How is the session going?'}</h5>
+        <p className="text-muted">*You need to select an emoji to send a response</p>
         <hr />
         {this.state.error !== false && (
           <div className="alert alert-danger" role="alert">
@@ -181,6 +182,7 @@ export default class Reaction extends React.Component {
             <button
               type="submit"
               className="btn btn-dark w-100 color-primary"
+              disabled={this.state.smiley == -1}
             >
               <div className="fs-4 text-primary">Answer</div>
             </button>
