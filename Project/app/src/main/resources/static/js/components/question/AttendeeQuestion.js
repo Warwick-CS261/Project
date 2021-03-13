@@ -7,10 +7,13 @@ export default class AttendeeQuestion extends React.Component {
     let q = this.props.data;
     if (this.props.data.id === 0){
       return(
-        <li>
-          <button
-            onClick={()=>this.props.handleSelect(q.id)}
-            >
+        <li
+          className={this.props.selected === q.id ?
+            "attendee-question active":"attendee-question" 
+          }
+          onClick={()=>this.props.handleSelect(q.id)}
+        >
+          <button>
             General Feedback
           </button>
         </li>
@@ -18,8 +21,13 @@ export default class AttendeeQuestion extends React.Component {
     }
 
     return(
-      <li>
-        <button onClick={()=>this.props.handleSelect(q.id)}>
+      <li
+        className={this.props.selected === q.id ?
+          "attendee-question active":"attendee-question" 
+        }
+        onClick={()=>this.props.handleSelect(q.id)}
+      >
+        <button>
           {q.question}
         </button>
       </li>

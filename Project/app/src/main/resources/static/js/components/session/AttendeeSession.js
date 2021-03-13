@@ -152,7 +152,8 @@ class AttendeeSession extends React.Component {
                 Cookies.set('token', token);
                 this.props.updateWatchToken(watchToken);
                 this.props.updateToken(token);
-              }
+                break;
+            }
               
               this.setState({
                 subscribed: false,

@@ -26,31 +26,57 @@ $happy: $mood-21;
 
 
 // Questions
-.host-question{
-  padding-left: .5rem;
-  padding-right: .5rem;
-  padding-top: .3rem;
-  padding-bottom: .3rem;
-  background-color: $primary;
-  border-radius: 10px;
-  margin-bottom: .2rem;
+
+
+.question-list{
+
+  .host-question{
+    padding-left: .5rem;
+    padding-right: .5rem;
+    padding-top: .3rem;
+    padding-bottom: .3rem;
+    background-color: $primary;
+    border-radius: 10px;
+    margin-bottom: .2rem;
+    
+    .controllers{
+      float: right;
+    }
+  
+    
+  }
+
+  .attendee-question{
+    padding-left: .5rem;
+    padding-right: .5rem;
+    padding-top: .3rem;
+    padding-bottom: .3rem;
+    background-color: $primary;
+    border-radius: 10px;
+    margin-bottom: .2rem;
+  }
   
   button{
     border: 0;
     background: none;
   }
 
-  .controllers{
-    float: right;
-  }
-
-  
-}
-
-.question-list{
-  
   .active{
     background-color: $light;
     color: $dark;
+  }
+}
+
+.reaction-btn{
+  width: 100%;
+  height: 150px;
+
+  .reaction{
+    width: 50px;
+    height: 50px;
+    border: 0;
+    border-radius: 50%;
+    font-size: xx-large;
+    cursor: pointer;
   }
 }

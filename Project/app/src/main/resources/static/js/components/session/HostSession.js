@@ -148,7 +148,7 @@ export default class HostSession extends React.Component {
                 this.setState((prevState)=>{
                   let answer = object.answer.answer;
                   let id = object.answer.qID;
-                  let mood = object.moodDate;
+                  let mood = object.answer.moodDate;
                   let index;
                   index = prevState.pushedQuestions.findIndex(x => x.id === id);
                   if (index > -1){

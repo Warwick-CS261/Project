@@ -125,19 +125,19 @@ export default class Reaction extends React.Component {
   render(){
     return(
       <>
-        <p className="text-center fs-5 fw-bold">{this.props.question ? this.props.question : 'How is the session going?'}</p>
+        <h6 className="text-center fs-5 fw-bold">{this.props.question !== "" ? this.props.question : 'How is the session going?'}</h6>
         <hr />
         {this.state.error !== false && (
           <div className="alert alert-danger" role="alert">
             {this.state.error}
           </div>
         )}
-        <form onSubmit={this.handleSubmit} className="w-100">
-          <div className="emoji-buttons-cont" >
+        <form onSubmit={this.handleSubmit} >
+          <div className="mb-3 reaction-btn">
             <button
               type="button"
               onClick={this.handleClick.bind(this,"happy")}
-              className="happy"
+              className={this.state.smiley === 3 ? 'reaction happy active':'reaction happy'}
               id="happy-btn"
             >
               <i className="bi bi-emoji-laughing-fill"></i>
@@ -145,7 +145,7 @@ export default class Reaction extends React.Component {
             <button
               type="button"
               onClick={this.handleClick.bind(this,"neutral")}
-              className="neutral"
+              className={this.state.smiley === 2 ? 'reaction neutral active':'reaction neutral'}
               id="neutral-btn"
             >
               <i className="bi bi-emoji-neutral-fill"></i>
@@ -153,7 +153,7 @@ export default class Reaction extends React.Component {
             <button
               type="button"
               onClick={this.handleClick.bind(this,"sad")}
-              className="sad"
+              className={this.state.smiley === 3 ? 'reaction sad active':'reaction sad'}
               id="sad-btn"
             >
               <i className="bi bi-emoji-frown-fill"></i>
