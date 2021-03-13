@@ -132,8 +132,8 @@ export default class Reaction extends React.Component {
             {this.state.error}
           </div>
         )}
-        <form onSubmit={this.handleSubmit} >
-          <div className="mb-3" >
+        <form onSubmit={this.handleSubmit} className="w-100">
+          <div className="emoji-buttons-cont" >
             <button
               type="button"
               onClick={this.handleClick.bind(this,"happy")}
@@ -165,7 +165,7 @@ export default class Reaction extends React.Component {
               name="context"
               onChange={this.handleChange}
               value={this.state.context}
-              className="form-control"
+              className="reactiontextbox"
               required
             />
           </div>
@@ -181,9 +181,9 @@ export default class Reaction extends React.Component {
           <div className="mb-3">
             <button
               type="submit"
-              className="btn btn-primary"
+              className="btn btn-dark"
             >
-              Send
+              Answer
             </button>
           </div>
         </form>
