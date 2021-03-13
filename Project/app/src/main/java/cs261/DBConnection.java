@@ -128,7 +128,7 @@ public class DBConnection {
     }
 
     public Boolean pushQuestion(String sessionId, int questionID) throws SQLException {
-        String query = "UPDATE QUESTION SET pushed = 1 WHERE id = ? & sessionID = ?";
+        String query = "UPDATE QUESTION SET pushed = 1 WHERE id = ? AND sessionID = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setInt(1, questionID);
         stmt.setString(2, sessionId);
@@ -137,7 +137,7 @@ public class DBConnection {
     }
 
     public Boolean endQuestion(String sessionId, int questionID) throws SQLException {
-        String query = "UPDATE QUESTION SET pushed = 0 WHERE id = ? & sessionID = ?";
+        String query = "UPDATE QUESTION SET pushed = 0 WHERE id = ? AND sessionID = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setInt(1, questionID);
         stmt.setString(2, sessionId);
