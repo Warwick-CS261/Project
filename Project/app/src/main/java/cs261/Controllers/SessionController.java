@@ -436,15 +436,22 @@ public class SessionController {
         DBConnection dbConn = App.getApp().getDbConn();
         Cacher cacher = App.getApp().getCacher();
         // gets params
+        String token = request.cookie("token");
         String watchToken = request.cookie("watchToken");
         String sessionID = request.params(":id");
         try {
             // verifies token and gets user
             User user = dbConn.getUserByWatchToken(watchToken);
             if (Objects.isNull(user)) {
-                response.status(450);
-                logger.warn("Watch session {} attempted with invalid token: {}", sessionID, watchToken);
-                return "Invalid Token";
+                user = dbConn.getUserByToken(token);
+                if (Objects.isNull(user)) {
+                    response.status(450);
+                    logger.warn("Watch session {} attempted with invalid token: {}", sessionID, watchToken);
+                    return "Invalid Tokens";
+                }
+                logger.info("Watch token was invalid but token was not issuing two new tokens");
+                return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"watchToken\":\""
+                        + dbConn.newWatchToken(user.getId()) + "\"}";
             }
 
             // verifies sesison exists
@@ -459,6 +466,8 @@ public class SessionController {
                 response.status(401);
                 return "not authorised";
             }
+
+            String newWatchToken = dbConn.newWatchToken(user.getId());
 
             // creates a new watcher
             Watcher w = new Watcher();
@@ -480,8 +489,7 @@ public class SessionController {
                     ",\"question\":", ",\"qID\":" };
 
             // returns new watch token and the update
-            return "{\"watchToken\":\"" + dbConn.newWatchToken(user.getId()) + "\"" + types[w.getType() - 230] + json
-                    + "}";
+            return "{\"watchToken\":\"" + newWatchToken + "\"" + types[w.getType() - 230] + json + "}";
         } catch (Exception e) {
             logger.warn("Encountered an exception trying to create a session, message as follows: \n{}",
                     e.getMessage());
