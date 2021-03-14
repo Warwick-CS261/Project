@@ -122,7 +122,7 @@ export default class Main extends React.Component {
                         exact={route.exact}
                         children={<>
                           {route.icon}
-                          <span className="d-none d-sm-inline-block">{route.text}</span></>}
+                          <span className="d-none d-sm-inline-block"> {route.text}</span></>}
                         activeClassName="active"
                       />
                     </li>
@@ -134,7 +134,7 @@ export default class Main extends React.Component {
                   href="/"
                   onClick={this.props.onLogout}
                 ><i className="bi bi-box-arrow-left"></i>
-                <span className="d-none d-sm-inline-block">Logout</span></a>
+                <span className="d-none d-sm-inline-block"> Logout</span></a>
               </li>
             </ul>
           </nav>

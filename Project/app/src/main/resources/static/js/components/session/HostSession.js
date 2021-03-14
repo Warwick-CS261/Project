@@ -296,7 +296,7 @@ export default class HostSession extends React.Component {
     return (
       <>
         <div className="heading">
-          <h1><i className="bi bi-calendar-event-fill"></i>{this.state.sessionName}</h1>
+          <h1><i className="bi bi-calendar-event-fill"></i> {this.state.sessionName}</h1>
         </div>
         <h6 className="text-center">#{this.state.id} {this.state.secure !== "" &&
           <>
@@ -343,7 +343,7 @@ export default class HostSession extends React.Component {
               {!this.state.finished &&
               <>
                 <button type="button" className="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#endModal">
-                  End Session
+                  <i className="bi bi-exclamation-diamond-fill"></i> End Session
                 </button>
                 <div className="modal fade" id="endModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div className="modal-dialog">

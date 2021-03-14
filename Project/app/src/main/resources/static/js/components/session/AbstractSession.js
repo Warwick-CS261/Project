@@ -106,23 +106,34 @@ class AbstractSession extends React.Component {
   render(){
     if (this.state.hasError){
       return(
-        <div className="text-center">
-          <h1>Something went wrong</h1>
-        </div>
+        <section className="main">
+          <div className="container-fluid">
+            Something went wrong, try refreshing the page
+          </div>
+        </section>
       );
     }
 
     if (this.state.error !== false){
       return(
-        <>{this.state.error}</>
+        <section className="main">
+          <div className="container-fluid">
+            {this.state.error}
+          </div>
+        </section>
       )
     }
 
     if (this.state.loading){
       return(
-        <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
+        <section className="main">
+          <div className="container-fluid">
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+            Loading content, if it takes too long try refreshing.
+          </div>
+        </section>
       );
     }
     if (this.props.isHost){

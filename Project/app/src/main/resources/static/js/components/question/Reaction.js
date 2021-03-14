@@ -71,6 +71,7 @@ export default class Reaction extends React.Component {
         this.props.updateToken(token);
         this.setState({
           context: '',
+          smiley: -1,
         });
       },
       statusCode: {
