@@ -8,11 +8,11 @@ public class Watcher {
 
     public String watch(String sessionID, Boolean isMod) throws Exception {
         this.isMod = isMod;
-        Object o = App.getApp().getObservable().addToList(sessionID, this, isMod);
+        Object o = App.getApp().getWatchable().addToList(sessionID, this, isMod);
         synchronized (o) {
             o.wait();
         }
-        App.getApp().getObservable().removeFromList(sessionID, this, isMod);
+        App.getApp().getWatchable().removeFromList(sessionID, this, isMod);
         return json;
     }
 

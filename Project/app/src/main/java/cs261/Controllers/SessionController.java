@@ -133,7 +133,7 @@ public class SessionController {
             cacher.createMessage(message, sessionID);
 
             // notifies all watch
-            App.getApp().getObservable().notifyBoth(1, sessionID, gson.toJson(message));
+            App.getApp().getWatchable().notifyBoth(1, sessionID, gson.toJson(message));
 
             // returns new token
             return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
@@ -190,7 +190,7 @@ public class SessionController {
             // all checks passed and success
             cacher.addModerator(newMod, sessionID);
             // notifies all watchers
-            App.getApp().getObservable().notifyBoth(4, sessionID, gson.toJson(newMod));
+            App.getApp().getWatchable().notifyBoth(4, sessionID, gson.toJson(newMod));
 
             // returns new token
             return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
@@ -307,7 +307,7 @@ public class SessionController {
             cacher.endSession(sessionID);
 
             // notifies all watchers that session has ended
-            App.getApp().getObservable().notifyBoth(0, sessionID, "");
+            App.getApp().getWatchable().notifyBoth(0, sessionID, "");
 
             // returns new token
             return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
@@ -350,7 +350,7 @@ public class SessionController {
 
             // notifies watchers that sesison has been deleted
 
-            App.getApp().getObservable().notifyBoth(5, sessionID, "");
+            App.getApp().getWatchable().notifyBoth(5, sessionID, "");
 
             // returns new token
             return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";

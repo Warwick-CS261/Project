@@ -9,9 +9,9 @@ import cs261.Controllers.*;
 public class App {
 
     static int port = 4000;
-    static String address = "localhost";
+    static String address = "86.30.228.94";
     private DBConnection dbConn;
-    private Obserable observable;
+    private Watchable watchable;
     private Analyse analyse;
     private Cacher cacher;
     public static App app;
@@ -28,8 +28,8 @@ public class App {
         return app;
     }
 
-    public Obserable getObservable() {
-        return observable;
+    public Watchable getWatchable() {
+        return watchable;
     }
 
     public Cacher getCacher() {
@@ -52,7 +52,7 @@ public class App {
         port(port);
         Class.forName("org.sqlite.JDBC");
         dbConn = new DBConnection("jdbc:sqlite:database/database.db");
-        observable = new Obserable();
+        watchable = new Watchable();
         analyse = new Analyse();
         // System.out.println(analyse.parseText("this app is better than facebook"));
         cacher = new Cacher(dbConn);
@@ -88,7 +88,7 @@ public class App {
                 post("/delete", SessionController.deleteSession);
                 post("/watch", SessionController.watchSession);
                 post("/clone", SessionController.copySession);
-              
+
                 // get("/join", returnPage);
 
                 path("/question", () -> {
