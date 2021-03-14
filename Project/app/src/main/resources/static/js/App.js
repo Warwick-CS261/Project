@@ -36,12 +36,18 @@ class App extends React.Component {
     super(props);
     this.state = {
       token: null,
-      firstName: '',
-      lastName: ''
+      user: {
+        firstName: '',
+        lastName: '',
+        email: '',
+      },
+      watchToken: null,
     };
 
     this.handleLogout = this.handleLogout.bind(this);
     this.updateToken = this.updateToken.bind(this);
+    this.updateWatchToken = this.updateWatchToken.bind(this);
+    this.setUser = this.setUser.bind(this);
   }
 
   handleLogout(){
@@ -58,24 +64,38 @@ class App extends React.Component {
 
   updateToken(token){
     this.setState({
-      auth: {
-        login: false,
-        signUp: false,
-      },
       token: token,
     });
   }
 
+  updateWatchToken(token){
+    this.setState({
+      watchToken: token,
+    });
+  }
+
+  setUser(fname, lname, email){
+    this.setState({
+      user: {
+        firstName: fname,
+        lastName: lname,
+        email: email,
+      },
+    });
+  }
 
   componentDidMount(){
     let tokenCookie = Cookies.get('token');
-    if (tokenCookie === undefined || tokenCookie === '') {
+    let watchTokenCookie = Cookies.get('watchToken');
+    if (tokenCookie === undefined || tokenCookie === '' || watchTokenCookie === undefined || watchTokenCookie === '') {
       this.setState({
         token: null,
+        watchToken: null,
       });
     } else {
       this.setState({
-        token: tokenCookie
+        token: tokenCookie,
+        watchToken: watchTokenCookie,
       });
     }
   }
@@ -88,12 +108,15 @@ class App extends React.Component {
             <Router>
               <Switch>
                 <Route exact path="/">
-                <video class="videobg" autoPlay muted loop id="myVideo">
-                  <source src="../img/beach.mp4" type="video/mp4"></source>
-                 </video>
+                <div className="videobgwrapper">
+                  <video className="videobg" autoPlay muted loop id="myVideo">
+                    <source src="../img/beach.mp4" type="video/mp4"></source>
+                  </video>
+                </div>
+                
                   <div className="landingcontainer">
                     <div className="title">
-                      Project CS261 Group 45
+                      SeshOn
                     </div>
                   </div>
                   <div className="landingflex">
@@ -106,10 +129,16 @@ class App extends React.Component {
                   </div>
                 </Route>
                 <Route path="/auth/login">
-                  <Login updateToken={this.updateToken}/>
+                  <Login
+                    updateToken={this.updateToken}
+                    setUser={this.setUser}
+                  />
                 </Route>
                 <Route path="/auth/register">
-                  <SignUp updateToken={this.updateToken} />
+                  <SignUp
+                    updateToken={this.updateToken}
+                    setUser={this.setUser}
+                  />
                 </Route>
               </Switch>
             </Router>
@@ -118,7 +147,11 @@ class App extends React.Component {
           <Router>
             <Main
               onLogout={this.handleLogout}
-              updateToken={this.updateToken} />
+              updateToken={this.updateToken}
+              updateWatchToken={this.updateWatchToken}
+              user={this.state.user}
+              setUser={this.setUser}
+            />
           </Router>
         }
       </>

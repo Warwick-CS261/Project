@@ -1,12 +1,12 @@
 import React from "react";
 import Cookies from "js-cookie";
 import { Route, NavLink, Switch } from "react-router-dom";
-import { Redirect, withRouter } from "react-router";
-import { handleJSON, handleToken } from "../../util";
+import { withRouter } from "react-router";
 import $ from "jquery";
 
-import Chat from "../Chat";
+import Chat from "./Chat";
 import Reaction from "../question/Reaction";
+import Questions from "../question/Questions";
 
 class AttendeeSession extends React.Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class AttendeeSession extends React.Component {
         pushedQuestions: session.pushedQuestions,
         chat: session.chat,
         error: false,
-        subscribed: false,
+        subscribed: true,
       };
     } else {
       this.state = {
@@ -32,127 +32,134 @@ class AttendeeSession extends React.Component {
         pushedQuestions: [],
         chat: null,
         error: false,
-        subscribed: false,
+        subscribed: true,
       };
     }
   }
 
-  componentDidMount() {
-    let id = this.props.match.params.id;
-    if (this.state.id === "" || id != this.state.id) {
-      $.ajax({
-        url: `/session/${id}`,
-        type: "POST",
-        success: (data, status, jqXHR) => {
-          let token = handleToken(data);
-          if (token === null || token === undefined) {
-            this.setState({
-              error: "Server response was invalid",
-            });
-            return;
-          }
-          let session = handleJSON(data);
-          if (session === null) {
-            this.setState({
-              error: "Server response was invalid",
-            });
-          }
-          // set cookies
-          Cookies.set("token", token);
-          this.props.updateToken(token);
-          // handle session
-          this.props.handleSession(session);
-          if (session.secure === null || session.secure === undefined) {
-            this.setState({
-              id: session.id,
-              seriesID: session.seriesID,
-              sessionName: session.sessionName,
-              owner: session.owner,
-              pushedQuestions: session.pushedQuestions,
-              chat: session.chat,
-              error: false,
-            });
-          }
-        },
-        statusCode: {
-          // Invalid token
-          450: () => {
-            console.log("Token invalid");
-            this.setState({
-              error: <Redirect to="/auth/login" />,
-            });
-          },
-          // Invalid session
-          454: () => {
-            console.log("Invalid session");
-          },
-          // Password missing
-          456: () => {
-            console.log("Password required to access session");
-            this.setState({
-              error: <Redirect to="/session/join" />,
-            });
-          },
-          // Session ended
-          457: () => {
-            console.log("Session has ended, only hosts can access it");
-          },
-        },
-      });
-    }
+  componentDidMount(){
+    this.setState({
+      subscribed: false,
+    });
   }
 
   async componentDidUpdate() {
     try {
       if (!this.state.subscribed && this.state.id !== ""){
+        console.log('Entering watch state setting flag subsrcibed');
         this.setState({
           subscribed: true,
         });
         setTimeout(()=>{
+          console.log('5 min up, setting subscribed to false');
           this.setState({
             subscribed: false,
           });
         }, 300000);
-        let res, {status, responseText} = await $.ajax({
+
+        await $.ajax({
           url: `/session/${this.state.id}/watch`,
           type: "POST",
           timeout: 300000,
+          success: (data, status, jqXHR) =>{
+            let object = JSON.parse(data);
+            let watchToken = object.watchToken;
+            Cookies.set('watchToken', watchToken);
+            this.props.updateWatchToken(watchToken);
+            switch(jqXHR.status){
+              // Session ended
+              case 230:
+                this.setState({
+                  finished: true,
+                });
+                break;
+              // New message
+              case 231:
+                this.setState((prevState)=>{
+                  let newChat = prevState.chat;
+                  newChat.messages.push(object.message);
+                  return {
+                    ...prevState,
+                    chat: newChat,
+                  }
+                });
+                break;
+              // Question changed
+              case 232:
+                this.setState((prevState)=>{
+                  // BUG question doens't load into different array
+                  let question = object.question;
+                  let oldPushed = prevState.pushedQuestions;
+                  if (question.pushed){
+                    oldPushed.push(question);
+                    return {
+                      ...prevState,
+                      pushedQuestions: oldPushed,
+                    }
+                  } else {
+                    let index = oldPushed.findIndex(x => x.id === question.id);
+                    if (index > -1){
+                      oldPushed.splice(index,1);
+                      return {
+                        ...prevState,
+                        pushedQuestions: oldPushed,
+                      };
+                    }
+                  }
+                });
+                break;
+              // Moderator added to session
+              case 234:
+                this.setState((prevState)=>{
+                  // TODO add user to mods
+                });
+                break;
+              // Session deleted
+              case 235:
+                // TODO redirect to home and display error
+                this.setState({
+                  error: <Redirect to={{
+                    pathname: '/',
+                    state: { error: 'Session has ended' }
+                  }} />,
+                });
+                break;
+              // Question deleted
+              case 237:
+                this.setState((prevState)=>{
+                  let qID = object.qID
+                  let index;
+                  index = prevState.pushedQuestions.findIndex(x => x.id === qID);
+                  if (index > -1){
+                    let newPushed = prevState.pushedQuestions;
+                    newPushed.splice(index,1);
+                    return {
+                      ...prevState,
+                      pushedQuestions: newPushed,
+                    };
+                  }
+                });
+                break;
+              // Token valid watchtoken invalid
+              case 250:
+                let token = object.token;
+                let watchToken = object.watchToken;
+                if (watchToken === undefined || watchToken === null || token === undefined || token === null){
+                  console.log('Server response invalid');
+                  return;
+                }
+                Cookies.set('watchToken', watchToken);
+                Cookies.set('token', token);
+                this.props.updateWatchToken(watchToken);
+                this.props.updateToken(token);
+                break;
+            }
+              
+              this.setState({
+                subscribed: false,
+              });
+          }
         });
-        switch(status){
-          case 230:
-            console.log(responseText);
-            break;
-          case 231:
-            console.log(responseText);
-            break;
-          case 232:
-            console.log(responseText);
-            break;
-          case 233:
-            console.log(responseText);
-            break;
-          case 234:
-            console.log(responseText);
-            break;
-          case 235:
-            console.log(responseText);
-            break;
-          case 236:
-            console.log(responseText);
-            break;
-          case 237:
-            console.log(responseText);
-            break;
-          case 401:
-            console.log(responseText);
-            break;
-          case 450:
-            console.log(responseText);
-            break;
-          case 454:
-            console.log(responseText);
-            break;
-        }
       }
     } catch (error) {
       console.log(error);
@@ -162,23 +169,33 @@ class AttendeeSession extends React.Component {
   render() {
     return (
       <>
-        <h2>{this.state.sessionName}</h2>
-        <h6>{this.state.id}</h6>
+        <div className="heading">
+          <h1><i className="bi bi-calendar-event-fill"></i> {this.state.sessionName}</h1>
+        </div>
+        <h6 className="text-center">#{this.state.id}</h6>
         {this.state.error !== false && (
           <div className="alert alert-danger" role="alert">
             {this.state.error}
           </div>
         )}
-        <Chat
-          sessionID={this.state.id}
-          updateToken={this.props.updateToken}
-          chat={this.state.chat}
-        />
-        <Reaction
-          sessionID={this.state.id}
-          updateToken={this.props.updateToken}
-        />
-        {JSON.stringify(this.state)}
+        <div className="att-layout">
+          <div className="q">
+          <Questions
+            pushedQuestions={this.state.pushedQuestions}
+            sessionID={this.state.id}
+            updateToken={this.props.updateToken}
+            isHost={false}
+          />
+          </div>
+          <div className="c">
+          <Chat
+            sessionID={this.state.id}
+            updateToken={this.props.updateToken}
+            chat={this.state.chat}
+          />
+          </div>
+        </div>
+        
       </>
     );
   }

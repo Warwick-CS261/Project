@@ -1,7 +1,7 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
-import {handleToken, handleError} from '../../util';
+import { Redirect } from 'react-router';
 
 /**
  * Login component
@@ -14,6 +14,7 @@ export default class Login extends React.Component {
       password: '',
       stay: false,
       error: false,
+      success: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -47,15 +48,19 @@ export default class Login extends React.Component {
       type: 'POST',
       data: params.toString(),
       success: (data, status, jqXHR) => {
-        let token = handleToken(data);
+        let object = JSON.parse(data);
+        let token = object.token;
         if (token === null || token === undefined){
           this.setState({
-            error: data,
+            error: 'Something went wrong please try again',
           });
-          return;
         }
+        this.setState({
+          success: true,
+        });
         Cookies.set('token', token);
         this.props.updateToken(token);
+        this.props.setUser(object.user.fname, object.user.lname, object.user.email);
       },
       statusCode: {
         455: ()=>{
@@ -68,12 +73,13 @@ export default class Login extends React.Component {
     event.preventDefault();
   }
 
-  componentWillUnmount(){
-    // TODO change to redirect
-    history.pushState({route: '/'}, '', '/');
-  }
-
   render(){
+    if (this.state.success){
+      return (
+        <Redirect to="/" />
+      );
+    }
+
     return(
       <div className="blackbg">
         <div className="registerBackground">
@@ -87,43 +93,31 @@ export default class Login extends React.Component {
           <form method="POST" onSubmit={this.handleSubmit} >
               <div className="row register-box">
                 <div className="col-12">
-                  <div className="row form-row">
-                    <div className="col-5">
-                      <label for="fn" class="form-label">Email</label>
-                    </div>
-                    <div className="col-7">
-                      <input 
-                        type="email" 
-                        name="email" 
-                        value={this.state.email}
-                        onChange={this.handleChange}
-                        onInvalid={this.handleInvalid}
-                        className="form-control"
-                        placeholder="John@Doe.com"
-                        autoFocus
-                        autoComplete="email"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="row form-row">
-                    <div className="col-5">
-                      <label for="fn" class="form-label">Password</label>
-                    </div>
-                    <div className="col-7">
-                      <input 
-                        type="password" 
-                        name="password" 
-                        value={this.state.password}
-                        onChange={this.handleChange}
-                        onInvalid={this.handleInvalid}
-                        className="form-control"
-                        placeholder="******"
-                        autoComplete="current-password"
-                        required
-                      />
-                    </div>
-                  </div>
+                    <label htmlFor="fn" className="form-label">Email</label>
+                    <input 
+                      type="email" 
+                      name="email" 
+                      value={this.state.email}
+                      onChange={this.handleChange}
+                      onInvalid={this.handleInvalid}
+                      className="form-control"
+                      placeholder="John@Doe.com"
+                      autoFocus
+                      autoComplete="email"
+                      required
+                    />
+                    <label htmlFor="fn" className="form-label mt-2">Password</label>
+                    <input 
+                      type="password" 
+                      name="password" 
+                      value={this.state.password}
+                      onChange={this.handleChange}
+                      onInvalid={this.handleInvalid}
+                      className="form-control"
+                      placeholder="******"
+                      autoComplete="current-password"
+                      required
+                    />
                   <div className="row form-row">
                     <div className="terms">
                         <input 
@@ -132,7 +126,7 @@ export default class Login extends React.Component {
                           onChange={this.handleCheck}
                           className="form-check-input"
                         />
-                        <label for="terms" className="form-label termslabel"><b>I am not a robot!</b></label> 
+                        <label htmlFor="terms" className="form-label termslabel"><b>I am not a robot!</b></label> 
                         <br></br>
                       </div>         
                       <button type="submit" className="col-4 btn btn-primary btn-lg btn-round">Log In</button>

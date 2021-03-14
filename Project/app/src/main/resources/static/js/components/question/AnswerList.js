@@ -1,25 +1,39 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
-import { handleToken } from '../../util';
 
 export default class AnswerList extends React.Component {
   render(){
     let data = this.props.data;
-    if (data === undefined || data === null){
+    if (data === undefined || data === null || data.length == 0){
       return(
-        <p>No answers yet for question {this.props.qID}</p>
+        <div className="alert alert-info w-100" role="alert">
+          No responses yet for this question
+        </div>
       );
     }
-
     return(
       <>
-        <ul>
+        <ul className="list-unstyled w-100">
           {this.props.data.map(answer => {
             return(
-              <li>
-                {JSON.stringify(answer)}
-              </li>
+              <div className="question-host">
+                <li
+                  key={answer.stamp}
+                  className="answer"
+                  data-smiley={answer.smiley}
+                >
+                  
+                  {!answer.anon ?
+                    <span>{answer.user.fname} {answer.user.lname}</span>
+                    :
+                    <span>Anonymous</span>
+                  }
+                  <span className="stamp">{answer.stamp}</span>
+                  <p><span className="user-profile"><i className="bi bi-person-circle"></i> </span>{answer.context}</p>
+                </li>
+              </div>
+              
             );
           })}
         </ul>

@@ -1,0 +1,45 @@
+.happy{
+    border:none;
+    width:75px;
+    height:75px;
+    background-color: transparent;
+    i{
+      font-size: 72px;
+    }
+  }
+  .neutral{
+    border:none;
+    width:75px;
+    height:75px;
+    background-color: transparent;
+    i{
+      font-size: 72px;
+    }
+  }
+  .sad{
+    border:none;
+    width:75px;
+    height:75px;
+    background-color: transparent;
+    i{
+      font-size: 72px;
+    }
+  }
+  
+  .happy.active{
+    color:$happy;
+  }
+  .neutral.active{
+    color:$neutral;
+  }
+  .sad.active{
+    color:$sad;
+  }
+  
+  .emoji-buttons-cont{
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    justify-content: space-evenly;
+    margin-bottom: 100px;
+  }

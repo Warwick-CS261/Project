@@ -8,8 +8,8 @@ import cs261.Controllers.*;
 
 public class App {
 
-    static int port = 6969;
-    static String address = "www.eryl.cymru";
+    static int port = 4000;
+    static String address = "86.30.228.94";
     private DBConnection dbConn;
     private Obserable observable;
     private Analyse analyse;
@@ -59,6 +59,7 @@ public class App {
 
         get("/", returnPage);
         get("/user", returnPage);
+        post("/user", AuthController.userDetails);
 
         path("/auth", () -> {
             post("/login", AuthController.login);
@@ -86,6 +87,8 @@ public class App {
                 post("/end", SessionController.endSession);
                 post("/delete", SessionController.deleteSession);
                 post("/watch", SessionController.watchSession);
+                post("/clone", SessionController.copySession);
+              
                 // get("/join", returnPage);
 
                 path("/question", () -> {

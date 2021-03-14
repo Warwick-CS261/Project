@@ -3,22 +3,20 @@ package cs261;
 import java.util.ArrayList;
 import java.util.Objects;
 
-
 public class HostSesh extends Sesh {
-    
+
     String secure;
     ArrayList<Question> hiddenQuestions;
     ArrayList<MoodDate> moodHistory;
     float mood;
 
-
-    public HostSesh(String id, String seriesID, String sessionName, float mood,
-    User owner, Boolean finished, ArrayList<Question> pushedquestions, Chat chat, String secure, 
-    ArrayList<Question> hiddenQuestions, ArrayList<MoodDate> moodHistory, ArrayList<User> moderators){
+    public HostSesh(String id, String seriesID, String sessionName, float mood, User owner, Boolean finished,
+            ArrayList<Question> pushedquestions, Chat chat, String secure, ArrayList<Question> hiddenQuestions,
+            ArrayList<MoodDate> moodHistory, ArrayList<User> moderators) {
         super(id, seriesID, sessionName, owner, finished, chat, pushedquestions, moderators);
-        if (Objects.isNull(secure)){
+        if (Objects.isNull(secure)) {
             this.secure = "";
-        } else{
+        } else {
             this.secure = secure;
         }
         this.hiddenQuestions = hiddenQuestions;
@@ -26,11 +24,11 @@ public class HostSesh extends Sesh {
         this.mood = mood;
     }
 
-    public HostSesh(String id, String seriesID, String sessionName, User owner, String secure){
+    public HostSesh(String id, String seriesID, String sessionName, User owner, String secure) {
         super(id, seriesID, sessionName, owner);
-        if (Objects.isNull(secure)){
+        if (Objects.isNull(secure)) {
             this.secure = "";
-        } else{
+        } else {
             this.secure = secure;
         }
         this.mood = 0;
@@ -38,15 +36,21 @@ public class HostSesh extends Sesh {
         this.moodHistory = new ArrayList<MoodDate>();
     }
 
-    public Sesh convertToSesh(){
-        return new Sesh(id, seriesID, sessionName, owner, finished, chat, pushedQuestions, moderators);
+    public Sesh convertToSesh() {
+        Sesh s = new Sesh(id, seriesID, sessionName, owner, finished, chat, new ArrayList<Question>(pushedQuestions),
+                moderators);
+        for (Question q : s.getPushedQuestions()) {
+            q.setAnswers(new ArrayList<Answer>());
+        }
+        return s;
     }
 
-    public Boolean pushQuestion(int qID){
-        for(Question q : hiddenQuestions){
-            if(q.getID() == qID){
+    public Boolean pushQuestion(int qID) {
+        for (Question q : hiddenQuestions) {
+            if (q.getID() == qID) {
                 hiddenQuestions.remove(q);
                 pushedQuestions.add(q);
+                q.setPushed(false);
                 return true;
             }
         }
@@ -54,29 +58,42 @@ public class HostSesh extends Sesh {
 
     }
 
-    public Question getQuestionByID(int id){
-        for(Question q : pushedQuestions){
-            if (q.getID() == id){
+    public Boolean pullQuestion(int qID) {
+        for (Question q : pushedQuestions) {
+            if (q.getID() == qID) {
+                pushedQuestions.remove(q);
+                hiddenQuestions.add(q);
+                q.setPushed(true);
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    public Question getQuestionByID(int id) {
+        for (Question q : pushedQuestions) {
+            if (q.getID() == id) {
                 return q;
             }
         }
-        for(Question q : hiddenQuestions){
-            if (q.getID() == id){
+        for (Question q : hiddenQuestions) {
+            if (q.getID() == id) {
                 return q;
             }
         }
         return null;
     }
 
-    public Question deleteQuestionByID(int id){
-        for(Question q : pushedQuestions){
-            if (q.getID() == id){
+    public Question deleteQuestionByID(int id) {
+        for (Question q : pushedQuestions) {
+            if (q.getID() == id) {
                 pushedQuestions.remove(q);
                 return q;
             }
         }
-        for(Question q : hiddenQuestions){
-            if (q.getID() == id){
+        for (Question q : hiddenQuestions) {
+            if (q.getID() == id) {
                 hiddenQuestions.remove(q);
                 return q;
             }
@@ -84,10 +101,10 @@ public class HostSesh extends Sesh {
         return null;
     }
 
-    public Boolean addQuestion(Question q){
-        if(q.getPushed()){
+    public Boolean addQuestion(Question q) {
+        if (q.getPushed()) {
             pushedQuestions.add(q);
-        }else{
+        } else {
             hiddenQuestions.add(q);
         }
         return true;
