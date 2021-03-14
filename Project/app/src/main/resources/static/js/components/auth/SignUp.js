@@ -183,7 +183,7 @@ export default class SignUp extends React.Component {
                       <br></br>
                     </div>
                   </div>          
-                  <button type="submit" className="col-4 btn btn-primary btn-lg btn-round">Register</button>               
+                  <button type="submit" className="col-4 btn btn-primary btn-lg btn-round w-100">Register</button>               
                 </div>
               </div>           
             </form>

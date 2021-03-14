@@ -110,21 +110,21 @@ class App extends React.Component {
                 <Route exact path="/">
                 <div className="videobgwrapper">
                   <video className="videobg" autoPlay muted loop id="myVideo">
-                    <source src="../img/beach.mp4" type="video/mp4"></source>
+                    <source src="../img/bg-video.mkv" type="video/mp4"></source>
                   </video>
                 </div>
                 
                   <div className="landingcontainer">
-                    <div className="title">
+                    <div className="title bg-dark">
                       SeshOn
                     </div>
                   </div>
                   <div className="landingflex">
                     <div className="landingflexchild">
-                      <Link className="btn btn-primary btn-lg"to="/auth/login" >Login!</Link>
+                      <Link className="btn btn-dark btn-landing"to="/auth/login" >Login</Link>
                     </div>
                     <div className="landingflexchild">
-                      <Link className="btn btn-primary btn-lg"to="/auth/register" >Register!</Link>
+                      <Link className="btn btn-dark btn-landing"to="/auth/register" >Register</Link>
                     </div>
                   </div>
                 </Route>

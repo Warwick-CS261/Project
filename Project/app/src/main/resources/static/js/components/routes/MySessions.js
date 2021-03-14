@@ -191,7 +191,7 @@ export default class MySessions extends React.Component {
                         {this.props.user !== undefined ?
                         this.props.user.email === session.owner.email &&
                           <>
-                          <button type="button" className="btn btn-warning float-end" data-bs-toggle="modal" data-bs-target="#deleteSession" onClick={e => e.stopPropagation()}>
+                          <button type="button" className="btn btn-dark float-end" data-bs-toggle="modal" data-bs-target="#deleteSession" onClick={e => e.stopPropagation()}>
                             <i className="bi bi-trash-fill"></i>
                           </button>
                           <div className="modal fade" id="deleteSession" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="deleteSession" aria-hidden="true" onClick={e=>e.stopPropagation()}>

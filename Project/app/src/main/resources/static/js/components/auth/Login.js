@@ -129,7 +129,7 @@ export default class Login extends React.Component {
                         <label htmlFor="terms" className="form-label termslabel"><b>I am not a robot!</b></label> 
                         <br></br>
                       </div>         
-                      <button type="submit" className="col-4 btn btn-primary btn-lg btn-round">Log In</button>
+                      <button type="submit" className="col-4 btn btn-primary btn-lg btn-round w-100">Log In</button>
                     </div>
                 </div>
               </div>    
