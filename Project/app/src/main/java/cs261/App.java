@@ -9,7 +9,7 @@ import cs261.Controllers.*;
 public class App {
 
     static int port = 4000;
-    static String address = "localhost";
+    static String address = "86.30.228.94";
     private DBConnection dbConn;
     private Obserable observable;
     private Analyse analyse;

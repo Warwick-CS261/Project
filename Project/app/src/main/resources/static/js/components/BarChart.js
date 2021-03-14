@@ -25,7 +25,7 @@ export default class BarChart extends React.Component {
     
       dataObj.forEach(dataSlice => {
         let val = Math.round(dataSlice.mood * 10) / 10;
-        moods[(val + 1) * 10] += 1;
+        moods[Math.round((val + 1) * 10)] += 1;
       });
     
       for (let i = 0; i < moods.length; i++) {

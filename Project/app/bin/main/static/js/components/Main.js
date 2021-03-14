@@ -107,7 +107,7 @@ export default class Main extends React.Component {
       <>
       <section className="body">
         <section className="menu">
-          <div className="logo">
+          <div className="logo d-none d-sm-block">
             <Logo />
           </div>
           
@@ -120,7 +120,9 @@ export default class Main extends React.Component {
                       <NavLink 
                         to={route.path}
                         exact={route.exact}
-                        children={<>{route.icon}<span>{route.text}</span></>}
+                        children={<>
+                          {route.icon}
+                          <span className="d-none d-sm-inline-block">{route.text}</span></>}
                         activeClassName="active"
                       />
                     </li>
@@ -131,7 +133,8 @@ export default class Main extends React.Component {
                 <a
                   href="/"
                   onClick={this.props.onLogout}
-                ><i className="bi bi-box-arrow-left"></i>Logout</a>
+                ><i className="bi bi-box-arrow-left"></i>
+                <span className="d-none d-sm-inline-block">Logout</span></a>
               </li>
             </ul>
           </nav>
@@ -167,6 +170,7 @@ export default class Main extends React.Component {
             <User
               user={this.props.user}
               setUser={this.props.setUser}
+              updateToken={this.props.updateToken}
             />
           </Route>
           <Route path={routes[2].path}>
