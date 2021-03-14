@@ -88,6 +88,7 @@ public class App {
                 post("/delete", SessionController.deleteSession);
                 post("/watch", SessionController.watchSession);
                 post("/clone", SessionController.copySession);
+              
                 // get("/join", returnPage);
 
                 path("/question", () -> {
