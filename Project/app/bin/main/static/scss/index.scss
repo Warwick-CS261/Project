@@ -281,12 +281,9 @@ section.body{
     }
   }
 }
-<<<<<<< HEAD
-=======
 .sessiongridcontainer::-webkit-scrollbar {
   display: none;
 }
->>>>>>> why
 .chat-container{
   background-color: $dark;
   border-radius: 25px;
@@ -358,8 +355,6 @@ section.body{
   }
   
 }
-<<<<<<< HEAD
-=======
 
 .question-container{
   display:flex;
@@ -412,5 +407,11 @@ section.body{
     }
   }
 }
->>>>>>> why
+
+.profile-element{
+  padding:8px;
+  margin:16px;
+  border-radius: 15px;
+  background-color: $dark;
+}
 

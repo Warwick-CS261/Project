@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 
 public class SessionController {
 
@@ -18,9 +19,10 @@ public class SessionController {
 
     public static Route createSession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
+        Cacher cacher = App.getApp().getCacher();
         // gets params
-        String name = request.queryParams("name");
-        String token = request.cookie("token");
+        String name = escapeHtml(request.queryParams("name"));
+        String token = escapeHtml(request.cookie("token"));
         try {
             Boolean secure = Boolean.parseBoolean(request.queryParamOrDefault("secure", "false"));
             String seriesID = request.queryParams("series");
@@ -53,13 +55,14 @@ public class SessionController {
             // add session to db
             dbConn.createSession(hostSession);
             // creates default question
-            App.getApp().getCacher().createQuestion(new Question("", true, true), sessionID);
+            cacher.createQuestion(new Question("", true, true), sessionID);
             // adds host as moderator
-            App.getApp().getCacher().addModerator(user, sessionID);
+            cacher.addModerator(user, sessionID);
 
             // returns new token, watch token and session json
             return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\",\"watchToken\":\""
-                    + dbConn.newWatchToken(user.getId()) + "\",\"session\":" + gson.toJson(hostSession) + "}";
+                    + dbConn.newWatchToken(user.getId()) + "\",\"session\":"
+                    + gson.toJson(cacher.getHostSessionByID(sessionID)) + "}";
         } catch (Exception e) {
             logger.warn("Encountered an exception trying to create a session, message as follows: \n{}",
                     e.getMessage());
@@ -72,7 +75,7 @@ public class SessionController {
         DBConnection dbConn = App.getApp().getDbConn();
 
         // gets params
-        String token = request.cookie("token");
+        String token = escapeHtml(request.cookie("token"));
         try {
             // gets user and verifies token
             User user = dbConn.getUserByToken(token);
@@ -99,9 +102,9 @@ public class SessionController {
         DBConnection dbConn = App.getApp().getDbConn();
         Cacher cacher = App.getApp().getCacher();
         // gets params
-        String sessionID = request.params(":id");
-        String token = request.cookie("token");
-        String msg = request.queryParamOrDefault("message", "");
+        String sessionID = escapeHtml(request.params(":id"));
+        String token = escapeHtml(request.cookie("token"));
+        String msg = escapeHtml(request.queryParamOrDefault("message", ""));
         try {
             Boolean anon = Boolean.parseBoolean(request.queryParamOrDefault("anon", "false"));
             Date date = new Date();
@@ -147,9 +150,9 @@ public class SessionController {
         Cacher cacher = App.getApp().getCacher();
 
         // gets params
-        String token = request.cookie("token");
-        String sessionID = request.params(":id");
-        String email = request.queryParams("email");
+        String token = escapeHtml(request.cookie("token"));
+        String sessionID = escapeHtml(request.params(":id"));
+        String email = escapeHtml(request.queryParams("email"));
         try {
             // verifies token and gets user
             User user = dbConn.getUserByToken(token);
@@ -203,9 +206,9 @@ public class SessionController {
         Cacher cacher = App.getApp().getCacher();
 
         // gets params
-        String token = request.cookie("token");
-        String password = request.queryParamOrDefault("password", "");
-        String sessionID = request.params(":id");
+        String token = escapeHtml(request.cookie("token"));
+        String password = escapeHtml(request.queryParamOrDefault("password", ""));
+        String sessionID = escapeHtml(request.params(":id"));
         try {
             // verifies token is valid and gets user
             User user = dbConn.getUserByToken(token);
@@ -271,8 +274,8 @@ public class SessionController {
         Cacher cacher = App.getApp().getCacher();
 
         // gets params
-        String token = request.cookie("token");
-        String sessionID = request.params(":id");
+        String token = escapeHtml(request.cookie("token"));
+        String sessionID = escapeHtml(request.params(":id"));
         try {
             // verifies token and gets user
             User user = dbConn.getUserByToken(token);
@@ -319,8 +322,8 @@ public class SessionController {
         DBConnection dbConn = App.getApp().getDbConn();
         Cacher cacher = App.getApp().getCacher();
         // gets params
-        String token = request.cookie("token");
-        String sessionID = request.params(":id");
+        String token = escapeHtml(request.cookie("token"));
+        String sessionID = escapeHtml(request.params(":id"));
         try {
             // verifies token and gets user
             User user = dbConn.getUserByToken(token);
@@ -361,8 +364,9 @@ public class SessionController {
     public static Route copySession = (Request request, Response response) -> {
         DBConnection dbConn = App.getApp().getDbConn();
         Cacher cacher = App.getApp().getCacher();
-        String token = request.cookie("token");
-        String sessionID = request.params(":id");
+
+        String token = escapeHtml(request.cookie("token"));
+        String sessionID = escapeHtml(request.params(":id"));
         try {
 
             // verifies token and gets user
@@ -436,9 +440,9 @@ public class SessionController {
         DBConnection dbConn = App.getApp().getDbConn();
         Cacher cacher = App.getApp().getCacher();
         // gets params
-        String token = request.cookie("token");
-        String watchToken = request.cookie("watchToken");
-        String sessionID = request.params(":id");
+        String token = escapeHtml(request.cookie("token"));
+        String watchToken = escapeHtml(request.cookie("watchToken"));
+        String sessionID = escapeHtml(request.params(":id"));
         try {
             // verifies token and gets user
             User user = dbConn.getUserByWatchToken(watchToken);

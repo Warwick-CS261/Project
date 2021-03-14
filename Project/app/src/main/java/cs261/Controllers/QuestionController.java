@@ -9,6 +9,8 @@ import cs261.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
+
 import com.google.gson.Gson;
 
 public class QuestionController {
@@ -22,9 +24,9 @@ public class QuestionController {
         Cacher cacher = App.getApp().getCacher();
 
         // gets params
-        String sessionID = request.params(":id");
-        String token = request.cookie("token");
-        String question = request.queryParams("question");
+        String sessionID = escapeHtml(request.params(":id"));
+        String token = escapeHtml(request.cookie("token"));
+        String question = escapeHtml(request.queryParams("question"));
         try {
             Boolean pushed = Boolean.parseBoolean(request.queryParamOrDefault("pushed", "false"));
             Boolean general = Boolean.parseBoolean(request.queryParamOrDefault("general", "false"));
@@ -76,10 +78,10 @@ public class QuestionController {
         Cacher cacher = App.getApp().getCacher();
 
         // gets params
-        String token = request.cookie("token");
-        String sessionID = request.params(":id");
-        String context = request.queryParams("context");
-        String anon = request.queryParams("anon");
+        String token = escapeHtml(request.cookie("token"));
+        String sessionID = escapeHtml(request.params(":id"));
+        String context = escapeHtml(request.queryParams("context"));
+        String anon = escapeHtml(request.queryParams("anon"));
         try {
             int smiley = Integer.parseInt(request.queryParams("smiley"));
             int qID = Integer.parseInt(request.queryParams("qID"));
@@ -151,8 +153,8 @@ public class QuestionController {
         Cacher cacher = App.getApp().getCacher();
 
         // gets params
-        String token = request.cookie("token");
-        String sessionID = request.params(":id");
+        String token = escapeHtml(request.cookie("token"));
+        String sessionID = escapeHtml(request.params(":id"));
         try {
             int qID = Integer.parseInt(request.queryParams("qID"));
 
@@ -208,8 +210,8 @@ public class QuestionController {
         Cacher cacher = App.getApp().getCacher();
 
         // gets param
-        String token = request.cookie("token");
-        String sessionID = request.params(":id");
+        String token = escapeHtml(request.cookie("token"));
+        String sessionID = escapeHtml(request.params(":id"));
         try {
             int qID = Integer.parseInt(request.queryParams("qID"));
 
@@ -246,8 +248,14 @@ public class QuestionController {
             q.setPushed(false);
 
             // notifies everyone
-            App.getApp().getObservable().notifyBoth(2, sessionID, gson.toJson(q.attendeeQuestion()));// need to discuss
-                                                                                                     // how to do this
+            App.getApp().getObservable().notifyAttendees(2, sessionID, gson.toJson(q.attendeeQuestion()));
+            App.getApp().getObservable().notifyModerators(2, sessionID, gson.toJson(q));// need
+                                                                                        // to
+                                                                                        // discuss
+                                                                                        // how
+                                                                                        // to
+                                                                                        // do
+                                                                                        // this
 
             // returns new token
             return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
@@ -263,8 +271,8 @@ public class QuestionController {
         Cacher cacher = App.getApp().getCacher();
 
         // gets params
-        String token = request.cookie("token");
-        String sessionID = request.params(":id");
+        String token = escapeHtml(request.cookie("token"));
+        String sessionID = escapeHtml(request.params(":id"));
         try {
             int qID = Integer.parseInt(request.queryParams("qID"));
 
@@ -303,6 +311,7 @@ public class QuestionController {
 
             // notifies all watchers question has ended
             App.getApp().getObservable().notifyBoth(2, sessionID, gson.toJson(q.attendeeQuestion()));
+            App.getApp().getObservable().notifyModerators(2, sessionID, gson.toJson(q));
 
             // returns new token
             return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";

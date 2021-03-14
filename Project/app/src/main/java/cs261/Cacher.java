@@ -11,7 +11,7 @@ public class Cacher {
 
     public Cacher(DBConnection dbConn) {
         this.dbConn = dbConn;
-        recentSessions = new CircularFifoQueue<HostSesh>(100);
+        recentSessions = new CircularFifoQueue<HostSesh>(1);
     }
 
     public Boolean createQuestion(Question q, String sessionID) throws SQLException {
@@ -26,10 +26,12 @@ public class Cacher {
 
     public Boolean createAnswer(Answer a, String sessionID, int qID) throws SQLException {
         HostSesh hs;
+
         if (!Objects.isNull(hs = searchCache(sessionID))) {
             hs.getQuestionByID(qID).addAnswer(a);
         }
         dbConn.createAnswer(a, sessionID, qID);
+
         return true;
     }
 
@@ -38,6 +40,7 @@ public class Cacher {
         if (!Objects.isNull(hs = searchCache(sessionID))) {
             return hs.getQuestionByID(qID).getMood();
         }
+
         return dbConn.getQuestionByID(sessionID, qID).getMood();
     }
 
@@ -78,6 +81,7 @@ public class Cacher {
     public Boolean pushQuestion(String sessionID, int qID) throws SQLException {
         HostSesh hs;
         if (!Objects.isNull(hs = searchCache(sessionID))) {
+            System.out.println("found, pushing");
             hs.pushQuestion(qID);
         }
         dbConn.pushQuestion(sessionID, qID);
@@ -99,6 +103,7 @@ public class Cacher {
             return hs;
         } else if (!Objects.isNull(hs = dbConn.getHostSessionByID(sessionID))) {
             recentSessions.add(hs);
+            recentSessions.add(new HostSesh("afa", "w", "lol", new User("aq", "afd", "qd"), "nope"));
             return hs;
         }
         return null;
