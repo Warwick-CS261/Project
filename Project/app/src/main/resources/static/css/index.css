@@ -11474,7 +11474,20 @@ fieldset:disabled .btn {
 
 .chart {
   padding: 1rem;
-  border-radius: 15px;
+  border-radius: 0 1rem 1rem 1rem;
+}
+
+.btn-chart-line {
+  border-radius: 1rem 0 0 0;
+}
+
+.btn-chart-bar {
+  border-radius: 0 1rem 0 0;
+}
+
+.btn-chart-line:focus, .btn-chart-line:focus {
+  box-shadow: none;
+  -webkit-box-shadow: none;
 }
 
 .att-layout {

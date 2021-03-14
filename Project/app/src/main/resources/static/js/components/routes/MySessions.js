@@ -11,6 +11,7 @@ export default class MySessions extends React.Component {
       attendedSessions: [],
       error: false,
       sessionID: "",
+      success: false,
     }
 
     this.handleClick = this.handleClick.bind(this);
@@ -100,6 +101,12 @@ export default class MySessions extends React.Component {
         }
         Cookies.set('token', token);
         this.props.updateToken(token);
+        let newModSessions = this.state.modSessions;
+        newModSessions.filter(x => x.id !== id);
+        this.setState({
+          modSessions: newModSessions,
+          success: true,
+        });
       },
       statusCode: {
         450: ()=>{
@@ -169,7 +176,7 @@ export default class MySessions extends React.Component {
         <section className="main">
           <div className="container-fluid">
             <div className="heading">
-              <h1><i className="bi bi-calendar-event-fill"></i>My Sessions</h1>
+              <h1><i className="bi bi-calendar-event-fill"></i> My Sessions</h1>
             </div>
             <div className="sessiongridcontainer">
               <div className="sessiongrid">
@@ -181,22 +188,49 @@ export default class MySessions extends React.Component {
                     >
                       <div className="sessiongridchild">
                         <h3>{session.sessionName}</h3>
-                        <i>#<span>{session.id}</span></i><br></br>
-                        <h5>Host: <span>{session.owner.fname} {session.owner.lname}</span></h5>
                         {this.props.user !== undefined ?
                         this.props.user.email === session.owner.email &&
                           <>
+                          <button type="button" className="btn btn-warning float-end" data-bs-toggle="modal" data-bs-target="#deleteSession" onClick={e => e.stopPropagation()}>
+                            <i className="bi bi-trash-fill"></i>
+                          </button>
+                          <div className="modal fade" id="deleteSession" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="deleteSession" aria-hidden="true" onClick={e=>e.stopPropagation()}>
+                            <div className="modal-dialog">
+                              <div className="modal-content">
+                                <div className="modal-header">
+                                  <h5 className="modal-title" id="deleteSessionLabel">Delete session</h5>
+                                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={e=>e.stopPropagation()}></button>
+                                </div>
+                                <div className="modal-body">
+                                  {this.state.error !== false && 
+                                    <div className="alert alert-danger" role="alert">
+                                      {this.state.error}
+                                    </div>
+                                  }
+                                  {this.state.success && 
+                                    <div className="alert alert-success" role="alert">
+                                      Session successfully delete
+                                    </div>
+                                  }
+                                  <p>Are you sure you want to delete the session? This action is irreversible.</p>
+                                </div>
+                                <div className="modal-footer">
+                                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={e=>e.stopPropagation()}>Close</button>
+                                  <button
+                                    className="btn btn-danger"
+                                    onClick={e=>{
+                                      e.stopPropagation();
+                                      this.handleDelete(session.id)}
+                                    }
+                                  >
+                                    Delete session
+                                  </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                             <button
-                              className="btn btn-danger"
-                              onClick={e=>{
-                                e.stopPropagation();
-                                this.handleDelete(session.id)}
-                              }
-                            >
-                              <i className="bi bi-trash-fill"></i>
-                            </button>
-                            <button
-                              className="btn-dark"
+                              className="btn btn-dark float-end"
                               onClick={e=>{
                                 e.stopPropagation();
                                 this.handleClone(session.id)}
@@ -208,8 +242,9 @@ export default class MySessions extends React.Component {
                           :
                           <></>
                         }
+                        <i>#<span>{session.id}</span></i><br></br>
+                        <h5>Host: <span>{session.owner.fname} {session.owner.lname}</span></h5>
                       </div>
-                      
                     </div>
                   );
                 })}

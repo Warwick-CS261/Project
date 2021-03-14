@@ -7,7 +7,7 @@ export default class AnswerList extends React.Component {
     let data = this.props.data;
     if (data === undefined || data === null || data.length == 0){
       return(
-        <div class="alert alert-info w-100" role="alert">
+        <div className="alert alert-info w-100" role="alert">
           No responses yet for this question
         </div>
       );

@@ -10,38 +10,57 @@ export default class Charts extends React.Component {
       showLineChart: true,
     }
 
-    this.toggleChart = this.toggleChart.bind(this);
+    this.toggleLineChart = this.toggleLineChart.bind(this);
+    this.toggleBarChart = this.toggleBarChart.bind(this);
   }
 
-  toggleChart(){
-    this.setState(prev => {
-      return {
-        showLineChart: !prev.showLineChart,
-      }
-    });
+  toggleLineChart(){
+    if (!this.state.showLineChart){
+      this.setState({
+        showLineChart: true,
+      });
+    }
   }
  
+  toggleBarChart(){
+    if (this.state.showLineChart){
+      this.setState({
+        showLineChart: false,
+      });
+    }
+  }
+
   render(){
     if (this.state.showLineChart) {
       return(
-        <div className="text-center">
+        <div>
           <button
             type="button"
-            onClick={this.toggleChart}
-            className="btn btn-light mb-2"
-          >Show bar chart</button>
+            onClick={this.toggleLineChart}
+            className="btn btn-dark btn-chart-line"
+          ><i className="bi bi-graph-up"></i> Line chart</button>
+          <button
+            type="button"
+            onClick={this.toggleBarChart}
+            className="btn btn-light btn-chart-bar"
+          ><i className="bi bi-bar-chart-fill"></i> Bar chart</button>
           <Timeline data={this.props.moodHistory} />
         </div>
       )
     }
 
     return(
-      <div className="text-center">
+      <div>
         <button
             type="button"
-            onClick={this.toggleChart}
-            className="btn btn-dark mb-2"
-          >Show line chart</button>
+            onClick={this.toggleLineChart}
+            className="btn btn-dark btn-chart-line"
+          ><i className="bi bi-graph-up"></i> Line chart</button>
+          <button
+            type="button"
+            onClick={this.toggleBarChart}
+            className="btn btn-light btn-chart-bar"
+          ><i className="bi bi-bar-chart-fill"></i> Bar chart</button>
         <BarChart data={this.props.moodHistory} />
       </div>
     );

@@ -21,6 +21,8 @@ export default class AddMod extends React.Component {
   handleChange(event){
     this.setState({
       [event.target.name]: event.target.value,
+      error: false,
+      success: false,
     });
   }
 
@@ -82,7 +84,7 @@ export default class AddMod extends React.Component {
     return(
       <>
         <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModModal">
-          Add Host
+          <i className="bi bi-person-plus-fill"></i> Add Host
         </button>
         <div className="modal fade" id="addModModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog">

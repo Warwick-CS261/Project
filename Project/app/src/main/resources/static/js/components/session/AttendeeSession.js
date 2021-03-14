@@ -170,7 +170,7 @@ class AttendeeSession extends React.Component {
     return (
       <>
         <div className="heading">
-          <h1><i className="bi bi-calendar-event-fill"></i>{this.state.sessionName}</h1>
+          <h1><i className="bi bi-calendar-event-fill"></i> {this.state.sessionName}</h1>
         </div>
         <h6 className="text-center">#{this.state.id}</h6>
         {this.state.error !== false && (
