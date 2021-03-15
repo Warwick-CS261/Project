@@ -5,6 +5,11 @@ import org.apache.commons.exec.*;
 
 public class Analyse {
 
+    /**
+     * A function that takes a string and passes it to the python semantic analysis script.
+     * @param str the string to be passed to python
+     * @return the float value the python script returns
+     */
     public float parseText(String str) {
         try {
             String line = "python3 " + "src/main/python/main.py " + "'" + str + "'";
@@ -28,10 +33,23 @@ public class Analyse {
 
     }
 
+    /**
+     * A function to calculate a new mean from float inputs
+     * @param oldMean the old mean
+     * @param newValue the new value to be added in
+     * @param numValues the number of values currently in
+     * @return the new mean
+     */
     public float newMoodCoefficient(float oldMean, float newValue, int numValues) {
         return ((oldMean * numValues) + newValue) / (numValues + 1);
     }
 
+    /**
+     * A function that balances the sentiment between the text parser and the Smiley responce
+     * @param smiley the value of the reaction
+     * @param textValue the value of the text analysis
+     * @return the overall sentiment
+     */
     public float analyseResponse(int smiley, float textValue) {
 
         int smileyValue = smiley - 2;
