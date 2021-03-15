@@ -13,10 +13,9 @@ public class Sesh {
     ArrayList<Question> pushedQuestions;
     Chat chat;
 
-
-    //constructor
-    public Sesh(String id, String seriesID, String sessionName,
-                User owner, Boolean finished, Chat chat, ArrayList<Question> pushedQuestions, ArrayList<User> moderators){
+    // constructor
+    public Sesh(String id, String seriesID, String sessionName, User owner, Boolean finished, Chat chat,
+            ArrayList<Question> pushedQuestions, ArrayList<User> moderators) {
         this.id = id;
         this.seriesID = seriesID;
         this.sessionName = sessionName;
@@ -27,8 +26,7 @@ public class Sesh {
         this.moderators = moderators;
     }
 
-    public Sesh(String id, String seriesID, String sessionName,
-            User owner){
+    public Sesh(String id, String seriesID, String sessionName, User owner) {
         this.id = id;
         this.seriesID = seriesID;
         this.sessionName = sessionName;
@@ -36,28 +34,30 @@ public class Sesh {
         this.finished = false;
         this.pushedQuestions = new ArrayList<Question>();
         this.chat = new Chat();
-        }
+    }
 
+    /**
+     * Generates a 6 character ID for a session
+     * 
+     * @return the 6 character id
+     */
+    public static String generateID() {
 
-    public static String generateID(){
-    
         Random r = new Random();
-    
+
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        String code ="";
+        String code = "";
         for (int i = 0; i < 6; i++) {
-            code = code +alphabet.charAt(r.nextInt(alphabet.length()));
+            code = code + alphabet.charAt(r.nextInt(alphabet.length()));
         }
 
         return code;
     }
 
-/*
-    public Boolean addQuestion(Question q){
-        pushedQuestions.add(q);
-        return true;
-    }
-*/
+    /*
+     * public Boolean addQuestion(Question q){ pushedQuestions.add(q); return true;
+     * }
+     */
     public ArrayList<User> getModerators() {
         return moderators;
     }

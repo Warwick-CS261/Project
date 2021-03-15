@@ -6,6 +6,14 @@ public class Watcher {
     int type = 0;
     Boolean isMod = false;
 
+    /**
+     * Watches a given session's linked list
+     * 
+     * @param sessionID the session to watch
+     * @param isMod     wheter or not the user is a moderaor
+     * @return the json string to return to the user
+     * @throws Exception
+     */
     public String watch(String sessionID, Boolean isMod) throws Exception {
         this.isMod = isMod;
         Object o = App.getApp().getWatchable().addToList(sessionID, this, isMod);

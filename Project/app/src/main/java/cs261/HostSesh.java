@@ -36,6 +36,12 @@ public class HostSesh extends Sesh {
         this.moodHistory = new ArrayList<MoodDate>();
     }
 
+    /**
+     * Converts this host session into a normal session
+     * 
+     * @return the normal session
+     */
+
     public Sesh convertToSesh() {
         Sesh s = new Sesh(id, seriesID, sessionName, owner, finished, chat, new ArrayList<Question>(pushedQuestions),
                 moderators);
@@ -44,6 +50,13 @@ public class HostSesh extends Sesh {
         }
         return s;
     }
+
+    /**
+     * Put a question in the pushed list given an id
+     * 
+     * @param qID the question's id
+     * @return Whether or not the operation was successful
+     */
 
     public Boolean pushQuestion(int qID) {
         for (Question q : hiddenQuestions) {
@@ -58,6 +71,12 @@ public class HostSesh extends Sesh {
 
     }
 
+    /**
+     * Removes a question from the pushed questions list given a question ID
+     * 
+     * @param qID the question's id
+     * @return
+     */
     public Boolean pullQuestion(int qID) {
         for (Question q : pushedQuestions) {
             if (q.getID() == qID) {
@@ -71,6 +90,12 @@ public class HostSesh extends Sesh {
 
     }
 
+    /**
+     * Gets a question by id, searches the pushed and hidden questions
+     * 
+     * @param id the question id
+     * @return
+     */
     public Question getQuestionByID(int id) {
         for (Question q : pushedQuestions) {
             if (q.getID() == id) {
@@ -85,6 +110,12 @@ public class HostSesh extends Sesh {
         return null;
     }
 
+    /**
+     * Deletes a question with a given id
+     * 
+     * @param id the question to delete
+     * @return
+     */
     public Question deleteQuestionByID(int id) {
         for (Question q : pushedQuestions) {
             if (q.getID() == id) {
@@ -101,6 +132,12 @@ public class HostSesh extends Sesh {
         return null;
     }
 
+    /**
+     * Takes a question and adds it to the relevant list
+     * 
+     * @param q the questino to be added
+     * @return
+     */
     public Boolean addQuestion(Question q) {
         if (q.getPushed()) {
             pushedQuestions.add(q);

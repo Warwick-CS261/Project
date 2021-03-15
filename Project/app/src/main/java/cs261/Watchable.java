@@ -15,6 +15,15 @@ public class Watchable {
         map.put(false, new HashMap<String, List<Watcher>>());
     }
 
+    /**
+     * Takes a watcher and adds it to the linked list for the relevant session
+     * 
+     * @param sessionID the session to be watched
+     * @param w         the watcher itself
+     * @param isMod     weather or not the watcher is watching for moderator
+     *                  notifications
+     * @return the list to watch
+     */
     public List<Watcher> addToList(String sessionID, Watcher w, Boolean isMod) {
 
         if (Objects.isNull(map.get(isMod).get(sessionID))) {
@@ -25,12 +34,26 @@ public class Watchable {
 
     }
 
+    /**
+     * removes a given watcher from a given watch list
+     * 
+     * @param sessionID the session being watched
+     * @param w         the watcher
+     * @param isMod     Is the watcher watching for moderator notifications
+     */
     public void removeFromList(String sessionID, Watcher w, Boolean isMod) {
 
         map.get(isMod).get(sessionID).add(w);
         return;
     }
 
+    /**
+     * notifies all attendees watching a given session
+     * 
+     * @param type      the type of notification
+     * @param sessionID the session to be notified
+     * @param json      the json string to send to watchers
+     */
     public void notifyAttendees(int type, String sessionID, String json) {
         List<Watcher> wl;
         if (!Objects.isNull(wl = map.get(false).get(sessionID))) {
@@ -45,6 +68,13 @@ public class Watchable {
         }
     }
 
+    /**
+     * notifies all moderators watching a given session
+     * 
+     * @param type      the type of notification
+     * @param sessionID the session to be notified
+     * @param json      the json string to send to watchers
+     */
     public void notifyModerators(int type, String sessionID, String json) {
         List<Watcher> wl;
         if (!Objects.isNull(wl = map.get(true).get(sessionID))) {
@@ -58,6 +88,13 @@ public class Watchable {
         }
     }
 
+    /**
+     * notifies all watching a given session
+     * 
+     * @param type      the type of notification
+     * @param sessionID the session to be notified
+     * @param json      the json string to send to watchers
+     */
     public void notifyBoth(int type, String sessionID, String json) {
         notifyAttendees(type, sessionID, json);
         notifyModerators(type, sessionID, json);
