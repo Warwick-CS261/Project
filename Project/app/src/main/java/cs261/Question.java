@@ -28,6 +28,11 @@ public class Question {
         this.mood = (float) 0;
     }
 
+    /**
+     * Converts this question into one for attendees (removes answers)
+     * 
+     * @return the new question
+     */
     public Question attendeeQuestion() {
         return new Question(question, new ArrayList<Answer>(), id, pushed, general, (float) 0.0);
     }

@@ -7,6 +7,7 @@ RUN apt install --yes --no-install-recommends nodejs
 RUN apt install --yes --no-install-recommends npm
 RUN apt install --yes --no-install-recommends python3-pip
 RUN apt install --yes --no-install-recommends python3-pip
+RUN apt install --yes --no-install-recommends sqlite3
 RUN pip3 install nltk
 COPY ./Project .
 RUN python3 ./dlNLTK.py
@@ -64,7 +65,7 @@ RUN set -o errexit -o nounset \
 
 WORKDIR /Project
 
-
+RUN ./app/recreateDatabase.sh
 RUN ./runGradle
 
 
