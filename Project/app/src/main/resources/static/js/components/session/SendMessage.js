@@ -3,6 +3,9 @@ import Cookies from 'js-cookie';
 import $ from 'jquery';
 import { Redirect } from 'react-router-dom';
 
+/**
+ * Under chat message form controlled component
+ */
 export default class SendMessage extends React.Component {
   constructor(props){
     super(props);
@@ -69,7 +72,6 @@ export default class SendMessage extends React.Component {
           return;
         }
         Cookies.set('token', token);
-        // TODO disable sending empty msgs
         this.props.updateToken(token);
         this.setState({
           msg: "",
@@ -77,7 +79,6 @@ export default class SendMessage extends React.Component {
       },
       statusCode: {
         450: ()=>{
-          // TODO display the reason for redirect
           Cookies.remove('token');
           this.props.updateToken(null);
           this.setState({

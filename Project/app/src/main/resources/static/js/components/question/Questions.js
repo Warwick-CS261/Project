@@ -8,6 +8,10 @@ import AnswerList from './AnswerList';
 import Reaction from './Reaction';
 import CreateQuestion from './CreateQuestion';
 
+/**
+ * Question wrapper for both attendee and host
+ * Displays different components
+ */
 export default class Questions extends React.Component {
   constructor(props){
     super(props);
@@ -19,7 +23,10 @@ export default class Questions extends React.Component {
     this.handleSelect = this.handleSelect.bind(this);
   }
 
-
+  /**
+   * set's the state of the component to the question id that is selected
+   * @param {Integer} qID selected question id
+   */
   handleSelect(qID){
     this.setState({
       selected: qID,
@@ -29,6 +36,7 @@ export default class Questions extends React.Component {
   render(){
     if (this.props.isHost){
       let answers;
+      // get the corresponding answers to the selected question
       this.props.pushedQuestions.forEach(q => {
         if (q.id === this.state.selected){
           answers = q.answers;
@@ -39,6 +47,7 @@ export default class Questions extends React.Component {
           answers = q.answers;
         }
       });
+      // Host question view
       return(
         <>
           <div className="question-container">
@@ -102,6 +111,7 @@ export default class Questions extends React.Component {
       let question = this.props.pushedQuestions.find(q => q.id === this.state.selected);
       console.log(question);
 
+      // Attendee question view
       return(
         <>
           <div className="question-container">

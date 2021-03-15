@@ -2,6 +2,9 @@ import React from 'react';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
 
+/**
+ * Host questions, delete question, push/end questions
+ */
 export default class HostQuestion extends React.Component {
   constructor(props){
     super(props);
@@ -11,6 +14,10 @@ export default class HostQuestion extends React.Component {
     this.handleEnd = this.handleEnd.bind(this);
   }
 
+  /**
+   * Sends a delete request to the server with the selected questionID
+   * @param {Object} e Triggered event
+   */
   handleDelete(e){
     e.stopPropagation();
     let params = new URLSearchParams();
@@ -23,7 +30,6 @@ export default class HostQuestion extends React.Component {
         let object = JSON.parse(data);
         let token = object.token;
         if (token === null || token === undefined){
-          // TODO handle error in higher component
           console.log('Session response was invalid');
         }
         Cookies.set('token', token);
@@ -46,6 +52,10 @@ export default class HostQuestion extends React.Component {
     });
   }
 
+  /**
+   * Sends a push request to the server with the selected questionID
+   * @param {Object} e Triggered event
+   */
   handlePush(e){
     e.stopPropagation();
     let params = new URLSearchParams();
@@ -58,7 +68,6 @@ export default class HostQuestion extends React.Component {
         let object = JSON.parse(data);
         let token = object.token;
         if (token === null || token === undefined){
-          // TODO handle error in higher component
           console.log('Session response was invalid');
         }
         Cookies.set('token', token);
@@ -82,6 +91,10 @@ export default class HostQuestion extends React.Component {
 
   }
 
+  /**
+   * Sends a end request to the server with the selected questionID
+   * @param {Object} e Triggered event
+   */
   handleEnd(e){
     e.stopPropagation();
     let params = new URLSearchParams();
@@ -94,7 +107,6 @@ export default class HostQuestion extends React.Component {
         let object = JSON.parse(data);
         let token = object.token;
         if (token === null || token === undefined){
-          // TODO handle error in higher component
           console.log('Session response was invalid');
         }
         Cookies.set('token', token);
@@ -120,6 +132,7 @@ export default class HostQuestion extends React.Component {
   render(){
     let q = this.props.data;
     if (this.props.data.id === 0){
+      // Special question, every session has it
       return(
         <li
           className={this.props.selected === q.id ? 

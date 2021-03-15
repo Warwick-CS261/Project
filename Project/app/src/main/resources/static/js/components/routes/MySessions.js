@@ -3,6 +3,10 @@ import React from 'react';
 import $ from 'jquery';
 import { Redirect } from 'react-router';
 
+/**
+ * Displays all the host or attended sessions
+ * Contains clone and delete session functionality
+ */
 export default class MySessions extends React.Component {
   constructor(props){
     super(props);
@@ -16,6 +20,7 @@ export default class MySessions extends React.Component {
 
     this.handleClick = this.handleClick.bind(this);
 
+    // requests user data if not present to display owner privileges
     if (this.props.user.email === ""){
       $.ajax({
         url: '/user',
@@ -39,13 +44,16 @@ export default class MySessions extends React.Component {
         },
         statusCode: {
           450: ()=>{
-            //TODO redirect
+            console.log('Invalid token');
           }
         }
       })
     }
   }
 
+  /**
+   * Requests data of the user's sessions and stores it in the states
+   */
   componentDidMount(){
     $.ajax({
       url: '/session/user',
@@ -87,6 +95,10 @@ export default class MySessions extends React.Component {
     })
   }
   
+  /**
+   * Calls the session delete route
+   * @param {String} id id of the session
+   */
   handleDelete(id){
     $.ajax({
       url: `/session/${id}/delete`,
@@ -124,6 +136,10 @@ export default class MySessions extends React.Component {
     });
   }
 
+  /**
+   * Calls the session clone route 
+   * @param {String} id id of the session
+   */
   handleClone(id){
     $.ajax({
       url: `/session/${id}/clone`,
@@ -157,12 +173,20 @@ export default class MySessions extends React.Component {
     });
   }
 
+  /**
+   * If session is clicked redirects to the selected session
+   * @param {String} id id of the session
+   */
   handleClick(id){
     this.setState({
       sessionID: id,
     });
   }
 
+  /**
+   * Displays the sessions, hide delete functionality under bootstrap modal
+   * @returns JSX
+   */
   render() {
     if (this.state.sessionID !== ""){
       return(
@@ -171,7 +195,6 @@ export default class MySessions extends React.Component {
     }
 
     if (this.props.isMod){
-      // TODO remove session
       return (
         <section className="main">
           <div className="container-fluid">

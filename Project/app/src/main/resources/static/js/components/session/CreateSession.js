@@ -3,6 +3,9 @@ import Cookies from 'js-cookie';
 import $ from 'jquery';
 import { Redirect } from 'react-router-dom';
 
+/**
+ * Create session controlled form component
+ */
 export default class CreateSession extends React.Component {
   constructor(props) {
     super(props);

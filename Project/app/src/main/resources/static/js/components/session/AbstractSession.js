@@ -5,7 +5,9 @@ import { Redirect, withRouter } from 'react-router';
 import AttendeeSession from './AttendeeSession';
 import HostSession from './HostSession';
 
-
+/**
+ * Renders HostSession or AttendeeSession depending on which one was recieved from the server
+ */
 class AbstractSession extends React.Component {
   constructor(props){
     super(props);
@@ -24,6 +26,9 @@ class AbstractSession extends React.Component {
     }
   }
 
+  /**
+   * If doesn't have session data retrieves from the server
+   */
   componentDidMount(){
     let id = this.props.match.params.id;
     if (this.state.id === "" || id != this.state.id) {
@@ -83,6 +88,10 @@ class AbstractSession extends React.Component {
     }
   }
 
+  /**
+   * Error boundary if something goes wrong in the child components
+   * @returns state update
+   */
   static getDerivedStateFromError(){
     return {
       hasError: true,

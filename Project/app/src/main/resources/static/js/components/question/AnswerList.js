@@ -2,6 +2,9 @@ import React from 'react';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
 
+/**
+ * List of answers of the selected question, host only
+ */
 export default class AnswerList extends React.Component {
   render(){
     let data = this.props.data;

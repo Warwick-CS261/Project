@@ -4,6 +4,9 @@ import $ from 'jquery';
 import { Modal } from 'bootstrap';
 import { Redirect } from 'react-router';
 
+/**
+ * Adding moderator controlled Modal component
+ */
 export default class AddMod extends React.Component {
   constructor(props){
     super(props);
@@ -51,7 +54,6 @@ export default class AddMod extends React.Component {
           return;
         }
         Cookies.set('token', token);
-        // TODO disable sending empty msgs
         this.props.updateToken(token);
         this.setState({
           email: "",
@@ -60,7 +62,6 @@ export default class AddMod extends React.Component {
       },
       statusCode: {
         450: ()=>{
-          // TODO display the reason for redirect
           Cookies.remove('token');
           this.props.updateToken(null);
           this.setState({

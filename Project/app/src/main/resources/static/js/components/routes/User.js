@@ -1,7 +1,14 @@
 import React from 'react';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
+
+/**
+ * Displays data about the user
+ */
 export default class User extends React.Component {
+  /**
+   * Request data from server if data can not be found
+   */
   componentDidMount(){
     if (this.props.user.email === ""){
       $.ajax({
@@ -25,7 +32,7 @@ export default class User extends React.Component {
         },
         statusCode: {
           450: ()=>{
-            //TODO redirect
+            console.log('Invalid token');
           }
         }
       })

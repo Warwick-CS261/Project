@@ -8,6 +8,9 @@ import Chat from "./Chat";
 import Reaction from "../question/Reaction";
 import Questions from "../question/Questions";
 
+/**
+ * Attendee session view, contains live functionality
+ */
 class AttendeeSession extends React.Component {
   constructor(props) {
     super(props);
@@ -43,6 +46,13 @@ class AttendeeSession extends React.Component {
     });
   }
 
+  /**
+   * Live feature function, looped on the lifecycle event componentDidUpdate
+   * Asynchronously calls the server with a long timeout
+   * Sets the appropriate states on success response
+   * On every 5 minutes remakes the call
+   * Only attendee upates
+   */
   async componentDidUpdate() {
     try {
       if (!this.state.subscribed && this.state.id !== ""){
@@ -111,12 +121,11 @@ class AttendeeSession extends React.Component {
               // Moderator added to session
               case 234:
                 this.setState((prevState)=>{
-                  // TODO add user to mods
+                  console.log('Mod added')
                 });
                 break;
               // Session deleted
               case 235:
-                // TODO redirect to home and display error
                 this.setState({
                   error: <Redirect to={{
                     pathname: '/',

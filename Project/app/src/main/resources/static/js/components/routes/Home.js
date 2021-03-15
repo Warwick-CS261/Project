@@ -5,6 +5,10 @@ import JoinSession from '../session/JoinSession';
 import CreateSession from '../session/CreateSession';
 import CreateSeries from '../session/CreateSeries';
 
+/**
+ * Logged in Home page
+ * Create/Join session under this component
+ */
 export default class Home extends React.Component {
   render() {
     return (
