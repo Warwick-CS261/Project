@@ -3,6 +3,10 @@ import React from 'react';
 import BarChart from './BarChart';
 import Timeline from './Timeline';
 
+/**
+ * Router of the charts
+ * Displays one of them, provide toggle functionality
+ */
 export default class Charts extends React.Component {
   constructor(props) {
     super(props);
@@ -14,6 +18,9 @@ export default class Charts extends React.Component {
     this.toggleBarChart = this.toggleBarChart.bind(this);
   }
 
+  /**
+   * Shos line chart
+   */
   toggleLineChart(){
     if (!this.state.showLineChart){
       this.setState({
@@ -21,7 +28,10 @@ export default class Charts extends React.Component {
       });
     }
   }
- 
+  
+  /**
+   * Toggle bar chart
+   */
   toggleBarChart(){
     if (this.state.showLineChart){
       this.setState({
@@ -32,6 +42,7 @@ export default class Charts extends React.Component {
 
   render(){
     if (this.state.showLineChart) {
+      // render line chart
       return(
         <div>
           <button
@@ -48,7 +59,7 @@ export default class Charts extends React.Component {
         </div>
       )
     }
-
+    // render bar chart
     return(
       <div>
         <button

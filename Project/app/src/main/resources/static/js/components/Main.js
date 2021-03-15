@@ -19,6 +19,10 @@ import CreateSeries from './session/CreateSeries';
 import AbstractSession from './session/AbstractSession';
 import Cookies from 'js-cookie';
 
+/**
+ * Main component, handles the routing of the application
+ * Also displays the navigation bar
+ */
 export default class Main extends React.Component {
   constructor(props){
     super(props);
@@ -31,10 +35,13 @@ export default class Main extends React.Component {
     this.handleSession = this.handleSession.bind(this);
   }
 
-  componentDidUpdate(){
-
-  }
-
+  /**
+   * Updates the state of the component with the session
+   * If the session is present and the route if `/session/:id`
+   * Takes the AbstractSession route
+   * @param {Object} session session data object
+   * @returns 
+   */
   handleSession(session){
     let host = false;
     if (session === null){
@@ -55,6 +62,10 @@ export default class Main extends React.Component {
     });
   }
 
+  /**
+   * if child components fails sets flag to renders a fallback UI
+   * @returns New state
+   */
   static getDerivedStateFromError(){
     return {
       hasError: true,
@@ -69,6 +80,7 @@ export default class Main extends React.Component {
       )
     }
 
+    // Nav data
     const routes = [
       {
         path: '/',

@@ -2,7 +2,9 @@ import React from 'react';
 import Chart from 'chart.js';
 import moment from 'moment';
 
-
+/**
+ * Line chart of mood dates
+ */
 export default class Timeline extends React.Component {
   constructor(props) {
     super(props);
@@ -12,6 +14,10 @@ export default class Timeline extends React.Component {
     this.handleUpdate = this.handleUpdate.bind(this);
   }
 
+  /**
+   * Creates / recreates the line chart and recalculates the data points
+   * @returns if the component is not loaded
+   */
   handleUpdate(){
     if (this.props.data.length == 0){
       this.setState({
@@ -145,6 +151,9 @@ export default class Timeline extends React.Component {
     });
   }
 
+  /**
+   * Creates the chart if it has data
+   */
   componentDidMount(){
     if (!this.state.hasLoaded){
       this.setState({
@@ -154,6 +163,11 @@ export default class Timeline extends React.Component {
     this.handleUpdate();
   }
   
+  /**
+   * Recreates the chart if the props update
+   * @param {Object} prevProps Previous props
+   * @param {Object} prevState Previous props
+   */
   componentDidUpdate(prevProps,prevState){
     if (this.props.data != prevProps.data){
       this.handleUpdate();

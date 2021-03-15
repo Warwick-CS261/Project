@@ -23,12 +23,20 @@ export default class Login extends React.Component {
     this.handleInvalid = this.handleInvalid.bind(this);
   }
 
+  /**
+   * Controlled component, sets the state to the value entered
+   * @param {Object} event Trigger event
+   */
   handleChange(event){
     this.setState({
       [event.target.name]: event.target.value,
     });
   }
 
+  /**
+   * Controlled component, sets the state to the value entered
+   * @param {Object} event Trigger event
+   */
   handleCheck(event){
     this.setState({
       [event.target.name]: event.target.checked,
@@ -39,6 +47,10 @@ export default class Login extends React.Component {
     event.target.classList.add('invalid');
   }
 
+  /**
+   * Submits user data to the server
+   * @param {Object} event Trigger event
+   */
   handleSubmit(event){
     let params = new URLSearchParams();
     params.append('email', this.state.email);
@@ -75,11 +87,13 @@ export default class Login extends React.Component {
 
   render(){
     if (this.state.success){
+      // redirects to the home page if logged in
       return (
         <Redirect to="/" />
       );
     }
 
+    // Log in view
     return(
       <div className="blackbg">
         <div className="registerBackground">

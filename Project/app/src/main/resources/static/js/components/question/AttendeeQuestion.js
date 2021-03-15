@@ -2,6 +2,9 @@ import React from 'react';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
 
+/**
+ * Attendee question
+ */
 export default class AttendeeQuestion extends React.Component {
   render(){
     let q = this.props.data;

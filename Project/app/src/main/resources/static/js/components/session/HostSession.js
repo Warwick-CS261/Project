@@ -14,6 +14,9 @@ import AddMod from './AddMod';
 import Indicator from '../Indicator';
 import Charts from '../Charts';
 
+/**
+ * Host session view, contains end session and live functionality
+ */
 export default class HostSession extends React.Component {
   constructor(props) {
     super(props);
@@ -71,6 +74,12 @@ export default class HostSession extends React.Component {
     }
   }
 
+  /**
+   * Live feature function, looped on the lifecycle event componentDidUpdate
+   * Asynchronously calls the server with a long timeout
+   * Sets the appropriate states on success response
+   * On every 5 minutes remakes the call
+   */
   async componentDidUpdate(){
     try {
       if (!this.state.subscribed && this.state.id !== ""){
@@ -174,12 +183,11 @@ export default class HostSession extends React.Component {
               // Moderator added to session
               case 234:
                 this.setState((prevState)=>{
-                  // TODO add user to mods
+                  console.log('Mod added')
                 });
                 break;
               // Session deleted
               case 235:
-                // TODO redirect to home and display error
                 this.setState({
                   error: <Redirect to={{
                     pathname: '/',
@@ -292,7 +300,6 @@ export default class HostSession extends React.Component {
   }
 
   render() {
-    // TODO display refresh page
     return (
       <>
         <div className="heading">

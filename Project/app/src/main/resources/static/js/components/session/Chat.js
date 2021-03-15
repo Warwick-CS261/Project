@@ -5,7 +5,9 @@ import { Redirect } from 'react-router-dom';
 import SendMessage from './SendMessage';
 import ReactDOM from 'react-dom';
 
-
+/**
+ * Chat component displays the chat messages as well as the input form
+ */
 export default class Chat extends React.Component {
   constructor(props) {
     super(props);

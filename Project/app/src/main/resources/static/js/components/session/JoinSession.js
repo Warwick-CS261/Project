@@ -3,6 +3,11 @@ import Cookies from 'js-cookie';
 import $ from 'jquery';
 import { Redirect } from 'react-router-dom';
 
+/**
+ * Join component
+ * Promps user for session id if the session is password protected
+ * prompts for password
+ */
 export default class JoinSession extends React.Component {
   constructor(props) {
     super(props);
@@ -66,7 +71,6 @@ export default class JoinSession extends React.Component {
       statusCode: {
         // Invalid token
         450: ()=>{
-          // TODO display the reason for redirect
           console.log('Token invalid');
           Cookies.remove('token');
           this.props.updateToken(null);

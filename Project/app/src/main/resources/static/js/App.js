@@ -21,12 +21,6 @@ import SignUp from './components/auth/SignUp';
 import Login from './components/auth/Login';
 import Main from './components/Main';
 
-$(document).ready(()=>{
-  // date to set expiry for a cookie
-  var inFifteenMinutes = new Date(new Date().getTime() + 5 * 60 * 1000);
-  // TODO test cookie remove before production
-  //Cookies.set('token', 'test-cookie-remove-before-production');
-});
 
 /**
  * React App Component
@@ -50,6 +44,9 @@ class App extends React.Component {
     this.setUser = this.setUser.bind(this);
   }
 
+  /**
+   * Clears the cookies from the browser and the server
+   */
   handleLogout(){
     $.ajax({
       url: '/auth/logout',
@@ -62,18 +59,33 @@ class App extends React.Component {
     });
   }
 
+  /**
+   * Updates the token of the component
+   * This funciton is passed down to every functional component in the tree by props
+   * @param {String} token 
+   */
   updateToken(token){
     this.setState({
       token: token,
     });
   }
 
+  /**
+   * Updates the watchToken required for the live feature
+   * @param {String} token 
+   */
   updateWatchToken(token){
     this.setState({
       watchToken: token,
     });
   }
 
+  /**
+   * Stores the basic data of the current user, also used for displaying owner privilage functionalities
+   * @param {String} fname First name
+   * @param {String} lname Last name
+   * @param {String} email Email of user
+   */
   setUser(fname, lname, email){
     this.setState({
       user: {
@@ -84,6 +96,9 @@ class App extends React.Component {
     });
   }
 
+  /**
+   * When mounting if a cookie is present set's it and stores it
+   */
   componentDidMount(){
     let tokenCookie = Cookies.get('token');
     let watchTokenCookie = Cookies.get('watchToken');
@@ -100,6 +115,11 @@ class App extends React.Component {
     }
   }
 
+  /**
+   * Render
+   * @returns JSX Main routes of the system such as login, sign up 
+   * and main component depending on token present or not
+   */
   render (){
     return (
       <>

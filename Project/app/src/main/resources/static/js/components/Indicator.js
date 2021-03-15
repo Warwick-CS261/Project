@@ -1,5 +1,8 @@
 import React from 'react';
 
+/**
+ * Mood orb, or mood circle
+ */
 export default class Indicator extends React.Component {
   constructor(props) {
     super(props);
@@ -10,6 +13,11 @@ export default class Indicator extends React.Component {
     }
   }
   
+  /**
+   * If the props does not match the states update the state.
+   * @param {Object} prevProps Previous props
+   * @param {Object} prevState Previous props
+   */
   componentDidUpdate(prevProps, prevState){
     if (prevState.mood != this.props.mood){
       this.setState({
@@ -19,6 +27,7 @@ export default class Indicator extends React.Component {
   }
 
   render(){
+    // color array of the orb
     let colors = ['#e05841', '#E06641', '#E07341', '#E08141', '#E08E41', '#E09C41', '#E0AA41', '#E0B741', '#E0C541', '#E0D241', '#E0E041', '#D0E042', '#C0E042', '#B0E043', '#A0E043', '#91E144', '#81E145', '#71E145', '#61E146', '#51E146', '#41E147']
 
     let mood = this.state.mood;

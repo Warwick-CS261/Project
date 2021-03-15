@@ -3,6 +3,9 @@ import Cookies from 'js-cookie';
 import $ from 'jquery';
 import { Redirect } from 'react-router-dom';
 
+/**
+ * Reaction/Answer to a question 
+ */
 export default class Reaction extends React.Component {
   constructor(props){
     super(props);
@@ -29,20 +32,34 @@ export default class Reaction extends React.Component {
     this.handleCheck = this.handleCheck.bind(this);
   }
 
+  /**
+   * Controlled component, sets the state to the value entered
+   * @param {Object} event Trigger event
+   */
   handleChange(event){
     this.setState({
       [event.target.name]: event.target.value,
     });
   }
 
+  /**
+   * Controlled component, sets the state to the value entered
+   * @param {Object} event Trigger event
+   */
   handleCheck(event){
     this.setState({
       [event.target.name]: event.target.checked,
     })
   }
 
+  /**
+   * Submits the data to the server
+   * @param {Object} event Trigger event
+   */
   handleSubmit(event){
     if (this.state.smiley === -1){
+      // cannot send empty reaction
+      // this case should not be possible
       this.setState({
         error: 'You need to select a mood to send the response',
       });
@@ -69,6 +86,7 @@ export default class Reaction extends React.Component {
         }
         Cookies.set('token', token);
         this.props.updateToken(token);
+        // resets component
         this.setState({
           context: '',
           smiley: -1,
@@ -95,6 +113,12 @@ export default class Reaction extends React.Component {
     event.preventDefault();
   }
 
+  /**
+   * Sets the state and resents the 'active' class of all btns
+   * Sets the selected button's 'active' class
+   * @param {String} btn id of the btn that was pressed
+   * @param {Object} event Trigger event
+   */
   handleClick(btn, event){
     let num;
     switch(btn){

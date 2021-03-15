@@ -26,10 +26,18 @@ export default class SignUp extends React.Component {
     this.handleInvalid = this.handleInvalid.bind(this);
   }
 
+  /**
+   * Controlled component, sets the state to the value entered
+   * @param {Object} event Trigger event
+   */
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value});
   }
 
+  /**
+   * Controlled component, sets the state to the value entered
+   * @param {Object} event Trigger event
+   */
   handleCheck(event) {
     this.setState({
       [event.target.name]: event.target.checked
@@ -40,6 +48,10 @@ export default class SignUp extends React.Component {
     event.target.classList.add('invalid');
   }
 
+  /**
+   * Submits user data to the server
+   * @param {Object} event Trigger event
+   */
   handleSubmit(event) {
     let params = new URLSearchParams();
     params.append('fname', this.state.fname);
@@ -85,11 +97,13 @@ export default class SignUp extends React.Component {
 
   render(){
     if (this.state.success){
+      // If looged in redirect to home page
       return(
         <Redirect to="/" />
       );
     }
     
+    // Sign Up view
     return(
       <div className="blackbg">
         <div className="registerBackground">

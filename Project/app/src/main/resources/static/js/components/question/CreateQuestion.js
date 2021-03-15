@@ -3,6 +3,9 @@ import Cookies from 'js-cookie';
 import $ from 'jquery';
 import { Redirect } from 'react-router-dom';
 
+/**
+ * Controlled create quetion component
+ */
 export default class CreateQuestion extends React.Component {
   constructor(props) {
     super(props);
@@ -19,19 +22,30 @@ export default class CreateQuestion extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-
+  /**
+   * Controlled component, sets the state to the value entered
+   * @param {Object} event Trigger event
+   */
   handleChange(event){
     this.setState({
       [event.target.name]: event.target.value,
     });
   }
 
+  /**
+   * Controlled component, sets the state to the value entered
+   * @param {Object} event Trigger event
+   */
   handleCheck(event){
     this.setState({
       [event.target.name]: event.target.checked,
     })
   }
 
+  /**
+   * Submits the data to the server
+   * @param {Object} event Trigger event
+   */
   handleSubmit(event){
     let params = new URLSearchParams();
     params.append('question', this.state.question);
@@ -62,7 +76,6 @@ export default class CreateQuestion extends React.Component {
         // set new tokens
         Cookies.set('token', token);
         this.props.updateToken(token);
-        // TODO update session component with the question
         this.setState({
           question: '',
           success: true,

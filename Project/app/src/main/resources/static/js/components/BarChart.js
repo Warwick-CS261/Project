@@ -1,6 +1,9 @@
 import React from 'react';
 import Chart from 'chart.js';
 
+/**
+ * Bar chart
+ */
 export default class BarChart extends React.Component {
   constructor(props) {
     super(props);
@@ -10,6 +13,9 @@ export default class BarChart extends React.Component {
     this.handleUpdate = this.handleUpdate.bind(this);
   }
 
+  /**
+   * Creates / recreates the bar chart and recalculates the data points
+   */
   handleUpdate(){
     const chartRef = this.barChartRef.current.getContext('2d');
 
@@ -82,6 +88,9 @@ export default class BarChart extends React.Component {
     });
   }
 
+  /**
+   * Creates the chart if it has data
+   */
   componentDidMount(){
     if (!this.state.hasLoaded){
       this.setState({
@@ -90,7 +99,12 @@ export default class BarChart extends React.Component {
     }
     this.handleUpdate();
   }
-  
+
+  /**
+   * Recreates the chart if the props update
+   * @param {Object} prevProps Previous props
+   * @param {Object} prevState Previous props
+   */
   componentDidUpdate(prevProps,prevState){
     if (this.props.data != prevProps.data){
       this.handleUpdate();
