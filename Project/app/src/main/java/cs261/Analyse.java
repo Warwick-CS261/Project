@@ -12,7 +12,7 @@ public class Analyse {
      */
     public float parseText(String str) {
         try {
-            String line = "python3 " + "src/main/python/main.py " + "'" + str + "'";
+            String line = "python3 " + "src/main/python/main.py " + "\"" + str + "\"";
             CommandLine cmdLine = CommandLine.parse(line);
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

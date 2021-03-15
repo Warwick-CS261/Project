@@ -57,10 +57,10 @@ public class QuestionController {
 
             if (pushed) {
                 // notifies attendees and mods as question is pushed
-                App.getApp().getObservable().notifyAttendees(2, sessionID, gson.toJson(q.attendeeQuestion()));
-                App.getApp().getObservable().notifyModerators(6, sessionID, gson.toJson(q));
+                App.getApp().getWatchable().notifyAttendees(2, sessionID, gson.toJson(q.attendeeQuestion()));
+                App.getApp().getWatchable().notifyModerators(6, sessionID, gson.toJson(q));
             } else {
-                App.getApp().getObservable().notifyModerators(6, sessionID, gson.toJson(q));
+                App.getApp().getWatchable().notifyModerators(6, sessionID, gson.toJson(q));
             }
 
             // returns new token and instance json of question
@@ -134,7 +134,7 @@ public class QuestionController {
             cacher.createAnswer(answer, sessionID, qID);
 
             // notifies mods and provides new answer
-            App.getApp().getObservable().notifyModerators(3, sessionID,
+            App.getApp().getWatchable().notifyModerators(3, sessionID,
                     "{\"qID\":" + qID + ",\"answer\":" + gson.toJson(answer) + ",\"moodDate\":" + moodDateStr + "}");
 
             // returns new token
@@ -194,7 +194,7 @@ public class QuestionController {
             cacher.deleteQuestion(sessionID, qID);
 
             // notifies all watchers that a question has been deleted
-            App.getApp().getObservable().notifyBoth(7, sessionID, Integer.toString(qID));
+            App.getApp().getWatchable().notifyBoth(7, sessionID, Integer.toString(qID));
 
             return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
         } catch (Exception e) {
@@ -248,14 +248,14 @@ public class QuestionController {
             q.setPushed(false);
 
             // notifies everyone
-            App.getApp().getObservable().notifyAttendees(2, sessionID, gson.toJson(q.attendeeQuestion()));
-            App.getApp().getObservable().notifyModerators(2, sessionID, gson.toJson(q));// need
-                                                                                        // to
-                                                                                        // discuss
-                                                                                        // how
-                                                                                        // to
-                                                                                        // do
-                                                                                        // this
+            App.getApp().getWatchable().notifyAttendees(2, sessionID, gson.toJson(q.attendeeQuestion()));
+            App.getApp().getWatchable().notifyModerators(2, sessionID, gson.toJson(q));// need
+                                                                                       // to
+                                                                                       // discuss
+                                                                                       // how
+                                                                                       // to
+                                                                                       // do
+                                                                                       // this
 
             // returns new token
             return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
@@ -310,8 +310,8 @@ public class QuestionController {
             q.setPushed(true);
 
             // notifies all watchers question has ended
-            App.getApp().getObservable().notifyBoth(2, sessionID, gson.toJson(q.attendeeQuestion()));
-            App.getApp().getObservable().notifyModerators(2, sessionID, gson.toJson(q));
+            App.getApp().getWatchable().notifyBoth(2, sessionID, gson.toJson(q.attendeeQuestion()));
+            App.getApp().getWatchable().notifyModerators(2, sessionID, gson.toJson(q));
 
             // returns new token
             return "{\"token\":\"" + dbConn.newToken(user.getId()) + "\"}";
