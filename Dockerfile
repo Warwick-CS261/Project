@@ -65,8 +65,8 @@ RUN set -o errexit -o nounset \
 
 WORKDIR /Project
 
-RUN ./app/recreateDatabase.sh
-RUN ./runGradle
+RUN gradle recreateDB
+RUN gradle build
 
 
 
